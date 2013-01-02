@@ -1,0 +1,3 @@
+Miners Helmet
+ - Protects From Falling Gravel
+ - Lights the player looking
