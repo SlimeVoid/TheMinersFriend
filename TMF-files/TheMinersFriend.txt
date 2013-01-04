@@ -13,4 +13,4 @@ Miners Tool-belt
   - pressing another hot key cycles the tools
  - While in miner mode pressing another hot key activates aggressive miner mode
   - While in this mode breaking blocks is faster
-  - Subsequently food will decrease at rapid rate while breaking blocks
+  - Subsequently food will decrease at a more rapid rate while breaking blocks
