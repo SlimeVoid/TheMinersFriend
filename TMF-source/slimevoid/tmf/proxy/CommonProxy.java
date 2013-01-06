@@ -1,5 +1,6 @@
 package slimevoid.tmf.proxy;
 
+import slimevoid.tmf.core.TMFCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
@@ -29,8 +30,7 @@ public class CommonProxy implements ICommonProxy {
 
 	@Override
 	public void preInit() {
-		// TODO Auto-generated method stub
-		
+		TMFCore.configurationProperties();
 	}
 
 	@Override
