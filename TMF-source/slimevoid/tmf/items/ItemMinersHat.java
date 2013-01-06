@@ -23,8 +23,8 @@ public class ItemMinersHat extends ItemArmor {
         return this.iconIndex;
     }
 
-	@Override
-	public String getTextureFile() {
-		return "/theminersfriend/gui/items.png";
-	}
+	//@Override
+	//public String getTextureFile() {
+	//	return "/theminersfriend/gui/items.png";
+	//}
 }

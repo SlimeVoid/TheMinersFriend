@@ -36,5 +36,8 @@ public class TMFInit {
 		TMFCore.addNames();
 		EurysCore.console(TMF.getModName(), "Registering recipes...");
 		TMFCore.addRecipes();
+		EurysCore.console(TMF.getModName(), "Registering handlers...");
+		TMFCore.registerHandlers();
+		
 	}
 }
