@@ -28,14 +28,21 @@ public class TMFInit {
 
 	public static void load() {
 		TMF.getProxy().preInit();
+		EurysCore.console(TMF.getModName(), "Loading properties...");
+		TMFCore.configurationProperties();
+		
 		EurysCore.console(TMF.getModName(), "Registering items...");
 		TMFCore.addItems();
+		
 		TMF.getProxy().registerRenderInformation();
 		TMF.getProxy().registerTickHandler();
+		
 		EurysCore.console(TMF.getModName(), "Naming items...");
 		TMFCore.addNames();
+		
 		EurysCore.console(TMF.getModName(), "Registering recipes...");
 		TMFCore.addRecipes();
+		
 		EurysCore.console(TMF.getModName(), "Registering handlers...");
 		TMFCore.registerHandlers();
 		

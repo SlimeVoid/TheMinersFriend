@@ -30,7 +30,6 @@ public class CommonProxy implements ICommonProxy {
 
 	@Override
 	public void preInit() {
-		TMFCore.configurationProperties();
 	}
 
 	@Override
