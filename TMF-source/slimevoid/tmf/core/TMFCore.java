@@ -7,12 +7,12 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
+import slimevoid.lib.ICommonProxy;
 import slimevoid.tmf.handlers.MotionSensorTickHandler;
 import slimevoid.tmf.items.ItemMinersHat;
 import slimevoid.tmf.items.ItemMotionSensor;
 import slimevoid.tmf.items.ItemMiningLamp;
 
-import eurysmods.api.ICommonProxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumArmorMaterial;

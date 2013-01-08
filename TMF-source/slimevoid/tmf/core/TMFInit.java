@@ -2,14 +2,14 @@ package slimevoid.tmf.core;
 
 import java.io.File;
 
+import slimevoid.lib.ICommonProxy;
+import slimevoid.lib.ICore;
+import slimevoid.lib.core.Core;
+import slimevoid.lib.core.SlimevoidCore;
 import slimevoid.tmf.client.sounds.TrackerSounds;
 
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
-import eurysmods.api.ICommonProxy;
-import eurysmods.api.ICore;
-import eurysmods.core.Core;
-import eurysmods.core.EurysCore;
 
 public class TMFInit {
 	public static ICore TMF;
@@ -31,25 +31,25 @@ public class TMFInit {
 
 	public static void load() {
 		TMF.getProxy().preInit();
-		EurysCore.console(TMF.getModName(), "Loading properties...");
+		SlimevoidCore.console(TMF.getModName(), "Loading properties...");
 		TMFCore.configurationProperties();
 		
-		EurysCore.console(TMF.getModName(), "Registering items...");
+		SlimevoidCore.console(TMF.getModName(), "Registering items...");
 		TMFCore.addItems();
 		
 		TMF.getProxy().registerRenderInformation();
 		TMF.getProxy().registerTickHandler();
 		
-		EurysCore.console(TMF.getModName(), "Naming items...");
+		SlimevoidCore.console(TMF.getModName(), "Naming items...");
 		TMFCore.addNames();
 		
-		EurysCore.console(TMF.getModName(), "Registering recipes...");
+		SlimevoidCore.console(TMF.getModName(), "Registering recipes...");
 		TMFCore.addRecipes();
 		
-		EurysCore.console(TMF.getModName(), "Registering handlers...");
+		SlimevoidCore.console(TMF.getModName(), "Registering handlers...");
 		TMFCore.registerHandlers();
 
-		EurysCore.console(TMF.getModName(), "Registering sounds...");
+		SlimevoidCore.console(TMF.getModName(), "Registering sounds...");
 		MinecraftForge.EVENT_BUS.register(TrackerSounds.instance.trackerping);
 		MinecraftForge.EVENT_BUS.register(TrackerSounds.instance.trackerpong);
 	}

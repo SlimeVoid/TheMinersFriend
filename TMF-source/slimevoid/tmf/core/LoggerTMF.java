@@ -1,6 +1,6 @@
 package slimevoid.tmf.core;
 
-import eurysmods.data.Logger;
+import slimevoid.lib.data.Logger;
 
 public class LoggerTMF extends Logger {
 	

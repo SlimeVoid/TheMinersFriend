@@ -1,5 +1,7 @@
 package slimevoid.tmf.proxy;
 
+import slimevoid.lib.ICommonProxy;
+import slimevoid.lib.IPacketHandling;
 import slimevoid.tmf.core.TMFCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
@@ -9,8 +11,6 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.Player;
-import eurysmods.api.ICommonProxy;
-import eurysmods.api.IPacketHandling;
 
 public class CommonProxy implements ICommonProxy {
 
