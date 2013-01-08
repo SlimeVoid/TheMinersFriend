@@ -39,11 +39,11 @@ public class TMFCore {
 	}
 
 	public static void addItems() {
-		miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setIconCoord(0, 4);
+		miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setIconCoord(4, 0);
 		miningHelmetIron = new ItemMinersHat(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setItemName("ironMiningHelmet").setIconCoord(0, 0);
-		miningHelmetGold = new ItemMinersHat(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setItemName("goldMiningHelmet").setIconCoord(0, 1);
-		miningHelmetDiamond = new ItemMinersHat(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setItemName("diamondMiningHelmet").setIconCoord(0, 2);
-		motionSensor = new ItemMotionSensor(motionSensorId).setItemName("motionSensor").setIconCoord(0, 3);
+		miningHelmetGold = new ItemMinersHat(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setItemName("goldMiningHelmet").setIconCoord(1, 0);
+		miningHelmetDiamond = new ItemMinersHat(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setItemName("diamondMiningHelmet").setIconCoord(2, 0);
+		motionSensor = new ItemMotionSensor(motionSensorId).setItemName("motionSensor").setIconCoord(3, 0);
 	}
 
 	public static void addNames() {

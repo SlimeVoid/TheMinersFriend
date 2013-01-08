@@ -2,7 +2,10 @@ package slimevoid.tmf.core;
 
 import java.io.File;
 
+import slimevoid.tmf.client.sounds.TrackerSounds;
+
 import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.MinecraftForge;
 import eurysmods.api.ICommonProxy;
 import eurysmods.api.ICore;
 import eurysmods.core.Core;
@@ -45,6 +48,9 @@ public class TMFInit {
 		
 		EurysCore.console(TMF.getModName(), "Registering handlers...");
 		TMFCore.registerHandlers();
-		
+
+		EurysCore.console(TMF.getModName(), "Registering sounds...");
+		MinecraftForge.EVENT_BUS.register(TrackerSounds.instance.trackerping);
+		MinecraftForge.EVENT_BUS.register(TrackerSounds.instance.trackerpong);
 	}
 }
