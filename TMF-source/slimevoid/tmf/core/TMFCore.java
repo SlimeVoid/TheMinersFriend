@@ -4,6 +4,8 @@ import java.io.File;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import slimevoid.lib.ICommonProxy;
 import slimevoid.tmf.items.ItemMinersHat;
 import slimevoid.tmf.items.ItemMotionSensor;
@@ -28,6 +30,11 @@ public class TMFCore {
 	public static int motionSensorId;
 	
 	public static String loggerLevel = "INFO";
+	
+	@SideOnly(Side.CLIENT)
+	public static int motionSensorMaxEntityDistance = 20;
+	@SideOnly(Side.CLIENT)
+	public static int motionSensorMaxGameTicks = 20;
 
 	public static void initialize(ICommonProxy proxy) {
 		TMFInit.initialize(proxy);
