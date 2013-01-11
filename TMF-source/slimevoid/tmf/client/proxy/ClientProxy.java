@@ -3,7 +3,9 @@ package slimevoid.tmf.client.proxy;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.common.MinecraftForge;
 import slimevoid.lib.core.SlimevoidCore;
+import slimevoid.tmf.client.sounds.TrackerSounds;
 import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TMFInit;
@@ -15,8 +17,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit() {
 		SlimevoidCore.console(TMFInit.TMF.getModName(), "Registering sounds...");
-		//MinecraftForge.EVENT_BUS.register(TrackerSounds.instance.trackerping);
-		//MinecraftForge.EVENT_BUS.register(TrackerSounds.instance.trackerpong);
+		MinecraftForge.EVENT_BUS.register(new TrackerSounds());
 	}
 
 	@Override

@@ -2,41 +2,35 @@ package slimevoid.tmf.client.sounds;
 
 import java.net.URL;
 
+import slimevoid.tmf.core.LoggerTMF;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
+import net.minecraftforge.event.ForgeSubscribe;
 
 public class TrackerSounds {
 	
-	public static TrackerSounds instance = new TrackerSounds();
-	
-	public class TrackerPing {
-		
-		//@ForgeSubscribe
-		public void trackerPing(SoundLoadEvent event) {
+	@ForgeSubscribe
+	public void trackerSounds(SoundLoadEvent event) {
+        // For each custom sound file we have defined in Sounds
+		for (String file : SoundLib.trackerFiles) {
+            // Try to add the custom sound file to the pool of sounds
 			try {
-				URL pingPath = this.getClass().getResource("/theminersfriend/sounds/trackerping.ogg");
-				System.out.println(pingPath);
-				event.manager.soundPoolSounds.addSound("theminersfriend/sounds/trackerping.ogg", pingPath);
-				System.out.println("Tracker Ping Registered");
-			} catch (Exception e) {
-				System.err.println("Failed to register one or more sounds.");
+				event.manager.soundPoolSounds.addSound(file, this.getClass().getResource(file));
+			}
+            // If we cannot add the custom sound file to the pool, log the exception 
+			catch (Exception e) {
+				System.err.print(e);
+				LoggerTMF.getInstance(
+						LoggerTMF.filterClassName(this.getClass().toString())
+						).write(
+								false,
+								"Failed to register sound [" + file + "]",
+								LoggerTMF.LogLevel.DEBUG
+						);
 			}
 		}
+		FMLCommonHandler.instance().getFMLLogger().fine("Tracker Sounds Registered");
 	}
-
-	public class TrackerPong {
-		//@ForgeSubscribe
-		public void trackerPing(SoundLoadEvent event) {
-			try {
-				URL pongPath = this.getClass().getResource("/theminersfriend/sounds/trackerpong.ogg");
-				System.out.println(pongPath);
-				event.manager.soundPoolSounds.addSound("theminersfriend/sounds/trackerpong.ogg", pongPath);
-				System.out.println("Tracker Pong Registered");
-			} catch (Exception e) {
-				System.err.println("Failed to register one or more sounds.");
-			}
-		}
-	}
-	
-	public TrackerPing trackerping = new TrackerPing();
-	public TrackerPong trackerpong = new TrackerPong();
 }

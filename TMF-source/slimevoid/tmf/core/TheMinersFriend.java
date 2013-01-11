@@ -15,7 +15,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 		modid = "TheMinersFriend",
 		name = "The Miner's Friend",
 		version = "1.0.0.0",
-		dependencies = "after:EurysCore")
+		dependencies = "after:SlimevoidLib")
 /*@NetworkMod(
 		clientSideRequired = true,
 		serverSideRequired = false,

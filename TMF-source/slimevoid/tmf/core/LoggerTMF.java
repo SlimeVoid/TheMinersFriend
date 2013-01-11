@@ -8,7 +8,7 @@ public class LoggerTMF extends Logger {
 
 	@Override
 	protected String getLoggerName() {
-		return "TheMinersFriend";
+		return "TMF";
 	}
 	
 	public static Logger getInstance(String name) {

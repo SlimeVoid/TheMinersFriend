@@ -98,7 +98,7 @@ public class TMFCore {
 		loggerLevel = String.valueOf(configuration.get(
 				Configuration.CATEGORY_GENERAL,
 				"loggerLevel",
-				"INFO").value);
+				loggerLevel).value);
 		
 		miningHelmetIronId = Integer.valueOf(configuration.get(
 				Configuration.CATEGORY_ITEM,
@@ -124,7 +124,8 @@ public class TMFCore {
 				15004).value);
 		
 		configuration.save();
-		LoggerTMF.getInstance("TheMinersFriend").setFilterLevel(loggerLevel);
+		LoggerTMF.getInstance(
+				LoggerTMF.filterClassName(TMFCore.class.toString())).setFilterLevel(loggerLevel);
 		return 0;
 	}
 }
