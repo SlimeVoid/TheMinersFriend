@@ -6,20 +6,24 @@ The Miner's Friend Mod
 Features (Implemented)
 ======================
 
-None :P
+Mining Helmet
+ - Protects From Falling Gravel
+ 
+Motion Sensor (Like in Aliens)
+ - Detects nearby movement
 
 Features (Planned)
 ==================
 
-Miners Helmet
- - Protects From Falling Gravel
+Mining Helmet
  - Lights the player looking
 
-Miners Tool-belt
+Mining Tool-belt
  - Holds 3 Tools
   - 1 Slot for Shovel
   - 1 Slot for Pickaxe
   - 1 Slot for tool of choice
+  - Slot for Motion Sensor
  - Frees up Hotbar spots
  - Pressing a hotkey switches to miner mode (activating the tool belt)
   - pressing the same hot key deactivates miner mode
@@ -33,6 +37,13 @@ Heat Detector
  - Requires fuel/energy
 
 Motion Sensor (Like in Aliens)
- - Detects nearby movement
- - Configurable via gui
+ - Configuration GUI
+  - Slots for upgrades
+  - Other options
+   - Range?
+   - Sensitivity?
+ - Detecting nearby movement
+  - Upgrades
+   - Colour coded pings?
+   - Detect Organic presence?
  - Requires some sort of fuel/energy
