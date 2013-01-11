@@ -2,7 +2,6 @@ package slimevoid.tmf.proxy;
 
 import slimevoid.lib.ICommonProxy;
 import slimevoid.lib.IPacketHandling;
-import slimevoid.tmf.core.TMFCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;

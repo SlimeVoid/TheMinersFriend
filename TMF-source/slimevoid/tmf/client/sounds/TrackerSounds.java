@@ -1,7 +1,8 @@
 package slimevoid.tmf.client.sounds;
 
+import java.net.URL;
+
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
-import net.minecraftforge.event.ForgeSubscribe;
 
 public class TrackerSounds {
 	
@@ -9,11 +10,13 @@ public class TrackerSounds {
 	
 	public class TrackerPing {
 		
-		@ForgeSubscribe
+		//@ForgeSubscribe
 		public void trackerPing(SoundLoadEvent event) {
 			try {
-				event.manager.soundPoolSounds.addSound("sounds/trackerping.ogg", this.getClass().getResource("/sounds/trackerping.ogg"));
-				System.out.println("Tracker Pin Registered");
+				URL pingPath = this.getClass().getResource("/theminersfriend/sounds/trackerping.ogg");
+				System.out.println(pingPath);
+				event.manager.soundPoolSounds.addSound("theminersfriend/sounds/trackerping.ogg", pingPath);
+				System.out.println("Tracker Ping Registered");
 			} catch (Exception e) {
 				System.err.println("Failed to register one or more sounds.");
 			}
@@ -21,10 +24,12 @@ public class TrackerSounds {
 	}
 
 	public class TrackerPong {
-		@ForgeSubscribe
+		//@ForgeSubscribe
 		public void trackerPing(SoundLoadEvent event) {
 			try {
-				event.manager.soundPoolSounds.addSound("sounds/trackerpong.ogg", this.getClass().getResource("/sounds/trackerpong.ogg"));
+				URL pongPath = this.getClass().getResource("/theminersfriend/sounds/trackerpong.ogg");
+				System.out.println(pongPath);
+				event.manager.soundPoolSounds.addSound("theminersfriend/sounds/trackerpong.ogg", pongPath);
 				System.out.println("Tracker Pong Registered");
 			} catch (Exception e) {
 				System.err.println("Failed to register one or more sounds.");
