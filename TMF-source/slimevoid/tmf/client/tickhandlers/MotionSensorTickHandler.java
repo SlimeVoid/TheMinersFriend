@@ -39,8 +39,9 @@ public class MotionSensorTickHandler implements ITickHandler {
 	
 	private Map<Entity,EntityPoint3f> closeEntities;
 	private Map<Entity,EntityPoint3f> movedEntities;
+	private EntityPoint3f lastPlayerPos;
 	
-	private boolean drawOnRight = true;
+	private boolean drawOnRight = false;
 	
 	public MotionSensorTickHandler(int maxEntityDistance, int maxTicks, boolean drawOnRight) {
 		this.mc = FMLClientHandler.instance().getClient();
@@ -49,6 +50,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 		this.drawOnRight = drawOnRight;
 		closeEntities = new HashMap<Entity,EntityPoint3f>();
 		movedEntities = new HashMap<Entity,EntityPoint3f>();
+		lastPlayerPos = new EntityPoint3f();
 	}
 	
 	@Override
@@ -90,8 +92,11 @@ public class MotionSensorTickHandler implements ITickHandler {
 	}
 
 	private static double get2dDistSq(Entity a, double x, double z) {
-		double deltaX = x-a.posX;
-		double deltaZ = z-a.posZ;
+		return get2dDistSq(a.posX,a.posZ,x,z);
+	}
+	private static double get2dDistSq(double x1, double z1, double x2, double z2) {
+		double deltaX = x2-x1;
+		double deltaZ = z2-z1;
 		
 		return (deltaX*deltaX)+(deltaZ*deltaZ);
 	}
@@ -101,9 +106,12 @@ public class MotionSensorTickHandler implements ITickHandler {
 		return distSq3d-(deltaY*deltaY);
 	}
 	private static double getAngleRadians(Entity a, double x, double z) {
+		return getAngleRadians(a.posX,a.posZ,x,z);
+	}
+	private static double getAngleRadians(double x1, double z1, double x2, double z2) {
 		return Math.atan2(
-				(x-a.posX), 
-				(z-a.posZ)
+				(x2-x1), 
+				(z2-z1)
 		);
 	}
 	private static double deg2rad(double deg) {
@@ -126,10 +134,11 @@ public class MotionSensorTickHandler implements ITickHandler {
 			);
 		}
 	}
-	private void onTickMotionSensor(EntityPlayer entityplayer, World world, ItemStack itemstack) {
-
-	}
 	private void doTickMotionSensor(EntityPlayer entityplayer, World world, ItemStack itemstack) {
+		lastPlayerPos.x = entityplayer.posX;
+		lastPlayerPos.y = entityplayer.posY;
+		lastPlayerPos.z = entityplayer.posZ;
+		
 		removeIrrelevantKnownEntities(entityplayer);
 		
 		checkEntities(entityplayer, world);
@@ -182,12 +191,31 @@ public class MotionSensorTickHandler implements ITickHandler {
 				double distSq = entityplayer.getDistanceSqToEntity(entity);
 				if ( distSq <= maxEntityDistance*maxEntityDistance ) {
 					if ( hasEntityMoved(entityplayer, entity) ) {
-						movedEntities.put(entity, closeEntities.get(entity));
+						double angle = getAngleRadians(
+								entityplayer,
+								closeEntities.get(entity).x,
+								closeEntities.get(entity).z
+						)*-1;
 						
-						double distSq2d = get2dDistSqFrom3dDistSq(distSq, entityplayer.posY, entity.posY);
-						if ( closestEntity == null || distSq2d < closestDistSq2d ) {
-							closestEntity = entity;
-							closestDistSq2d = distSq2d;
+						angle = angle-playerAngle;
+						
+						if ( angle > Math.PI )
+							angle = (-2d*Math.PI)+angle;
+						
+						if ( angle < -Math.PI )
+							angle += 2d*Math.PI;
+						if ( angle > Math.PI )
+							angle -= 2d*Math.PI;
+						
+						
+						if ( angle > (-Math.PI/2) && angle < (Math.PI/2) ) {
+							movedEntities.put(entity, closeEntities.get(entity));
+							
+							double distSq2d = get2dDistSqFrom3dDistSq(distSq, entityplayer.posY, entity.posY);
+							if ( closestEntity == null || distSq2d < closestDistSq2d ) {
+								closestEntity = entity;
+								closestDistSq2d = distSq2d;
+							}
 						}
 					}
 				}
@@ -248,9 +276,9 @@ public class MotionSensorTickHandler implements ITickHandler {
 				motionTickProg
 		);
 	}
-	private void renderSprite(int x, int y, int u, int v, int width, int height, String texture) {
+	private void renderSprite(int x, int y, int u, int v, int width, int height, String texture, float alpha) {
 		int tex = mc.renderEngine.getTexture(texture);
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, alpha);
 		mc.renderEngine.bindTexture(tex);
 		float scalex = 0.00390625F*2;
 		float scaley = 0.00390625F*2;
@@ -305,7 +333,8 @@ public class MotionSensorTickHandler implements ITickHandler {
 						0,
 						128,
 						128,
-						"/TheMinersFriend/tracker/trackerBG.png"
+						"/TheMinersFriend/tracker/trackerBG.png",
+						1
 				);
 				GL11.glEnable(GL11.GL_LIGHTING);
 				GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -325,12 +354,14 @@ public class MotionSensorTickHandler implements ITickHandler {
 				
 		for ( Entity entity: movedEntities.keySet() ) {
 			double distSq2d = get2dDistSq(
-					entityplayer,
+					lastPlayerPos.x,
+					lastPlayerPos.z,
 					closeEntities.get(entity).x,
 					closeEntities.get(entity).z
 			);
 			double angle = getAngleRadians(
-					entityplayer,
+					lastPlayerPos.x,
+					lastPlayerPos.z,
 					closeEntities.get(entity).x,
 					closeEntities.get(entity).z
 			)*-1;
@@ -338,11 +369,16 @@ public class MotionSensorTickHandler implements ITickHandler {
 			angle = angle-playerAngle;
 			if ( angle > Math.PI )
 				angle = (-2d*Math.PI)+angle;
+
+			if ( angle < -Math.PI )
+				angle += 2d*Math.PI;
+			if ( angle > Math.PI )
+				angle -= 2d*Math.PI;
 			
-			renderPing(entityplayer, entity, deltaTick, angle, distSq2d);
+			renderPing(deltaTick, angle, distSq2d);
 		}
 	}	
-	private void renderPing(EntityPlayer entityplayer, Entity entity, double deltaTick, double angle, double distSq2d) {
+	private void renderPing(double deltaTick, double angle, double distSq2d) {
 		float opacity = 0.5f;
 		
 		GL11.glPushMatrix();
@@ -386,7 +422,8 @@ public class MotionSensorTickHandler implements ITickHandler {
 						0,
 						128,
 						128,
-						"/TheMinersFriend/tracker/contact.png"
+						"/TheMinersFriend/tracker/contact.png",
+						(float) (0.4d+Math.log(3.2d-deltaTick*3d)*0.6d)
 				);
 				GL11.glEnable(GL11.GL_LIGHTING);
 				GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -430,7 +467,8 @@ public class MotionSensorTickHandler implements ITickHandler {
 						0,
 						128,
 						128,
-						"/TheMinersFriend/tracker/trackerSweep.png"
+						"/TheMinersFriend/tracker/trackerSweep.png",
+						(float) (1d-deltaTick/2d)
 				);
 				GL11.glEnable(GL11.GL_LIGHTING);
 				GL11.glEnable(GL11.GL_DEPTH_TEST);
