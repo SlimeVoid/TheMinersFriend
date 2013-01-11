@@ -7,7 +7,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import slimevoid.lib.ICommonProxy;
-import slimevoid.tmf.items.ItemMinersHat;
+import slimevoid.tmf.items.ItemMiningHelmet;
 import slimevoid.tmf.items.ItemMotionSensor;
 import slimevoid.tmf.items.ItemMiningLamp;
 
@@ -44,9 +44,9 @@ public class TMFCore {
 
 	public static void addItems() {
 		miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setIconCoord(4, 0);
-		miningHelmetIron = new ItemMinersHat(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setItemName("ironMiningHelmet").setIconCoord(0, 0);
-		miningHelmetGold = new ItemMinersHat(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setItemName("goldMiningHelmet").setIconCoord(1, 0);
-		miningHelmetDiamond = new ItemMinersHat(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setItemName("diamondMiningHelmet").setIconCoord(2, 0);
+		miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setItemName("ironMiningHelmet").setIconCoord(0, 0);
+		miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setItemName("goldMiningHelmet").setIconCoord(1, 0);
+		miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setItemName("diamondMiningHelmet").setIconCoord(2, 0);
 		motionSensor = new ItemMotionSensor(motionSensorId).setItemName("motionSensor").setIconCoord(3, 0);
 	}
 

@@ -2,7 +2,7 @@ package slimevoid.tmf.proxy;
 
 import slimevoid.lib.ICommonProxy;
 import slimevoid.lib.IPacketHandling;
-import slimevoid.tmf.events.MinersHatTickHandler;
+import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
@@ -36,7 +36,7 @@ public class CommonProxy implements ICommonProxy {
 
 	@Override
 	public void registerTickHandler() {
-		TickRegistry.registerTickHandler(new MinersHatTickHandler(), Side.SERVER);
+		TickRegistry.registerTickHandler(new MiningHelmetTickHandler(), Side.SERVER);
 	}
 
 	@Override
