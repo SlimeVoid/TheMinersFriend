@@ -27,7 +27,6 @@ public class TMFInit {
 	}
 
 	public static void load() {
-		TMF.getProxy().preInit();
 		SlimevoidCore.console(TMF.getModName(), "Loading properties...");
 		TMFCore.configurationProperties();
 		

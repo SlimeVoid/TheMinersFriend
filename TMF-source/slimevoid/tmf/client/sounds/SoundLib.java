@@ -2,8 +2,8 @@ package slimevoid.tmf.client.sounds;
 
 public class SoundLib {
 	
-	private static String RESOURCE_LOCATION = "TheMinersFriend/sound/";
-	private static String RESOURCE_PREFIX = "TheMinersFriend.sound.";
+	private static String RESOURCE_LOCATION = "TheMinersFriend/sounds/";
+	private static String RESOURCE_PREFIX = "TheMinersFriend.sounds.";
 
 	public static String[] trackerFiles = {
 		RESOURCE_LOCATION + "trackersweep.ogg",

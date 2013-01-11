@@ -9,6 +9,7 @@ import java.util.Map;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import slimevoid.tmf.client.sounds.SoundLib;
 import slimevoid.tmf.items.ItemMotionSensor;
 
 import net.minecraft.client.Minecraft;
@@ -477,12 +478,15 @@ public class MotionSensorTickHandler implements ITickHandler {
 	}
 	private void playSoundSweep(EntityPlayer entityplayer, World world) {
 		System.out.println("playSoundSweep");
+		System.out.println( SoundLib.TRACKER_SWEEP);
 		// TODO: play ping
+		entityplayer.worldObj.playSoundAtEntity(entityplayer, "mob.cow.say", 0.5f, 0.5f);
 	}
 	private void playSoundPing(EntityPlayer entityplayer, World world, double distSq2d) {
 		System.out.println("playSoundPing:"+distSq2d);
+		System.out.println( SoundLib.TRACKER_PING);
 		// TODO: play pong
-		//world.playSoundAtEntity(entityplayer, "sounds.trackerping", 1, 1);
+		entityplayer.worldObj.playSoundAtEntity(entityplayer, SoundLib.TRACKER_PING, 1f, 1f);
 	}
 	
 	private class EntityPoint3f {

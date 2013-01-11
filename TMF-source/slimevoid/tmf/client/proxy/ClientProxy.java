@@ -22,7 +22,6 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit() {
 		super.preInit();
-		SlimevoidCore.console(TMFInit.TMF.getModName(), "Registering sounds...");
 		MinecraftForge.EVENT_BUS.register(new TrackerSounds());
 	}
 
