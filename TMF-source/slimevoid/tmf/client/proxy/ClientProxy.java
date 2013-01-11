@@ -9,6 +9,7 @@ import slimevoid.tmf.client.sounds.TrackerSounds;
 import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TMFInit;
+import slimevoid.tmf.events.MinersHatTickHandler;
 import slimevoid.tmf.proxy.CommonProxy;
 
 public class ClientProxy extends CommonProxy {
@@ -16,6 +17,7 @@ public class ClientProxy extends CommonProxy {
 	
 	@Override
 	public void preInit() {
+		super.preInit();
 		SlimevoidCore.console(TMFInit.TMF.getModName(), "Registering sounds...");
 		MinecraftForge.EVENT_BUS.register(new TrackerSounds());
 	}
@@ -30,6 +32,7 @@ public class ClientProxy extends CommonProxy {
 		super.registerTickHandler();
 		SlimevoidCore.console(TMFInit.TMF.getModName(), "Registering Client tick handlers...");
 		TickRegistry.registerTickHandler(new MotionSensorTickHandler(TMFCore.motionSensorMaxEntityDistance, TMFCore.motionSensorMaxGameTicks, TMFCore.motionSensorDrawRight), Side.CLIENT);
+		TickRegistry.registerTickHandler(new MinersHatTickHandler(), Side.CLIENT);
 	}
 	
 	@Override
