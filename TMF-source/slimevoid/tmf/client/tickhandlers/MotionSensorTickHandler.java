@@ -1,4 +1,4 @@
-package slimevoid.tmf.handlers;
+package slimevoid.tmf.client.tickhandlers;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -62,6 +62,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 	public String getLabel() {
 		return "MotionSensing";
 	}
+	
 	private void onTickInGame() {
 		EntityPlayer entityplayer = mc.thePlayer;
 		World world = mc.theWorld;
@@ -89,32 +90,6 @@ public class MotionSensorTickHandler implements ITickHandler {
 		checkEntities(entityplayer, world);
 
 		onMotionSensorSensing(entityplayer, world, itemstack);
-		
-		/*
-		if (closestEntities.size() > 0) {
-			entityClose = true;
-			for (Entity entity : closestEntities) {
-				// TODO : Add Entity to motion Sensor
-				double closingIn = entityplayer.getDistanceToEntity(entity);
-				if ((int)closingIn < closestEntityDistance) {
-					closestEntityDistance = (int)closingIn;
-				}
-				//System.out.println("CloseEntity: " + entity.getEntityName() + " | Distance: " + closingIn);
-				if ((int)closingIn < entityClosingIn) {
-					entityClosingIn = (int)closingIn;
-				}
-			}
-			if (closestEntityDistance >= entityClosingIn) {
-				entityClosingIn = closestEntityDistance;
-			}
-		} else {
-			entityClose = false;
-			entityClosingIn = 21;
-		}
-		
-		if (entityClose) {
-			onEntityClose(entityplayer, world, itemstack);
-		}*/
 		
 	}
 	
