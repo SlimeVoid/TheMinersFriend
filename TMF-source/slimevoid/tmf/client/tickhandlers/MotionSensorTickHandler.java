@@ -41,7 +41,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 	private Map<Entity,EntityPoint3f> movedEntities;
 	private EntityPoint3f lastPlayerPos;
 	
-	private boolean drawOnRight = true;
+	private boolean drawOnRight = false;
 	
 	public MotionSensorTickHandler(int maxEntityDistance, int maxTicks, boolean drawOnRight) {
 		this.mc = FMLClientHandler.instance().getClient();
@@ -276,9 +276,9 @@ public class MotionSensorTickHandler implements ITickHandler {
 				motionTickProg
 		);
 	}
-	private void renderSprite(int x, int y, int u, int v, int width, int height, String texture) {
+	private void renderSprite(int x, int y, int u, int v, int width, int height, String texture, float alpha) {
 		int tex = mc.renderEngine.getTexture(texture);
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, alpha);
 		mc.renderEngine.bindTexture(tex);
 		float scalex = 0.00390625F*2;
 		float scaley = 0.00390625F*2;
@@ -333,7 +333,8 @@ public class MotionSensorTickHandler implements ITickHandler {
 						0,
 						128,
 						128,
-						"/TheMinersFriend/tracker/trackerBG.png"
+						"/TheMinersFriend/tracker/trackerBG.png",
+						1
 				);
 				GL11.glEnable(GL11.GL_LIGHTING);
 				GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -421,7 +422,8 @@ public class MotionSensorTickHandler implements ITickHandler {
 						0,
 						128,
 						128,
-						"/TheMinersFriend/tracker/contact.png"
+						"/TheMinersFriend/tracker/contact.png",
+						(float) (0.4d+Math.log(3.2d-deltaTick*3d)*0.6d)
 				);
 				GL11.glEnable(GL11.GL_LIGHTING);
 				GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -465,7 +467,8 @@ public class MotionSensorTickHandler implements ITickHandler {
 						0,
 						128,
 						128,
-						"/TheMinersFriend/tracker/trackerSweep.png"
+						"/TheMinersFriend/tracker/trackerSweep.png",
+						(float) (1d-deltaTick/2d)
 				);
 				GL11.glEnable(GL11.GL_LIGHTING);
 				GL11.glEnable(GL11.GL_DEPTH_TEST);
