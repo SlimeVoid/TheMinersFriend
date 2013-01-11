@@ -198,7 +198,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 			}
 			
 			if ( closestEntity != null ) {
-				playSoundPong(entityplayer, world, closestDistSq2d);
+				playSoundPing(entityplayer, world, closestDistSq2d);
 			}
 		}
 	}
@@ -237,7 +237,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 	}
 	
 	private void onMotionSensorSensing(EntityPlayer entityplayer, World world, ItemStack itemstack) {
-		playSoundPing(entityplayer, world);
+		playSoundSweep(entityplayer, world);
 	}
 	
 	private void onRenderTick() {
@@ -246,11 +246,11 @@ public class MotionSensorTickHandler implements ITickHandler {
 		if ( entityplayer != null && entityplayer.inventory != null ) {
 			double motionTickProg = (double)motionTicks / (double)maxTicks;
 			renderHUD(entityplayer);
-			renderPing(
+			renderPings(
 					entityplayer,
 					motionTickProg
 			);
-			renderPongs(
+			renderSweep(
 					entityplayer,
 					motionTickProg
 			);
@@ -317,7 +317,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 			GL11.glPopMatrix();
 		GL11.glPopMatrix();
 	}
-	private void renderPongs(EntityPlayer entityplayer, double deltaTick) {
+	private void renderPings(EntityPlayer entityplayer, double deltaTick) {
 		double playerDeg = entityplayer.rotationYaw%360;
 		if ( playerDeg < 0 )
 			playerDeg = 360+playerDeg;
@@ -344,14 +344,14 @@ public class MotionSensorTickHandler implements ITickHandler {
 			if ( angle > Math.PI )
 				angle = (-2d*Math.PI)+angle;
 			
-			renderPoint(entityplayer, entity, deltaTick, angle, distSq2d);
+			renderPing(entityplayer, entity, deltaTick, angle, distSq2d);
 		}
 	}	
-	private void renderPoint(EntityPlayer entityplayer, Entity entity, double deltaTick, double angle, double distSq2d) {
-		System.out.println("renderPoint:"+deltaTick+":"+distSq2d+":"+angle+": "+entity);
+	private void renderPing(EntityPlayer entityplayer, Entity entity, double deltaTick, double angle, double distSq2d) {
+		System.out.println("renderPing:"+deltaTick+":"+distSq2d+":"+angle+": "+entity);
 		// TODO: Render point
 	}
-	private void renderPing(EntityPlayer entityplayer, double deltaTick) {				
+	private void renderSweep(EntityPlayer entityplayer, double deltaTick) {				
 		float opacity = 0.5f;
 		
 		GL11.glPushMatrix();
@@ -395,12 +395,12 @@ public class MotionSensorTickHandler implements ITickHandler {
 			GL11.glPopMatrix();
 		GL11.glPopMatrix();
 	}
-	private void playSoundPing(EntityPlayer entityplayer, World world) {
-		System.out.println("playSoundPing");
+	private void playSoundSweep(EntityPlayer entityplayer, World world) {
+		System.out.println("playSoundSweep");
 		// TODO: play ping
 	}
-	private void playSoundPong(EntityPlayer entityplayer, World world, double distSq2d) {
-		System.out.println("playSoundPong:"+distSq2d);
+	private void playSoundPing(EntityPlayer entityplayer, World world, double distSq2d) {
+		System.out.println("playSoundPing:"+distSq2d);
 		// TODO: play pong
 		//world.playSoundAtEntity(entityplayer, "sounds.trackerping", 1, 1);
 	}
