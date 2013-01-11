@@ -2,14 +2,14 @@ package slimevoid.tmf.client.sounds;
 
 public class SoundLib {
 	
-	private static String resourceLocation = "TheMinersFriend/sound/";
-	private static String resourcePrefix = "sound.";
+	private static String RESOURCE_LOCATION = "TheMinersFriend/sound/";
+	private static String RESOURCE_PREFIX = "TheMinersFriend.sound.";
 
 	public static String[] trackerFiles = {
-		resourceLocation + "trackerPing.ogg",
-		resourceLocation + "trackerPong.ogg"
+		RESOURCE_LOCATION + "trackerPing.ogg",
+		RESOURCE_LOCATION + "trackerPong.ogg"
 	};
 
-	public static String TRACKER_PING = resourcePrefix + "trackerPing";
-	public static String TRACKER_PONG = resourcePrefix + "trackerPong";
+	public static String TRACKER_PING = RESOURCE_PREFIX + "trackerPing";
+	public static String TRACKER_PONG = RESOURCE_PREFIX + "trackerPong";
 }
