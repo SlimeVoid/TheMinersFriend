@@ -127,6 +127,6 @@ public class TMFCore {
 	}
 
 	public static void registerHandlers() {
-		TickRegistry.registerTickHandler(new MotionSensorTickHandler(), Side.CLIENT);
+		TickRegistry.registerTickHandler(new MotionSensorTickHandler(20,20), Side.CLIENT);
 	}
 }
