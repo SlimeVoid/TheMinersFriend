@@ -6,10 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
 import slimevoid.tmf.items.ItemMotionSensor;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -51,10 +57,15 @@ public class MotionSensorTickHandler implements ITickHandler {
 			if ( guiScreen == null )
 				onTickInGame();
 		}
+		if ( type.equals(EnumSet.of(TickType.RENDER)) ) {
+			GuiScreen guiScreen = this.mc.currentScreen;
+			if ( guiScreen == null )
+				onRenderTick();
+		}
 	}
 	@Override
 	public EnumSet<TickType> ticks() {
-		return EnumSet.of(TickType.CLIENT);
+		return EnumSet.of(TickType.CLIENT,TickType.RENDER);
 	}
 	@Override
 	public String getLabel() {
@@ -96,17 +107,6 @@ public class MotionSensorTickHandler implements ITickHandler {
 	}
 	private void onTickMotionSensor(EntityPlayer entityplayer, World world, ItemStack itemstack) {
 		motionTicks++;
-		double motionTickProg = (double)motionTicks / (double)maxTicks;
-
-		renderHUD(entityplayer);
-		renderPings(
-				entityplayer,
-				motionTickProg
-		);
-		renderPong(
-				entityplayer,
-				motionTickProg
-		);
 		
 		if (motionTicks >= maxTicks) {
 			motionTicks = 0;
@@ -214,10 +214,75 @@ public class MotionSensorTickHandler implements ITickHandler {
 	private void onMotionSensorSensing(EntityPlayer entityplayer, World world, ItemStack itemstack) {
 		playSoundPong(world);
 	}
-
+	
+	private void onRenderTick() {
+		EntityPlayer entityplayer = mc.thePlayer;
+		World world = mc.theWorld;
+		if ( entityplayer != null && entityplayer.inventory != null ) {
+			double motionTickProg = (double)motionTicks / (double)maxTicks;
+			renderHUD(entityplayer);
+			renderPings(
+					entityplayer,
+					motionTickProg
+			);
+			renderPong(
+					entityplayer,
+					motionTickProg
+			);
+		}
+	}
+	private void renderSprite(int x, int y, int u, int v, int width, int height, String texture) {
+		int tex = mc.renderEngine.getTexture(texture);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		mc.renderEngine.bindTexture(tex);
+		float scalex = 0.00390625F*2;
+		float scaley = 0.00390625F*2;
+		Tessellator var9 = Tessellator.instance;
+		var9.startDrawingQuads();
+			var9.addVertexWithUV((double)(x + 0), (double)(y + height), 0, (double)((float)(u + 0) * scalex), (double)((float)(v + height) * scaley));
+			var9.addVertexWithUV((double)(x + width), (double)(y + height), 0, (double)((float)(u + width) * scalex), (double)((float)(v + height) * scaley));
+			var9.addVertexWithUV((double)(x + width), (double)(y + 0), 0, (double)((float)(u + width) * scalex), (double)((float)(v + 0) * scaley));
+			var9.addVertexWithUV((double)(x + 0), (double)(y + 0), 0, (double)((float)(u + 0) * scalex), (double)((float)(v + 0) * scaley));
+		var9.draw();
+	}
 	private void renderHUD(EntityPlayer entityplayer) {
-		System.out.println("renderHUD");
-		// TODO: Render hud
+		double playerDeg = entityplayer.rotationYaw%360;
+				
+		float opacity = 0.5f;
+		
+		GL11.glPushMatrix();
+			ScaledResolution sr = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+			GL11.glClear(256);
+			
+			GL11.glPushMatrix();
+				RenderHelper.enableGUIStandardItemLighting();
+				GL11.glDisable(GL11.GL_LIGHTING);
+				GL11.glDisable(GL11.GL_DEPTH_TEST);
+				GL11.glTranslatef(
+						sr.getScaledWidth()-64,
+						sr.getScaledHeight()-64,
+						0
+				);
+				GL11.glRotatef(
+						(float) playerDeg, 
+						0,
+						0,
+						1.0f
+				);
+				
+				renderSprite(
+						-64,
+						-64,
+						0,
+						0,
+						128,
+						128,
+						"/TheMinersFriend/tracker/trackerBG.png"
+				);
+				GL11.glEnable(GL11.GL_LIGHTING);
+				GL11.glEnable(GL11.GL_DEPTH_TEST);
+			GL11.glPopMatrix();
+		GL11.glPopMatrix();
 	}
 	private void renderPings(EntityPlayer entityplayer, double deltaTick) {
 		double playerDeg = entityplayer.rotationYaw%360;
