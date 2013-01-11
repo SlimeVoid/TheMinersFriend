@@ -158,25 +158,47 @@ public class MotionSensorTickHandler implements ITickHandler {
 		if (closestEntities.size() > 0) {
 			Entity closestEntity = null;
 			double closestDistSq2d = 0;
+
+			double playerDeg = entityplayer.rotationYaw%360;
+			if ( playerDeg < 0 )
+				playerDeg = 360+playerDeg;
+			
+			double playerAngle = deg2rad(
+					playerDeg
+			);
+			if ( playerAngle > Math.PI )
+				playerAngle = (-2d*Math.PI)+playerAngle;
 			
 			for (Entity entity : closestEntities) {
 				//Within circular distance
 				double distSq = entityplayer.getDistanceSqToEntity(entity);
 				if ( distSq <= maxEntityDistance*maxEntityDistance ) {
 					if ( hasEntityMoved(entityplayer, entity) ) {
-						movedEntities.put(entity, closeEntities.get(entity));
-					
-						double distSq2d = get2dDistSqFrom3dDistSq(distSq, entityplayer.posY, entity.posY);
-						if ( closestEntity == null || distSq2d < closestDistSq2d ) {
-							closestEntity = entity;
-							closestDistSq2d = distSq2d;
+						
+						double angle = getAngleRadians(
+								entityplayer,
+								closeEntities.get(entity).x,
+								closeEntities.get(entity).z
+						);
+						angle = angle+playerAngle;
+						if ( angle > Math.PI )
+							angle = (-2d*Math.PI)+angle;
+
+						if ( angle > -Math.PI/2 && angle < Math.PI/2 ) {
+							movedEntities.put(entity, closeEntities.get(entity));
+							
+							double distSq2d = get2dDistSqFrom3dDistSq(distSq, entityplayer.posY, entity.posY);
+							if ( closestEntity == null || distSq2d < closestDistSq2d ) {
+								closestEntity = entity;
+								closestDistSq2d = distSq2d;
+							}
 						}
 					}
 				}
 			}
 			
 			if ( closestEntity != null ) {
-				playSoundPing(entityplayer, world, closestDistSq2d);
+				playSoundPong(entityplayer, world, closestDistSq2d);
 			}
 		}
 	}
@@ -215,7 +237,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 	}
 	
 	private void onMotionSensorSensing(EntityPlayer entityplayer, World world, ItemStack itemstack) {
-		playSoundPong(entityplayer, world);
+		playSoundPing(entityplayer, world);
 	}
 	
 	private void onRenderTick() {
@@ -224,11 +246,11 @@ public class MotionSensorTickHandler implements ITickHandler {
 		if ( entityplayer != null && entityplayer.inventory != null ) {
 			double motionTickProg = (double)motionTicks / (double)maxTicks;
 			renderHUD(entityplayer);
-			renderPings(
+			renderPing(
 					entityplayer,
 					motionTickProg
 			);
-			renderPong(
+			renderPongs(
 					entityplayer,
 					motionTickProg
 			);
@@ -295,7 +317,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 			GL11.glPopMatrix();
 		GL11.glPopMatrix();
 	}
-	private void renderPings(EntityPlayer entityplayer, double deltaTick) {
+	private void renderPongs(EntityPlayer entityplayer, double deltaTick) {
 		double playerDeg = entityplayer.rotationYaw%360;
 		if ( playerDeg < 0 )
 			playerDeg = 360+playerDeg;
@@ -326,10 +348,10 @@ public class MotionSensorTickHandler implements ITickHandler {
 		}
 	}	
 	private void renderPoint(EntityPlayer entityplayer, Entity entity, double deltaTick, double angle, double distSq2d) {
-		System.out.println("renderPing:"+deltaTick+":"+distSq2d+":"+angle+": "+entity);
+		System.out.println("renderPoint:"+deltaTick+":"+distSq2d+":"+angle+": "+entity);
 		// TODO: Render point
 	}
-	private void renderPong(EntityPlayer entityplayer, double deltaTick) {				
+	private void renderPing(EntityPlayer entityplayer, double deltaTick) {				
 		float opacity = 0.5f;
 		
 		GL11.glPushMatrix();
@@ -373,14 +395,12 @@ public class MotionSensorTickHandler implements ITickHandler {
 			GL11.glPopMatrix();
 		GL11.glPopMatrix();
 	}
-
-	private void playSoundPing(EntityPlayer entityplayer, World world, double distSq2d) {
-		System.out.println("playSoundPing:"+distSq2d);
+	private void playSoundPing(EntityPlayer entityplayer, World world) {
+		System.out.println("playSoundPing");
 		// TODO: play ping
 	}
-
-	private void playSoundPong(EntityPlayer entityplayer, World world) {
-		System.out.println("playSoundPong");
+	private void playSoundPong(EntityPlayer entityplayer, World world, double distSq2d) {
+		System.out.println("playSoundPong:"+distSq2d);
 		// TODO: play pong
 		//world.playSoundAtEntity(entityplayer, "sounds.trackerping", 1, 1);
 	}
