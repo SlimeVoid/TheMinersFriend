@@ -29,7 +29,7 @@ public class ClientProxy extends CommonProxy {
 	public void registerTickHandler() {
 		super.registerTickHandler();
 		SlimevoidCore.console(TMFInit.TMF.getModName(), "Registering Client tick handlers...");
-		TickRegistry.registerTickHandler(new MotionSensorTickHandler(TMFCore.motionSensorMaxEntityDistance, TMFCore.motionSensorMaxGameTicks, TMFCore.motionSensorDrawLeft), Side.CLIENT);
+		TickRegistry.registerTickHandler(new MotionSensorTickHandler(TMFCore.motionSensorMaxEntityDistance, TMFCore.motionSensorMaxGameTicks, TMFCore.motionSensorDrawRight), Side.CLIENT);
 	}
 	
 	@Override

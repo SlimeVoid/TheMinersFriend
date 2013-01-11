@@ -176,7 +176,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 			}
 			
 			if ( closestEntity != null ) {
-				playSoundPing(world, closestDistSq2d);
+				playSoundPing(world, entityplayer, closestDistSq2d);
 			}
 		}
 	}
@@ -215,7 +215,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 	}
 	
 	private void onMotionSensorSensing(EntityPlayer entityplayer, World world, ItemStack itemstack) {
-		playSoundPong(world);
+		playSoundPong(world, entityplayer);
 	}
 	
 	private void onRenderTick() {
@@ -333,11 +333,11 @@ public class MotionSensorTickHandler implements ITickHandler {
 		System.out.println("renderPong:"+deltaTick);
 		// TODO: Render sweep
 	}
-	private void playSoundPing(World world, double distSq2d) {
+	private void playSoundPing(World world, EntityPlayer entityplayer, double distSq2d) {
 		System.out.println("playSoundPing:"+distSq2d);
 		// TODO: play ping
 	}
-	private void playSoundPong(World world) {
+	private void playSoundPong(World world, EntityPlayer entityplayer) {
 		System.out.println("playSoundPong");
 		// TODO: play pong
 		//world.playSoundAtEntity(entityplayer, "sounds.trackerping", 1, 1);

@@ -36,7 +36,7 @@ public class TMFCore {
 	@SideOnly(Side.CLIENT)
 	public static int motionSensorMaxGameTicks = 20;
 	@SideOnly(Side.CLIENT)
-	public static boolean motionSensorDrawLeft = true;
+	public static boolean motionSensorDrawRight = true;
 
 	public static void initialize(ICommonProxy proxy) {
 		TMFInit.initialize(proxy);
@@ -124,7 +124,10 @@ public class TMFCore {
 				Configuration.CATEGORY_ITEM,
 				"helmetLamp",
 				15004).value);
-		
+		motionSensorDrawRight = Boolean.valueOf(configuration.get(
+				Configuration.CATEGORY_GENERAL,
+				"motionSensorDrawRight",
+				motionSensorDrawRight).value);
 		configuration.save();
 		LoggerTMF.getInstance(
 				LoggerTMF.filterClassName(TMFCore.class.toString())).setFilterLevel(loggerLevel);
