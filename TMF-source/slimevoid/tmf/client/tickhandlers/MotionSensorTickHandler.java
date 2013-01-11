@@ -1,13 +1,12 @@
-package slimevoid.tmf.handlers;
+package slimevoid.tmf.client.tickhandlers;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.items.ItemMotionSensor;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,6 +26,8 @@ public class MotionSensorTickHandler implements ITickHandler {
 	private static int maxEntityDistance = 20;
 	private static int motionTicks = 0;
 	private static int maxTicks = 20;
+	
+	private List<Entity> entitiesInRange = new ArrayList<Entity>();
 	
 	public MotionSensorTickHandler() {
 		mc = FMLClientHandler.instance().getClient();
@@ -64,6 +65,8 @@ public class MotionSensorTickHandler implements ITickHandler {
 					if ( item != null && item instanceof ItemMotionSensor) {
 						motionTicks++;
 						if (motionTicks >= maxTicks) {
+							System.out.println("Motion Sensing");
+							world.playSoundEffect(entityplayer.posX, entityplayer.posY, entityplayer.posZ, "theminersfriend.sounds.trackerping", 1.0F, world.rand.nextFloat());
 							AxisAlignedBB AABB = AxisAlignedBB.getBoundingBox(
 									entityplayer.posX - maxEntityDistance,
 									entityplayer.posY - maxEntityDistance,
@@ -72,17 +75,15 @@ public class MotionSensorTickHandler implements ITickHandler {
 									entityplayer.posY + maxEntityDistance,
 									entityplayer.posZ + maxEntityDistance
 							);
-							List<Entity> closestEntities = world.getEntitiesWithinAABBExcludingEntity(entityplayer, AABB);
+							entitiesInRange = world.getEntitiesWithinAABBExcludingEntity(entityplayer, AABB);
 							int closestEntityDistance = maxEntityDistance;
-							if (closestEntities.size() > 0) {
+							if (entitiesInRange.size() > 0) {
 								entityClose = true;
-								for (Entity entity : closestEntities) {
-									// TODO : Add Entity to motion Sensor
+								for (Entity entity : entitiesInRange) {
 									double closingIn = entityplayer.getDistanceToEntity(entity);
 									if ((int)closingIn < closestEntityDistance) {
 										closestEntityDistance = (int)closingIn;
 									}
-									//System.out.println("CloseEntity: " + entity.getEntityName() + " | Distance: " + closingIn);
 									if ((int)closingIn < entityClosingIn) {
 										entityClosingIn = (int)closingIn;
 									}
@@ -95,11 +96,15 @@ public class MotionSensorTickHandler implements ITickHandler {
 								entityClosingIn = 21;
 							}
 							if (entityClose) {
+								// TODO : Add Entity spot to motion Sensor
+								// TODO : MotionSensorOverlay.renderOverlay(entitiesInRange);
 								System.out.println(entityClosingIn);
 								// TODO : Pulse and Ping
+								System.out.println("Entity Close");
+								world.playSoundEffect(entityplayer.posX, entityplayer.posY, entityplayer.posZ, "theminersfriend.sounds.trackerpong", 1.0F, world.rand.nextFloat());
 							}
-							System.out.println("Motion Sensing");
-							world.playSoundAtEntity(entityplayer, "sounds.trackerping", 1, 1);
+							//world.playSoundAtEntity(entityplayer, "sounds.trackerping", 1, 1);
+							entitiesInRange.clear();
 							motionTicks = 0;
 						}
 					}

@@ -4,17 +4,12 @@ import java.io.File;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
-
 import slimevoid.lib.ICommonProxy;
-import slimevoid.tmf.handlers.MotionSensorTickHandler;
 import slimevoid.tmf.items.ItemMinersHat;
 import slimevoid.tmf.items.ItemMotionSensor;
 import slimevoid.tmf.items.ItemMiningLamp;
 
 
-import net.minecraft.block.Block;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -124,9 +119,5 @@ public class TMFCore {
 		configuration.save();
 		LoggerTMF.getInstance("TheMinersFriend").setFilterLevel(loggerLevel);
 		return 0;
-	}
-
-	public static void registerHandlers() {
-		TickRegistry.registerTickHandler(new MotionSensorTickHandler(), Side.CLIENT);
 	}
 }

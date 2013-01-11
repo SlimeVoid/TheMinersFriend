@@ -6,10 +6,7 @@ import slimevoid.lib.ICommonProxy;
 import slimevoid.lib.ICore;
 import slimevoid.lib.core.Core;
 import slimevoid.lib.core.SlimevoidCore;
-import slimevoid.tmf.client.sounds.TrackerSounds;
-
 import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.MinecraftForge;
 
 public class TMFInit {
 	public static ICore TMF;
@@ -38,6 +35,7 @@ public class TMFInit {
 		TMFCore.addItems();
 		
 		TMF.getProxy().registerRenderInformation();
+		
 		TMF.getProxy().registerTickHandler();
 		
 		SlimevoidCore.console(TMF.getModName(), "Naming items...");
@@ -45,12 +43,5 @@ public class TMFInit {
 		
 		SlimevoidCore.console(TMF.getModName(), "Registering recipes...");
 		TMFCore.addRecipes();
-		
-		SlimevoidCore.console(TMF.getModName(), "Registering handlers...");
-		TMFCore.registerHandlers();
-
-		SlimevoidCore.console(TMF.getModName(), "Registering sounds...");
-		MinecraftForge.EVENT_BUS.register(TrackerSounds.instance.trackerping);
-		MinecraftForge.EVENT_BUS.register(TrackerSounds.instance.trackerpong);
 	}
 }
