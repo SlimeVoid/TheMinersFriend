@@ -55,15 +55,29 @@ public class MotionSensorTickHandler implements ITickHandler {
 	public void tickStart(EnumSet<TickType> type, Object... tickData) {}
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
-		if ( type.equals(EnumSet.of(TickType.CLIENT)) ) {
-			GuiScreen guiScreen = this.mc.currentScreen;
-			if ( guiScreen == null )
-				onTickInGame();
-		}
-		if ( type.equals(EnumSet.of(TickType.RENDER)) ) {
-			GuiScreen guiScreen = this.mc.currentScreen;
-			if ( guiScreen == null )
-				onRenderTick();
+		if ( 
+				type.equals(EnumSet.of(TickType.CLIENT)) ||
+				type.equals(EnumSet.of(TickType.RENDER))
+				
+		) {
+			EntityPlayer entityplayer = mc.thePlayer;
+			World world = mc.theWorld;
+			if ( entityplayer != null && entityplayer.inventory != null ) {
+				for ( int i = 0; i < 9; i++ ) {
+					ItemStack itemstack = entityplayer.inventory.mainInventory[i];
+					if (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMotionSensor) {
+						if ( type.equals(EnumSet.of(TickType.CLIENT)) ) {
+							GuiScreen guiScreen = this.mc.currentScreen;
+							if ( guiScreen == null )
+								onTickInGame(entityplayer, world, itemstack);
+						} else if ( type.equals(EnumSet.of(TickType.RENDER)) ) {
+							GuiScreen guiScreen = this.mc.currentScreen;
+							if ( guiScreen == null )
+								onRenderTick(entityplayer);
+						}
+					}
+				}
+			}
 		}
 	}
 	@Override
@@ -95,22 +109,13 @@ public class MotionSensorTickHandler implements ITickHandler {
 	private static double deg2rad(double deg) {
 		return (deg*2d*Math.PI)/360d;
 	}
-	
-	private void onTickInGame() {
-		EntityPlayer entityplayer = mc.thePlayer;
-		World world = mc.theWorld;
-		if ( entityplayer != null && entityplayer.inventory != null ) {
-			for ( int i = 0; i < 9; i++ ) {
-				ItemStack itemstack = entityplayer.inventory.mainInventory[i];
-				if (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMotionSensor) {
-					onTickMotionSensor(entityplayer, world, itemstack);
-				}
-			}
-		}
+	private static double rad2deg(double rad) {
+		return (rad*360d)/(2d*Math.PI);
 	}
-	private void onTickMotionSensor(EntityPlayer entityplayer, World world, ItemStack itemstack) {
+	
+	private void onTickInGame(EntityPlayer entityplayer, World world, ItemStack itemstack) {
 		motionTicks++;
-		
+	
 		if (motionTicks >= maxTicks) {
 			motionTicks = 0;
 			
@@ -120,6 +125,9 @@ public class MotionSensorTickHandler implements ITickHandler {
 					itemstack
 			);
 		}
+	}
+	private void onTickMotionSensor(EntityPlayer entityplayer, World world, ItemStack itemstack) {
+
 	}
 	private void doTickMotionSensor(EntityPlayer entityplayer, World world, ItemStack itemstack) {
 		removeIrrelevantKnownEntities(entityplayer);
@@ -174,24 +182,12 @@ public class MotionSensorTickHandler implements ITickHandler {
 				double distSq = entityplayer.getDistanceSqToEntity(entity);
 				if ( distSq <= maxEntityDistance*maxEntityDistance ) {
 					if ( hasEntityMoved(entityplayer, entity) ) {
+						movedEntities.put(entity, closeEntities.get(entity));
 						
-						double angle = getAngleRadians(
-								entityplayer,
-								closeEntities.get(entity).x,
-								closeEntities.get(entity).z
-						);
-						angle = angle+playerAngle;
-						if ( angle > Math.PI )
-							angle = (-2d*Math.PI)+angle;
-
-						if ( angle > -Math.PI/2 && angle < Math.PI/2 ) {
-							movedEntities.put(entity, closeEntities.get(entity));
-							
-							double distSq2d = get2dDistSqFrom3dDistSq(distSq, entityplayer.posY, entity.posY);
-							if ( closestEntity == null || distSq2d < closestDistSq2d ) {
-								closestEntity = entity;
-								closestDistSq2d = distSq2d;
-							}
+						double distSq2d = get2dDistSqFrom3dDistSq(distSq, entityplayer.posY, entity.posY);
+						if ( closestEntity == null || distSq2d < closestDistSq2d ) {
+							closestEntity = entity;
+							closestDistSq2d = distSq2d;
 						}
 					}
 				}
@@ -240,21 +236,17 @@ public class MotionSensorTickHandler implements ITickHandler {
 		playSoundSweep(entityplayer, world);
 	}
 	
-	private void onRenderTick() {
-		EntityPlayer entityplayer = mc.thePlayer;
-		World world = mc.theWorld;
-		if ( entityplayer != null && entityplayer.inventory != null ) {
-			double motionTickProg = (double)motionTicks / (double)maxTicks;
-			renderHUD(entityplayer);
-			renderPings(
-					entityplayer,
-					motionTickProg
-			);
-			renderSweep(
-					entityplayer,
-					motionTickProg
-			);
-		}
+	private void onRenderTick(EntityPlayer entityplayer) {
+		double motionTickProg = (double)motionTicks / (double)maxTicks;
+		renderHUD(entityplayer);
+		renderPings(
+				entityplayer,
+				motionTickProg
+		);
+		renderSweep(
+				entityplayer,
+				motionTickProg
+		);
 	}
 	private void renderSprite(int x, int y, int u, int v, int width, int height, String texture) {
 		int tex = mc.renderEngine.getTexture(texture);
@@ -272,6 +264,9 @@ public class MotionSensorTickHandler implements ITickHandler {
 	}
 	private void renderHUD(EntityPlayer entityplayer) {
 		double playerDeg = entityplayer.rotationYaw%360;
+		if ( playerDeg < 0 )
+			playerDeg = 360+playerDeg;
+		playerDeg *= -1; 
 				
 		float opacity = 0.5f;
 		
@@ -338,9 +333,9 @@ public class MotionSensorTickHandler implements ITickHandler {
 					entityplayer,
 					closeEntities.get(entity).x,
 					closeEntities.get(entity).z
-			);
-
-			angle = angle+playerAngle;
+			)*-1;
+			
+			angle = angle-playerAngle;
 			if ( angle > Math.PI )
 				angle = (-2d*Math.PI)+angle;
 			
@@ -348,8 +343,55 @@ public class MotionSensorTickHandler implements ITickHandler {
 		}
 	}	
 	private void renderPing(EntityPlayer entityplayer, Entity entity, double deltaTick, double angle, double distSq2d) {
-		System.out.println("renderPing:"+deltaTick+":"+distSq2d+":"+angle+": "+entity);
-		// TODO: Render point
+		float opacity = 0.5f;
+		
+		GL11.glPushMatrix();
+			ScaledResolution sr = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+			GL11.glClear(256);
+			
+			GL11.glPushMatrix();
+				RenderHelper.enableGUIStandardItemLighting();
+				GL11.glDisable(GL11.GL_LIGHTING);
+				GL11.glDisable(GL11.GL_DEPTH_TEST);
+				
+				if ( drawOnRight ) {
+					GL11.glTranslatef(
+							sr.getScaledWidth()-60,
+							sr.getScaledHeight(),
+							0
+					);
+				} else {
+					GL11.glTranslatef(
+							60,
+							sr.getScaledHeight(),
+							0
+					);
+				}
+				double angdeg = rad2deg(angle);
+				angdeg = angdeg - 90;
+				
+				GL11.glRotatef((float) angdeg, 0, 0, 1);
+				
+				GL11.glTranslatef(
+						(float) Math.sqrt(distSq2d)*3,
+						0,
+						0
+				);
+				GL11.glScalef(0.0625f, 0.0625f, 1);
+				
+				renderSprite(
+						-64,
+						-64,
+						0,
+						0,
+						128,
+						128,
+						"/TheMinersFriend/tracker/contact.png"
+				);
+				GL11.glEnable(GL11.GL_LIGHTING);
+				GL11.glEnable(GL11.GL_DEPTH_TEST);
+			GL11.glPopMatrix();
+		GL11.glPopMatrix();
 	}
 	private void renderSweep(EntityPlayer entityplayer, double deltaTick) {				
 		float opacity = 0.5f;
