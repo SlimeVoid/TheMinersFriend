@@ -34,6 +34,16 @@ public class ClientProxy extends CommonProxy {
 						TMFCore.miningHelmetIron,
 						ArmorLib.IRON_MINING_HELMET)
 		);
+		MinecraftForgeClient.preloadTexture(
+				ArmorLib.registerArmorTexture(
+						TMFCore.miningHelmetGold,
+						ArmorLib.GOLD_MINING_HELMET)
+		);
+		MinecraftForgeClient.preloadTexture(
+				ArmorLib.registerArmorTexture(
+						TMFCore.miningHelmetDiamond,
+						ArmorLib.DIAMOND_MINING_HELMET)
+		);
 	}
 	
 	@Override
