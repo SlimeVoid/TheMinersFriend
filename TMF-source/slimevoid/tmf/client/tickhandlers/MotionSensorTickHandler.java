@@ -40,10 +40,13 @@ public class MotionSensorTickHandler implements ITickHandler {
 	private Map<Entity,EntityPoint3f> closeEntities;
 	private Map<Entity,EntityPoint3f> movedEntities;
 	
-	public MotionSensorTickHandler(int maxEntityDistance, int maxTicks) {
+	private boolean drawOnRight = true;
+	
+	public MotionSensorTickHandler(int maxEntityDistance, int maxTicks, boolean drawOnRight) {
 		this.mc = FMLClientHandler.instance().getClient();
 		this.maxEntityDistance = maxEntityDistance;
 		this.maxTicks = maxTicks;
+		this.drawOnRight = drawOnRight;
 		closeEntities = new HashMap<Entity,EntityPoint3f>();
 		movedEntities = new HashMap<Entity,EntityPoint3f>();
 	}
@@ -258,11 +261,19 @@ public class MotionSensorTickHandler implements ITickHandler {
 				RenderHelper.enableGUIStandardItemLighting();
 				GL11.glDisable(GL11.GL_LIGHTING);
 				GL11.glDisable(GL11.GL_DEPTH_TEST);
-				GL11.glTranslatef(
-						sr.getScaledWidth()-64,
-						sr.getScaledHeight()-64,
-						0
-				);
+				if ( drawOnRight ) {
+					GL11.glTranslatef(
+							sr.getScaledWidth()-60,
+							sr.getScaledHeight(),
+							0
+					);
+				} else {
+					GL11.glTranslatef(
+							60,
+							sr.getScaledHeight(),
+							0
+					);
+				}
 				GL11.glRotatef(
 						(float) playerDeg, 
 						0,

@@ -35,6 +35,8 @@ public class TMFCore {
 	public static int motionSensorMaxEntityDistance = 20;
 	@SideOnly(Side.CLIENT)
 	public static int motionSensorMaxGameTicks = 20;
+	@SideOnly(Side.CLIENT)
+	public static boolean motionSensorDrawLeft = true;
 
 	public static void initialize(ICommonProxy proxy) {
 		TMFInit.initialize(proxy);
