@@ -176,7 +176,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 			}
 			
 			if ( closestEntity != null ) {
-				playSoundPing(world, entityplayer, closestDistSq2d);
+				playSoundPing(entityplayer, world, closestDistSq2d);
 			}
 		}
 	}
@@ -215,7 +215,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 	}
 	
 	private void onMotionSensorSensing(EntityPlayer entityplayer, World world, ItemStack itemstack) {
-		playSoundPong(world, entityplayer);
+		playSoundPong(entityplayer, world);
 	}
 	
 	private void onRenderTick() {
@@ -329,15 +329,57 @@ public class MotionSensorTickHandler implements ITickHandler {
 		System.out.println("renderPing:"+deltaTick+":"+distSq2d+":"+angle+": "+entity);
 		// TODO: Render point
 	}
-	private void renderPong(EntityPlayer entityplayer, double deltaTick) {
-		System.out.println("renderPong:"+deltaTick);
-		// TODO: Render sweep
+	private void renderPong(EntityPlayer entityplayer, double deltaTick) {				
+		float opacity = 0.5f;
+		
+		GL11.glPushMatrix();
+			ScaledResolution sr = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+			GL11.glClear(256);
+			
+			GL11.glPushMatrix();
+				RenderHelper.enableGUIStandardItemLighting();
+				GL11.glDisable(GL11.GL_LIGHTING);
+				GL11.glDisable(GL11.GL_DEPTH_TEST);
+				if ( drawOnRight ) {
+					GL11.glTranslatef(
+							sr.getScaledWidth()-60,
+							sr.getScaledHeight(),
+							0
+					);
+				} else {
+					GL11.glTranslatef(
+							60,
+							sr.getScaledHeight(),
+							0
+					);
+				}
+				GL11.glScalef(
+						(float)deltaTick, 
+						(float)deltaTick,
+						1
+				);
+				
+				renderSprite(
+						-64,
+						-64,
+						0,
+						0,
+						128,
+						128,
+						"/TheMinersFriend/tracker/trackerSweep.png"
+				);
+				GL11.glEnable(GL11.GL_LIGHTING);
+				GL11.glEnable(GL11.GL_DEPTH_TEST);
+			GL11.glPopMatrix();
+		GL11.glPopMatrix();
 	}
-	private void playSoundPing(World world, EntityPlayer entityplayer, double distSq2d) {
+
+	private void playSoundPing(EntityPlayer entityplayer, World world, double distSq2d) {
 		System.out.println("playSoundPing:"+distSq2d);
 		// TODO: play ping
 	}
-	private void playSoundPong(World world, EntityPlayer entityplayer) {
+
+	private void playSoundPong(EntityPlayer entityplayer, World world) {
 		System.out.println("playSoundPong");
 		// TODO: play pong
 		//world.playSoundAtEntity(entityplayer, "sounds.trackerping", 1, 1);
