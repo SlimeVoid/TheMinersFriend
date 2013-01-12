@@ -478,10 +478,6 @@ public class MotionSensorTickHandler implements ITickHandler {
 		GL11.glPopMatrix();
 	}
 	private void playSoundSweep(EntityPlayer entityplayer, World world) {
-		System.out.println("playSoundSweep");
-		System.out.println( SoundLib.TRACKER_SWEEP);
-		// TODO: play ping
-		//entityplayer.worldObj.playSoundAtEntity(entityplayer, "mob.cow.say", 0.5f, 0.5f);
 		PacketDispatcher.sendPacketToServer(
 				(new PacketMotionSensor(
 						CommandLib.PLAY_MOTION_SWEEP,
@@ -489,13 +485,21 @@ public class MotionSensorTickHandler implements ITickHandler {
 						(int)entityplayer.posX,
 						(int)entityplayer.posY,
 						(int)entityplayer.posZ,
-						1.0F)).getPacket());
+						1.0F
+				)).getPacket()
+		);
 	}
 	private void playSoundPing(EntityPlayer entityplayer, World world, double distSq2d) {
-		System.out.println("playSoundPing:"+distSq2d);
-		System.out.println( SoundLib.TRACKER_PING);
-		// TODO: play pong
-		//entityplayer.worldObj.playSoundAtEntity(entityplayer, SoundLib.TRACKER_PING, 1f, 1f);
+		PacketDispatcher.sendPacketToServer(
+				(new PacketMotionSensor(
+						CommandLib.PLAY_MOTION_PING,
+						entityplayer, 
+						(int)entityplayer.posX,
+						(int)entityplayer.posY,
+						(int)entityplayer.posZ,
+						1f-(float)(distSq2d/(maxEntityDistance*maxEntityDistance))
+				)).getPacket()
+		);
 	}
 	
 	private class EntityPoint3f {

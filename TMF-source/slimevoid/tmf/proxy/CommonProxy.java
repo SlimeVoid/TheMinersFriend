@@ -13,6 +13,7 @@ import slimevoid.tmf.network.CommandLib;
 import slimevoid.tmf.network.CommonPacketHandler;
 import slimevoid.tmf.network.handlers.PacketMotionSensorHandler;
 import slimevoid.tmf.network.packets.PacketLib;
+import slimevoid.tmf.network.packets.executors.MotionSensorPingExecutor;
 import slimevoid.tmf.network.packets.executors.MotionSensorSweepExecutor;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import cpw.mods.fml.common.network.Player;
@@ -40,6 +41,7 @@ public class CommonProxy implements ICommonProxy {
 		CommonPacketHandler.init();
 		PacketMotionSensorHandler packetMotionSensorHandler = new PacketMotionSensorHandler();
 		packetMotionSensorHandler.registerPacketHandler(CommandLib.PLAY_MOTION_SWEEP, new MotionSensorSweepExecutor());
+		packetMotionSensorHandler.registerPacketHandler(CommandLib.PLAY_MOTION_PING, new MotionSensorPingExecutor());
 		CommonPacketHandler.registerPacketHandler(PacketLib.MOTION_SENSOR, packetMotionSensorHandler);
 	}
 
