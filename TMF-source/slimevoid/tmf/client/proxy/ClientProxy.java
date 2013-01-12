@@ -4,10 +4,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.lib.core.SlimevoidCore;
-import slimevoid.lib.network.PacketIds;
 import slimevoid.tmf.armor.ArmorLib;
 import slimevoid.tmf.client.network.ClientPacketHandler;
-import slimevoid.tmf.client.network.handlers.ClientPacketMotionSensorHandler;
 import slimevoid.tmf.client.sounds.TrackerSounds;
 import slimevoid.tmf.client.tickhandlers.MiningHelmetRenderTickHandler;
 import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
@@ -26,10 +24,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit() {
 		super.preInit();
-		//ClientPacketHandler.init();
-		//ClientPacketMiningEntityHandler clientEntityPacketHandler = new ClientPacketMiningEntityHandler();
-		//clientEntityPacketHandler.registerPacketHandler(CommandLib.PLAY_MOTION_SWEEP, new MotionSensorSweepExecutor());
-		//ClientPacketHandler.registerPacketHandler(PacketIds.ENTITY, clientEntityPacketHandler);
+		ClientPacketHandler.init();
 		
 		MinecraftForge.EVENT_BUS.register(new TrackerSounds());
 	}
