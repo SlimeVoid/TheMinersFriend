@@ -21,9 +21,12 @@ import org.lwjgl.opengl.GL11;
 
 import slimevoid.tmf.client.sounds.SoundLib;
 import slimevoid.tmf.items.ItemMotionSensor;
+import slimevoid.tmf.network.CommandLib;
+import slimevoid.tmf.network.packets.PacketMotionSensor;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -478,13 +481,21 @@ public class MotionSensorTickHandler implements ITickHandler {
 		System.out.println("playSoundSweep");
 		System.out.println( SoundLib.TRACKER_SWEEP);
 		// TODO: play ping
-		entityplayer.worldObj.playSoundAtEntity(entityplayer, "mob.cow.say", 0.5f, 0.5f);
+		//entityplayer.worldObj.playSoundAtEntity(entityplayer, "mob.cow.say", 0.5f, 0.5f);
+		PacketDispatcher.sendPacketToServer(
+				(new PacketMotionSensor(
+						CommandLib.PLAY_MOTION_SWEEP,
+						entityplayer, 
+						(int)entityplayer.posX,
+						(int)entityplayer.posY,
+						(int)entityplayer.posZ,
+						1.0F)).getPacket());
 	}
 	private void playSoundPing(EntityPlayer entityplayer, World world, double distSq2d) {
 		System.out.println("playSoundPing:"+distSq2d);
 		System.out.println( SoundLib.TRACKER_PING);
 		// TODO: play pong
-		entityplayer.worldObj.playSoundAtEntity(entityplayer, SoundLib.TRACKER_PING, 1f, 1f);
+		//entityplayer.worldObj.playSoundAtEntity(entityplayer, SoundLib.TRACKER_PING, 1f, 1f);
 	}
 	
 	private class EntityPoint3f {

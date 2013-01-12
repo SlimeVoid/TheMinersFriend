@@ -74,7 +74,7 @@ public abstract class SubPacketHandler implements IPacketHandler {
 	}
 
 	/**
-	 * Abstract method for returning a new instance of PacketWireless
+	 * Abstract method for returning a new instance of PacketMining
 	 * 
 	 * @return new PacketTMF
 	 */

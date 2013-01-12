@@ -4,12 +4,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.lib.core.SlimevoidCore;
+import slimevoid.lib.network.PacketIds;
 import slimevoid.tmf.armor.ArmorLib;
+import slimevoid.tmf.client.network.ClientPacketHandler;
+import slimevoid.tmf.client.network.handlers.ClientPacketMotionSensorHandler;
 import slimevoid.tmf.client.sounds.TrackerSounds;
 import slimevoid.tmf.client.tickhandlers.MiningHelmetRenderTickHandler;
 import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TMFInit;
+import slimevoid.tmf.network.CommandLib;
+import slimevoid.tmf.network.packets.executors.MotionSensorSweepExecutor;
 import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import cpw.mods.fml.common.registry.TickRegistry;
@@ -21,6 +26,11 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit() {
 		super.preInit();
+		//ClientPacketHandler.init();
+		//ClientPacketMiningEntityHandler clientEntityPacketHandler = new ClientPacketMiningEntityHandler();
+		//clientEntityPacketHandler.registerPacketHandler(CommandLib.PLAY_MOTION_SWEEP, new MotionSensorSweepExecutor());
+		//ClientPacketHandler.registerPacketHandler(PacketIds.ENTITY, clientEntityPacketHandler);
+		
 		MinecraftForge.EVENT_BUS.register(new TrackerSounds());
 	}
 

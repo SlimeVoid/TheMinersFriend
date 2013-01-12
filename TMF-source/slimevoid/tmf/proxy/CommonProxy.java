@@ -9,6 +9,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import slimevoid.lib.ICommonProxy;
 import slimevoid.lib.IPacketHandling;
+import slimevoid.lib.network.PacketIds;
+import slimevoid.tmf.network.CommandLib;
+import slimevoid.tmf.network.CommonPacketHandler;
+import slimevoid.tmf.network.handlers.PacketMotionSensorHandler;
+import slimevoid.tmf.network.packets.executors.MotionSensorSweepExecutor;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.TickRegistry;
@@ -32,6 +37,10 @@ public class CommonProxy implements ICommonProxy {
 
 	@Override
 	public void preInit() {
+		CommonPacketHandler.init();
+		PacketMotionSensorHandler packetMiningEntityHandler = new PacketMotionSensorHandler();
+		packetMiningEntityHandler.registerPacketHandler(CommandLib.PLAY_MOTION_SWEEP, new MotionSensorSweepExecutor());
+		CommonPacketHandler.registerPacketHandler(PacketIds.ENTITY, packetMiningEntityHandler);
 	}
 
 	@Override
