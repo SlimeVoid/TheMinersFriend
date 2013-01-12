@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.tmf.data.MiningToolBeltData;
 import slimevoid.tmf.core.TheMinersFriend;
+import slimevoid.tmf.lib.GuiLib;
 import slimevoid.tmf.proxy.CommonProxy;
 
 public class ItemMiningToolbelt extends Item {
@@ -21,28 +22,35 @@ public class ItemMiningToolbelt extends Item {
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
-		MiningToolBeltData data = (MiningToolBeltData)world.loadItemData(MiningToolBeltData.class, "ToolBelt["+itemstack.getItemDamage()+"]");
-		if ( data == null )
-			data = new MiningToolBeltData("ToolBelt["+itemstack.getItemDamage()+"]");
-		
-		((CommonProxy)TheMinersFriend.proxy).activateGUI(world, entityplayer, data);
+		MiningToolBeltData data = MiningToolBeltData.getToolBeltData(entityplayer, world, itemstack);
+		if (data == null) {
+			data = MiningToolBeltData.getNewToolBeltData(entityplayer, world, itemstack);
+			if (data != null) {
+				world.setItemData(data.mapName, data);
+				data.markDirty();
+			}
+		}
+		if (data != null) {
+			entityplayer.openGui(
+					TheMinersFriend.instance,
+					GuiLib.TOOL_BELT_GUIID,
+					world,
+					(int)entityplayer.posX,
+					(int)entityplayer.posY,
+					(int)entityplayer.posZ);
+		}
 		return itemstack;
-	}
-	
-	@Override
-	public void onUpdate(ItemStack itemstack, World world, Entity entity, int tick, boolean isHeld) {
-		
 	}
 
 	@Override
 	public void onCreated(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
 		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
-		MiningToolBeltData data = (MiningToolBeltData)world.loadItemData(MiningToolBeltData.class, "ToolBelt["+itemstack.getItemDamage()+"]");
+		MiningToolBeltData data = MiningToolBeltData.getToolBeltData(entityplayer, world, itemstack);
 		if (data == null) {
-			data = new MiningToolBeltData("ToolBelt["+itemstack.getItemDamage()+"]");
+			data = MiningToolBeltData.getNewToolBeltData(entityplayer, world, itemstack);
 			if (data != null) {
-				world.setItemData("ToolBelt["+itemstack.getItemDamage()+"]", data);
+				world.setItemData(data.mapName, data);
 				data.markDirty();
 			}
 		}

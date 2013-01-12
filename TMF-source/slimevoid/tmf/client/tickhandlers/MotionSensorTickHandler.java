@@ -19,9 +19,9 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import slimevoid.tmf.client.sounds.SoundLib;
 import slimevoid.tmf.items.ItemMotionSensor;
-import slimevoid.tmf.network.CommandLib;
+import slimevoid.tmf.lib.CommandLib;
+import slimevoid.tmf.lib.SoundLib;
 import slimevoid.tmf.network.packets.PacketMotionSensor;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.ITickHandler;

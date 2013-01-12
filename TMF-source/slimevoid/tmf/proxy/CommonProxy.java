@@ -1,7 +1,6 @@
 package slimevoid.tmf.proxy;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
@@ -10,15 +9,19 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import slimevoid.lib.ICommonProxy;
 import slimevoid.lib.IPacketHandling;
+import slimevoid.tmf.client.gui.GuiMiningToolBelt;
+import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.data.MiningToolBeltData;
-import slimevoid.tmf.network.CommandLib;
+import slimevoid.tmf.inventory.ContainerMiningToolBelt;
+import slimevoid.tmf.lib.CommandLib;
+import slimevoid.tmf.lib.GuiLib;
+import slimevoid.tmf.lib.PacketLib;
 import slimevoid.tmf.network.CommonPacketHandler;
 import slimevoid.tmf.network.handlers.PacketMotionSensorHandler;
-import slimevoid.tmf.network.packets.PacketLib;
-import slimevoid.tmf.network.packets.PacketOpenGuiToolbelt;
 import slimevoid.tmf.network.packets.executors.MotionSensorPingExecutor;
 import slimevoid.tmf.network.packets.executors.MotionSensorSweepExecutor;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -28,19 +31,26 @@ public class CommonProxy implements ICommonProxy {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
-		// TODO Auto-generated method stub
+		if (ID == GuiLib.TOOL_BELT_GUIID) {
+			MiningToolBeltData data = MiningToolBeltData.getToolBeltData(player, world, player.getHeldItem());
+			return new ContainerMiningToolBelt(player.inventory, data);
+		}
 		return null;
 	}
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
-		// TODO Auto-generated method stub
+		if (ID == GuiLib.TOOL_BELT_GUIID) {
+			MiningToolBeltData data = MiningToolBeltData.getToolBeltData(player, world, player.getHeldItem());
+			return new GuiMiningToolBelt(player, data);
+		}
 		return null;
 	}
 
 	@Override
 	public void preInit() {
+        NetworkRegistry.instance().registerGuiHandler(TheMinersFriend.instance, this);
 		CommonPacketHandler.init();
 		PacketMotionSensorHandler packetMotionSensorHandler = new PacketMotionSensorHandler();
 		packetMotionSensorHandler.registerPacketHandler(CommandLib.PLAY_MOTION_SWEEP, new MotionSensorSweepExecutor());
@@ -126,18 +136,5 @@ public class CommonProxy implements ICommonProxy {
 			Packet1Login login) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	public void activateGUI(World world, EntityPlayer entityplayer, MiningToolBeltData devicedata) {
-		System.out.println("bloop");
-		/*
-		if (!world.isRemote) {
-			if (devicedata instanceof MiningToolBeltData) {
-				CommonPacketHandler.sendGuiPacketTo(
-						(EntityPlayerMP) entityplayer,
-						new PacketOpenGuiToolbelt(devicedata));
-			}
-		}
-		*/
 	}
 }

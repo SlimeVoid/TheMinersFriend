@@ -1,4 +1,4 @@
-package slimevoid.tmf.network.packets;
+package slimevoid.tmf.lib;
 
 public class PacketLib {
 

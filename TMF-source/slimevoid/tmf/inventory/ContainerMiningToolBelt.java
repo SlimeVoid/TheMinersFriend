@@ -64,7 +64,7 @@ public class ContainerMiningToolBelt extends Container {
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
+	public ItemStack transferStackInSlot(EntityPlayer entityplayer, int slot) {
 		ItemStack stack = null;
 		Slot slotObject = (Slot) inventorySlots.get(slot);
 
@@ -73,13 +73,13 @@ public class ContainerMiningToolBelt extends Container {
 			ItemStack stackInSlot = slotObject.getStack();
 			stack = stackInSlot.copy();
 
-			//merges the item into player inventory since its in the tileEntity
+			//merges the item into player inventory since its in the inventory
 			if (slot == 0) {
 				if (!mergeItemStack(stackInSlot, 1,
 					inventorySlots.size(), true)) {
 					return null;
 				}
-				//places it into the tileEntity is possible since its in the player inventory
+				//places it into the inventory is possible since its in the player inventory
 			} else if (!mergeItemStack(stackInSlot, 0, 1, false)) {
 				return null;
 			}
@@ -89,6 +89,7 @@ public class ContainerMiningToolBelt extends Container {
 			} else {
 				slotObject.onSlotChanged();
 			}
+			slotObject.onPickupFromSlot(entityplayer, stack);
 		}
 
 		return stack;

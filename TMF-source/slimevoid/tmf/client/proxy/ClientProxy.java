@@ -16,7 +16,7 @@ import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TMFInit;
 import slimevoid.tmf.data.MiningToolBeltData;
-import slimevoid.tmf.network.CommandLib;
+import slimevoid.tmf.lib.CommandLib;
 import slimevoid.tmf.network.packets.executors.MotionSensorSweepExecutor;
 import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
@@ -66,15 +66,5 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public String getMinecraftDir() {
 		return Minecraft.getMinecraftDir().toString();
-	}
-	
-	@Override
-	public void activateGUI(World world, EntityPlayer entityplayer, MiningToolBeltData devicedata) {
-		System.out.println("bleep");
-		if (!world.isRemote) {
-			super.activateGUI(world, entityplayer, devicedata);
-		} else {
-			ModLoader.openGUI(entityplayer, new GuiMiningToolBelt(entityplayer.inventory,devicedata));
-		}
 	}
 }

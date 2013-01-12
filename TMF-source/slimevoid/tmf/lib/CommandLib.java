@@ -1,4 +1,4 @@
-package slimevoid.tmf.network;
+package slimevoid.tmf.lib;
 
 public class CommandLib {
 

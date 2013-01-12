@@ -1,28 +1,33 @@
 package slimevoid.tmf.data;
 
+import slimevoid.tmf.lib.DataLib;
+import slimevoid.tmf.lib.NamingLib;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
 
 public class MiningToolBeltData extends WorldSavedData implements IInventory {
-	private static final int TOOL_BELT_MAX_SIZE = 4; 
-	private ItemStack[] slots;
+	private static final int TOOL_BELT_MAX_SIZE = 4;
+	private ItemStack[] miningTools;
 
 	public MiningToolBeltData(String dataString) {
 		super(dataString);
-		slots = new ItemStack[this.getSizeInventory()];
+		miningTools = new ItemStack[TOOL_BELT_MAX_SIZE];
 	}
 
 	@Override
     public void readFromNBT(NBTTagCompound nbttagcompound) {
-		this.slots = new ItemStack[this.getSizeInventory()];
 		NBTTagList toolsTag = nbttagcompound.getTagList("Tools");
-		for (int i = 0; i < this.getSizeInventory(); i++) {
-			if (nbttagcompound.getBoolean("slot["+i+"]")) {
-				this.slots[i] = ItemStack.loadItemStackFromNBT((NBTTagCompound)toolsTag.tagAt(i));
+		this.miningTools = new ItemStack[this.getSizeInventory()];
+		for (int i = 0; i < toolsTag.tagCount(); i++) {
+			NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.tagAt(i);
+			byte slot = tagCompound.getByte("Slot");
+			if (slot >= 0 && slot < this.miningTools.length) {
+				this.miningTools[i] = ItemStack.loadItemStackFromNBT(tagCompound);
 			}
 		}
 	}
@@ -30,67 +35,64 @@ public class MiningToolBeltData extends WorldSavedData implements IInventory {
     @Override
     public void writeToNBT(NBTTagCompound nbttagcompound) {
     	NBTTagList toolsTag = new NBTTagList();
-    	for (int i = 0; i < this.getSizeInventory(); i++) {
-    		NBTTagCompound itemstackTag = new NBTTagCompound();
-    		if (slots[i] != null) {
-    			nbttagcompound.setBoolean("slot["+i+"]", true);
-    			slots[i].writeToNBT(itemstackTag);
-    		} else {
-    			nbttagcompound.setBoolean("slot["+i+"]", false);
+    	for (int i = 0; i < this.miningTools.length; i++) {
+    		if (miningTools[i] != null) {
+    			NBTTagCompound tagCompound = new NBTTagCompound();
+    			tagCompound.setByte("Slot", (byte) i);
+    			miningTools[i].writeToNBT(tagCompound);
+        		toolsTag.appendTag(tagCompound);
     		}
-    		toolsTag.appendTag(itemstackTag);
     	}
 		nbttagcompound.setTag("Tools", toolsTag);
     }
 
 	@Override
 	public int getSizeInventory() {
-		return TOOL_BELT_MAX_SIZE;
+		return this.miningTools.length;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int slot) {
-		return this.slots[slot];
+		return this.miningTools[slot];
 	}
 
 	@Override
-	public ItemStack decrStackSize(int var1, int var2) {
-		// TODO Auto-generated method stub
+	public ItemStack decrStackSize(int par1, int par2) {
 		return null;
 	}
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int slot) {
-		return this.slots[slot];
+		return this.miningTools[slot];
 	}
 
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack itemstack) {
-		if (slot < this.getSizeInventory()) {
-			this.slots[slot] = itemstack;
-		}
+        this.miningTools[slot] = itemstack;
+
+        if (itemstack != null && itemstack.stackSize > this.getInventoryStackLimit()) {
+        	itemstack.stackSize = this.getInventoryStackLimit();
+        }
+
+        this.onInventoryChanged();
 	}
 
 	@Override
 	public String getInvName() {
-		return "Miner's Tool Belt";
+		return NamingLib.MINING_TOOL_BELT;
 	}
 
 	@Override
 	public int getInventoryStackLimit() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 	@Override
 	public void onInventoryChanged() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer var1) {
-		// TODO Auto-generated method stub
+	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
 		return true;
 	}
 
@@ -104,6 +106,20 @@ public class MiningToolBeltData extends WorldSavedData implements IInventory {
 	public void closeChest() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public static MiningToolBeltData getToolBeltData(EntityPlayer player, World world, ItemStack heldItem) {
+		MiningToolBeltData data = (MiningToolBeltData)world.loadItemData(MiningToolBeltData.class, getWorldIndex(heldItem));
+		return data;
+	}
+
+	public static String getWorldIndex(ItemStack heldItem) {
+		return DataLib.TOOL_BELT_INDEX.replaceAll("#", Integer.toString(heldItem.getItemDamage()));
+	}
+
+	public static MiningToolBeltData getNewToolBeltData(
+			EntityPlayer entityplayer, World world, ItemStack itemstack) {
+		return new MiningToolBeltData(getWorldIndex(itemstack));
 	}
 
 }

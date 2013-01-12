@@ -3,16 +3,18 @@ package slimevoid.tmf.client.gui;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.entity.player.EntityPlayer;
+import slimevoid.tmf.data.MiningToolBeltData;
 import slimevoid.tmf.inventory.ContainerMiningToolBelt;
 
 public class GuiMiningToolBelt extends GuiContainer {
-	private IInventory toolBelt;
+	MiningToolBeltData data;
 	
-	public GuiMiningToolBelt(IInventory playerInventory, IInventory toolBelt) {
-		super(new ContainerMiningToolBelt(playerInventory ,toolBelt));
+	public GuiMiningToolBelt(EntityPlayer entityplayer, MiningToolBeltData toolBelt) {
+		super(new ContainerMiningToolBelt(entityplayer.inventory, toolBelt));
 		this.xSize = 177;
 		this.ySize = 221;
+		data = toolBelt;
 	}
 
 	@Override
