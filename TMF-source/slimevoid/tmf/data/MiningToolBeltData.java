@@ -27,7 +27,7 @@ public class MiningToolBeltData extends WorldSavedData implements IInventory {
 			NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.tagAt(i);
 			byte slot = tagCompound.getByte("Slot");
 			if (slot >= 0 && slot < this.miningTools.length) {
-				this.miningTools[i] = ItemStack.loadItemStackFromNBT(tagCompound);
+				this.miningTools[slot] = ItemStack.loadItemStackFromNBT(tagCompound);
 			}
 		}
 	}
@@ -39,7 +39,7 @@ public class MiningToolBeltData extends WorldSavedData implements IInventory {
     		if (miningTools[i] != null) {
     			NBTTagCompound tagCompound = new NBTTagCompound();
     			tagCompound.setByte("Slot", (byte) i);
-    			miningTools[i].writeToNBT(tagCompound);
+    			this.miningTools[i].writeToNBT(tagCompound);
         		toolsTag.appendTag(tagCompound);
     		}
     	}
