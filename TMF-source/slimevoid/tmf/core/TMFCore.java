@@ -8,10 +8,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import slimevoid.lib.ICommonProxy;
 import slimevoid.tmf.items.ItemMiningHelmet;
+import slimevoid.tmf.items.ItemMiningToolbelt;
 import slimevoid.tmf.items.ItemMotionSensor;
 import slimevoid.tmf.items.ItemMiningLamp;
 
 
+import net.minecraft.block.Block;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,6 +31,9 @@ public class TMFCore {
 	public static Item motionSensor;
 	public static int motionSensorId;
 	
+	public static Item miningToolBelt;
+	public static int miningToolBeltId;
+	
 	public static String loggerLevel = "INFO";
 	
 	@SideOnly(Side.CLIENT)
@@ -43,11 +48,12 @@ public class TMFCore {
 	}
 
 	public static void addItems() {
-		miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setIconCoord(4, 0);
+		miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setItemName("miningHelmetLamp").setIconCoord(4, 0);
 		miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setItemName("ironMiningHelmet").setIconCoord(0, 0);
 		miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setItemName("goldMiningHelmet").setIconCoord(1, 0);
 		miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setItemName("diamondMiningHelmet").setIconCoord(2, 0);
 		motionSensor = new ItemMotionSensor(motionSensorId).setItemName("motionSensor").setIconCoord(3, 0);
+		miningToolBelt = new ItemMiningToolbelt(miningToolBeltId).setItemName("miningToolBelt").setIconCoord(5, 0);
 	}
 
 	public static void addNames() {
@@ -57,6 +63,7 @@ public class TMFCore {
 		LanguageRegistry.addName(miningHelmetDiamond, "Diamond Mining Helmet");
 		//GameRegistry.registerItem(motionSensor, "Motion Sensor");
 		LanguageRegistry.addName(motionSensor, "Motion Sensor");
+		LanguageRegistry.addName(miningToolBelt, "Miner's ToolBelt");
 	}
 
 	public static void addRecipes() {
@@ -93,10 +100,19 @@ public class TMFCore {
 					Item.helmetDiamond
 				}
 		);
+		GameRegistry.addRecipe(
+				new ItemStack(miningToolBelt),
+				new Object[] {
+					"X",
+					Character.valueOf('X'),
+					Block.dirt
+				}
+		);
 	}
 
 	public static int configurationProperties() {
 		configuration.load();
+		
 		loggerLevel = String.valueOf(configuration.get(
 				Configuration.CATEGORY_GENERAL,
 				"loggerLevel",
@@ -124,10 +140,17 @@ public class TMFCore {
 				Configuration.CATEGORY_ITEM,
 				"helmetLamp",
 				15004).value);
+
+		miningToolBeltId = Integer.valueOf(configuration.get(
+				Configuration.CATEGORY_ITEM,
+				"toolBelt",
+				15005).value);
+		
 		motionSensorDrawRight = Boolean.valueOf(configuration.get(
 				Configuration.CATEGORY_GENERAL,
 				"motionSensorDrawRight",
 				motionSensorDrawRight).value);
+		
 		configuration.save();
 		LoggerTMF.getInstance(
 				LoggerTMF.filterClassName(TMFCore.class.toString())).setFilterLevel(loggerLevel);
