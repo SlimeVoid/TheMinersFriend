@@ -53,7 +53,7 @@ public class TMFCore {
 		miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setItemName("ironMiningHelmet").setIconCoord(0, 0);
 		miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setItemName("goldMiningHelmet").setIconCoord(1, 0);
 		miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setItemName("diamondMiningHelmet").setIconCoord(2, 0);
-		motionSensor = new ItemMotionSensor(motionSensorId).setItemName("motionSensor").setIconCoord(3, 0);
+		motionSensor = new ItemMotionSensor(motionSensorId).setItemName("motionSensor").setIconCoord(0, 1);
 		miningToolBelt = new ItemMiningToolbelt(miningToolBeltId).setItemName("miningToolBelt").setIconCoord(5, 0);
 	}
 
