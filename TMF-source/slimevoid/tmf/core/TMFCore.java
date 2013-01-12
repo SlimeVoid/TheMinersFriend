@@ -19,6 +19,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class TMFCore {
+	public static final String packetChannel = "TMF";
+	
 	public static File configFile;
 	public static Configuration configuration;
 	public static Item miningHelmetLamp;

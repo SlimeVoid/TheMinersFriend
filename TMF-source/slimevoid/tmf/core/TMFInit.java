@@ -18,7 +18,7 @@ public class TMFInit {
 		initialized = true;
 		TMF = new Core(proxy);
 		TMF.setModName("TheMinersFriend");
-		TMF.setModChannel("THEMINERSFRIEND");
+		TMF.setModChannel(TMFCore.packetChannel);
 		TMFCore.configFile = new File(
 				TMF.getProxy().getMinecraftDir(),
 					"config/TheMinersFriend.cfg");
