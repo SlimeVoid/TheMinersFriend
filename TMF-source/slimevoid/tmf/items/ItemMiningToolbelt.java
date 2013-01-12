@@ -7,6 +7,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.tmf.data.MiningToolBeltData;
+import slimevoid.tmf.core.TheMinersFriend;
+import slimevoid.tmf.proxy.CommonProxy;
 
 public class ItemMiningToolbelt extends Item {
 
@@ -20,6 +22,10 @@ public class ItemMiningToolbelt extends Item {
 	public ItemStack onItemRightClick(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
 		MiningToolBeltData data = (MiningToolBeltData)world.loadItemData(MiningToolBeltData.class, "ToolBelt["+itemstack.getItemDamage()+"]");
+		if ( data == null )
+			data = new MiningToolBeltData("ToolBelt["+itemstack.getItemDamage()+"]");
+		
+		((CommonProxy)TheMinersFriend.proxy).activateGUI(world, entityplayer, data);
 		return itemstack;
 	}
 	

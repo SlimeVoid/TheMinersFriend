@@ -3,12 +3,14 @@ package slimevoid.tmf.core;
 import java.io.File;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import slimevoid.lib.ICommonProxy;
 import slimevoid.lib.data.Logger;
+import slimevoid.tmf.client.gui.GuiMiningToolBelt;
 import slimevoid.tmf.items.ItemMiningHelmet;
 import slimevoid.tmf.items.ItemMiningLamp;
 import slimevoid.tmf.items.ItemMiningToolbelt;

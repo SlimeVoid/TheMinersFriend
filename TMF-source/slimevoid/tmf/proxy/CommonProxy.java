@@ -1,6 +1,7 @@
 package slimevoid.tmf.proxy;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
@@ -9,10 +10,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import slimevoid.lib.ICommonProxy;
 import slimevoid.lib.IPacketHandling;
+import slimevoid.tmf.data.MiningToolBeltData;
 import slimevoid.tmf.network.CommandLib;
 import slimevoid.tmf.network.CommonPacketHandler;
 import slimevoid.tmf.network.handlers.PacketMotionSensorHandler;
 import slimevoid.tmf.network.packets.PacketLib;
+import slimevoid.tmf.network.packets.PacketOpenGuiToolbelt;
 import slimevoid.tmf.network.packets.executors.MotionSensorPingExecutor;
 import slimevoid.tmf.network.packets.executors.MotionSensorSweepExecutor;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
@@ -125,4 +128,16 @@ public class CommonProxy implements ICommonProxy {
 		
 	}
 
+	public void activateGUI(World world, EntityPlayer entityplayer, MiningToolBeltData devicedata) {
+		System.out.println("bloop");
+		/*
+		if (!world.isRemote) {
+			if (devicedata instanceof MiningToolBeltData) {
+				CommonPacketHandler.sendGuiPacketTo(
+						(EntityPlayerMP) entityplayer,
+						new PacketOpenGuiToolbelt(devicedata));
+			}
+		}
+		*/
+	}
 }

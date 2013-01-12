@@ -1,16 +1,21 @@
 package slimevoid.tmf.client.proxy;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.src.ModLoader;
+import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.lib.core.SlimevoidCore;
 import slimevoid.tmf.armor.ArmorLib;
+import slimevoid.tmf.client.gui.GuiMiningToolBelt;
 import slimevoid.tmf.client.network.ClientPacketHandler;
 import slimevoid.tmf.client.sounds.TrackerSounds;
 import slimevoid.tmf.client.tickhandlers.MiningHelmetRenderTickHandler;
 import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TMFInit;
+import slimevoid.tmf.data.MiningToolBeltData;
 import slimevoid.tmf.network.CommandLib;
 import slimevoid.tmf.network.packets.executors.MotionSensorSweepExecutor;
 import slimevoid.tmf.proxy.CommonProxy;
@@ -61,5 +66,15 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public String getMinecraftDir() {
 		return Minecraft.getMinecraftDir().toString();
+	}
+	
+	@Override
+	public void activateGUI(World world, EntityPlayer entityplayer, MiningToolBeltData devicedata) {
+		System.out.println("bleep");
+		if (!world.isRemote) {
+			super.activateGUI(world, entityplayer, devicedata);
+		} else {
+			ModLoader.openGUI(entityplayer, new GuiMiningToolBelt(entityplayer.inventory,devicedata));
+		}
 	}
 }
