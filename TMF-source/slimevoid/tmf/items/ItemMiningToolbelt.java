@@ -42,4 +42,9 @@ public class ItemMiningToolbelt extends Item {
 		}
 	}
 
+	
+	@Override
+	public String getTextureFile() {
+		return "/TheMinersFriend/gui/items.png";
+	}
 }
