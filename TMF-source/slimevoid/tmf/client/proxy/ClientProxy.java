@@ -13,6 +13,8 @@ import slimevoid.tmf.client.network.ClientPacketHandler;
 import slimevoid.tmf.client.sounds.TrackerSounds;
 import slimevoid.tmf.client.tickhandlers.MiningHelmetRenderTickHandler;
 import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
+import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleInToolbelt;
+import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleOnHotbar;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TMFInit;
 import slimevoid.tmf.data.MiningToolBeltData;
@@ -58,7 +60,16 @@ public class ClientProxy extends CommonProxy {
 	public void registerTickHandler() {
 		super.registerTickHandler();
 		SlimevoidCore.console(TMFInit.TMF.getModName(), "Registering Client tick handlers...");
-		TickRegistry.registerTickHandler(new MotionSensorTickHandler(TMFCore.motionSensorMaxEntityDistance, TMFCore.motionSensorMaxGameTicks, TMFCore.motionSensorDrawRight), Side.CLIENT);
+		
+		MotionSensorTickHandler motionSensor = new MotionSensorTickHandler(
+				TMFCore.motionSensorMaxEntityDistance, 
+				TMFCore.motionSensorMaxGameTicks, 
+				TMFCore.motionSensorDrawRight
+		);
+		motionSensor.addRule(new MotionSensorRuleOnHotbar());
+		motionSensor.addRule(new MotionSensorRuleInToolbelt());
+		TickRegistry.registerTickHandler(motionSensor, Side.CLIENT);
+
 		TickRegistry.registerTickHandler(new MiningHelmetTickHandler(), Side.CLIENT);
 		TickRegistry.registerTickHandler(new MiningHelmetRenderTickHandler(), Side.CLIENT);
 	}

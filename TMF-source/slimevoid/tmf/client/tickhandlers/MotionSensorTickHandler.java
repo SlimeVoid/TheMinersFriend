@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
+import slimevoid.tmf.client.tickhandlers.rules.IMotionSensorRule;
 import slimevoid.tmf.items.ItemMotionSensor;
 import slimevoid.tmf.lib.CommandLib;
 import slimevoid.tmf.lib.SoundLib;
@@ -45,6 +46,8 @@ public class MotionSensorTickHandler implements ITickHandler {
 	
 	private boolean drawOnRight = false;
 	
+	private List<IMotionSensorRule> rules;
+	
 	public MotionSensorTickHandler(int maxEntityDistance, int maxTicks, boolean drawOnRight) {
 		this.mc = FMLClientHandler.instance().getClient();
 		this.maxEntityDistance = maxEntityDistance;
@@ -53,6 +56,11 @@ public class MotionSensorTickHandler implements ITickHandler {
 		closeEntities = new HashMap<Entity,EntityPoint3f>();
 		movedEntities = new HashMap<Entity,EntityPoint3f>();
 		lastPlayerPos = new EntityPoint3f();
+		rules = new ArrayList<IMotionSensorRule>();
+	}
+	
+	public void addRule(IMotionSensorRule rule) {
+		rules.add(rule);
 	}
 	
 	@Override
@@ -66,20 +74,22 @@ public class MotionSensorTickHandler implements ITickHandler {
 		) {
 			EntityPlayer entityplayer = mc.thePlayer;
 			World world = mc.theWorld;
-			if ( entityplayer != null && entityplayer.inventory != null ) {
-				for ( int i = 0; i < 9; i++ ) {
-					ItemStack itemstack = entityplayer.inventory.mainInventory[i];
-					if (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMotionSensor) {
-						if ( type.equals(EnumSet.of(TickType.CLIENT)) ) {
-							GuiScreen guiScreen = this.mc.currentScreen;
-							if ( guiScreen == null )
-								onTickInGame(entityplayer, world, itemstack);
-						} else if ( type.equals(EnumSet.of(TickType.RENDER)) ) {
-							GuiScreen guiScreen = this.mc.currentScreen;
-							if ( guiScreen == null )
-								onRenderTick(entityplayer);
-						}
-					}
+			
+			boolean doTick = false;
+			for ( IMotionSensorRule rule: rules ) {
+				if ( rule.doShowMotionSensor(entityplayer, world) )
+					doTick = true;
+			}
+			
+			if ( doTick ) {
+				if ( type.equals(EnumSet.of(TickType.CLIENT)) ) {
+					GuiScreen guiScreen = this.mc.currentScreen;
+					if ( guiScreen == null )
+						onTickInGame(entityplayer, world);
+				} else if ( type.equals(EnumSet.of(TickType.RENDER)) ) {
+					GuiScreen guiScreen = this.mc.currentScreen;
+					if ( guiScreen == null )
+						onRenderTick(entityplayer);
 				}
 			}
 		}
@@ -123,7 +133,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 		return (rad*360d)/(2d*Math.PI);
 	}
 	
-	private void onTickInGame(EntityPlayer entityplayer, World world, ItemStack itemstack) {
+	private void onTickInGame(EntityPlayer entityplayer, World world) {
 		motionTicks++;
 	
 		if (motionTicks >= maxTicks) {
@@ -131,12 +141,11 @@ public class MotionSensorTickHandler implements ITickHandler {
 			
 			doTickMotionSensor(
 					entityplayer, 
-					world, 
-					itemstack
+					world
 			);
 		}
 	}
-	private void doTickMotionSensor(EntityPlayer entityplayer, World world, ItemStack itemstack) {
+	private void doTickMotionSensor(EntityPlayer entityplayer, World world) {
 		lastPlayerPos.x = entityplayer.posX;
 		lastPlayerPos.y = entityplayer.posY;
 		lastPlayerPos.z = entityplayer.posZ;
@@ -145,7 +154,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 		
 		checkEntities(entityplayer, world);
 
-		onMotionSensorSensing(entityplayer, world, itemstack);
+		onMotionSensorSensing(entityplayer, world);
 	}
 	
 	private void removeIrrelevantKnownEntities(EntityPlayer entityplayer) {
@@ -262,7 +271,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 		return entityMoved || !entityKnown;
 	}
 	
-	private void onMotionSensorSensing(EntityPlayer entityplayer, World world, ItemStack itemstack) {
+	private void onMotionSensorSensing(EntityPlayer entityplayer, World world) {
 		playSoundSweep(entityplayer, world);
 	}
 	
