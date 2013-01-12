@@ -3,15 +3,13 @@ package slimevoid.tmf.tickhandlers;
 import java.util.EnumSet;
 import java.util.List;
 
-import slimevoid.tmf.armor.ArmorLib;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingSand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-
+import slimevoid.tmf.armor.ArmorLib;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 

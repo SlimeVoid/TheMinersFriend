@@ -1,8 +1,6 @@
 package slimevoid.tmf.core;
 
-import net.minecraftforge.common.MinecraftForge;
 import slimevoid.lib.ICommonProxy;
-import slimevoid.tmf.client.sounds.TrackerSounds;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;

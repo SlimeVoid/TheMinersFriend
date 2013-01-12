@@ -2,16 +2,14 @@ package slimevoid.tmf.client.tickhandlers;
 
 import java.util.EnumSet;
 
-import org.lwjgl.opengl.GL11;
-
-import slimevoid.tmf.armor.ArmorLib;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import org.lwjgl.opengl.GL11;
+
+import slimevoid.tmf.armor.ArmorLib;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;

@@ -6,12 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import slimevoid.tmf.client.sounds.SoundLib;
-import slimevoid.tmf.items.ItemMotionSensor;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -23,11 +17,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
+import org.lwjgl.opengl.GL11;
+
+import slimevoid.tmf.client.sounds.SoundLib;
+import slimevoid.tmf.items.ItemMotionSensor;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
-import cpw.mods.fml.relauncher.SideOnly;
 import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MotionSensorTickHandler implements ITickHandler {
@@ -285,10 +283,10 @@ public class MotionSensorTickHandler implements ITickHandler {
 		float scaley = 0.00390625F*2;
 		Tessellator var9 = Tessellator.instance;
 		var9.startDrawingQuads();
-			var9.addVertexWithUV((double)(x + 0), (double)(y + height), 0, (double)((float)(u + 0) * scalex), (double)((float)(v + height) * scaley));
-			var9.addVertexWithUV((double)(x + width), (double)(y + height), 0, (double)((float)(u + width) * scalex), (double)((float)(v + height) * scaley));
-			var9.addVertexWithUV((double)(x + width), (double)(y + 0), 0, (double)((float)(u + width) * scalex), (double)((float)(v + 0) * scaley));
-			var9.addVertexWithUV((double)(x + 0), (double)(y + 0), 0, (double)((float)(u + 0) * scalex), (double)((float)(v + 0) * scaley));
+			var9.addVertexWithUV(x + 0, y + height, 0, (u + 0) * scalex, (v + height) * scaley);
+			var9.addVertexWithUV(x + width, y + height, 0, (u + width) * scalex, (v + height) * scaley);
+			var9.addVertexWithUV(x + width, y + 0, 0, (u + width) * scalex, (v + 0) * scaley);
+			var9.addVertexWithUV(x + 0, y + 0, 0, (u + 0) * scalex, (v + 0) * scaley);
 		var9.draw();
 	}
 	private void renderHUD(EntityPlayer entityplayer) {

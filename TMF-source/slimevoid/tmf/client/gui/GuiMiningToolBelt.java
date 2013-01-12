@@ -1,8 +1,8 @@
 package slimevoid.tmf.client.gui;
 
-import slimevoid.tmf.inventory.ContainerMiningToolBelt;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.IInventory;
+import slimevoid.tmf.inventory.ContainerMiningToolBelt;
 
 public class GuiMiningToolBelt extends GuiContainer {
 	private IInventory toolBelt;

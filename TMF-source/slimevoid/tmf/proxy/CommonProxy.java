@@ -1,8 +1,5 @@
 package slimevoid.tmf.proxy;
 
-import slimevoid.lib.ICommonProxy;
-import slimevoid.lib.IPacketHandling;
-import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.NetHandler;
@@ -10,6 +7,9 @@ import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import slimevoid.lib.ICommonProxy;
+import slimevoid.lib.IPacketHandling;
+import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;

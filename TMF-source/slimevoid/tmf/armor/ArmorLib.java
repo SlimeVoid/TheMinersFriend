@@ -2,15 +2,14 @@ package slimevoid.tmf.armor;
 
 import java.util.HashMap;
 
-import slimevoid.lib.data.Logger;
-import slimevoid.tmf.core.LoggerTMF;
-import slimevoid.tmf.items.ItemMiningHelmet;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import slimevoid.lib.data.Logger;
+import slimevoid.tmf.core.LoggerTMF;
+import slimevoid.tmf.items.ItemMiningHelmet;
 
 public class ArmorLib {
 	public static final String IRON_MINING_HELMET = "/TheMinersFriend/armor/tmfiron.png";

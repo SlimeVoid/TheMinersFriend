@@ -2,11 +2,11 @@ package slimevoid.tmf.core;
 
 import java.io.File;
 
+import net.minecraftforge.common.Configuration;
 import slimevoid.lib.ICommonProxy;
 import slimevoid.lib.ICore;
 import slimevoid.lib.core.Core;
 import slimevoid.lib.core.SlimevoidCore;
-import net.minecraftforge.common.Configuration;
 
 public class TMFInit {
 	public static ICore TMF;

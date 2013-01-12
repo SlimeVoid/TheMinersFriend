@@ -2,22 +2,21 @@ package slimevoid.tmf.core;
 
 import java.io.File;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import slimevoid.lib.ICommonProxy;
-import slimevoid.tmf.items.ItemMiningHelmet;
-import slimevoid.tmf.items.ItemMiningToolbelt;
-import slimevoid.tmf.items.ItemMotionSensor;
-import slimevoid.tmf.items.ItemMiningLamp;
-
-
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
+import slimevoid.lib.ICommonProxy;
+import slimevoid.lib.data.Logger;
+import slimevoid.tmf.items.ItemMiningHelmet;
+import slimevoid.tmf.items.ItemMiningLamp;
+import slimevoid.tmf.items.ItemMiningToolbelt;
+import slimevoid.tmf.items.ItemMotionSensor;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TMFCore {
 	public static File configFile;
@@ -153,7 +152,7 @@ public class TMFCore {
 		
 		configuration.save();
 		LoggerTMF.getInstance(
-				LoggerTMF.filterClassName(TMFCore.class.toString())).setFilterLevel(loggerLevel);
+				Logger.filterClassName(TMFCore.class.toString())).setFilterLevel(loggerLevel);
 		return 0;
 	}
 }

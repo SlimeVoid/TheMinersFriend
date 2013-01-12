@@ -1,13 +1,12 @@
 package slimevoid.tmf.items;
 
-import slimevoid.tmf.data.MiningToolBeltData;
-import slimevoid.tmf.inventory.ContainerMiningToolBelt;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import slimevoid.tmf.data.MiningToolBeltData;
 
 public class ItemMiningToolbelt extends Item {
 
@@ -17,6 +16,7 @@ public class ItemMiningToolbelt extends Item {
 		this.setCreativeTab(CreativeTabs.tabTools);
 	}
 
+	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
 		MiningToolBeltData data = (MiningToolBeltData)world.loadItemData(MiningToolBeltData.class, "ToolBelt["+itemstack.getItemDamage()+"]");

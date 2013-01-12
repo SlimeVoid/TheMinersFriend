@@ -1,12 +1,12 @@
 package slimevoid.tmf.items;
 
-import slimevoid.tmf.armor.ArmorLib;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.IArmorTextureProvider;
+import slimevoid.tmf.armor.ArmorLib;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMiningHelmet extends ItemArmor implements IArmorTextureProvider {
 

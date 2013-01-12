@@ -1,9 +1,6 @@
 package slimevoid.tmf.client.proxy;
 
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.lib.core.SlimevoidCore;
@@ -15,6 +12,8 @@ import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TMFInit;
 import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 public class ClientProxy extends CommonProxy {
 	
