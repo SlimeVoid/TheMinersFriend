@@ -21,6 +21,7 @@ public class MiningToolBeltData extends WorldSavedData implements IInventory {
 
 	@Override
     public void readFromNBT(NBTTagCompound nbttagcompound) {
+		System.out.println("Read");
 		NBTTagList toolsTag = nbttagcompound.getTagList("Tools");
 		this.miningTools = new ItemStack[this.getSizeInventory()];
 		for (int i = 0; i < toolsTag.tagCount(); i++) {
@@ -34,6 +35,7 @@ public class MiningToolBeltData extends WorldSavedData implements IInventory {
 
     @Override
     public void writeToNBT(NBTTagCompound nbttagcompound) {
+		System.out.println("Write");
     	NBTTagList toolsTag = new NBTTagList();
     	for (int i = 0; i < this.miningTools.length; i++) {
     		if (miningTools[i] != null) {
@@ -89,6 +91,7 @@ public class MiningToolBeltData extends WorldSavedData implements IInventory {
 
 	@Override
 	public void onInventoryChanged() {
+		this.markDirty();
 	}
 
 	@Override
