@@ -15,7 +15,7 @@ public class MotionSensorRuleInToolbelt implements IMotionSensorRule {
 			for ( int i = 0; i < 9; i++ ) {
 				ItemStack itemstack = entityplayer.inventory.mainInventory[i];
 				if (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMiningToolbelt ) {
-					MiningToolBeltData data = MiningToolBeltData.getToolBeltData(entityplayer, world, itemstack);
+					MiningToolBeltData data = MiningToolBeltData.getToolBeltDataFromItemStack(entityplayer, world, itemstack);
 					if ( data != null ) {
 						for ( int j = 0; j < data.getSizeInventory(); j++ ) {
 							ItemStack itemstack2 = data.getStackInSlot(j);

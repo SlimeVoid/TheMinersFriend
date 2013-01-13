@@ -3,6 +3,7 @@ package slimevoid.tmf.core;
 import slimevoid.lib.ICommonProxy;
 import slimevoid.tmf.client.network.ClientPacketHandler;
 import slimevoid.tmf.network.CommonPacketHandler;
+import slimevoid.tmf.network.TMFConnectionHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -28,7 +29,8 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 				packetHandler = ClientPacketHandler.class),
 		serverPacketHandlerSpec = @SidedPacketHandler(
 				channels = { TMFCore.packetChannel },
-				packetHandler = CommonPacketHandler.class))
+				packetHandler = CommonPacketHandler.class),
+		connectionHandler = TMFConnectionHandler.class)
 public class TheMinersFriend {
 	@SidedProxy(
 			clientSide = "slimevoid.tmf.client.proxy.ClientProxy",

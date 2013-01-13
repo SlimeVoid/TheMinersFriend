@@ -22,11 +22,12 @@ public class ItemMiningToolbelt extends Item {
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
-		MiningToolBeltData data = MiningToolBeltData.getToolBeltData(entityplayer, world, itemstack);
+		MiningToolBeltData data = MiningToolBeltData.getToolBeltDataFromItemStack(entityplayer, world, itemstack);
 		if (data == null) {
 			data = MiningToolBeltData.getNewToolBeltData(entityplayer, world, itemstack);
 			if (data != null) {
 				world.setItemData(data.mapName, data);
+				data.setToolBeltId(itemstack.getItemDamage());
 				data.markDirty();
 			}
 		}
@@ -46,11 +47,12 @@ public class ItemMiningToolbelt extends Item {
 	public void onCreated(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
 		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
-		MiningToolBeltData data = MiningToolBeltData.getToolBeltData(entityplayer, world, itemstack);
+		MiningToolBeltData data = MiningToolBeltData.getToolBeltDataFromItemStack(entityplayer, world, itemstack);
 		if (data == null) {
 			data = MiningToolBeltData.getNewToolBeltData(entityplayer, world, itemstack);
 			if (data != null) {
 				world.setItemData(data.mapName, data);
+				data.setToolBeltId(itemstack.getItemDamage());
 				data.markDirty();
 			}
 		}

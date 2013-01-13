@@ -32,7 +32,7 @@ public class CommonProxy implements ICommonProxy {
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
 		if (ID == GuiLib.TOOL_BELT_GUIID) {
-			MiningToolBeltData data = MiningToolBeltData.getToolBeltData(player, world, player.getHeldItem());
+			MiningToolBeltData data = MiningToolBeltData.getToolBeltDataFromItemStack(player, world, player.getHeldItem());
 			return new ContainerMiningToolBelt(player.inventory, data);
 		}
 		return null;
@@ -42,7 +42,7 @@ public class CommonProxy implements ICommonProxy {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
 		if (ID == GuiLib.TOOL_BELT_GUIID) {
-			MiningToolBeltData data = MiningToolBeltData.getToolBeltData(player, world, player.getHeldItem());
+			MiningToolBeltData data = MiningToolBeltData.getToolBeltDataFromItemStack(player, world, player.getHeldItem());
 			return new GuiMiningToolBelt(player, data);
 		}
 		return null;
