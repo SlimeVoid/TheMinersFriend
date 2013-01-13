@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.tmf.core.TheMinersFriend;
-import slimevoid.tmf.data.MiningToolBeltData;
+import slimevoid.tmf.data.MiningToolBelt;
 import slimevoid.tmf.lib.GuiLib;
 
 public class ItemMiningToolbelt extends Item {
@@ -20,9 +20,9 @@ public class ItemMiningToolbelt extends Item {
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
-		MiningToolBeltData data = MiningToolBeltData.getToolBeltDataFromItemStack(entityplayer, world, itemstack);
+		MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(entityplayer, world, itemstack);
 		if (data == null) {
-			data = MiningToolBeltData.getNewToolBeltData(entityplayer, world, itemstack);
+			data = MiningToolBelt.getNewToolBeltData(entityplayer, world, itemstack);
 			if (data != null) {
 				world.setItemData(data.mapName, data);
 				data.setToolBeltId(itemstack.getItemDamage());
@@ -45,9 +45,9 @@ public class ItemMiningToolbelt extends Item {
 	public void onCreated(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
 		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
-		MiningToolBeltData data = MiningToolBeltData.getToolBeltDataFromItemStack(entityplayer, world, itemstack);
+		MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(entityplayer, world, itemstack);
 		if (data == null) {
-			data = MiningToolBeltData.getNewToolBeltData(entityplayer, world, itemstack);
+			data = MiningToolBelt.getNewToolBeltData(entityplayer, world, itemstack);
 			if (data != null) {
 				world.setItemData(data.mapName, data);
 				data.setToolBeltId(itemstack.getItemDamage());

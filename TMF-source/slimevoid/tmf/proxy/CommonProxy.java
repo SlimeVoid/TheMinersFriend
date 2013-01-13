@@ -11,7 +11,7 @@ import slimevoid.lib.ICommonProxy;
 import slimevoid.lib.IPacketHandling;
 import slimevoid.tmf.client.gui.GuiMiningToolBelt;
 import slimevoid.tmf.core.TheMinersFriend;
-import slimevoid.tmf.data.MiningToolBeltData;
+import slimevoid.tmf.data.MiningToolBelt;
 import slimevoid.tmf.inventory.ContainerMiningToolBelt;
 import slimevoid.tmf.lib.CommandLib;
 import slimevoid.tmf.lib.GuiLib;
@@ -32,7 +32,7 @@ public class CommonProxy implements ICommonProxy {
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
 		if (ID == GuiLib.TOOL_BELT_GUIID) {
-			MiningToolBeltData data = MiningToolBeltData.getToolBeltDataFromItemStack(player, world, player.getHeldItem());
+			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(player, world, player.getHeldItem());
 			return new ContainerMiningToolBelt(player.inventory, data);
 		}
 		return null;
@@ -42,7 +42,7 @@ public class CommonProxy implements ICommonProxy {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
 		if (ID == GuiLib.TOOL_BELT_GUIID) {
-			MiningToolBeltData data = MiningToolBeltData.getToolBeltDataFromItemStack(player, world, player.getHeldItem());
+			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(player, world, player.getHeldItem());
 			return new GuiMiningToolBelt(player, data);
 		}
 		return null;

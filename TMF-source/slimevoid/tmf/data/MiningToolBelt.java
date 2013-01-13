@@ -11,11 +11,11 @@ import slimevoid.tmf.lib.DataLib;
 import slimevoid.tmf.lib.NamingLib;
 import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
-public class MiningToolBeltData extends WorldSavedData implements IInventory {
+public class MiningToolBelt extends WorldSavedData implements IInventory {
 	private ItemStack[] miningTools;
 	private int toolBeltId;
 
-	public MiningToolBeltData(String dataString) {
+	public MiningToolBelt(String dataString) {
 		super(dataString);
 		miningTools = new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
 	}
@@ -140,13 +140,13 @@ public class MiningToolBeltData extends WorldSavedData implements IInventory {
 		
 	}
 
-	public static MiningToolBeltData getToolBeltDataFromItemStack(EntityPlayer player, World world, ItemStack heldItem) {
-		MiningToolBeltData data = (MiningToolBeltData)world.loadItemData(MiningToolBeltData.class, getWorldIndexFromItemStack(heldItem));
+	public static MiningToolBelt getToolBeltDataFromItemStack(EntityPlayer player, World world, ItemStack heldItem) {
+		MiningToolBelt data = (MiningToolBelt)world.loadItemData(MiningToolBelt.class, getWorldIndexFromItemStack(heldItem));
 		return data;
 	}
 
-	public static MiningToolBeltData getToolBeltDataFromId(EntityPlayer player, World world, int toolBeltId) {
-		MiningToolBeltData data = (MiningToolBeltData)world.loadItemData(MiningToolBeltData.class, getWorldIndexFromId(toolBeltId));
+	public static MiningToolBelt getToolBeltDataFromId(EntityPlayer player, World world, int toolBeltId) {
+		MiningToolBelt data = (MiningToolBelt)world.loadItemData(MiningToolBelt.class, getWorldIndexFromId(toolBeltId));
 		return data;
 	}
 
@@ -158,9 +158,9 @@ public class MiningToolBeltData extends WorldSavedData implements IInventory {
 		return DataLib.TOOL_BELT_INDEX.replaceAll("#", Integer.toString(Id));
 	}
 
-	public static MiningToolBeltData getNewToolBeltData(
+	public static MiningToolBelt getNewToolBeltData(
 			EntityPlayer entityplayer, World world, ItemStack itemstack) {
-		return new MiningToolBeltData(getWorldIndexFromItemStack(itemstack));
+		return new MiningToolBelt(getWorldIndexFromItemStack(itemstack));
 	}
 
 	public PacketMiningToolBelt createPacket() {

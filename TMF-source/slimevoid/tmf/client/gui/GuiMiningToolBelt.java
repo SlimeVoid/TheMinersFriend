@@ -7,16 +7,16 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 
-import slimevoid.tmf.data.MiningToolBeltData;
+import slimevoid.tmf.data.MiningToolBelt;
 import slimevoid.tmf.inventory.ContainerMiningToolBelt;
 import slimevoid.tmf.items.ItemMotionSensor;
 import slimevoid.tmf.lib.GuiLib;
 import slimevoid.tmf.lib.NamingLib;
 
 public class GuiMiningToolBelt extends GuiContainer {
-	MiningToolBeltData data;
+	MiningToolBelt data;
 	
-	public GuiMiningToolBelt(EntityPlayer entityplayer, MiningToolBeltData toolBelt) {
+	public GuiMiningToolBelt(EntityPlayer entityplayer, MiningToolBelt toolBelt) {
 		super(new ContainerMiningToolBelt(entityplayer.inventory, toolBelt));
 		this.xSize = 177;
 		this.ySize = 221;
