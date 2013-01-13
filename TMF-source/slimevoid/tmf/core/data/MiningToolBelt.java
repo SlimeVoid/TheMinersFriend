@@ -53,6 +53,20 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 		return null;
 	}
 	
+	public ItemStack selectToolForBlock(Block block, float currentBreakSpeed) {
+		float fastestSpeed = currentBreakSpeed;
+		for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
+			ItemStack itemstack = this.getStackInSlot(i);
+			if (itemstack != null) {
+				float breakSpeed = itemstack.getStrVsBlock(block);
+				if (breakSpeed > fastestSpeed) {
+					this.selectedTool = i;
+				}
+			}
+		}
+		return this.getSelectedTool();
+	}
+	
 	public int getToolBeltId() {
 		return this.toolBeltId;
 	}
@@ -204,61 +218,5 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 		packet.setToolSlots(this.miningTools);
 		packet.setSelectedTool(this.selectedTool);
 		return packet;
-	}
-
-	public static void doBreakSpeed(BreakSpeed event) {
-		ItemStack toolBelt = ItemLib.getToolBelt(event.entityPlayer, event.entityPlayer.worldObj);
-		if (toolBelt != null) {
-			MiningToolBelt data = getToolBeltDataFromItemStack(event.entityPlayer, event.entityPlayer.worldObj, toolBelt);
-			ItemStack selectedStack = data.selectToolForBlock(event.block, event.originalSpeed);
-			if (selectedStack != null) {
-				event.newSpeed = (selectedStack.getStrVsBlock(event.block)) + MiningMode.getMinerStrength(event.entityPlayer, toolBelt, data);
-				return;
-			}
-		}
-	}
-	
-	private ItemStack selectToolForBlock(Block block, float currentBreakSpeed) {
-		float fastestSpeed = currentBreakSpeed;
-		for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
-			ItemStack itemstack = this.getStackInSlot(i);
-			if (itemstack != null) {
-				float breakSpeed = itemstack.getStrVsBlock(block);
-				if (breakSpeed > fastestSpeed) {
-					this.selectedTool = i;
-				}
-			}
-		}
-		return this.getSelectedTool();
-	}
-
-	public static void doHarvestCheck(HarvestCheck event) {
-		ItemStack toolBelt = ItemLib.getToolBelt(event.entityPlayer, event.entityPlayer.worldObj);
-		if (toolBelt != null) {
-			MiningToolBelt data = getToolBeltDataFromItemStack(event.entityPlayer, event.entityPlayer.worldObj, toolBelt);
-			ItemStack selectedStack = data.getSelectedTool();
-			if (selectedStack != null) {
-				event.success = selectedStack.canHarvestBlock(event.block);
-			}
-		}
-	}
-
-	public static boolean doDestroyBlock(
-			ItemStack itemstack,
-			World world,
-			int x,
-			int y,
-			int z,
-			int side,
-			EntityLiving entityliving,
-			boolean onBlockDestroyed) {
-		if (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMiningToolbelt) {
-			MiningToolBelt data = getToolBeltDataFromItemStack(entityliving, world, itemstack);
-			ItemStack selectedTool = data.getSelectedTool();
-			if (selectedTool != null) {
-				return selectedTool.getItem().onBlockDestroyed(selectedTool, world, x, y, z, side, entityliving);
-			}
-		}
-		return onBlockDestroyed;
 	}
 }
