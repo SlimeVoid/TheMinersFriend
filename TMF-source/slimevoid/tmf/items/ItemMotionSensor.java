@@ -1,8 +1,8 @@
 package slimevoid.tmf.items;
 
-import slimevoid.tmf.core.lib.ItemLib;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import slimevoid.tmf.core.lib.ItemLib;
 
 public class ItemMotionSensor extends Item {
 

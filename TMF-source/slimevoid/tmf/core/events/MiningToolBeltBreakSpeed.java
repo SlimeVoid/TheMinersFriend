@@ -1,9 +1,8 @@
 package slimevoid.tmf.core.events;
 
-import slimevoid.tmf.core.data.MiningToolBelt;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import slimevoid.tmf.core.data.MiningToolBelt;
 
 public class MiningToolBeltBreakSpeed {
 
