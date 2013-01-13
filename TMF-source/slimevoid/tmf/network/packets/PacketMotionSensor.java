@@ -1,9 +1,9 @@
 package slimevoid.tmf.network.packets;
 
+import net.minecraft.entity.Entity;
 import slimevoid.lib.network.PacketPayload;
 import slimevoid.tmf.api.IMotionSensor;
 import slimevoid.tmf.lib.PacketLib;
-import net.minecraft.entity.Entity;
 
 public class PacketMotionSensor extends PacketMiningEntity implements IMotionSensor {
 	

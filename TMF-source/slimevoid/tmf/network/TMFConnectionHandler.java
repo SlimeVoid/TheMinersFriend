@@ -1,7 +1,5 @@
 package slimevoid.tmf.network;
 
-import slimevoid.tmf.data.MiningToolBeltData;
-import slimevoid.tmf.items.ItemMiningToolbelt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -10,6 +8,8 @@ import net.minecraft.network.NetLoginHandler;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.server.MinecraftServer;
+import slimevoid.tmf.data.MiningToolBeltData;
+import slimevoid.tmf.items.ItemMiningToolbelt;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;

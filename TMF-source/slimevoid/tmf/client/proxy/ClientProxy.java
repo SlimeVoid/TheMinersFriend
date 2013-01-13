@@ -1,14 +1,10 @@
 package slimevoid.tmf.client.proxy;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.src.ModLoader;
-import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.lib.core.SlimevoidCore;
 import slimevoid.tmf.armor.ArmorLib;
-import slimevoid.tmf.client.gui.GuiMiningToolBelt;
 import slimevoid.tmf.client.network.ClientPacketHandler;
 import slimevoid.tmf.client.network.handlers.ClientPacketMiningToolBeltHandler;
 import slimevoid.tmf.client.network.packets.executors.ClientMiningToolBeltUpdateExecutor;
@@ -19,10 +15,8 @@ import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleInToolbelt;
 import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleOnHotbar;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TMFInit;
-import slimevoid.tmf.data.MiningToolBeltData;
 import slimevoid.tmf.lib.CommandLib;
 import slimevoid.tmf.lib.PacketLib;
-import slimevoid.tmf.network.packets.executors.MotionSensorSweepExecutor;
 import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import cpw.mods.fml.common.registry.TickRegistry;

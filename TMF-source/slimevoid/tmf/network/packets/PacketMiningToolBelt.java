@@ -4,14 +4,14 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import slimevoid.lib.nbt.NBTHelper;
-import slimevoid.lib.network.PacketPayload;
-import slimevoid.tmf.lib.DataLib;
-import slimevoid.tmf.lib.PacketLib;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
+import slimevoid.lib.nbt.NBTHelper;
+import slimevoid.lib.network.PacketPayload;
+import slimevoid.tmf.lib.DataLib;
+import slimevoid.tmf.lib.PacketLib;
 
 public class PacketMiningToolBelt extends PacketMining {
 	

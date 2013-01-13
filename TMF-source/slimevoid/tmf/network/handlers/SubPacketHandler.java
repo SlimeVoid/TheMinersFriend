@@ -16,15 +16,14 @@ import java.io.DataInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import slimevoid.lib.data.Logger;
-import slimevoid.tmf.api.IPacketExecutor;
-import slimevoid.tmf.core.LoggerTMF;
-import slimevoid.tmf.network.packets.PacketMining;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.world.World;
+import slimevoid.lib.data.Logger;
+import slimevoid.tmf.api.IPacketExecutor;
+import slimevoid.tmf.core.LoggerTMF;
+import slimevoid.tmf.network.packets.PacketMining;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
@@ -103,7 +102,7 @@ public abstract class SubPacketHandler implements IPacketHandler {
 			executors.get(command).execute(packet, world, entityplayer);
 		} else {
 			LoggerTMF.getInstance(
-					LoggerTMF.filterClassName(this.getClass().toString())
+					Logger.filterClassName(this.getClass().toString())
 			).write(
 					world.isRemote,
 					"handlePacket(" + packet.toString()+ ", world," + entityplayer.username + ") - UNKNOWN COMMAND",

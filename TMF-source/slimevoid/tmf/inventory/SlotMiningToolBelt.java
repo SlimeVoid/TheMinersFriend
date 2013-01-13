@@ -1,13 +1,13 @@
 package slimevoid.tmf.inventory;
 
-import slimevoid.tmf.items.ItemMiningHelmet;
-import slimevoid.tmf.items.ItemMotionSensor;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
+import slimevoid.tmf.items.ItemMiningHelmet;
+import slimevoid.tmf.items.ItemMotionSensor;
 
 public class SlotMiningToolBelt extends Slot {
 

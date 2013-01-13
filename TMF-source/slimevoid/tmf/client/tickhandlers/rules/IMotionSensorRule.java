@@ -1,6 +1,5 @@
 package slimevoid.tmf.client.tickhandlers.rules;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 

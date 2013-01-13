@@ -1,15 +1,13 @@
 package slimevoid.tmf.items;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import slimevoid.tmf.data.MiningToolBeltData;
 import slimevoid.tmf.core.TheMinersFriend;
+import slimevoid.tmf.data.MiningToolBeltData;
 import slimevoid.tmf.lib.GuiLib;
-import slimevoid.tmf.proxy.CommonProxy;
 
 public class ItemMiningToolbelt extends Item {
 

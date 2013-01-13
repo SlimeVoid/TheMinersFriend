@@ -11,9 +11,9 @@
  */
 package slimevoid.tmf.api;
 
-import slimevoid.tmf.network.packets.PacketMining;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import slimevoid.tmf.network.packets.PacketMining;
 
 public interface IPacketExecutor {
 	/**

@@ -1,7 +1,6 @@
 package slimevoid.tmf.client.network.packets.executors;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.tmf.api.IPacketExecutor;
 import slimevoid.tmf.data.MiningToolBeltData;
