@@ -16,7 +16,7 @@ public class MotionSensorSweepExecutor implements IPacketExecutor {
 			EntityPlayer entityplayer) {
 		if (packet instanceof PacketMotionSensor) {
 			PacketMotionSensor packetMS = (PacketMotionSensor) packet;
-			Entity entity = packetMS.getEntity();
+			Entity entity = packetMS.getEntity(world);
 			if (entity != null) {
 				world.playSoundAtEntity(entity, SoundLib.TRACKER_SWEEP, 0.5F, ((IMotionSensor)packetMS).getDist2sq());
 			}

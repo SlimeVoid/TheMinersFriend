@@ -18,8 +18,8 @@ public abstract class PacketMiningEntity extends PacketMining {
 		return this.payload.getIntPayload(0);
 	}
 	
-	public Entity getEntity() {
-		return EntityHelper.getEntityByID(this.getEntityId());
+	public Entity getEntity(World world) {
+		return world.getEntityByID(this.getEntityId());
 	}
 	
 	@Override
