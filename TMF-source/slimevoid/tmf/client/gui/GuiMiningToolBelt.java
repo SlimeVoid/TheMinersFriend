@@ -7,11 +7,11 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 
-import slimevoid.tmf.data.MiningToolBelt;
+import slimevoid.tmf.core.data.MiningToolBelt;
+import slimevoid.tmf.core.lib.GuiLib;
+import slimevoid.tmf.core.lib.NamingLib;
 import slimevoid.tmf.inventory.ContainerMiningToolBelt;
 import slimevoid.tmf.items.ItemMotionSensor;
-import slimevoid.tmf.lib.GuiLib;
-import slimevoid.tmf.lib.NamingLib;
 
 public class GuiMiningToolBelt extends GuiContainer {
 	MiningToolBelt data;

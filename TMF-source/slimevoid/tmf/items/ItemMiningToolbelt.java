@@ -6,8 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.tmf.core.TheMinersFriend;
-import slimevoid.tmf.data.MiningToolBelt;
-import slimevoid.tmf.lib.GuiLib;
+import slimevoid.tmf.core.data.MiningToolBelt;
+import slimevoid.tmf.core.lib.GuiLib;
 
 public class ItemMiningToolbelt extends Item {
 

@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import slimevoid.tmf.client.tickhandlers.rules.IMotionSensorRule;
-import slimevoid.tmf.lib.CommandLib;
+import slimevoid.tmf.core.lib.CommandLib;
 import slimevoid.tmf.network.packets.PacketMotionSensor;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.ITickHandler;

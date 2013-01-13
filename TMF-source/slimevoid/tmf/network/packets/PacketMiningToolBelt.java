@@ -10,8 +10,8 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import slimevoid.lib.nbt.NBTHelper;
 import slimevoid.lib.network.PacketPayload;
-import slimevoid.tmf.lib.DataLib;
-import slimevoid.tmf.lib.PacketLib;
+import slimevoid.tmf.core.lib.DataLib;
+import slimevoid.tmf.core.lib.PacketLib;
 
 public class PacketMiningToolBelt extends PacketMining {
 	

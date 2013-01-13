@@ -5,7 +5,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 import slimevoid.lib.data.Logger;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.core.TMFCore;
-import slimevoid.tmf.lib.SoundLib;
+import slimevoid.tmf.core.lib.SoundLib;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TrackerSounds {

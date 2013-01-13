@@ -8,7 +8,7 @@ import net.minecraft.network.NetLoginHandler;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.server.MinecraftServer;
-import slimevoid.tmf.data.MiningToolBelt;
+import slimevoid.tmf.core.data.MiningToolBelt;
 import slimevoid.tmf.items.ItemMiningToolbelt;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;

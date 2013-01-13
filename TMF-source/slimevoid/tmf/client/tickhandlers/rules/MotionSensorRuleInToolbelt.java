@@ -3,7 +3,7 @@ package slimevoid.tmf.client.tickhandlers.rules;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import slimevoid.tmf.data.MiningToolBelt;
+import slimevoid.tmf.core.data.MiningToolBelt;
 import slimevoid.tmf.items.ItemMiningToolbelt;
 import slimevoid.tmf.items.ItemMotionSensor;
 

@@ -3,8 +3,8 @@ package slimevoid.tmf.client.network.packets.executors;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import slimevoid.tmf.api.IPacketExecutor;
-import slimevoid.tmf.data.MiningToolBelt;
-import slimevoid.tmf.lib.DataLib;
+import slimevoid.tmf.core.data.MiningToolBelt;
+import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.network.packets.PacketMining;
 import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 

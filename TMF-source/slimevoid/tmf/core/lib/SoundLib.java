@@ -1,4 +1,4 @@
-package slimevoid.tmf.lib;
+package slimevoid.tmf.core.lib;
 
 public class SoundLib {
 	

@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import slimevoid.tmf.api.IMotionSensor;
 import slimevoid.tmf.api.IPacketExecutor;
-import slimevoid.tmf.lib.SoundLib;
+import slimevoid.tmf.core.lib.SoundLib;
 import slimevoid.tmf.network.packets.PacketMining;
 import slimevoid.tmf.network.packets.PacketMotionSensor;
 

@@ -1,4 +1,4 @@
-package slimevoid.tmf.data;
+package slimevoid.tmf.core.data;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -6,9 +6,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
-import slimevoid.tmf.lib.CommandLib;
-import slimevoid.tmf.lib.DataLib;
-import slimevoid.tmf.lib.NamingLib;
+import slimevoid.tmf.core.lib.CommandLib;
+import slimevoid.tmf.core.lib.DataLib;
+import slimevoid.tmf.core.lib.NamingLib;
 import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
 public class MiningToolBelt extends WorldSavedData implements IInventory {
