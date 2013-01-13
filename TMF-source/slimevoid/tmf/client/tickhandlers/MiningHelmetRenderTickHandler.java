@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import slimevoid.tmf.armor.ArmorLib;
+import slimevoid.tmf.core.lib.ArmorLib;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;

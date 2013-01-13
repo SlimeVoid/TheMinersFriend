@@ -11,8 +11,11 @@ import slimevoid.lib.ICommonProxy;
 import slimevoid.lib.IPacketHandling;
 import slimevoid.tmf.client.gui.GuiMiningToolBelt;
 import slimevoid.tmf.core.TheMinersFriend;
+import slimevoid.tmf.core.data.MiningMode;
 import slimevoid.tmf.core.data.MiningToolBelt;
 import slimevoid.tmf.core.lib.CommandLib;
+import slimevoid.tmf.core.lib.DataLib;
+import slimevoid.tmf.core.lib.EventLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.PacketLib;
 import slimevoid.tmf.inventory.ContainerMiningToolBelt;
@@ -56,6 +59,10 @@ public class CommonProxy implements ICommonProxy {
 		packetMotionSensorHandler.registerPacketHandler(CommandLib.PLAY_MOTION_SWEEP, new MotionSensorSweepExecutor());
 		packetMotionSensorHandler.registerPacketHandler(CommandLib.PLAY_MOTION_PING, new MotionSensorPingExecutor());
 		CommonPacketHandler.registerPacketHandler(PacketLib.MOTION_SENSOR, packetMotionSensorHandler);
+		
+		EventLib.registerCommonEvents();
+		
+		MiningMode.InitMiningMode(DataLib.MINING_MODE_STRENGTH);
 	}
 
 	@Override

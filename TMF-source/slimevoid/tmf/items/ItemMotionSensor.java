@@ -1,5 +1,6 @@
 package slimevoid.tmf.items;
 
+import slimevoid.tmf.core.lib.ItemLib;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -18,6 +19,6 @@ public class ItemMotionSensor extends Item {
 	
 	@Override
 	public String getTextureFile() {
-		return "/TheMinersFriend/gui/items.png";
+		return ItemLib.ITEM_SPRITE_PATH;
 	}
 }

@@ -64,11 +64,15 @@ public class PacketMiningToolBelt extends PacketMining {
 	public PacketMiningToolBelt(String command) {
 		this();
 		this.setCommand(command);
-		this.payload = new PacketPayload(1, 0, 0, 0);
+		this.payload = new PacketPayload(2, 0, 0, 0);
 	}
 	
 	public void setToolBeltId(int toolBeltId) {
 		this.payload.setIntPayload(0, toolBeltId);
+	}
+
+	public void setSelectedTool(int selectedTool) {
+		this.payload.setIntPayload(1, selectedTool);
 	}
 	
 	public void setToolSlots(ItemStack[] tools) {
@@ -83,6 +87,10 @@ public class PacketMiningToolBelt extends PacketMining {
 	
 	public int getToolBeltId() {
 		return this.payload.getIntPayload(0);
+	}
+	
+	public int getSelectedTool() {
+		return this.payload.getIntPayload(1);
 	}
 	
 	public ItemStack[] getToolSlots() {

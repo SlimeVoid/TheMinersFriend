@@ -1,4 +1,4 @@
-package slimevoid.tmf.armor;
+package slimevoid.tmf.core.lib;
 
 import java.util.HashMap;
 

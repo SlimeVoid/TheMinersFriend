@@ -4,7 +4,8 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.IArmorTextureProvider;
-import slimevoid.tmf.armor.ArmorLib;
+import slimevoid.tmf.core.lib.ArmorLib;
+import slimevoid.tmf.core.lib.ItemLib;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -34,6 +35,6 @@ public class ItemMiningHelmet extends ItemArmor implements IArmorTextureProvider
 
 	@Override
 	public String getTextureFile() {
-		return "/TheMinersFriend/gui/items.png";
+		return ItemLib.ITEM_SPRITE_PATH;
 	}
 }
