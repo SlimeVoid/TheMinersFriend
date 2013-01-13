@@ -9,6 +9,7 @@ import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.server.MinecraftServer;
 import slimevoid.tmf.core.data.MiningToolBelt;
+import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.items.ItemMiningToolbelt;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -19,17 +20,7 @@ public class TMFConnectionHandler implements IConnectionHandler {
 	@Override
 	public void playerLoggedIn(Player player, NetHandler netHandler,
 			INetworkManager manager) {
-		EntityPlayer entityplayer = (EntityPlayer)player;
-		IInventory playerInventory = entityplayer.inventory;
-		for (int slot = 0; slot < playerInventory.getSizeInventory(); slot++) {
-			ItemStack itemstack = playerInventory.getStackInSlot(slot);
-			if (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMiningToolbelt) {
-				MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(entityplayer, entityplayer.worldObj, itemstack);
-				if (data != null) {
-					PacketDispatcher.sendPacketToPlayer(data.createPacket().getPacket(), player);
-				}
-			}
-		}
+		ItemLib.checkForToolBelt(player);
 	}
 
 	@Override

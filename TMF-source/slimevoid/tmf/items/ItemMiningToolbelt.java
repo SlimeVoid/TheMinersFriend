@@ -91,7 +91,7 @@ public class ItemMiningToolbelt extends Item {
 	}
 
 	public static void doBreakSpeed(BreakSpeed event) {
-		ItemStack toolBelt = ItemLib.getToolBelt(event.entityPlayer, event.entityPlayer.worldObj);
+		ItemStack toolBelt = ItemLib.getToolBelt(event.entityPlayer, event.entityPlayer.worldObj, true);
 		if (toolBelt != null) {
 			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(event.entityPlayer, event.entityPlayer.worldObj, toolBelt);
 			ItemStack selectedStack = data.selectToolForBlock(event.block, event.originalSpeed);
@@ -103,7 +103,7 @@ public class ItemMiningToolbelt extends Item {
 	}
 
 	public static void doHarvestCheck(HarvestCheck event) {
-		ItemStack toolBelt = ItemLib.getToolBelt(event.entityPlayer, event.entityPlayer.worldObj);
+		ItemStack toolBelt = ItemLib.getToolBelt(event.entityPlayer, event.entityPlayer.worldObj, true);
 		if (toolBelt != null) {
 			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(event.entityPlayer, event.entityPlayer.worldObj, toolBelt);
 			ItemStack selectedStack = data.getSelectedTool();
