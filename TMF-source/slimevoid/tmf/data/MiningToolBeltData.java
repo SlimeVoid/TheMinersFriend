@@ -1,7 +1,5 @@
 package slimevoid.tmf.data;
 
-import slimevoid.tmf.lib.DataLib;
-import slimevoid.tmf.lib.NamingLib;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -9,6 +7,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
+import slimevoid.tmf.lib.DataLib;
+import slimevoid.tmf.lib.NamingLib;
 
 public class MiningToolBeltData extends WorldSavedData implements IInventory {
 	private static final int TOOL_BELT_MAX_SIZE = 4;
@@ -60,7 +60,27 @@ public class MiningToolBeltData extends WorldSavedData implements IInventory {
 
 	@Override
 	public ItemStack decrStackSize(int par1, int par2) {
-		return null;
+		if (this.miningTools[par1] != null) {
+			ItemStack var3;
+			
+			if (this.miningTools[par1].stackSize <= par2) {
+				var3 = this.miningTools[par1];
+				this.miningTools[par1] = null;
+				this.onInventoryChanged();
+				return var3;
+			} else {
+				var3 = this.miningTools[par1].splitStack(par2);
+				
+				if (this.miningTools[par1].stackSize == 0) {
+					this.miningTools[par1] = null;
+				}
+				
+				this.onInventoryChanged();
+				return var3;
+			}
+		} else {
+			return null;
+		}
 	}
 
 	@Override
@@ -70,11 +90,11 @@ public class MiningToolBeltData extends WorldSavedData implements IInventory {
 
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack itemstack) {
-        this.miningTools[slot] = itemstack;
-
         if (itemstack != null && itemstack.stackSize > this.getInventoryStackLimit()) {
         	itemstack.stackSize = this.getInventoryStackLimit();
         }
+        
+        this.miningTools[slot] = itemstack;
 
         this.onInventoryChanged();
 	}
