@@ -2,7 +2,6 @@ package slimevoid.tmf.network.packets;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
-import slimevoid.lib.entity.EntityHelper;
 
 public abstract class PacketMiningEntity extends PacketMining {
 
