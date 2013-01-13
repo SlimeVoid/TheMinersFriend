@@ -96,7 +96,8 @@ public class ItemMiningToolbelt extends Item {
 			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(event.entityPlayer, event.entityPlayer.worldObj, toolBelt);
 			ItemStack selectedStack = data.selectToolForBlock(event.block, event.originalSpeed);
 			if (selectedStack != null) {
-				event.newSpeed = event.newSpeed > event.originalSpeed ? (selectedStack.getStrVsBlock(event.block)) + MiningMode.getMinerStrength(event.entityPlayer, toolBelt, data) : event.originalSpeed;
+				float newSpeed = (selectedStack.getStrVsBlock(event.block)) + MiningMode.getMinerStrength(event.entityPlayer, toolBelt, data);
+				event.newSpeed =  newSpeed > event.originalSpeed ? newSpeed : event.originalSpeed;
 				return;
 			}
 		}
