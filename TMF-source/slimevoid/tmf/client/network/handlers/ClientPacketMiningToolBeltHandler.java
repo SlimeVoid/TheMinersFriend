@@ -2,13 +2,13 @@ package slimevoid.tmf.client.network.handlers;
 
 import slimevoid.tmf.network.handlers.SubPacketHandler;
 import slimevoid.tmf.network.packets.PacketMining;
-import slimevoid.tmf.network.packets.PacketMotionSensor;
+import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
-public class ClientPacketMotionSensorHandler extends SubPacketHandler {
+public class ClientPacketMiningToolBeltHandler extends SubPacketHandler {
 
 	@Override
 	protected PacketMining createNewPacket() {
-		return new PacketMotionSensor();
+		return new PacketMiningToolBelt();
 	}
 
 }

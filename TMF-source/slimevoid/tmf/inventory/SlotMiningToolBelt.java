@@ -9,9 +9,9 @@ import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 
-public class MiningToolBeltSlot extends Slot {
+public class SlotMiningToolBelt extends Slot {
 
-	public MiningToolBeltSlot(IInventory inventory, int slotIndex, int xDisplayPosition, int yDisplayPosition) {
+	public SlotMiningToolBelt(IInventory inventory, int slotIndex, int xDisplayPosition, int yDisplayPosition) {
 		super(inventory, slotIndex, xDisplayPosition, yDisplayPosition);
 	}
 

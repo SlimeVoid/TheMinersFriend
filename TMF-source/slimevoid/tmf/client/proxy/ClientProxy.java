@@ -10,6 +10,8 @@ import slimevoid.lib.core.SlimevoidCore;
 import slimevoid.tmf.armor.ArmorLib;
 import slimevoid.tmf.client.gui.GuiMiningToolBelt;
 import slimevoid.tmf.client.network.ClientPacketHandler;
+import slimevoid.tmf.client.network.handlers.ClientPacketMiningToolBeltHandler;
+import slimevoid.tmf.client.network.packets.executors.ClientMiningToolBeltUpdateExecutor;
 import slimevoid.tmf.client.sounds.TrackerSounds;
 import slimevoid.tmf.client.tickhandlers.MiningHelmetRenderTickHandler;
 import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
@@ -19,6 +21,7 @@ import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TMFInit;
 import slimevoid.tmf.data.MiningToolBeltData;
 import slimevoid.tmf.lib.CommandLib;
+import slimevoid.tmf.lib.PacketLib;
 import slimevoid.tmf.network.packets.executors.MotionSensorSweepExecutor;
 import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
@@ -32,6 +35,12 @@ public class ClientProxy extends CommonProxy {
 	public void preInit() {
 		super.preInit();
 		ClientPacketHandler.init();
+		
+		ClientPacketMiningToolBeltHandler clientToolBeltHandler = new ClientPacketMiningToolBeltHandler();
+		clientToolBeltHandler.registerPacketHandler(
+				CommandLib.UPDATE_TOOL_BELT_CONTENTS,
+				new ClientMiningToolBeltUpdateExecutor());
+		ClientPacketHandler.registerPacketHandler(PacketLib.MINING_TOOL_BELT, clientToolBeltHandler);		
 		
 		MinecraftForge.EVENT_BUS.register(new TrackerSounds());
 	}

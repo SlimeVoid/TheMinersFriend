@@ -15,13 +15,13 @@ public class ContainerMiningToolBelt extends Container {
 	public ContainerMiningToolBelt(IInventory playerInventory, IInventory toolBelt) {
 		this.toolbelt = toolBelt;
 
-        this.addSlotToContainer(new MiningToolBeltSlot(toolBelt, 0, 69, 37)); // Pick
+        this.addSlotToContainer(new SlotMiningToolBelt(toolBelt, 0, 69, 37)); // Pick
 
-        this.addSlotToContainer(new MiningToolBeltSlot(toolBelt, 1, 69, 59)); // Spade
+        this.addSlotToContainer(new SlotMiningToolBelt(toolBelt, 1, 69, 59)); // Spade
         
-        this.addSlotToContainer(new MiningToolBeltSlot(toolBelt, 2, 92, 37)); // Etc
+        this.addSlotToContainer(new SlotMiningToolBelt(toolBelt, 2, 92, 37)); // Etc
 
-        this.addSlotToContainer(new MiningToolBeltSlot(toolBelt, 3, 92, 59)); // Sensor
+        this.addSlotToContainer(new SlotMiningToolBelt(toolBelt, 3, 92, 59)); // Sensor
 /*
         for (int inventoryRowIndex = 0; inventoryRowIndex < 3; ++inventoryRowIndex) {
             for (int inventoryColumnIndex = 0; inventoryColumnIndex < 9; ++inventoryColumnIndex) {
