@@ -8,13 +8,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
-import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
 import slimevoid.tmf.core.lib.CommandLib;
 import slimevoid.tmf.core.lib.DataLib;
-import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.NamingLib;
-import slimevoid.tmf.items.ItemMiningToolbelt;
 import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
 public class MiningToolBelt extends WorldSavedData implements IInventory {

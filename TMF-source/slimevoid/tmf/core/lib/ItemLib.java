@@ -3,8 +3,6 @@ package slimevoid.tmf.core.lib;
 import java.util.ArrayList;
 import java.util.List;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -12,6 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.tmf.core.data.MiningToolBelt;
 import slimevoid.tmf.items.ItemMiningToolbelt;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 
 public class ItemLib {
 	public final static String ITEM_SPRITE_PATH = "/TheMinersFriend/gui/items.png";

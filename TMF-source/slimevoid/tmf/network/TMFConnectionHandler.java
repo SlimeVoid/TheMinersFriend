@@ -1,18 +1,12 @@
 package slimevoid.tmf.network;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.server.MinecraftServer;
-import slimevoid.tmf.core.data.MiningToolBelt;
 import slimevoid.tmf.core.lib.ItemLib;
-import slimevoid.tmf.items.ItemMiningToolbelt;
 import cpw.mods.fml.common.network.IConnectionHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
 public class TMFConnectionHandler implements IConnectionHandler {
