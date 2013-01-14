@@ -11,7 +11,7 @@ Mining Helmet
  
 Motion Sensor (Like in Aliens)
  - Detects nearby movement
- - 
+
 Mining Tool-belt
  - Holds 3 Tools
   - 1 Slot for Shovel
