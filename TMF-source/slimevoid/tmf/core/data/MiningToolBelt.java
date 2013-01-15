@@ -1,4 +1,5 @@
 package slimevoid.tmf.core.data;
+import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,10 +25,31 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 		selectedTool = 0;
 	}
 	
+	/**
+	 * Set the Tool Belt ID
+	 * 
+	 * @param Id the ID to set
+	 */
 	public void setToolBeltId(int Id) {
 		this.toolBeltId = Id;
 	}
 	
+	/**
+	 * Set the selected tool and return for convenience
+	 * 
+	 * @param slot the Tool Slot to select
+	 * @return the Selected Tool
+	 */
+	public ItemStack selectTool(int slot) {
+		this.selectedTool = slot;
+		return this.getSelectedTool();
+	}
+	
+	/**
+	 * Select the next Tool
+	 * 
+	 * @return the new Selected Tool
+	 */
 	public ItemStack selectTool() {
 		this.selectedTool++;
 		if (this.selectedTool >= DataLib.TOOL_BELT_SELECTED_MAX) {
@@ -37,6 +59,11 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 				this.getStackInSlot(this.selectedTool) : this.tryToSelectTool();
 	}
 	
+	/**
+	 * Rotate through the inventory until we select a Successful Tool
+	 * 
+	 * @return new Selected Tool or null if no Tool was successfully Selected 
+	 */
 	private ItemStack tryToSelectTool() {
 		if (this.getSelectedTool() == null) {
 			for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
@@ -49,6 +76,13 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 		return null;
 	}
 	
+	/**
+	 * Selects the best tool for the job out of tools within TOOL_BELT_SELECTED_MAX slots 
+	 * 
+	 * @param block the Block the player is attempting to mine
+	 * @param currentBreakSpeed the break speed with the current tool
+	 * @return the new Selected Tool
+	 */
 	public ItemStack selectToolForBlock(Block block, float currentBreakSpeed) {
 		float fastestSpeed = currentBreakSpeed;
 		for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
@@ -63,12 +97,30 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 		return this.getSelectedTool();
 	}
 	
+	/**
+	 * Retrieve the Tool Belt ID for the world save data
+	 * 
+	 * @return the ID
+	 */
 	public int getToolBeltId() {
 		return this.toolBeltId;
 	}
 
+	/**
+	 * Retrieve the Selected Tool in this Tool Belt
+	 * 
+	 * @return the Selected Tool
+	 */
 	public ItemStack getSelectedTool() {
 		return this.miningTools[this.selectedTool];
+	}
+
+	/**
+	 * Retrieve the Selected Tool Slot in this Tool Belt
+	 * @return
+	 */
+	public int getSelectedSlot() {
+		return this.selectedTool;
 	}
 
 	@Override
@@ -162,6 +214,24 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	public int getInventoryStackLimit() {
 		return 1;
 	}
+	
+	/**
+	 * Notify this Tool Belt that changes have happened
+	 *  
+	 * @param sendUpdate whether or not we should send updates to connected Players 
+	 */
+	public void onInventoryChanged(boolean sendUpdate) {
+		this.onInventoryChanged();
+		if (sendUpdate) this.sendUpdate();
+	}
+
+	/**
+	 * Send the updated Tool Belt data to players connected
+	 * Kind of Hammer to the fly for the moment
+	 */
+	private void sendUpdate() {
+		PacketDispatcher.sendPacketToAllPlayers(this.createPacket().getPacket());
+	}
 
 	@Override
 	public void onInventoryChanged() {
@@ -185,26 +255,77 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 		
 	}
 
+	/**
+	 * Retrieve Tool Belt data from an ItemStack (usually held by a player)
+	 * 
+	 * @param entityliving the Entity holding the Tool Belt (usually the player)
+	 * @param world the World to which the Tool Belt belongs (as above)
+	 * @param itemstack the (usually held) Tool Belt ItemStack
+	 * @return the Tool Belt data
+	 */
 	public static MiningToolBelt getToolBeltDataFromItemStack(EntityLiving entityliving, World world, ItemStack heldItem) {
-		MiningToolBelt data = (MiningToolBelt)world.loadItemData(MiningToolBelt.class, getWorldIndexFromItemStack(heldItem));
+		MiningToolBelt data = (MiningToolBelt)world.loadItemData(MiningToolBelt.class, getWorldIndexFromItemStack(heldItem));// Check if the data is null
+		if (data == null) {
+			// Retrieve a new data set for the current Tool Belt
+			data = MiningToolBelt.getNewToolBeltData(entityliving, world, heldItem);
+			// Check if the data creation was successfull
+			if (data != null) {
+				// Save the item data first
+				world.setItemData(data.mapName, data);
+				// Set the tool belt ID for ease of use later
+				data.setToolBeltId(heldItem.getItemDamage());
+				// Mark the data for an update
+				data.onInventoryChanged();
+			}
+		}
 		return data;
 	}
 
+	/**
+	 * Retrieves Tool Belt Data from the ID
+	 * Usually accessed from Packet Execution
+	 * 
+	 * @param entityliving the Entity with the Tool Belt
+	 * @param world the World in which the Tool Belt Resides
+	 * @param toolBeltId the Tool Belt ID
+	 * @return Tool Belt data
+	 */
 	public static MiningToolBelt getToolBeltDataFromId(EntityLiving entityliving, World world, int toolBeltId) {
 		MiningToolBelt data = (MiningToolBelt)world.loadItemData(MiningToolBelt.class, getWorldIndexFromId(toolBeltId));
 		return data;
 	}
 
+	/**
+	 * Generates the world data String from an ItemStack
+	 * 
+	 * @param heldItem the ItemStack (usually held)
+	 * @return the generated String from ItemStack damage
+	 */
 	public static String getWorldIndexFromItemStack(ItemStack heldItem) {
 		return getWorldIndexFromId(heldItem.getItemDamage());
 	}
 
+	/**
+	 * Generates the world data String from a unique value
+	 * 
+	 * @param Id the unique ID
+	 * @return the generated String
+	 */
 	public static String getWorldIndexFromId(int Id) {
 		return DataLib.TOOL_BELT_INDEX.replaceAll("#", Integer.toString(Id));
 	}
 
+	/**
+	 * Creates a new Instance of a Mining Tool Belt
+	 * 
+	 * @param entityliving the Entity holding the Tool Belt (usually the player)
+	 * @param world the World to which the Tool Belt belongs (as above)
+	 * @param itemstack the (usually held) Tool Belt ItemStack
+	 * @return the new instance
+	 */
 	public static MiningToolBelt getNewToolBeltData(
-			EntityPlayer entityplayer, World world, ItemStack itemstack) {
+			EntityLiving entityliving, World world, ItemStack itemstack) {
+		// Creates a new instance of MiningToolBelt
 		return new MiningToolBelt(getWorldIndexFromItemStack(itemstack));
 	}
 

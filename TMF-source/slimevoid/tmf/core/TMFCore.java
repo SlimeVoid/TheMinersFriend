@@ -11,7 +11,7 @@ import slimevoid.lib.ICommonProxy;
 import slimevoid.lib.data.Logger;
 import slimevoid.tmf.items.ItemMiningHelmet;
 import slimevoid.tmf.items.ItemMiningLamp;
-import slimevoid.tmf.items.ItemMiningToolbelt;
+import slimevoid.tmf.items.ItemMiningToolBelt;
 import slimevoid.tmf.items.ItemMotionSensor;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -36,13 +36,6 @@ public class TMFCore {
 	public static int miningToolBeltId;
 	
 	public static String loggerLevel = "INFO";
-	
-	@SideOnly(Side.CLIENT)
-	public static int motionSensorMaxEntityDistance = 20;
-	@SideOnly(Side.CLIENT)
-	public static int motionSensorMaxGameTicks = 20;
-	@SideOnly(Side.CLIENT)
-	public static boolean motionSensorDrawRight = true;
 
 	public static void initialize(ICommonProxy proxy) {
 		TMFInit.initialize(proxy);
@@ -54,7 +47,7 @@ public class TMFCore {
 		miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setItemName("goldMiningHelmet").setIconCoord(1, 0);
 		miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setItemName("diamondMiningHelmet").setIconCoord(2, 0);
 		motionSensor = new ItemMotionSensor(motionSensorId).setItemName("motionSensor").setIconCoord(0, 1);
-		miningToolBelt = new ItemMiningToolbelt(miningToolBeltId).setItemName("miningToolBelt").setIconCoord(0, 2);
+		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setItemName("miningToolBelt").setIconCoord(0, 2);
 	}
 
 	public static void addNames() {
@@ -109,52 +102,5 @@ public class TMFCore {
 					Block.dirt
 				}
 		);
-	}
-
-	public static int configurationProperties() {
-		configuration.load();
-		
-		loggerLevel = String.valueOf(configuration.get(
-				Configuration.CATEGORY_GENERAL,
-				"loggerLevel",
-				loggerLevel).value);
-		
-		miningHelmetIronId = Integer.valueOf(configuration.get(
-				Configuration.CATEGORY_ITEM,
-				"ironMinersHat",
-				15000).value);
-		miningHelmetGoldId = Integer.valueOf(configuration.get(
-				Configuration.CATEGORY_ITEM,
-				"goldMinersHat",
-				15001).value);
-		miningHelmetDiamondId = Integer.valueOf(configuration.get(
-				Configuration.CATEGORY_ITEM,
-				"diamondMinersHat",
-				15002).value);
-
-		motionSensorId = Integer.valueOf(configuration.get(
-				Configuration.CATEGORY_ITEM,
-				"motionSensor",
-				15003).value);
-
-		miningHelmetLampId = Integer.valueOf(configuration.get(
-				Configuration.CATEGORY_ITEM,
-				"helmetLamp",
-				15004).value);
-
-		miningToolBeltId = Integer.valueOf(configuration.get(
-				Configuration.CATEGORY_ITEM,
-				"toolBelt",
-				15005).value);
-		
-		motionSensorDrawRight = Boolean.valueOf(configuration.get(
-				Configuration.CATEGORY_GENERAL,
-				"motionSensorDrawRight",
-				motionSensorDrawRight).value);
-		
-		configuration.save();
-		LoggerTMF.getInstance(
-				Logger.filterClassName(TMFCore.class.toString())).setFilterLevel(loggerLevel);
-		return 0;
 	}
 }

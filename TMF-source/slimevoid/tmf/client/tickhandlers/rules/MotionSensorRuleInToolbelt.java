@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.tmf.core.data.MiningToolBelt;
-import slimevoid.tmf.items.ItemMiningToolbelt;
+import slimevoid.tmf.items.ItemMiningToolBelt;
 import slimevoid.tmf.items.ItemMotionSensor;
 
 public class MotionSensorRuleInToolbelt implements IMotionSensorRule {
@@ -14,7 +14,7 @@ public class MotionSensorRuleInToolbelt implements IMotionSensorRule {
 		if ( entityplayer != null && entityplayer.inventory != null ) {
 			for ( int i = 0; i < 9; i++ ) {
 				ItemStack itemstack = entityplayer.inventory.mainInventory[i];
-				if (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMiningToolbelt ) {
+				if (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMiningToolBelt ) {
 					MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(entityplayer, world, itemstack);
 					if ( data != null ) {
 						for ( int j = 0; j < data.getSizeInventory(); j++ ) {

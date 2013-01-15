@@ -21,11 +21,13 @@ public class ClientMiningToolBeltUpdateExecutor implements IPacketExecutor {
 				data = new MiningToolBelt(worldIndex);
 				if (data != null) {
 					world.setItemData(worldIndex, data);
+					data.setToolBeltId(packetMT.getToolBeltId());
 				}
 			}
 			for (int slot = 0; slot < DataLib.TOOL_BELT_MAX_SIZE; slot++) {
 				data.setInventorySlotContents(slot, packetMT.getToolInSlot(slot));
 			}
+			data.selectTool(packetMT.getSelectedTool());
 			data.onInventoryChanged();
 		}
 	}

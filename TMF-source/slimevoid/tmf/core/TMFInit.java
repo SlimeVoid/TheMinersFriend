@@ -7,6 +7,7 @@ import slimevoid.lib.ICommonProxy;
 import slimevoid.lib.ICore;
 import slimevoid.lib.core.Core;
 import slimevoid.lib.core.SlimevoidCore;
+import slimevoid.tmf.api.ITMFCommonProxy;
 
 public class TMFInit {
 	public static ICore TMF;
@@ -27,8 +28,7 @@ public class TMFInit {
 	}
 
 	public static void load() {
-		SlimevoidCore.console(TMF.getModName(), "Loading properties...");
-		TMFCore.configurationProperties();
+		((ITMFCommonProxy)TMF.getProxy()).registerConfigurationProperties();
 		
 		SlimevoidCore.console(TMF.getModName(), "Registering items...");
 		TMFCore.addItems();

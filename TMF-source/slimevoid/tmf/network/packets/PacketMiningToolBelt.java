@@ -24,17 +24,20 @@ public class PacketMiningToolBelt extends PacketMining {
 	}
 	
 	private void writeToolBeltData(DataOutputStream data) throws IOException {
-		NBTTagCompound nbttagcompound = new NBTTagCompound();
-    	NBTTagList toolsTag = new NBTTagList();
-    	for (int i = 0; i < this.miningTools.length; i++) {
-    		if (miningTools[i] != null) {
-    			NBTTagCompound tagCompound = new NBTTagCompound();
-    			tagCompound.setByte("Slot", (byte) i);
-    			this.miningTools[i].writeToNBT(tagCompound);
-        		toolsTag.appendTag(tagCompound);
-    		}
-    	}
-		nbttagcompound.setTag("Tools", toolsTag);
+		NBTTagCompound nbttagcompound = null;
+		if (this.miningTools != null) {
+			nbttagcompound = new NBTTagCompound();
+	    	NBTTagList toolsTag = new NBTTagList();
+	    	for (int i = 0; i < this.miningTools.length; i++) {
+	    		if (miningTools[i] != null) {
+	    			NBTTagCompound tagCompound = new NBTTagCompound();
+	    			tagCompound.setByte("Slot", (byte) i);
+	    			this.miningTools[i].writeToNBT(tagCompound);
+	        		toolsTag.appendTag(tagCompound);
+	    		}
+	    	}
+	    	nbttagcompound.setTag("Tools", toolsTag);
+		}
 		NBTHelper.writeNBTTagCompound(nbttagcompound, data);
 	}
 
@@ -46,13 +49,15 @@ public class PacketMiningToolBelt extends PacketMining {
 
 	private void readToolBeltData(DataInputStream data) throws IOException {
 		NBTTagCompound nbttagcompound = NBTHelper.readNBTTagCompound(data);
-		NBTTagList toolsTag = nbttagcompound.getTagList("Tools");
-		this.miningTools = new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
-		for (int i = 0; i < toolsTag.tagCount(); i++) {
-			NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.tagAt(i);
-			byte slot = tagCompound.getByte("Slot");
-			if (slot >= 0 && slot < this.miningTools.length) {
-				this.miningTools[slot] = ItemStack.loadItemStackFromNBT(tagCompound);
+		if (nbttagcompound != null) {
+			NBTTagList toolsTag = nbttagcompound.getTagList("Tools");
+			this.miningTools = new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
+			for (int i = 0; i < toolsTag.tagCount(); i++) {
+				NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.tagAt(i);
+				byte slot = tagCompound.getByte("Slot");
+				if (slot >= 0 && slot < this.miningTools.length) {
+					this.miningTools[slot] = ItemStack.loadItemStackFromNBT(tagCompound);
+				}
 			}
 		}
 	}

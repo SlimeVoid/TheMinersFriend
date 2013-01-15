@@ -31,11 +31,11 @@ public class MiningMode {
 		}
 	}
 	
-	private static boolean isPlayerInMiningMode(EntityPlayer entityplayer) {
+	public static boolean isPlayerInMiningMode(EntityPlayer entityplayer) {
 		return playersInMiningMode.contains(entityplayer);
 	}
 
-	public static float getMinerStrength(EntityPlayer entityplayer,
+	public static float getPlayerStrength(EntityPlayer entityplayer,
 			ItemStack toolBelt, MiningToolBelt data) {
 		if (isPlayerInMiningMode(entityplayer)) {
 			return strength;

@@ -14,7 +14,7 @@ public class TMFConnectionHandler implements IConnectionHandler {
 	@Override
 	public void playerLoggedIn(Player player, NetHandler netHandler,
 			INetworkManager manager) {
-		ItemLib.checkForToolBelt(player);
+		ItemLib.checkForToolBelts(player);
 	}
 
 	@Override

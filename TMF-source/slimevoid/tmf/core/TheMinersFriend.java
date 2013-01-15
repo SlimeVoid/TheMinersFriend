@@ -1,6 +1,6 @@
 package slimevoid.tmf.core;
 
-import slimevoid.lib.ICommonProxy;
+import slimevoid.tmf.api.ITMFCommonProxy;
 import slimevoid.tmf.client.network.ClientPacketHandler;
 import slimevoid.tmf.network.CommonPacketHandler;
 import slimevoid.tmf.network.TMFConnectionHandler;
@@ -35,7 +35,7 @@ public class TheMinersFriend {
 	@SidedProxy(
 			clientSide = "slimevoid.tmf.client.proxy.ClientProxy",
 			serverSide = "slimevoid.tmf.proxy.CommonProxy")
-	public static ICommonProxy proxy;
+	public static ITMFCommonProxy proxy;
 	
 	@Instance("TheMinersFriend")
 	public static TheMinersFriend instance;

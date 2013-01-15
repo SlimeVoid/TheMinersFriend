@@ -3,6 +3,7 @@ package slimevoid.tmf.client.gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
@@ -26,7 +27,7 @@ public class GuiMiningToolBelt extends GuiContainer {
 	@Override
 	public void initGui() {
 		super.initGui();
-		int motionSensorButtonLength = this.fontRenderer.getStringWidth(NamingLib.MOTION_SENSOR_SETTINGS);
+/*		int motionSensorButtonLength = this.fontRenderer.getStringWidth(NamingLib.MOTION_SENSOR_SETTINGS);
 		GuiButton motionSensorSettings = new GuiButton(
 				GuiLib.MOTION_SENSOR_SETTINGS_BUTTONID,
 				(this.width / 2) - (motionSensorButtonLength / 2),
@@ -35,30 +36,41 @@ public class GuiMiningToolBelt extends GuiContainer {
 				20,
 				NamingLib.MOTION_SENSOR_SETTINGS);
 		this.controlList.add(motionSensorSettings);
-		((GuiButton)this.controlList.get(GuiLib.MOTION_SENSOR_SETTINGS_BUTTONID)).enabled = false;
+		((GuiButton)this.controlList.get(GuiLib.MOTION_SENSOR_SETTINGS_BUTTONID)).enabled = false;*/
 	}
 	
 	@Override
     protected void actionPerformed(GuiButton button) {
-		switch(button.id) {
+/*		switch(button.id) {
 			case GuiLib.MOTION_SENSOR_SETTINGS_BUTTONID :
 				System.out.println("Settings");
 				break;
 			default :
 				System.out.println("Default");
 				break;
-		}
+		}*/
 	}
 	
 	@Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		ItemStack itemstack = this.data != null ? this.data.getStackInSlot(3) : null;
+		int slot = data.getSelectedSlot();
+		this.drawHighLightedSlot(slot, par1, par2);
+/*		ItemStack itemstack = this.data != null ? this.data.getStackInSlot(3) : null;
 		GuiButton motionSensorButton = ((GuiButton)this.controlList.get(GuiLib.MOTION_SENSOR_SETTINGS_BUTTONID));
 		if (itemstack != null && itemstack.getItem() instanceof ItemMotionSensor) {
 			motionSensorButton.enabled = true;
 		} else {
 			motionSensorButton.enabled = false;
-		}
+		}*/
+	}
+
+	private void drawHighLightedSlot(int slot, int par1, int par2) {
+		// TODO Draw Highlighted Slot
+		// Temporary Placeholder here
+		Slot selectedSlot = this.inventorySlots.getSlot(slot);
+		int x = selectedSlot.xDisplayPosition;
+		int y = selectedSlot.yDisplayPosition;
+		this.drawCenteredString(fontRenderer, "Slot["+slot+"] Selected", 50, 100, 0xff00ff);
 	}
 
 	@Override
