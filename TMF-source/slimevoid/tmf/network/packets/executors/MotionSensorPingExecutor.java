@@ -18,7 +18,7 @@ public class MotionSensorPingExecutor implements IPacketExecutor {
 			PacketMotionSensor packetMS = (PacketMotionSensor) packet;
 			Entity entity = packetMS.getEntity(world);
 			if (entity != null) {
-				world.playSoundAtEntity(entity, SoundLib.TRACKER_PING, 0.5F, ((IMotionSensor)packetMS).getDist2sq());
+				world.playSoundAtEntity(entity, SoundLib.TRACKER_PING, /*0.5F*/((IMotionSensor)packetMS).getDist2sq(), ((IMotionSensor)packetMS).getDist2sq());
 			}
 		}
 	}

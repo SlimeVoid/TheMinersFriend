@@ -13,10 +13,12 @@ public class TrackerSounds {
 	@ForgeSubscribe
 	public void onSound(SoundLoadEvent event) {
         // For each custom sound file we have defined in Sounds
+		int i = 0;
 		for (String file : SoundLib.trackerFiles) {
             // Try to add the custom sound file to the pool of sounds
 			try {
-				event.manager.soundPoolSounds.addSound(file, TMFCore.class.getResource("/"+file));
+				event.manager.soundPoolSounds.addSound(SoundLib.trackerSounds[i], TMFCore.class.getResource("/"+file));
+				i++;
 			}
             // If we cannot add the custom sound file to the pool, log the exception 
 			catch (Exception e) {

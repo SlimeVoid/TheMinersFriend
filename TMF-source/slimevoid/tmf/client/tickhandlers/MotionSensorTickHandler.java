@@ -32,16 +32,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class MotionSensorTickHandler implements ITickHandler {
 	private final Minecraft mc;
 	
-	private int maxEntityDistance = 20;
+	private int maxEntityDistance;
 	
 	private int motionTicks = 0;
-	private int maxTicks = 20;
+	private int maxTicks;
 	
 	private Map<Entity,EntityPoint3f> closeEntities;
 	private Map<Entity,EntityPoint3f> movedEntities;
 	private EntityPoint3f lastPlayerPos;
 	
-	private boolean drawOnRight = false;
+	private boolean drawOnRight;
 	
 	private List<IMotionSensorRule> rules;
 	
@@ -61,7 +61,10 @@ public class MotionSensorTickHandler implements ITickHandler {
 	}
 	
 	@Override
-	public void tickStart(EnumSet<TickType> type, Object... tickData) {}
+	public void tickStart(EnumSet<TickType> type, Object... tickData) {
+		
+	}
+	
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
 		if ( 
@@ -131,15 +134,16 @@ public class MotionSensorTickHandler implements ITickHandler {
 	}
 	
 	private void onTickInGame(EntityPlayer entityplayer, World world) {
-		motionTicks++;
-	
-		if (motionTicks >= maxTicks) {
-			motionTicks = 0;
-			
+		if (motionTicks == Math.abs(maxTicks / 2)) {
 			doTickMotionSensor(
 					entityplayer, 
 					world
 			);
+		}
+		motionTicks++;
+		if (motionTicks >= maxTicks) {
+			onMotionSensorSensing(entityplayer, world);
+			motionTicks = 0;
 		}
 	}
 	private void doTickMotionSensor(EntityPlayer entityplayer, World world) {
@@ -150,8 +154,6 @@ public class MotionSensorTickHandler implements ITickHandler {
 		removeIrrelevantKnownEntities(entityplayer);
 		
 		checkEntities(entityplayer, world);
-
-		onMotionSensorSensing(entityplayer, world);
 	}
 	
 	private void removeIrrelevantKnownEntities(EntityPlayer entityplayer) {
@@ -503,11 +505,22 @@ public class MotionSensorTickHandler implements ITickHandler {
 						(int)entityplayer.posX,
 						(int)entityplayer.posY,
 						(int)entityplayer.posZ,
-						1f-(float)(distSq2d/(maxEntityDistance*maxEntityDistance))
+						getPingPitch(distSq2d)
 				)).getPacket()
 		);
 	}
 	
+	private float getPingPitch(double distSq2d) {
+		System.out.println("Distance: " + distSq2d);
+		int maxDistSq = maxEntityDistance*maxEntityDistance;
+		System.out.println("MaxDistanceSq: " + maxDistSq);
+		float pitch = (float)(distSq2d/(maxEntityDistance*maxEntityDistance));
+		System.out.println("Pitch: " + pitch);
+		float absolutePitch =  1F - pitch; 
+		System.out.println("AbsPitch: " + absolutePitch);
+		return absolutePitch;
+	}
+
 	private class EntityPoint3f {
 		double x;
 		double y;

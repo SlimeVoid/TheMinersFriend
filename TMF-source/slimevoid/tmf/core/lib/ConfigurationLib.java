@@ -26,7 +26,7 @@ public class ConfigurationLib {
 		TMFCore.configuration.save();
 		
 		motionSensorMaxEntityDistance = 20;
-		motionSensorMaxGameTicks = 20;
+		motionSensorMaxGameTicks = 40;
 		motionSensorDrawRight = true;
 	}
 	
