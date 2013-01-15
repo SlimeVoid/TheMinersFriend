@@ -1,5 +1,4 @@
 package slimevoid.tmf.core.data;
-import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,6 +12,7 @@ import slimevoid.tmf.core.lib.CommandLib;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.NamingLib;
 import slimevoid.tmf.network.packets.PacketMiningToolBelt;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class MiningToolBelt extends WorldSavedData implements IInventory {
 	private ItemStack[] miningTools;

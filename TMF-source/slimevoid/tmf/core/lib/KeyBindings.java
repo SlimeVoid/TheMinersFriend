@@ -1,19 +1,18 @@
 package slimevoid.tmf.core.lib;
 
-import org.lwjgl.input.Keyboard;
-
-import slimevoid.tmf.client.tickhandlers.input.ToolBeltKeyBindingHandler;
-import slimevoid.tmf.network.packets.PacketMiningToolBelt;
-
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.KeyBindingRegistry;
-import cpw.mods.fml.common.network.PacketDispatcher;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import org.lwjgl.input.Keyboard;
+
+import slimevoid.tmf.client.tickhandlers.input.ToolBeltKeyBindingHandler;
+import slimevoid.tmf.network.packets.PacketMiningToolBelt;
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.client.registry.KeyBindingRegistry;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class KeyBindings {
 	

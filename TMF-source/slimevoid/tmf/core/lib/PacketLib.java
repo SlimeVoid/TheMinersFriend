@@ -1,7 +1,5 @@
 package slimevoid.tmf.core.lib;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import slimevoid.tmf.client.network.ClientPacketHandler;
 import slimevoid.tmf.client.network.handlers.ClientPacketMiningToolBeltHandler;
 import slimevoid.tmf.client.network.packets.executors.ClientMiningToolBeltUpdateExecutor;
@@ -12,6 +10,8 @@ import slimevoid.tmf.network.handlers.PacketMotionSensorHandler;
 import slimevoid.tmf.network.packets.executors.MotionSensorPingExecutor;
 import slimevoid.tmf.network.packets.executors.MotionSensorSweepExecutor;
 import slimevoid.tmf.network.packets.executors.ToolBeltCycleToolExecutor;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class PacketLib {
 

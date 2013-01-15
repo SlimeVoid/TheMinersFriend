@@ -4,15 +4,11 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 
 import slimevoid.tmf.core.data.MiningToolBelt;
-import slimevoid.tmf.core.lib.GuiLib;
-import slimevoid.tmf.core.lib.NamingLib;
 import slimevoid.tmf.inventory.ContainerMiningToolBelt;
-import slimevoid.tmf.items.ItemMotionSensor;
 
 public class GuiMiningToolBelt extends GuiContainer {
 	MiningToolBelt data;

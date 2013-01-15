@@ -2,9 +2,8 @@ package slimevoid.tmf.client.tickhandlers.input;
 
 import java.util.EnumSet;
 
-import slimevoid.tmf.core.lib.KeyBindings;
-
 import net.minecraft.client.settings.KeyBinding;
+import slimevoid.tmf.core.lib.KeyBindings;
 import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
 import cpw.mods.fml.common.TickType;
 
