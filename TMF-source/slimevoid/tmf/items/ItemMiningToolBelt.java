@@ -3,7 +3,9 @@ package slimevoid.tmf.items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemInWorldManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -47,6 +49,33 @@ public class ItemMiningToolBelt extends Item {
 		}
 		return itemstack;
 	}
+	
+/*	@Override
+	public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		if (!world.isRemote) {
+			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(entityplayer, world, itemstack);
+			if (data != null) {
+				if (entityplayer.isSneaking()) {
+					ItemStack tool = data.getSelectedTool();
+					if (tool != null) {
+						if (entityplayer instanceof EntityPlayerMP) {
+							EntityPlayerMP entityplayermp = (EntityPlayerMP) entityplayer;
+							ItemInWorldManager itemManager = entityplayermp.theItemInWorldManager;
+							if (itemManager.activateBlockOrUseItem(entityplayer, world, tool, x, y, z, side, hitX, hitY, hitZ)) {
+								return true;
+							} else { 
+								itemManager.tryUseItem(entityplayer, world, tool);
+								return true;
+							}
+						}
+					}
+				} else {
+					this.onItemRightClick(itemstack, world, entityplayer);
+				}
+			}
+		}
+		return true;
+	}*/
 	
 	@Override
 	public boolean onBlockDestroyed(ItemStack par1ItemStack, World par2World, int par3, int par4, int par5, int par6, EntityLiving par7EntityLiving) {

@@ -177,11 +177,11 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 			} else {
 				stackInSlot = this.miningTools[slot].splitStack(stacksize);
 				
-				if (this.miningTools[slot].stackSize == 0) {
+				if (this.miningTools[slot].stackSize <= 0) {
 					this.miningTools[slot] = null;
 				}
 				
-				this.onInventoryChanged();
+				this.onInventoryChanged(true);
 				return stackInSlot;
 			}
 		} else {
@@ -212,7 +212,7 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 
 	@Override
 	public int getInventoryStackLimit() {
-		return 1;
+		return 64;
 	}
 	
 	/**
