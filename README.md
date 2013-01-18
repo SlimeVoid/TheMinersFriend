@@ -51,13 +51,36 @@ Motion Sensor (Like in Aliens)
  - Requires some sort of fuel/energy
 
 Functional Blocks
- - What will they do?
- - Why are they necessary?
- - Tier Progression
+ - Geological Equipment
+  - Placeable
+  - Fueled with tier fuels
+   - The more fuel the deeper the scan (max based on upgrades)
+  - Upgradable
+   - Wider/Deeper upgrades
+ - Ore Grinder
+  - Used if IC2/Factorisation is not installed
+  - Grind tier ores for refinement
+  - Dusts used for Fuel production
+ - Tool Bench
+  - To craft all TMF items and Machines/Blocks
+
+Entities
+ - 'Miners Best Friend'
+  - Final Tier Upgrade of Geological Equipment
+  - Fueled with final tier of Fuel Tier
+  - Follows Player around
+  - Scans the area for ores
+   - Notifies the Player where they should dig
+   - Projects a visual representation of where the ores are
 
 Additional World Gen
- - Gems for crafting recipes
- - Ores for Crafting upgrades
+ - Gems for Upgrades
+ - Ores for Upgrades
+  - Ores used in grinder to get dust
+
+Fuel
+ - Tier system
+ - Crafted and refined from Ore Dust
 
 Further Additions
  - ???
