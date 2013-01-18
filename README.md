@@ -49,3 +49,17 @@ Motion Sensor (Like in Aliens)
    - Colour coded pings?
    - Detect Organic presence?
  - Requires some sort of fuel/energy
+
+Functional Blocks
+ - What will they do?
+ - Why are they necessary?
+ - Tier Progression
+
+Additional World Gen
+ - Gems for crafting recipes
+ - Ores for Crafting upgrades
+
+Further Additions
+ - ???
+ - ...
+ - !!!
