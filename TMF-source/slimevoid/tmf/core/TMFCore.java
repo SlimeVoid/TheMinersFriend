@@ -7,7 +7,6 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
-import slimevoid.lib.ICommonProxy;
 import slimevoid.tmf.items.ItemMineral;
 import slimevoid.tmf.items.ItemMiningHelmet;
 import slimevoid.tmf.items.ItemMiningLamp;
@@ -19,31 +18,31 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class TMFCore {
 	public static final String packetChannel = "TMF";
 	
+	// CONFIG
 	public static File configFile;
 	public static Configuration configuration;
+	
+	// MINING EQUIPMENT
 	public static Item miningHelmetLamp;
 	public static Item miningHelmetIron;
 	public static Item miningHelmetGold;
 	public static Item miningHelmetDiamond;
 	public static int miningHelmetLampId, miningHelmetIronId, miningHelmetGoldId, miningHelmetDiamondId;
-
+	public static Item motionSensor;
+	public static int motionSensorId;
+	public static Item miningToolBelt;
+	public static int miningToolBeltId;
+	
+	// MINERALS
 	public static Item mineralAcxium;
 	public static Item mineralBisogen;
 	public static Item mineralCydrine;
 	public static int mineralAcxiumId,mineralBisogenId,mineralCydrineId;
 	
-	public static Item motionSensor;
-	public static int motionSensorId;
-	
-	public static Item miningToolBelt;
-	public static int miningToolBeltId;
-	
 	public static String loggerLevel = "INFO";
 
-	public static void initialize(ICommonProxy proxy) {
-		TMFInit.initialize(proxy);
-	}
-
+	// ======== ITEM REGISTRATION ========
+	
 	public static void addItems() {
 		miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setItemName("miningHelmetLamp").setIconCoord(4, 0);
 		miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setItemName("ironMiningHelmet").setIconCoord(0, 0);
@@ -57,7 +56,7 @@ public class TMFCore {
 		mineralCydrine = new ItemMineral(mineralCydrineId).setItemName("mineralCydrine").setIconCoord(2, 1);
 	}
 
-	public static void addNames() {
+	public static void addItemNames() {
 		LanguageRegistry.addName(miningHelmetLamp, "Mining Helmet Lamp");
 		LanguageRegistry.addName(miningHelmetIron, "Iron Mining Helmet");
 		LanguageRegistry.addName(miningHelmetGold, "Gold Mining Helmet");
@@ -71,7 +70,7 @@ public class TMFCore {
 		LanguageRegistry.addName(mineralCydrine, "Cydrine");
 	}
 
-	public static void addRecipes() {
+	public static void addItemRecipes() {
 		GameRegistry.addRecipe(
 				new ItemStack(miningHelmetIron),
 				new Object[] {
@@ -113,5 +112,18 @@ public class TMFCore {
 					Block.dirt
 				}
 		);
+	}
+	
+	// ORES
+	
+	
+	// MACHINES
+	
+	
+	// BLOCKS
+
+	// ======== BLOCK REGISTRATION ========
+	public static void registerBlocks() {
+		
 	}
 }

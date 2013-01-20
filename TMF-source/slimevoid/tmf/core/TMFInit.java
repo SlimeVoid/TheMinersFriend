@@ -33,14 +33,16 @@ public class TMFInit {
 		SlimevoidCore.console(TMF.getModName(), "Registering items...");
 		TMFCore.addItems();
 		
+		TMFCore.registerBlocks();
+		
 		TMF.getProxy().registerRenderInformation();
 		
 		TMF.getProxy().registerTickHandler();
 		
 		SlimevoidCore.console(TMF.getModName(), "Naming items...");
-		TMFCore.addNames();
+		TMFCore.addItemNames();
 		
 		SlimevoidCore.console(TMF.getModName(), "Registering recipes...");
-		TMFCore.addRecipes();
+		TMFCore.addItemRecipes();
 	}
 }

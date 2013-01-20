@@ -47,7 +47,7 @@ public class TheMinersFriend {
 
 	@Init
 	public void TheMinersFriendInit(FMLInitializationEvent event) {
-		TMFCore.initialize(proxy);
+		TMFInit.initialize(proxy);
 	}
 
 	@PostInit

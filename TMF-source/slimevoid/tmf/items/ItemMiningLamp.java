@@ -2,7 +2,7 @@ package slimevoid.tmf.items;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import slimevoid.tmf.core.lib.ItemLib;
+import slimevoid.tmf.core.lib.SpriteLib;
 
 public class ItemMiningLamp extends Item {
 
@@ -13,7 +13,7 @@ public class ItemMiningLamp extends Item {
 	
 	@Override
 	public String getTextureFile() {
-		return ItemLib.ITEM_SPRITE_PATH;
+		return SpriteLib.ITEM_SPRITE_PATH;
 	}
 
 }

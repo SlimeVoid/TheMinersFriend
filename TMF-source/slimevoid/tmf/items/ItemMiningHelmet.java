@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.IArmorTextureProvider;
 import slimevoid.tmf.core.lib.ArmorLib;
 import slimevoid.tmf.core.lib.ItemLib;
+import slimevoid.tmf.core.lib.SpriteLib;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -35,6 +36,6 @@ public class ItemMiningHelmet extends ItemArmor implements IArmorTextureProvider
 
 	@Override
 	public String getTextureFile() {
-		return ItemLib.ITEM_SPRITE_PATH;
+		return SpriteLib.ITEM_SPRITE_PATH;
 	}
 }

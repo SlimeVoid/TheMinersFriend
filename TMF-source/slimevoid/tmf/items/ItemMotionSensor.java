@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import slimevoid.tmf.core.lib.ItemLib;
+import slimevoid.tmf.core.lib.SpriteLib;
 
 public class ItemMotionSensor extends Item {
 
@@ -29,6 +29,6 @@ public class ItemMotionSensor extends Item {
 	
 	@Override
 	public String getTextureFile() {
-		return ItemLib.ITEM_SPRITE_PATH;
+		return SpriteLib.ITEM_SPRITE_PATH;
 	}
 }

@@ -3,9 +3,7 @@ package slimevoid.tmf.items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemInWorldManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -17,6 +15,7 @@ import slimevoid.tmf.core.data.MiningMode;
 import slimevoid.tmf.core.data.MiningToolBelt;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.ItemLib;
+import slimevoid.tmf.core.lib.SpriteLib;
 
 public class ItemMiningToolBelt extends Item {
 
@@ -139,7 +138,7 @@ public class ItemMiningToolBelt extends Item {
 	
 	@Override
 	public String getTextureFile() {
-		return ItemLib.ITEM_SPRITE_PATH;
+		return SpriteLib.ITEM_SPRITE_PATH;
 	}
 
 	/**

@@ -1,6 +1,6 @@
 package slimevoid.tmf.items;
 
-import slimevoid.tmf.core.lib.ItemLib;
+import slimevoid.tmf.core.lib.SpriteLib;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -18,6 +18,6 @@ public class ItemMineral extends Item {
 	
 	@Override
 	public String getTextureFile() {
-		return ItemLib.RESOURCE_SPRITE_PATH;
+		return SpriteLib.RESOURCE_SPRITE_PATH;
 	}
 }
