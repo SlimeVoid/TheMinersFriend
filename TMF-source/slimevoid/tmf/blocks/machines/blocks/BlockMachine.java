@@ -73,6 +73,4 @@ public abstract class BlockMachine extends BlockContainer {
 	public void breakBlock(World world, int x, int y, int z, int l, int m) {
 		super.breakBlock(world, x, y, z, l, m);
 	}
-	
-	//public abstract void updateMachineBlockState(boolean par0, World par1World, int par2, int par3, int par4);
 }

@@ -2,6 +2,8 @@ package slimevoid.tmf.blocks.machines.blocks;
 
 import java.util.Random;
 
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
+
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.material.Material;
@@ -17,6 +19,10 @@ public class BlockRefinery extends BlockMachine {
 
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return null;
+		return new TileEntityRefinery();
+	}
+
+	public static void updateRefineryBlockState(boolean isBurning, World world, int x, int y, int z) {
+		
 	}
 }

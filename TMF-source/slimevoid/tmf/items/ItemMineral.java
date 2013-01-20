@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 
 public class ItemMineral extends Item implements IFuelHandlerTMF {
 	private int burnTime = 1600;
-	private int burnSpeed = 1;
+	private int burnSpeed = 200;
 	private int burnWidth = 1;
 
 	public ItemMineral(int id) {

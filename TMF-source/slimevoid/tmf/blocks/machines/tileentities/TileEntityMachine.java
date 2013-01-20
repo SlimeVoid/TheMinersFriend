@@ -1,5 +1,7 @@
 package slimevoid.tmf.blocks.machines.tileentities;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import slimevoid.tmf.blocks.machines.blocks.BlockMachine;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 
@@ -41,6 +44,8 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 		
 		burnTime = ntbCompound.getShort("BurnTime");
         cookTime = ntbCompound.getShort("CookTime");
+        currentItemBurnTime = getCurrentFuelBurnTime();
+        currentItemCookTime = getCurrentFuelBurnSpeed();
 	}
 	
 	@Override
@@ -53,17 +58,17 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 	
 	@Override
 	public void updateEntity() {
-		boolean var1 = burnTime > 0;
-		boolean var2 = false;
+		boolean wasBurning = isBurning();
+		boolean inventoryChanged = false;
         
-		if ( burnTime > 0 )
+		if ( isBurning() )
 			burnTime--;
 		
 		if ( !worldObj.isRemote ) {
-			if ( burnTime == 0 && canSmelt() ) {
+			if ( !isBurning() && canSmelt() ) {
 				currentItemBurnTime = burnTime = getCurrentFuelBurnTime();
 				if ( burnTime > 0 ) {
-					var2 = true;
+					inventoryChanged = true;
 					if ( getCurrentFuelStack() != null ) {
 						getCurrentFuelStack().stackSize--;
 						
@@ -75,27 +80,33 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 			}
 			
 			if ( isBurning() && canSmelt() ) {
-				++cookTime;
+				cookTime++;
 				
 				if ( cookTime == currentItemCookTime ) {
 					cookTime = 0;
 					smeltItem();
-					var2 = true;
+					inventoryChanged = true;
 				}
 			} else {
 				cookTime = 0;
 			}
 			
-			if ( var1 != burnTime > 0 ) {
-				var2 = true;
-				//BlockMachine.updateMachineBlockState(burnTime > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+			if ( wasBurning != isBurning() ) {
+				inventoryChanged = true;
+				updateMachineBlockState(isBurning(), worldObj, xCoord, yCoord, zCoord);
 			}
+		}
+		
+		if ( inventoryChanged ) {
+			onInventoryChanged();
 		}
 	}
 
 	public boolean isBurning() {
 		return burnTime > 0;
 	}
+    
+    
 	public abstract void smeltItem();
 	protected abstract boolean canSmelt();
 	
@@ -104,4 +115,23 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 	public abstract int getCurrentFuelBurnWidth();
 	public abstract ItemStack getCurrentFuelStack();
 	public abstract void setCurrentFuelStack(ItemStack stack);
+	public abstract void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z);
+
+	
+	@SideOnly(Side.CLIENT)
+	public int getCookProgressScaled(int par1) {
+		if ( currentItemCookTime <= 0 )
+			return 0;
+    	
+    	return cookTime * par1 / currentItemCookTime;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public int getBurnTimeRemainingScaled(int par1) {
+		if (currentItemBurnTime == 0) {
+			currentItemBurnTime = 200;
+		}
+	
+		return burnTime * par1 / currentItemBurnTime;
+	}
 }
