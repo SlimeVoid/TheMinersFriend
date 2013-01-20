@@ -2,7 +2,7 @@ package slimevoid.tmf.blocks.machines.tileentities;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import slimevoid.littleblocks.api.util.LittleBlocksHelper;
+import slimevoid.lib.core.SlimevoidHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -26,7 +26,7 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 	public boolean isUseableByPlayer(EntityPlayer player) {
 		return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this 
 				? false 
-				: LittleBlocksHelper.isUseableByPlayer(
+				: SlimevoidHelper.isUseableByPlayer(
 						this.getWorldObj(),
 						player,
 						this.xCoord,
