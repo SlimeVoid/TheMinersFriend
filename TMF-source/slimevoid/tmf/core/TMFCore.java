@@ -8,6 +8,7 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.MinecraftForge;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.core.lib.NamingLib;
@@ -261,5 +262,11 @@ public class TMFCore {
 		LanguageRegistry.addName(crokereOre, NamingLib.ORE_CROKERE);
 		LanguageRegistry.addName(derniteOre, NamingLib.ORE_DERNITE);
 		LanguageRegistry.addName(egioclaseOre, NamingLib.ORE_EGIOCLASE);
+
+        MinecraftForge.setBlockHarvestLevel(arkiteOre,  "pickaxe", 2);
+        MinecraftForge.setBlockHarvestLevel(bistiteOre,  "pickaxe", 2);
+        MinecraftForge.setBlockHarvestLevel(crokereOre,  "pickaxe", 2);
+        MinecraftForge.setBlockHarvestLevel(derniteOre,  "pickaxe", 2);
+        MinecraftForge.setBlockHarvestLevel(egioclaseOre,  "pickaxe", 2);
 	}
 }
