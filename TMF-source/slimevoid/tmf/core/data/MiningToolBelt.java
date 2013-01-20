@@ -46,15 +46,16 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	}
 	
 	/**
-	 * Select the next Tool
+	 * Cycles to the next available Tool
 	 * 
 	 * @return the new Selected Tool
 	 */
-	public ItemStack selectTool() {
+	public ItemStack cycleTool() {
 		this.selectedTool++;
 		if (this.selectedTool >= DataLib.TOOL_BELT_SELECTED_MAX) {
 			this.selectedTool = 0;
 		}
+		this.onInventoryChanged(true);
 		return this.getStackInSlot(this.selectedTool) != null ? 
 				this.getStackInSlot(this.selectedTool) : this.tryToSelectTool();
 	}
