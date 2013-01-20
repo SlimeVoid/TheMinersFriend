@@ -141,7 +141,6 @@ public class ItemMiningToolBelt extends Item {
 			ItemStack selectedTool = data.getSelectedTool();
 			// If there is a tool in the selected slot
 			if (selectedTool != null) {
-				System.out.println("doStartBreakBlock");
 				// Perform the onBlockDestroyed using that Tool
 				return selectedTool.getItem().onBlockStartBreak(selectedTool, x, y, z, entityplayer);
 			}
@@ -179,7 +178,6 @@ public class ItemMiningToolBelt extends Item {
 			ItemStack selectedTool = data.getSelectedTool();
 			// If there is a tool in the selected slot
 			if (selectedTool != null) {
-				System.out.println("doDestroyBlock");
 				// Perform the onBlockDestroyed using that Tool
 				return selectedTool.getItem().onBlockDestroyed(selectedTool, world, x, y, z, side, entityliving);
 			}
