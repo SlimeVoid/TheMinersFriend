@@ -146,7 +146,7 @@ public class TMFCore {
 	}
 	private static void addDustRecipes() {
 		GameRegistry.addRecipe(
-				new ItemStack(dustMixed).splitStack(2),
+				new ItemStack(dustMixed,2),
 				new Object[] {
 					"XY",
 					Character.valueOf('X'),
@@ -156,7 +156,7 @@ public class TMFCore {
 				}
 		);
 		GameRegistry.addRecipe(
-				new ItemStack(dustMixed).splitStack(2),
+				new ItemStack(dustMixed,2),
 				new Object[] {
 					"XY",
 					Character.valueOf('X'),
@@ -166,7 +166,7 @@ public class TMFCore {
 				}
 		);
 		GameRegistry.addRecipe(
-				new ItemStack(dustMixed).splitStack(2),
+				new ItemStack(dustMixed,2),
 				new Object[] {
 					"XY",
 					Character.valueOf('X'),
@@ -177,7 +177,7 @@ public class TMFCore {
 		);
 		
 		GameRegistry.addRecipe(
-				new ItemStack(dustMixed).splitStack(2),
+				new ItemStack(dustMixed,2),
 				new Object[] {
 					"XY",
 					Character.valueOf('X'),
@@ -187,7 +187,7 @@ public class TMFCore {
 				}
 		);
 		GameRegistry.addRecipe(
-				new ItemStack(dustMixed).splitStack(2),
+				new ItemStack(dustMixed,2),
 				new Object[] {
 					"XY",
 					Character.valueOf('X'),
@@ -197,7 +197,7 @@ public class TMFCore {
 				}
 		);
 		GameRegistry.addRecipe(
-				new ItemStack(dustMixed).splitStack(2),
+				new ItemStack(dustMixed,2),
 				new Object[] {
 					"XY",
 					Character.valueOf('X'),
@@ -208,7 +208,7 @@ public class TMFCore {
 		);
 		
 		GameRegistry.addRecipe(
-				new ItemStack(dustMixed).splitStack(2),
+				new ItemStack(dustMixed,2),
 				new Object[] {
 					"XX",
 					Character.valueOf('X'),
