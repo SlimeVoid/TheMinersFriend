@@ -33,8 +33,7 @@ public class BlockTMFOre extends BlockOre {
 		if (meta == 0) {
 			return this.blockIndexInTexture;
 		} else {
-			meta = ~(meta & 15);
-			return 113 + ((meta & 8) >> 3) + (meta & 7) * 16;
+			return meta;
 		}
 	}
 
