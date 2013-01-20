@@ -137,6 +137,82 @@ public class TMFCore {
 					Block.dirt
 				}
 		);
+		
+		addDustRecipes();
+	}
+	private static void addDustRecipes() {
+		GameRegistry.addRecipe(
+				new ItemStack(dustMixed),
+				new Object[] {
+					"XY",
+					Character.valueOf('X'),
+					dustAcxium,
+					Character.valueOf('Y'),
+					dustBisogen
+				}
+		);
+		GameRegistry.addRecipe(
+				new ItemStack(dustMixed),
+				new Object[] {
+					"XY",
+					Character.valueOf('X'),
+					dustAcxium,
+					Character.valueOf('Y'),
+					dustCydrine
+				}
+		);
+		GameRegistry.addRecipe(
+				new ItemStack(dustMixed),
+				new Object[] {
+					"XY",
+					Character.valueOf('X'),
+					dustBisogen,
+					Character.valueOf('Y'),
+					dustCydrine
+				}
+		);
+		
+		GameRegistry.addRecipe(
+				new ItemStack(dustMixed),
+				new Object[] {
+					"XY",
+					Character.valueOf('X'),
+					dustMixed,
+					Character.valueOf('Y'),
+					dustAcxium
+				}
+		);
+		GameRegistry.addRecipe(
+				new ItemStack(dustMixed),
+				new Object[] {
+					"XY",
+					Character.valueOf('X'),
+					dustMixed,
+					Character.valueOf('Y'),
+					dustBisogen
+				}
+		);
+		GameRegistry.addRecipe(
+				new ItemStack(dustMixed),
+				new Object[] {
+					"XY",
+					Character.valueOf('X'),
+					dustMixed,
+					Character.valueOf('Y'),
+					dustCydrine
+				}
+		);
+		
+		GameRegistry.addRecipe(
+				new ItemStack(dustMixed),
+				new Object[] {
+					"XX",
+					Character.valueOf('X'),
+					dustMixed
+				}
+		);
+		
+		GameRegistry.registerCraftingHandler((ItemMineralMixedDust)dustMixed);
 	}
 	
 	// ORES
