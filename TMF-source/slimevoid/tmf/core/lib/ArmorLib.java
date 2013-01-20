@@ -12,9 +12,6 @@ import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.items.ItemMiningHelmet;
 
 public class ArmorLib {
-	public static final String IRON_MINING_HELMET = "/TheMinersFriend/armor/tmfiron.png";
-	public static final String GOLD_MINING_HELMET = "/TheMinersFriend/armor/tmfgold.png";
-	public static final String DIAMOND_MINING_HELMET = "/TheMinersFriend/armor/tmfdiamond.png";
 	
 	private static HashMap<Integer, String> armorTextures = new HashMap<Integer, String>();
 
