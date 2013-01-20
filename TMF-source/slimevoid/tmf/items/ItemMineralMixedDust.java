@@ -37,9 +37,9 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 		if ( speedLevel == 0 )
 			return 200;
 		
-		double out = (Math.log(speedLevel+1)*300)+200;
-		if ( out > 800)
-			out = 800;
+		double out = ( (Math.log(speedLevel+1)-200) * -(1 / (speedLevel+1) ) );
+		if ( out < 30)
+			out = 30;
 		
 		return (int) out;
 	}

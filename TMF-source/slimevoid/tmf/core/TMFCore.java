@@ -70,11 +70,11 @@ public class TMFCore {
 		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setItemName("miningToolBelt").setIconCoord(0, 2);
 		
 		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(3200).setItemName("mineralAcxium").setIconCoord(0, 1);
-		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(2).setItemName("mineralBisogen").setIconCoord(1, 1);
+		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(100).setItemName("mineralBisogen").setIconCoord(1, 1);
 		mineralCydrine = new ItemMineral(mineralCydrineId).setBurnWidth(1).setItemName("mineralCydrine").setIconCoord(2, 1);
 		
 		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setItemName("dustAcxium").setIconCoord(0, 2);
-		dustBisogen = new ItemMineralDust(dustBisogenId).setBurnSpeed(2).setItemName("dustBisogen").setIconCoord(1, 2);
+		dustBisogen = new ItemMineralDust(dustBisogenId).setBurnSpeed(100).setItemName("dustBisogen").setIconCoord(1, 2);
 		dustCydrine = new ItemMineralDust(dustCydrineId).setBurnWidth(1).setItemName("dustCydrine").setIconCoord(2, 2);
 		
 		dustMixed = new ItemMineralMixedDust(dustMixedId).setItemName("dustMixed").setIconCoord(3, 2);
