@@ -1,11 +1,7 @@
 package slimevoid.tmf.items;
 
 import slimevoid.tmf.core.TMFCore;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.ICraftingHandler;
 
 public class ItemMineralMixedDust extends ItemMineralDust {
 	/**

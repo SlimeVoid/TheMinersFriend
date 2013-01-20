@@ -2,16 +2,13 @@ package slimevoid.tmf.blocks.machines.tileentities;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import slimevoid.tmf.blocks.machines.blocks.BlockMachine;
-import net.minecraft.block.BlockFurnace;
+import slimevoid.littleblocks.api.util.LittleBlocksHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
 
 public abstract class TileEntityMachine extends TileEntity implements IInventory, ISidedInventory {
@@ -29,7 +26,16 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 	public boolean isUseableByPlayer(EntityPlayer player) {
 		return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this 
 				? false 
-				: player.getDistanceSq((double)xCoord + 0.5D, (double)yCoord + 0.5D, (double)zCoord + 0.5D) <= 64.0D;
+				: LittleBlocksHelper.isUseableByPlayer(
+						this.getWorldObj(),
+						player,
+						this.xCoord,
+						this.yCoord,
+						this.zCoord,
+						0.5D,
+						0.5D,
+						0.5D,
+						64.0D);
 	}
 
 	@Override

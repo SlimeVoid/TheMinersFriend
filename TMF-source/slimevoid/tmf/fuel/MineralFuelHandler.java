@@ -2,7 +2,6 @@ package slimevoid.tmf.fuel;
 
 import slimevoid.tmf.items.ItemMineral;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.IFuelHandler;
 
 public class MineralFuelHandler implements IFuelHandlerTMF {
 

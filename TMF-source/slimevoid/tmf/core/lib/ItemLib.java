@@ -41,7 +41,7 @@ public class ItemLib {
 	 */
 	private static List<ItemStack> playerHasTools(EntityPlayer entityplayer,
 			World world, Class<? extends Item> itemClass) {
-		List<ItemStack> tools = new ArrayList();
+		List<ItemStack> tools = new ArrayList<ItemStack>();
 		IInventory playerInventory = entityplayer.inventory;
 		for (int slot = 0; slot < playerInventory.getSizeInventory(); slot++) {
 			ItemStack itemstack = playerInventory.getStackInSlot(slot);

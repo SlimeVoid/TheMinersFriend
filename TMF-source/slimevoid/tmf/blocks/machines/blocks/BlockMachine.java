@@ -4,7 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -20,6 +19,7 @@ public abstract class BlockMachine extends BlockContainer {
 		super.onBlockAdded(world, x, y, z);
 		this.setDefaultDirection(world, x, y, z);
 	}
+	
 	private void setDefaultDirection(World world, int x, int y, int z) {
 		if (!world.isRemote) {
 			int n1 = world.getBlockId(x    , y, z - 1);
@@ -48,6 +48,7 @@ public abstract class BlockMachine extends BlockContainer {
 			world.setBlockMetadataWithNotify(x, y, z, dir);
 		}
 	}
+	
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving placer) {
 		int var6 = MathHelper.floor_double((double)(placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;

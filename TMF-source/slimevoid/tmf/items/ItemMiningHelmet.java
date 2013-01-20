@@ -5,7 +5,6 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.IArmorTextureProvider;
 import slimevoid.tmf.core.lib.ArmorLib;
-import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.SpriteLib;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

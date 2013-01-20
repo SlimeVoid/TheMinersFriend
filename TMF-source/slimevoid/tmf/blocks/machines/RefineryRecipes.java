@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Random;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.TMFCore;

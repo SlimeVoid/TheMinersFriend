@@ -1,18 +1,11 @@
 package slimevoid.tmf.blocks.machines.tileentities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import slimevoid.tmf.blocks.machines.RefineryRecipes;
 import slimevoid.tmf.blocks.machines.RefineryRecipes.RefineryRecipe;
 import slimevoid.tmf.blocks.machines.blocks.BlockRefinery;
-import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
 import slimevoid.tmf.items.ItemMineral;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntityFurnace;
@@ -91,15 +84,15 @@ public class TileEntityRefinery extends TileEntityMachine {
 	
 	@Override
 	public void readFromNBT(NBTTagCompound ntbCompound) {
-		NBTTagList var2 = ntbCompound.getTagList("Items");
+		NBTTagList items = ntbCompound.getTagList("Items");
 		refineryItemStacks = new ItemStack[getSizeInventory()];
 		
-		for (int var3 = 0; var3 < var2.tagCount(); ++var3) {
-			NBTTagCompound var4 = (NBTTagCompound)var2.tagAt(var3);
-			byte var5 = var4.getByte("Slot");
+		for (int i = 0; i < items.tagCount(); ++i) {
+			NBTTagCompound itemInSlot = (NBTTagCompound)items.tagAt(i);
+			byte itemBytes = itemInSlot.getByte("Slot");
 			
-			if (var5 >= 0 && var5 < refineryItemStacks.length) {
-				refineryItemStacks[var5] = ItemStack.loadItemStackFromNBT(var4);
+			if (itemBytes >= 0 && itemBytes < refineryItemStacks.length) {
+				refineryItemStacks[itemBytes] = ItemStack.loadItemStackFromNBT(itemInSlot);
 			}
 		}
 		
@@ -108,18 +101,18 @@ public class TileEntityRefinery extends TileEntityMachine {
 	
 	@Override
 	public void writeToNBT(NBTTagCompound ntbCompound) {
-		NBTTagList var2 = new NBTTagList();
+		NBTTagList items = new NBTTagList();
 		
-		for (int var3 = 0; var3 < refineryItemStacks.length; ++var3) {
-			if (refineryItemStacks[var3] != null) {
-				NBTTagCompound var4 = new NBTTagCompound();
-				var4.setByte("Slot", (byte)var3);
-				refineryItemStacks[var3].writeToNBT(var4);
-				var2.appendTag(var4);
+		for (int i = 0; i < refineryItemStacks.length; ++i) {
+			if (refineryItemStacks[i] != null) {
+				NBTTagCompound itemInSlot = new NBTTagCompound();
+				itemInSlot.setByte("Slot", (byte)i);
+				refineryItemStacks[i].writeToNBT(itemInSlot);
+				items.appendTag(itemInSlot);
 			}
 		}
 		
-		ntbCompound.setTag("Items", var2);
+		ntbCompound.setTag("Items", items);
 		
 		super.writeToNBT(ntbCompound);
 		
