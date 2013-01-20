@@ -1,7 +1,5 @@
 package slimevoid.tmf.core.world;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
@@ -39,7 +37,7 @@ public class WorldGeneration implements IWorldGenerator {
 				int xCoord = chunkX + random.nextInt(16);
 				int yCoord = random.nextInt(ore.spawnLevel);
 				int zCoord = chunkZ + random.nextInt(16);
-				WorldGenMinable minable = new WorldGenMinable(ore.blockID, ore.veinSize);
+				WorldGenMinable minable = new WorldGenMinable(ore.blockID, ore.spawnSize);
 				minable.generate(world, random, xCoord, yCoord, zCoord);
 			}
 		}

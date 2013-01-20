@@ -1,55 +1,29 @@
 package slimevoid.tmf.blocks.ores;
 
-import java.util.List;
-
 import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.core.lib.SpriteLib;
 import net.minecraft.block.BlockOre;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
 
 public class BlockTMFOre extends BlockOre {
 
-	public int spawnLevel, spawnRate, spawnSize, veinSize, lightLevel;
+	public int spawnLevel, spawnRate, spawnSize, lightLevel;
 
 	public BlockTMFOre(
 			int id,
+			int blockIndexInTexture,
 			int spawnLevel,
 			int spawnRate,
 			int spawnSize,
-			int veinSize,
 			int lightLevel) {
-		super(id, 0);
+		super(id, blockIndexInTexture);
 		this.spawnLevel = spawnLevel;
 		this.spawnRate = spawnRate;
 		this.spawnSize = spawnSize;
-		this.veinSize = veinSize;
 		this.lightLevel = lightLevel;
 		BlockLib.registerTMFOre(this);
-	}
-	
-	@Override
-	public int getBlockTextureFromSideAndMetadata(int side, int meta) {
-		if (meta == 0) {
-			return this.blockIndexInTexture;
-		} else {
-			return meta;
-		}
-	}
-
-	@Override
-	public int damageDropped(int i) {
-		return i;
 	}
 
 	public String getTextureFile() {
 		return SpriteLib.RESOURCE_SPRITE_PATH;
-	}
-
-	public void getSubBlocks(int blockId, CreativeTabs creativetabs,
-			List blockList) {
-		for (int i = 0; i < BlockLib.getOreCount(); ++i) {
-			blockList.add(new ItemStack(blockId, 1, i));
-		}
 	}
 }

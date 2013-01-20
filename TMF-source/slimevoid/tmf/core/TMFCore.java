@@ -3,11 +3,14 @@ package slimevoid.tmf.core;
 import java.io.File;
 
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
+import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.NamingLib;
 import slimevoid.tmf.fuel.MineralFuelHandler;
 import slimevoid.tmf.items.ItemMineral;
 import slimevoid.tmf.items.ItemMineralDust;
@@ -140,14 +143,19 @@ public class TMFCore {
 	}
 	
 	// ORES
-	public static int tmfOreId;
+	public static int
+		arkiteOreId,
+		bistiteOreId,
+		crokereOreId,
+		derniteOreId,
+		egioclaseOreId;
 	
-	public static BlockTMFOre 
-		ArkiteOre,
-		BistiteOre,
-		CrokereOre,
-		DerniteOre,
-		EgioclaseOre;
+	public static Block
+		arkiteOre,
+		bistiteOre,
+		crokereOre,
+		derniteOre,
+		egioclaseOre;
 	
 	// MACHINES
 	
@@ -157,5 +165,25 @@ public class TMFCore {
 	// ======== BLOCK REGISTRATION ========
 	public static void registerBlocks() {
 		
+		BlockLib.init();
+		
+		// BlockTMFOre(int id, int spawnLevel, int spawnRate, int spawnSize, int veinSize, int lightLevel)
+		arkiteOre = new BlockTMFOre(arkiteOreId, 0, 60, 100, 5, 1).setBlockName("arkiteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);
+		bistiteOre = new BlockTMFOre(bistiteOreId, 1, 36, 100, 5, 1).setBlockName("bistiteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
+		crokereOre = new BlockTMFOre(crokereOreId, 2, 30, 100, 5, 1).setBlockName("crokereOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
+		derniteOre = new BlockTMFOre(derniteOreId, 3, 26, 100, 5, 1).setBlockName("derniteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
+		egioclaseOre = new BlockTMFOre(egioclaseOreId, 4, 20, 100, 5, 1).setBlockName("egioclaseOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
+
+		GameRegistry.registerBlock(arkiteOre, "arkiteOre");
+		GameRegistry.registerBlock(bistiteOre, "bistiteOre");
+		GameRegistry.registerBlock(crokereOre, "crokereOre");
+		GameRegistry.registerBlock(derniteOre, "derniteOre");
+		GameRegistry.registerBlock(egioclaseOre, "egioclaseOre");
+
+		LanguageRegistry.addName(arkiteOre, NamingLib.ORE_ARKITE);
+		LanguageRegistry.addName(bistiteOre, NamingLib.ORE_BISTITE);
+		LanguageRegistry.addName(crokereOre, NamingLib.ORE_CROKERE);
+		LanguageRegistry.addName(derniteOre, NamingLib.ORE_DERNITE);
+		LanguageRegistry.addName(egioclaseOre, NamingLib.ORE_EGIOCLASE);
 	}
 }

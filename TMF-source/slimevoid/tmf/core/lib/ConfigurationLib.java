@@ -94,10 +94,26 @@ public class ConfigurationLib {
 				"dustMixed",
 				15023).value);
 		
-		TMFCore.tmfOreId = Integer.valueOf(TMFCore.configuration.get(
+		TMFCore.arkiteOreId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,
-				"oreBase",
+				"arkiteOre",
 				1025).value);
+		TMFCore.bistiteOreId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_BLOCK,
+				"bistiteOre",
+				1026).value);
+		TMFCore.crokereOreId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_BLOCK,
+				"crokereOre",
+				1027).value);
+		TMFCore.derniteOreId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_BLOCK,
+				"derniteOre",
+				1028).value);
+		TMFCore.egioclaseOreId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_BLOCK,
+				"egioclaseOre",
+				1029).value);
 		
 		TMFCore.configuration.save();
 		
