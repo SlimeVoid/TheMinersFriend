@@ -115,6 +115,15 @@ public class ConfigurationLib {
 				"egioclaseOre",
 				1029).value);
 		
+		TMFCore.refineryIdleId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_BLOCK,
+				"refineryIdle",
+				1100).value);
+		TMFCore.refineryActiveId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_BLOCK,
+				"refineryActive",
+				1101).value);
+		
 		TMFCore.configuration.save();
 		
 		LoggerTMF.getInstance(

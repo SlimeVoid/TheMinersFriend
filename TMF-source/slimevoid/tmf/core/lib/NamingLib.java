@@ -20,6 +20,8 @@ public class NamingLib {
 	public static final String ORE_DERNITE = makeName(DERNITE, ORE);
 	public static final String ORE_EGIOCLASE = makeName(EGIOCLASE, ORE);
 	
+	public static final String REFINERY = "Refinery";
+	
 	private static String makeName(String str1, String str2) {
 		return str1 + " " + str2;
 	}

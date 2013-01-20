@@ -9,6 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import slimevoid.tmf.blocks.machines.RefineryRecipes;
+import slimevoid.tmf.blocks.machines.blocks.BlockRefinery;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.core.lib.NamingLib;
@@ -164,7 +166,12 @@ public class TMFCore {
 		egioclaseOre;
 	
 	// MACHINES
-	
+	public static int
+		refineryIdleId,
+		refineryActiveId;
+	public static Block
+		refineryIdle,
+		refineryActive;
 	
 	// BLOCKS
 
@@ -199,5 +206,32 @@ public class TMFCore {
         MinecraftForge.setBlockHarvestLevel(egioclaseOre,  "pickaxe", 2);
         
         GameRegistry.registerWorldGenerator(new WorldGeneration());
+        
+        registerMachines();
+	}
+	
+	public static void registerMachines() {
+		refineryIdle = new BlockRefinery(refineryIdleId,0,0,false).setBlockName("refinery.idle").setHardness(3.5F).setCreativeTab(CreativeTabs.tabBlock);
+		refineryActive = new BlockRefinery(refineryActiveId,0,0,true).setBlockName("refinery.active").setHardness(3.5F).setLightValue(0.875F);
+		
+		GameRegistry.registerBlock(refineryIdle,"refinery.idle");
+		GameRegistry.registerBlock(refineryActive,"refinery.active");
+		
+		LanguageRegistry.addName(refineryIdle, NamingLib.REFINERY);
+		LanguageRegistry.addName(refineryActive, NamingLib.REFINERY);
+		
+		RefineryRecipes.refining().addRefinement((BlockTMFOre)arkiteOre, 2, 4, (ItemMineral)mineralAcxium);
+		
+		RefineryRecipes.refining().addRefinement((BlockTMFOre)bistiteOre, 1, 2, (ItemMineral)mineralAcxium);
+		RefineryRecipes.refining().addRefinement((BlockTMFOre)bistiteOre, 2, 5, (ItemMineral)mineralBisogen);
+		
+		RefineryRecipes.refining().addRefinement((BlockTMFOre)crokereOre, 2, 4, (ItemMineral)mineralAcxium);
+		RefineryRecipes.refining().addRefinement((BlockTMFOre)crokereOre, 1, 2, (ItemMineral)mineralBisogen);
+		RefineryRecipes.refining().addRefinement((BlockTMFOre)crokereOre, 1, 1, (ItemMineral)mineralCydrine);
+		
+		RefineryRecipes.refining().addRefinement((BlockTMFOre)derniteOre, 2, 3, (ItemMineral)mineralBisogen);
+		RefineryRecipes.refining().addRefinement((BlockTMFOre)derniteOre, 1, 3, (ItemMineral)mineralCydrine);
+		
+		RefineryRecipes.refining().addRefinement((BlockTMFOre)egioclaseOre, 3, 6, (ItemMineral)mineralCydrine);
 	}
 }
