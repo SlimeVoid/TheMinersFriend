@@ -89,6 +89,10 @@ public class ConfigurationLib {
 				Configuration.CATEGORY_ITEM,
 				"dustCydrine",
 				15022).value);
+		TMFCore.dustMixedId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_ITEM,
+				"dustMixed",
+				15023).value);
 		
 		TMFCore.tmfOreId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,

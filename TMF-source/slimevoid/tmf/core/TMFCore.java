@@ -11,6 +11,7 @@ import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.fuel.MineralFuelHandler;
 import slimevoid.tmf.items.ItemMineral;
 import slimevoid.tmf.items.ItemMineralDust;
+import slimevoid.tmf.items.ItemMineralMixedDust;
 import slimevoid.tmf.items.ItemMiningHelmet;
 import slimevoid.tmf.items.ItemMiningLamp;
 import slimevoid.tmf.items.ItemMiningToolBelt;
@@ -45,8 +46,8 @@ public class TMFCore {
 	public static Item dustAcxium;
 	public static Item dustBisogen;
 	public static Item dustCydrine;
-	//public static Item dustMixed;
-	public static int dustAcxiumId,dustBisogenId,dustCydrineId;
+	public static Item dustMixed;
+	public static int dustAcxiumId,dustBisogenId,dustCydrineId,dustMixedId;
 	
 	public static String loggerLevel = "INFO";
 
@@ -67,7 +68,7 @@ public class TMFCore {
 		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setItemName("dustAcxium").setIconCoord(0, 2);
 		dustBisogen = new ItemMineralDust(dustBisogenId).setBurnTime(1600).setItemName("dustBisogen").setIconCoord(1, 2);
 		dustCydrine = new ItemMineralDust(dustCydrineId).setBurnTime(1600).setItemName("dustCydrine").setIconCoord(2, 2);
-		//dustMixed = new ItemMineralMixedDust(dustMixedId).setItemName("dustMixed").setIconCoord(3, 2);
+		dustMixed = new ItemMineralMixedDust(dustMixedId).setItemName("dustMixed").setIconCoord(3, 2);
 	}
 	
 	public static void addFuels() {
@@ -91,7 +92,7 @@ public class TMFCore {
 		LanguageRegistry.addName(dustAcxium, "Acxium Dust");
 		LanguageRegistry.addName(dustBisogen, "Bisogen Dust");
 		LanguageRegistry.addName(dustCydrine, "Cydrine Dust");
-		//LanguageRegistry.addName(dustMixed, "Mixed Dust");
+		LanguageRegistry.addName(dustMixed, "Mixed Dust");
 	}
 
 	public static void addItemRecipes() {
