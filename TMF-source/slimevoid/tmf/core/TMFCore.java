@@ -245,7 +245,7 @@ public class TMFCore {
 		
 		BlockLib.init();
 		
-		// BlockTMFOre(int id, int spawnLevel, int spawnRate, int spawnSize, int veinSize, int lightLevel)
+		// BlockTMFOre(int id, int texture, int spawnLevel, int spawnRate, int spawnSize, int veinSize, int lightLevel)
 		arkiteOre = new BlockTMFOre(arkiteOreId, 0, 60, 100, 5, 1).setBlockName("arkiteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);
 		bistiteOre = new BlockTMFOre(bistiteOreId, 1, 36, 100, 5, 1).setBlockName("bistiteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
 		crokereOre = new BlockTMFOre(crokereOreId, 2, 30, 100, 5, 1).setBlockName("crokereOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
