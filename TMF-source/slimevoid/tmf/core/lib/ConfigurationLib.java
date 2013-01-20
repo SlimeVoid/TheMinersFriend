@@ -78,6 +78,11 @@ public class ConfigurationLib {
 				"mineralCydrine",
 				15012).value);
 		
+		TMFCore.tmfOreId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_BLOCK,
+				"oreBase",
+				1025).value);
+		
 		TMFCore.configuration.save();
 		
 		LoggerTMF.getInstance(

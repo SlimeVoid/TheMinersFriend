@@ -7,6 +7,7 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
+import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.items.ItemMineral;
 import slimevoid.tmf.items.ItemMiningHelmet;
 import slimevoid.tmf.items.ItemMiningLamp;
@@ -115,7 +116,14 @@ public class TMFCore {
 	}
 	
 	// ORES
+	public static int tmfOreId;
 	
+	public static BlockTMFOre 
+		ArkiteOre,
+		BistiteOre,
+		CrokereOre,
+		DerniteOre,
+		EgioclaseOre;
 	
 	// MACHINES
 	
