@@ -7,6 +7,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISidedInventory;
@@ -123,6 +126,23 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 	public abstract void setCurrentFuelStack(ItemStack stack);
 	public abstract void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z);
 
+	@Override
+	public Packet getDescriptionPacket() {
+		NBTTagCompound nbttagcompound = new NBTTagCompound();
+		this.writeToNBT(nbttagcompound);
+		return new Packet132TileEntityData(
+				this.xCoord,
+				this.yCoord,
+				this.zCoord,
+				0,
+				nbttagcompound);
+	}
+	
+	@Override
+	public void onDataPacket(INetworkManager netmanager, Packet132TileEntityData pkt) {
+		this.readFromNBT(pkt.customParam1);
+		this.onInventoryChanged();
+	}
 	
 	@SideOnly(Side.CLIENT)
 	public int getCookProgressScaled(int par1) {
