@@ -65,6 +65,19 @@ public class ConfigurationLib {
 				"toolBelt",
 				15005).value);
 		
+		TMFCore.mineralAcxiumId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_ITEM,
+				"mineralAcxium",
+				15010).value);
+		TMFCore.mineralBisogenId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_ITEM,
+				"mineralBisogen",
+				15011).value);
+		TMFCore.mineralCydrineId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_ITEM,
+				"mineralCydrine",
+				15012).value);
+		
 		TMFCore.configuration.save();
 		
 		LoggerTMF.getInstance(

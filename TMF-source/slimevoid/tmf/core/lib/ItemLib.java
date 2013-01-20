@@ -15,6 +15,7 @@ import cpw.mods.fml.common.network.Player;
 
 public class ItemLib {
 	public final static String ITEM_SPRITE_PATH = "/TheMinersFriend/gui/items.png";
+	public final static String RESOURCE_SPRITE_PATH = "/TheMinersFriend/resources/resources.png";
 
 	/**
 	 * Check if a player is holding or using a parsed tool class and return for convenience

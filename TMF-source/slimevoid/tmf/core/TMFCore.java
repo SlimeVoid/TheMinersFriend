@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import slimevoid.lib.ICommonProxy;
+import slimevoid.tmf.items.ItemMineral;
 import slimevoid.tmf.items.ItemMiningHelmet;
 import slimevoid.tmf.items.ItemMiningLamp;
 import slimevoid.tmf.items.ItemMiningToolBelt;
@@ -26,6 +27,11 @@ public class TMFCore {
 	public static Item miningHelmetDiamond;
 	public static int miningHelmetLampId, miningHelmetIronId, miningHelmetGoldId, miningHelmetDiamondId;
 
+	public static Item mineralAcxium;
+	public static Item mineralBisogen;
+	public static Item mineralCydrine;
+	public static int mineralAcxiumId,mineralBisogenId,mineralCydrineId;
+	
 	public static Item motionSensor;
 	public static int motionSensorId;
 	
@@ -45,6 +51,10 @@ public class TMFCore {
 		miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setItemName("diamondMiningHelmet").setIconCoord(2, 0);
 		motionSensor = new ItemMotionSensor(motionSensorId).setItemName("motionSensor").setIconCoord(0, 1);
 		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setItemName("miningToolBelt").setIconCoord(0, 2);
+		
+		mineralAcxium = new ItemMineral(mineralAcxiumId).setItemName("mineralAcxium").setIconCoord(0, 1);
+		mineralBisogen = new ItemMineral(mineralBisogenId).setItemName("mineralBisogen").setIconCoord(1, 1);
+		mineralCydrine = new ItemMineral(mineralCydrineId).setItemName("mineralCydrine").setIconCoord(2, 1);
 	}
 
 	public static void addNames() {
@@ -55,6 +65,10 @@ public class TMFCore {
 		//GameRegistry.registerItem(motionSensor, "Motion Sensor");
 		LanguageRegistry.addName(motionSensor, "Motion Sensor");
 		LanguageRegistry.addName(miningToolBelt, "Miner's ToolBelt");
+		
+		LanguageRegistry.addName(mineralAcxium, "Acxium");
+		LanguageRegistry.addName(mineralBisogen, "Bisogen");
+		LanguageRegistry.addName(mineralCydrine, "Cydrine");
 	}
 
 	public static void addRecipes() {
