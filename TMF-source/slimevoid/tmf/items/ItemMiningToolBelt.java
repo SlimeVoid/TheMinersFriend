@@ -3,11 +3,14 @@ package slimevoid.tmf.items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import slimevoid.lib.data.Logger;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.core.TheMinersFriend;
@@ -33,7 +36,10 @@ public class ItemMiningToolBelt extends Item {
 			if (entityplayer.isSneaking()) {
 				ItemStack tool = data.getSelectedTool();
 				if (tool != null) {
-					tool.useItemRightClick(world, entityplayer);
+					if (!world.isRemote && this.tryUseItem(data, entityplayer, world, tool)) {
+						return itemstack;
+					}
+					//tool.useItemRightClick(world, entityplayer);
 				}
 			} else {
 				// If Tool Belt data exists then Open the Tool Belt GUI
@@ -47,6 +53,40 @@ public class ItemMiningToolBelt extends Item {
 			}
 		}
 		return itemstack;
+	}
+
+	private boolean tryUseItem(MiningToolBelt data, EntityPlayer entityplayer, World world,
+			ItemStack itemstack) {
+		EntityPlayerMP entityplayermp = (EntityPlayerMP)entityplayer;
+		int stacksize = itemstack.stackSize;
+		int itemdamage = itemstack.getItemDamage();
+		ItemStack itemRightClicked = itemstack.useItemRightClick(world,
+				entityplayer);
+
+		if (itemRightClicked == itemstack
+				&& (itemRightClicked == null || itemRightClicked.stackSize == stacksize
+						&& itemRightClicked.getMaxItemUseDuration() <= 0
+						&& itemRightClicked.getItemDamage() == itemdamage)) {
+			return false;
+		} else {
+			if (entityplayermp.theItemInWorldManager.isCreative()) {
+				itemRightClicked.stackSize = stacksize;
+
+				if (itemRightClicked.isItemStackDamageable()) {
+					itemRightClicked.setItemDamage(itemdamage);
+				}
+			}
+
+			if (itemRightClicked.stackSize == 0) {
+				data.setInventorySlotContents(data.getSelectedSlot(), null);
+			}
+
+			if (!entityplayer.isUsingItem()) {
+				entityplayermp.sendContainerToPlayer(entityplayer.inventoryContainer);
+			}
+
+			return true;
+		}
 	}
 	
 /*	@Override
@@ -75,10 +115,38 @@ public class ItemMiningToolBelt extends Item {
 		}
 		return true;
 	}*/
-	
+
 	@Override
 	public boolean onBlockDestroyed(ItemStack par1ItemStack, World par2World, int par3, int par4, int par5, int par6, EntityLiving par7EntityLiving) {
 		return doDestroyBlock(par1ItemStack, par2World, par3, par4, par5, par6, par7EntityLiving, super.onBlockDestroyed(par1ItemStack, par2World, par3, par4, par5, par6, par7EntityLiving));
+	}
+	
+	@Override
+    public boolean onBlockStartBreak(ItemStack itemstack, int x, int y, int z, EntityPlayer entityplayer) {
+		return doStartBreakBlock(itemstack, x, y, z, entityplayer, super.onBlockStartBreak(itemstack, x, y, z, entityplayer));
+	}
+
+	private boolean doStartBreakBlock(
+			ItemStack itemstack,
+			int x,
+			int y,
+			int z,
+			EntityPlayer entityplayer,
+			boolean onBlockStartBreak) {
+		// Check that the current itemstack is a Tool Belt
+		if (ItemLib.isToolBelt(itemstack)) {
+			// Retrieve the data for the itemstack
+			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(entityplayer, entityplayer.worldObj, itemstack);
+			// Retrieve the selected tool
+			ItemStack selectedTool = data.getSelectedTool();
+			// If there is a tool in the selected slot
+			if (selectedTool != null) {
+				System.out.println("doStartBreakBlock");
+				// Perform the onBlockDestroyed using that Tool
+				return selectedTool.getItem().onBlockStartBreak(selectedTool, x, y, z, entityplayer);
+			}
+		}
+		return onBlockStartBreak;
 	}
 
 	/**
@@ -111,6 +179,7 @@ public class ItemMiningToolBelt extends Item {
 			ItemStack selectedTool = data.getSelectedTool();
 			// If there is a tool in the selected slot
 			if (selectedTool != null) {
+				System.out.println("doDestroyBlock");
 				// Perform the onBlockDestroyed using that Tool
 				return selectedTool.getItem().onBlockDestroyed(selectedTool, world, x, y, z, side, entityliving);
 			}
@@ -194,5 +263,61 @@ public class ItemMiningToolBelt extends Item {
 				event.success = selectedStack.canHarvestBlock(event.block);
 			}
 		}
+	}
+
+	/**
+	 * This performs the entity interact event from Forge
+	 * Activates when the player interacts (Right clicks) with an entity
+	 * Used to correctly determine whether or not the tool in the slot can interact with the entity
+	 * (Should only allow use when the player is sneaking)
+	 * 
+	 * @param event The Interaction Event
+	 * 
+	 * @return whether or not we interacted with the entity
+	 * 		Thus whether or not to continue processing the 'normal' interaction 
+	 */
+	public static boolean doEntityInteract(EntityInteractEvent event) {
+		// First checks if the player is sneaking
+		if (event.entityPlayer.isSneaking()) {
+			// Retrieves the Held Tool Belt
+			ItemStack toolBelt = ItemLib.getToolBelt(event.entityPlayer, event.entityPlayer.worldObj, true);
+			// If the player is still holding the Tool Belt
+			if (toolBelt != null) {
+				// Retrieves the Tool Belt data
+				MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(event.entityPlayer, event.entityPlayer.worldObj, toolBelt);
+				// Retrieves the selected Tool
+				ItemStack selectedStack = data.getSelectedTool();
+				// If a Tool exists in the selected slot
+				if (selectedStack != null) {
+					// Run the interactWith on the tool
+					return selectedStack.interactWith((EntityLiving) event.target);
+				}
+			}
+		}
+		return false;
+	}
+
+	public static boolean doLeftClickBlock(PlayerInteractEvent event) {
+		if (event.entityPlayer.isSneaking()) {
+			System.out.println("Left Clicked Block");
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean doRightClickBlock(PlayerInteractEvent event) {
+		if (event.entityPlayer.isSneaking()) {
+			System.out.println("Right Clicked Block");
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean doRightClickAir(PlayerInteractEvent event) {
+		if (event.entityPlayer.isSneaking()) {
+			System.out.println("Right Clicked Air");
+			return true;
+		}
+		return false;
 	}
 }

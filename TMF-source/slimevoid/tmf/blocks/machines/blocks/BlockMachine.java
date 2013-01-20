@@ -51,7 +51,7 @@ public abstract class BlockMachine extends BlockContainer {
 	
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving placer) {
-		int var6 = MathHelper.floor_double((double)(placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+		int var6 = MathHelper.floor_double((placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		
 		if (var6 == 0) {
 			world.setBlockMetadataWithNotify(x, y, z, 2);

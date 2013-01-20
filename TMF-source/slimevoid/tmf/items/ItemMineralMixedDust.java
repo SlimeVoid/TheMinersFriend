@@ -64,9 +64,9 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 		int iB = (meta & 15);
 		
 		// Multiply the colors
-		iR = (int) Math.ceil((float)iR*COLOR_MULTI);
-		iG = (int) Math.ceil((float)iG*COLOR_MULTI);
-		iB = (int) Math.ceil((float)iB*COLOR_MULTI);
+		iR = (int) Math.ceil(iR*COLOR_MULTI);
+		iG = (int) Math.ceil(iG*COLOR_MULTI);
+		iB = (int) Math.ceil(iB*COLOR_MULTI);
 		
 		// Check which one is the largest
 		int max = Math.max(Math.max(iR, iG),iB);
