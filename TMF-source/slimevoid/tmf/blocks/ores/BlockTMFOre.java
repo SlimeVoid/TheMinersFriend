@@ -1,5 +1,6 @@
 package slimevoid.tmf.blocks.ores;
 
+import slimevoid.tmf.core.world.WorldGeneration;
 import net.minecraft.block.BlockOre;
 
 public class BlockTMFOre extends BlockOre {
@@ -16,6 +17,7 @@ public class BlockTMFOre extends BlockOre {
 		this.spawnRate = spawnRate;
 		this.spawnSize = spawnSize;
 		this.lightLevel = lightLevel;
+		WorldGeneration.registerTMFOre(this);
 	}
 
 }
