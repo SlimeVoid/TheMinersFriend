@@ -27,7 +27,6 @@ public class KeyBindings {
 	}
 	
 	public static void doToolBeltKeyUp() {
-		// TODO Key binding to cycle tools
 		World world = mc.theWorld;
 		EntityPlayer entityplayer = mc.thePlayer;
 		if (world.isRemote) {

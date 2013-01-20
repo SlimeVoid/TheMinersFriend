@@ -61,7 +61,7 @@ public class GuiMiningToolBelt extends GuiContainer {
 	}
 
 	private void drawHighLightedSlot(int slot, int par1, int par2) {
-		// TODO Draw Highlighted Slot
+		// TODO :: Draw Highlighted Slot
 		// Temporary Placeholder here
 		Slot selectedSlot = this.inventorySlots.getSlot(slot);
 		int x = selectedSlot.xDisplayPosition;

@@ -48,7 +48,7 @@ public class MiningHelmetRenderTickHandler implements ITickHandler {
 	private void doRenderMinersLamp(EntityPlayer entityplayer, World world) {
 		System.out.println("Render Lamp");
 		GL11.glPushMatrix();
-			// TODO : Render Lamp
+			// TODO :: Render Lamp
 		GL11.glPopMatrix();
 	}
 

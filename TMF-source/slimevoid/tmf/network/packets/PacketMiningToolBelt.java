@@ -111,7 +111,6 @@ public class PacketMiningToolBelt extends PacketMining {
 
 	@Override
 	public boolean targetExists(World world) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

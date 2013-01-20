@@ -245,14 +245,10 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 
 	@Override
 	public void openChest() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void closeChest() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
