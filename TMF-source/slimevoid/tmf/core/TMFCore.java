@@ -7,7 +7,9 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
+import slimevoid.tmf.fuel.MineralFuelHandler;
 import slimevoid.tmf.items.ItemMineral;
+import slimevoid.tmf.items.ItemMineralDust;
 import slimevoid.tmf.items.ItemMiningHelmet;
 import slimevoid.tmf.items.ItemMiningLamp;
 import slimevoid.tmf.items.ItemMiningToolBelt;
@@ -38,6 +40,12 @@ public class TMFCore {
 	public static Item mineralBisogen;
 	public static Item mineralCydrine;
 	public static int mineralAcxiumId,mineralBisogenId,mineralCydrineId;
+	// MINERAL DUSTS
+	public static Item dustAcxium;
+	public static Item dustBisogen;
+	public static Item dustCydrine;
+	//public static Item dustMixed;
+	public static int dustAcxiumId,dustBisogenId,dustCydrineId;
 	
 	public static String loggerLevel = "INFO";
 
@@ -51,9 +59,18 @@ public class TMFCore {
 		motionSensor = new ItemMotionSensor(motionSensorId).setItemName("motionSensor").setIconCoord(0, 1);
 		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setItemName("miningToolBelt").setIconCoord(0, 2);
 		
-		mineralAcxium = new ItemMineral(mineralAcxiumId).setItemName("mineralAcxium").setIconCoord(0, 1);
-		mineralBisogen = new ItemMineral(mineralBisogenId).setItemName("mineralBisogen").setIconCoord(1, 1);
-		mineralCydrine = new ItemMineral(mineralCydrineId).setItemName("mineralCydrine").setIconCoord(2, 1);
+		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(3200).setItemName("mineralAcxium").setIconCoord(0, 1);
+		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnTime(1600).setItemName("mineralBisogen").setIconCoord(1, 1);
+		mineralCydrine = new ItemMineral(mineralCydrineId).setBurnTime(1600).setItemName("mineralCydrine").setIconCoord(2, 1);
+		
+		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setItemName("dustAcxium").setIconCoord(0, 2);
+		dustBisogen = new ItemMineralDust(dustBisogenId).setBurnTime(1600).setItemName("dustBisogen").setIconCoord(1, 2);
+		dustCydrine = new ItemMineralDust(dustCydrineId).setBurnTime(1600).setItemName("dustCydrine").setIconCoord(2, 2);
+		//dustMixed = new ItemMineralMixedDust(dustMixedId).setItemName("dustMixed").setIconCoord(3, 2);
+	}
+	
+	public static void addFuels() {
+		GameRegistry.registerFuelHandler(new MineralFuelHandler());
 	}
 
 	public static void addItemNames() {
@@ -61,13 +78,19 @@ public class TMFCore {
 		LanguageRegistry.addName(miningHelmetIron, "Iron Mining Helmet");
 		LanguageRegistry.addName(miningHelmetGold, "Gold Mining Helmet");
 		LanguageRegistry.addName(miningHelmetDiamond, "Diamond Mining Helmet");
-		//GameRegistry.registerItem(motionSensor, "Motion Sensor");
+		
 		LanguageRegistry.addName(motionSensor, "Motion Sensor");
+		
 		LanguageRegistry.addName(miningToolBelt, "Miner's ToolBelt");
 		
 		LanguageRegistry.addName(mineralAcxium, "Acxium");
 		LanguageRegistry.addName(mineralBisogen, "Bisogen");
 		LanguageRegistry.addName(mineralCydrine, "Cydrine");
+		
+		LanguageRegistry.addName(dustAcxium, "Acxium Dust");
+		LanguageRegistry.addName(dustBisogen, "Bisogen Dust");
+		LanguageRegistry.addName(dustCydrine, "Cydrine Dust");
+		//LanguageRegistry.addName(dustMixed, "Mixed Dust");
 	}
 
 	public static void addItemRecipes() {

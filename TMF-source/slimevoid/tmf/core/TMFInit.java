@@ -44,5 +44,7 @@ public class TMFInit {
 		
 		SlimevoidCore.console(TMF.getModName(), "Registering recipes...");
 		TMFCore.addItemRecipes();
+		
+		TMFCore.addFuels();
 	}
 }

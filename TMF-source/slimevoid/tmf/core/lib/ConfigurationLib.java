@@ -78,6 +78,19 @@ public class ConfigurationLib {
 				"mineralCydrine",
 				15012).value);
 		
+		TMFCore.dustAcxiumId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_ITEM,
+				"dustAcxium",
+				15020).value);
+		TMFCore.dustBisogenId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_ITEM,
+				"dustBisogen",
+				15021).value);
+		TMFCore.dustCydrineId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_ITEM,
+				"dustCydrine",
+				15022).value);
+		
 		TMFCore.configuration.save();
 		
 		LoggerTMF.getInstance(
