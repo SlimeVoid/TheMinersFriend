@@ -3,6 +3,7 @@ package slimevoid.tmf.items;
 import slimevoid.tmf.core.TMFCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.ICraftingHandler;
 
@@ -20,6 +21,38 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 	@Override
 	public int getColorFromItemStack(ItemStack item, int a) {
 		return metaToColor(item.getItemDamage());
+	}
+
+	@Override
+	public int getBurnTime(ItemStack stack) {
+		int timeLevel = (getDustMeta(stack) >> 8) & 15;
+		if ( timeLevel == 0 )
+			return 1600;
+
+		double out = (Math.log(timeLevel+1)*2300)+1600;
+		if ( out >  6400)
+			out = 6400;
+		
+		return (int) out;
+	}
+	@Override
+	public int getBurnSpeed(ItemStack stack) {
+		int speedLevel = (getDustMeta(stack) >> 4) & 15;
+		if ( speedLevel == 0 )
+			return 200;
+		
+		double out = (Math.log(speedLevel+1)*300)+200;
+		if ( out > 800)
+			out = 800;
+		
+		return (int) out;
+	}
+	@Override
+	public int getBurnWidth(ItemStack stack) {
+		int widthLevel = getDustMeta(stack) & 15;
+		if ( widthLevel > 9)
+			widthLevel = 9;
+		return widthLevel;
 	}
 	
 	/**
