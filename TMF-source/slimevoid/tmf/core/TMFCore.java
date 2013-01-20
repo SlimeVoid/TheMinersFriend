@@ -12,6 +12,7 @@ import net.minecraftforge.common.MinecraftForge;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.core.lib.NamingLib;
+import slimevoid.tmf.core.world.WorldGeneration;
 import slimevoid.tmf.fuel.MineralFuelHandler;
 import slimevoid.tmf.items.ItemMineral;
 import slimevoid.tmf.items.ItemMineralDust;
@@ -268,5 +269,7 @@ public class TMFCore {
         MinecraftForge.setBlockHarvestLevel(crokereOre,  "pickaxe", 2);
         MinecraftForge.setBlockHarvestLevel(derniteOre,  "pickaxe", 2);
         MinecraftForge.setBlockHarvestLevel(egioclaseOre,  "pickaxe", 2);
+        
+        GameRegistry.registerWorldGenerator(new WorldGeneration());
 	}
 }
