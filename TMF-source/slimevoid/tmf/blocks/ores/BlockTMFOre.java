@@ -6,7 +6,8 @@ import net.minecraft.block.BlockOre;
 
 public class BlockTMFOre extends BlockOre {
 
-	public int spawnLevel, spawnRate, spawnSize, lightLevel;
+	public int spawnLevel, spawnRate, spawnSize;
+	public float lightLevel;
 
 	public BlockTMFOre(
 			int id,
@@ -14,12 +15,13 @@ public class BlockTMFOre extends BlockOre {
 			int spawnLevel,
 			int spawnRate,
 			int spawnSize,
-			int lightLevel) {
+			float lightLevel) {
 		super(id, blockIndexInTexture);
 		this.spawnLevel = spawnLevel;
 		this.spawnRate = spawnRate;
 		this.spawnSize = spawnSize;
 		this.lightLevel = lightLevel;
+		this.setLightValue(lightLevel);
 		BlockLib.registerTMFOre(this);
 	}
 

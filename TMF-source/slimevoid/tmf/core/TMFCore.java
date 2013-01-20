@@ -246,11 +246,11 @@ public class TMFCore {
 		BlockLib.init();
 		
 		// BlockTMFOre(int id, int texture, int spawnLevel, int spawnRate, int spawnSize, int veinSize, int lightLevel)
-		arkiteOre = new BlockTMFOre(arkiteOreId, 0, 60, 100, 5, 1).setBlockName("arkiteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);
-		bistiteOre = new BlockTMFOre(bistiteOreId, 1, 36, 100, 5, 1).setBlockName("bistiteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
-		crokereOre = new BlockTMFOre(crokereOreId, 2, 30, 100, 5, 1).setBlockName("crokereOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
-		derniteOre = new BlockTMFOre(derniteOreId, 3, 26, 100, 5, 1).setBlockName("derniteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
-		egioclaseOre = new BlockTMFOre(egioclaseOreId, 4, 20, 100, 5, 1).setBlockName("egioclaseOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
+		arkiteOre = new BlockTMFOre(arkiteOreId, 0, 60, 100, 5, 0.2F).setBlockName("arkiteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);
+		bistiteOre = new BlockTMFOre(bistiteOreId, 1, 36, 100, 5, 0.3F).setBlockName("bistiteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
+		crokereOre = new BlockTMFOre(crokereOreId, 2, 30, 100, 5, 0.4F).setBlockName("crokereOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
+		derniteOre = new BlockTMFOre(derniteOreId, 3, 26, 100, 5, 0.5F).setBlockName("derniteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
+		egioclaseOre = new BlockTMFOre(egioclaseOreId, 4, 20, 100, 5, 0.6F).setBlockName("egioclaseOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
 
 		GameRegistry.registerBlock(arkiteOre, "arkiteOre");
 		GameRegistry.registerBlock(bistiteOre, "bistiteOre");
