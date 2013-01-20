@@ -17,6 +17,7 @@ import slimevoid.tmf.fuel.MineralFuelHandler;
 import slimevoid.tmf.items.ItemMineral;
 import slimevoid.tmf.items.ItemMineralDust;
 import slimevoid.tmf.items.ItemMineralMixedDust;
+import slimevoid.tmf.items.ItemMineralMixedDustRecipe;
 import slimevoid.tmf.items.ItemMiningHelmet;
 import slimevoid.tmf.items.ItemMiningLamp;
 import slimevoid.tmf.items.ItemMiningToolBelt;
@@ -142,82 +143,8 @@ public class TMFCore {
 					Block.dirt
 				}
 		);
-		
-		addDustRecipes();
-	}
-	private static void addDustRecipes() {
-		GameRegistry.addRecipe(
-				new ItemStack(dustMixed,2),
-				new Object[] {
-					"XY",
-					Character.valueOf('X'),
-					dustAcxium,
-					Character.valueOf('Y'),
-					dustBisogen
-				}
-		);
-		GameRegistry.addRecipe(
-				new ItemStack(dustMixed,2),
-				new Object[] {
-					"XY",
-					Character.valueOf('X'),
-					dustAcxium,
-					Character.valueOf('Y'),
-					dustCydrine
-				}
-		);
-		GameRegistry.addRecipe(
-				new ItemStack(dustMixed,2),
-				new Object[] {
-					"XY",
-					Character.valueOf('X'),
-					dustBisogen,
-					Character.valueOf('Y'),
-					dustCydrine
-				}
-		);
-		
-		GameRegistry.addRecipe(
-				new ItemStack(dustMixed,2),
-				new Object[] {
-					"XY",
-					Character.valueOf('X'),
-					dustMixed,
-					Character.valueOf('Y'),
-					dustAcxium
-				}
-		);
-		GameRegistry.addRecipe(
-				new ItemStack(dustMixed,2),
-				new Object[] {
-					"XY",
-					Character.valueOf('X'),
-					dustMixed,
-					Character.valueOf('Y'),
-					dustBisogen
-				}
-		);
-		GameRegistry.addRecipe(
-				new ItemStack(dustMixed,2),
-				new Object[] {
-					"XY",
-					Character.valueOf('X'),
-					dustMixed,
-					Character.valueOf('Y'),
-					dustCydrine
-				}
-		);
-		
-		GameRegistry.addRecipe(
-				new ItemStack(dustMixed,2),
-				new Object[] {
-					"XX",
-					Character.valueOf('X'),
-					dustMixed
-				}
-		);
-		
-		GameRegistry.registerCraftingHandler((ItemMineralMixedDust)dustMixed);
+
+		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
 	}
 	
 	// ORES
