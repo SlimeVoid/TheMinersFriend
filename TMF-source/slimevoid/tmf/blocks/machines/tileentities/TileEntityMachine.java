@@ -95,9 +95,6 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 			if ( isBurning() && canSmelt() ) {
 				++cookTime;
 				
-				System.out.println(cookTime+"/"+currentItemCookTime);
-				System.out.println(burnTime+"/"+currentItemBurnTime);
-				
 				if ( cookTime == currentItemCookTime ) {
 					cookTime = 0;
 					smeltItem();
