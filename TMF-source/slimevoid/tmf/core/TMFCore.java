@@ -9,12 +9,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import slimevoid.lib.util.XMLRecipeLoader;
 import slimevoid.tmf.blocks.machines.RefineryRecipes;
 import slimevoid.tmf.blocks.machines.blocks.BlockRefinery;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.core.lib.NamingLib;
-import slimevoid.tmf.core.lib.RecipeLib;
 import slimevoid.tmf.core.world.WorldGeneration;
 import slimevoid.tmf.fuel.MineralFuelHandler;
 import slimevoid.tmf.items.ItemMineral;
@@ -215,8 +215,8 @@ public class TMFCore {
 	
 	// ======= RECIPE REGISTRATION =======
 	public static void registerRecipes() {
-		RecipeLib.loadDefaults(new File(TMFCore.class.getResource("/TheMinersFriend/recipes").getFile()));
-		RecipeLib.loadFolder(new File(TMFInit.TMF.getProxy().getMinecraftDir()+"/config/TMFRecipes"));
+		XMLRecipeLoader.loadDefaults(new File(TMFCore.class.getResource("/TheMinersFriend/recipes").getFile()));
+		XMLRecipeLoader.loadFolder(new File(TMFInit.TMF.getProxy().getMinecraftDir()+"/config/TMFRecipes"));
 		
 		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
 	}

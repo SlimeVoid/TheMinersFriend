@@ -2,6 +2,7 @@ package slimevoid.tmf.core.lib;
 
 import net.minecraftforge.common.Configuration;
 import slimevoid.lib.data.Logger;
+import slimevoid.lib.util.XMLRecipeLoader;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.core.TMFCore;
 import cpw.mods.fml.relauncher.Side;
@@ -56,7 +57,7 @@ public class ConfigurationLib {
 				"motionSensor",
 				15003).value);
 		
-		RecipeLib.addXmlVariable("$motionSensor", TMFCore.motionSensorId+256);
+		XMLRecipeLoader.addXmlVariable("$motionSensor", TMFCore.motionSensorId+256);
 	}
 	private static void loadMiningHelmet() {
 		TMFCore.miningHelmetIronId = Integer.valueOf(TMFCore.configuration.get(
@@ -76,10 +77,10 @@ public class ConfigurationLib {
 				"helmetLamp",
 				15004).value);
 		
-		RecipeLib.addXmlVariable("$ironMinersHat",		TMFCore.miningHelmetIronId+256);
-		RecipeLib.addXmlVariable("$goldMinersHat",		TMFCore.miningHelmetGoldId+256);
-		RecipeLib.addXmlVariable("$diamondMinersHat",	TMFCore.miningHelmetDiamondId+256);
-		RecipeLib.addXmlVariable("$helmetLamp", 		TMFCore.miningHelmetLampId+256);
+		XMLRecipeLoader.addXmlVariable("$ironMinersHat",		TMFCore.miningHelmetIronId+256);
+		XMLRecipeLoader.addXmlVariable("$goldMinersHat",		TMFCore.miningHelmetGoldId+256);
+		XMLRecipeLoader.addXmlVariable("$diamondMinersHat",	TMFCore.miningHelmetDiamondId+256);
+		XMLRecipeLoader.addXmlVariable("$helmetLamp", 		TMFCore.miningHelmetLampId+256);
 	}
 	private static void loadToolBelt() {
 		TMFCore.miningToolBeltId = Integer.valueOf(TMFCore.configuration.get(
@@ -87,7 +88,7 @@ public class ConfigurationLib {
 				"toolBelt",
 				15005).value);
 		
-		RecipeLib.addXmlVariable("$toolBelt", TMFCore.miningToolBeltId);
+		XMLRecipeLoader.addXmlVariable("$toolBelt", TMFCore.miningToolBeltId);
 	}
 	private static void loadMinerals() {
 		TMFCore.mineralAcxiumId = Integer.valueOf(TMFCore.configuration.get(
@@ -103,9 +104,9 @@ public class ConfigurationLib {
 				"mineralCydrine",
 				15012).value);
 		
-		RecipeLib.addXmlVariable("$mineralAcxium", 		TMFCore.mineralAcxiumId+256);
-		RecipeLib.addXmlVariable("$mineralBisogen", 	TMFCore.mineralBisogenId+256);
-		RecipeLib.addXmlVariable("$mineralCydrine", 	TMFCore.mineralCydrineId+256);
+		XMLRecipeLoader.addXmlVariable("$mineralAcxium", 		TMFCore.mineralAcxiumId+256);
+		XMLRecipeLoader.addXmlVariable("$mineralBisogen", 	TMFCore.mineralBisogenId+256);
+		XMLRecipeLoader.addXmlVariable("$mineralCydrine", 	TMFCore.mineralCydrineId+256);
 	}
 	private static void loadDusts() {
 		TMFCore.dustAcxiumId = Integer.valueOf(TMFCore.configuration.get(
@@ -125,10 +126,10 @@ public class ConfigurationLib {
 				"dustMixed",
 				15023).value);
 		
-		RecipeLib.addXmlVariable("$dustAcxium", 	TMFCore.dustAcxiumId+256);
-		RecipeLib.addXmlVariable("$dustBisogen", 	TMFCore.dustBisogenId+256);
-		RecipeLib.addXmlVariable("$dustCydrine", 	TMFCore.dustCydrineId+256);
-		RecipeLib.addXmlVariable("$dustMixed", 		TMFCore.dustMixedId+256);
+		XMLRecipeLoader.addXmlVariable("$dustAcxium", 	TMFCore.dustAcxiumId+256);
+		XMLRecipeLoader.addXmlVariable("$dustBisogen", 	TMFCore.dustBisogenId+256);
+		XMLRecipeLoader.addXmlVariable("$dustCydrine", 	TMFCore.dustCydrineId+256);
+		XMLRecipeLoader.addXmlVariable("$dustMixed", 		TMFCore.dustMixedId+256);
 	}
 	private static void loadOres() {
 		TMFCore.arkiteOreId = Integer.valueOf(TMFCore.configuration.get(
@@ -152,11 +153,11 @@ public class ConfigurationLib {
 				"egioclaseOre",
 				1029).value);
 		
-		RecipeLib.addXmlVariable("$arkiteOre", 		TMFCore.arkiteOreId);
-		RecipeLib.addXmlVariable("$bistiteOre", 	TMFCore.bistiteOreId);
-		RecipeLib.addXmlVariable("$crokereOre", 	TMFCore.crokereOreId);
-		RecipeLib.addXmlVariable("$derniteOre", 	TMFCore.derniteOreId);
-		RecipeLib.addXmlVariable("$egioclaseOre", 	TMFCore.egioclaseOreId);
+		XMLRecipeLoader.addXmlVariable("$arkiteOre", 		TMFCore.arkiteOreId);
+		XMLRecipeLoader.addXmlVariable("$bistiteOre", 	TMFCore.bistiteOreId);
+		XMLRecipeLoader.addXmlVariable("$crokereOre", 	TMFCore.crokereOreId);
+		XMLRecipeLoader.addXmlVariable("$derniteOre", 	TMFCore.derniteOreId);
+		XMLRecipeLoader.addXmlVariable("$egioclaseOre", 	TMFCore.egioclaseOreId);
 	}
 	private static void loadMachines() {
 		TMFCore.refineryIdleId = Integer.valueOf(TMFCore.configuration.get(
@@ -168,8 +169,8 @@ public class ConfigurationLib {
 				"refineryActive",
 				1101).value);
 		
-		RecipeLib.addXmlVariable("$refineryIdle", 		TMFCore.refineryIdleId);
-		RecipeLib.addXmlVariable("$refineryActive", 	TMFCore.refineryActiveId);
+		XMLRecipeLoader.addXmlVariable("$refineryIdle", 		TMFCore.refineryIdleId);
+		XMLRecipeLoader.addXmlVariable("$refineryActive", 	TMFCore.refineryActiveId);
 	}
 	private static void loadLogger() {
 		TMFCore.loggerLevel = String.valueOf(TMFCore.configuration.get(
