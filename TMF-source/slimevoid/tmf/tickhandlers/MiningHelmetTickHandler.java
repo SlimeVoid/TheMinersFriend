@@ -61,7 +61,7 @@ public class MiningHelmetTickHandler implements ITickHandler {
 
 	@Override
 	public String getLabel() {
-		return "MinersHatHandler";
+		return "MinersHelmetHandler";
 	}
 	
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <recipes>
-	<recipe outId="$ironMinersHat" stackSize="1">
+	<recipe outId="$ironMinersHelmet" stackSize="1">
 	    <layout>
 	        X
 	        Y
@@ -9,7 +9,7 @@
 	    <mapping id="306">Y</mapping>
 	</recipe>
 	
-	<recipe outId="$goldMinersHat" stackSize="1">
+	<recipe outId="$goldMinersHelmet" stackSize="1">
 	    <layout>
 	        X
 	        Y
@@ -18,7 +18,7 @@
 	    <mapping id="314">Y</mapping>
 	</recipe>
 	
-	<recipe outId="$diamondMinersHat" stackSize="1">
+	<recipe outId="$diamondMinersHelmet" stackSize="1">
 	    <layout>
 	        X
 	        Y
