@@ -1,6 +1,9 @@
 package slimevoid.tmf.core;
 
 import java.io.File;
+import java.io.IOException;
+
+import argo.saj.InvalidSyntaxException;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -10,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.lib.util.XMLRecipeLoader;
+import slimevoid.tmf.blocks.machines.JSONRefineryRecipesLoader;
 import slimevoid.tmf.blocks.machines.RefineryRecipes;
 import slimevoid.tmf.blocks.machines.blocks.BlockRefinery;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
@@ -196,19 +200,7 @@ public class TMFCore {
 		LanguageRegistry.addName(refineryIdle, NamingLib.REFINERY);
 		LanguageRegistry.addName(refineryActive, NamingLib.REFINERY);
 		
-		RefineryRecipes.refining().addRefinement((BlockTMFOre)arkiteOre, 2, 4, (ItemMineral)mineralAcxium);
-		
-		RefineryRecipes.refining().addRefinement((BlockTMFOre)bistiteOre, 1, 2, (ItemMineral)mineralAcxium);
-		RefineryRecipes.refining().addRefinement((BlockTMFOre)bistiteOre, 2, 5, (ItemMineral)mineralBisogen);
-		
-		RefineryRecipes.refining().addRefinement((BlockTMFOre)crokereOre, 2, 4, (ItemMineral)mineralAcxium);
-		RefineryRecipes.refining().addRefinement((BlockTMFOre)crokereOre, 1, 2, (ItemMineral)mineralBisogen);
-		RefineryRecipes.refining().addRefinement((BlockTMFOre)crokereOre, 1, 1, (ItemMineral)mineralCydrine);
-		
-		RefineryRecipes.refining().addRefinement((BlockTMFOre)derniteOre, 2, 3, (ItemMineral)mineralBisogen);
-		RefineryRecipes.refining().addRefinement((BlockTMFOre)derniteOre, 1, 3, (ItemMineral)mineralCydrine);
-		
-		RefineryRecipes.refining().addRefinement((BlockTMFOre)egioclaseOre, 3, 6, (ItemMineral)mineralCydrine);
+		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource("/TheMinersFriend/resources/refinery.json").getFile()));
 	}
 
 	
