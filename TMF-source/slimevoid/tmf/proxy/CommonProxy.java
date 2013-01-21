@@ -10,7 +10,10 @@ import net.minecraft.world.World;
 import slimevoid.lib.IPacketHandling;
 import slimevoid.lib.core.SlimevoidCore;
 import slimevoid.tmf.api.ITMFCommonProxy;
+import slimevoid.tmf.blocks.machines.inventory.ContainerRefinery;
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 import slimevoid.tmf.client.gui.GuiMiningToolBelt;
+import slimevoid.tmf.client.gui.GuiRefinery;
 import slimevoid.tmf.core.TMFInit;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.data.MiningMode;
@@ -36,6 +39,13 @@ public class CommonProxy implements ITMFCommonProxy {
 			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(player, world, player.getHeldItem());
 			return new ContainerMiningToolBelt(player.inventory, data);
 		}
+		if (ID == GuiLib.REFINERY_GUIID) {
+			TileEntity tile = world.getBlockTileEntity(x, y, z);
+			if ( tile instanceof TileEntityRefinery ) {
+				TileEntityRefinery tileRefinery = (TileEntityRefinery) tile;
+				return new ContainerRefinery(player.inventory, tileRefinery);
+			}
+		}
 		return null;
 	}
 
@@ -45,6 +55,13 @@ public class CommonProxy implements ITMFCommonProxy {
 		if (ID == GuiLib.TOOL_BELT_GUIID) {
 			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(player, world, player.getHeldItem());
 			return new GuiMiningToolBelt(player, data);
+		}
+		if (ID == GuiLib.REFINERY_GUIID) {
+			TileEntity tile = world.getBlockTileEntity(x, y, z);
+			if ( tile instanceof TileEntityRefinery ) {
+				TileEntityRefinery tileRefinery = (TileEntityRefinery) tile;
+				return new GuiRefinery(player,tileRefinery);
+			}
 		}
 		return null;
 	}

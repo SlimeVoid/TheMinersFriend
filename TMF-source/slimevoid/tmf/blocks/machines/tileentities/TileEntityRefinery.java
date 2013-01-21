@@ -144,22 +144,28 @@ public class TileEntityRefinery extends TileEntityMachine {
 				ItemStack[] smelted = RefineryRecipes.refining().getRefiningResults(oreItem.itemID);
 
 				if ( smelted != null && smelted.length == 3 ) {
-					if (refineryItemStacks[2] == null) {
-						refineryItemStacks[2] = smelted[0].copy();
-					} else if (refineryItemStacks[2].isItemEqual(smelted[0]) ) {
-						refineryItemStacks[2].stackSize += smelted[0].stackSize;
+					if ( smelted[0] != null && smelted[0].stackSize > 0 ) {
+						if (refineryItemStacks[2] == null ) {
+							refineryItemStacks[2] = smelted[0].copy();
+						} else if (refineryItemStacks[2].isItemEqual(smelted[0]) ) {
+							refineryItemStacks[2].stackSize += smelted[0].stackSize;
+						}
 					}
 					
-					if (refineryItemStacks[3] == null) {
-						refineryItemStacks[3] = smelted[1].copy();
-					} else if (refineryItemStacks[3].isItemEqual(smelted[1]) ) {
-						refineryItemStacks[3].stackSize += smelted[1].stackSize;
+					if ( smelted[1] != null && smelted[1].stackSize > 0 ) {
+						if (refineryItemStacks[3] == null  ) {
+							refineryItemStacks[3] = smelted[1].copy();
+						} else if (refineryItemStacks[3].isItemEqual(smelted[1]) ) {
+							refineryItemStacks[3].stackSize += smelted[1].stackSize;
+						}
 					}
-					
-					if (refineryItemStacks[4] == null) {
-						refineryItemStacks[4] = smelted[2].copy();
-					} else if (refineryItemStacks[4].isItemEqual(smelted[2]) ) {
-						refineryItemStacks[4].stackSize += smelted[2].stackSize;
+
+					if ( smelted[2] != null && smelted[2].stackSize > 0 ) {
+						if (refineryItemStacks[4] == null ) {
+							refineryItemStacks[4] = smelted[2].copy();
+						} else if (refineryItemStacks[4].isItemEqual(smelted[2]) ) {
+							refineryItemStacks[4].stackSize += smelted[2].stackSize;
+						}
 					}
 					
 					--refineryItemStacks[0].stackSize;
@@ -180,7 +186,7 @@ public class TileEntityRefinery extends TileEntityMachine {
 		if ( RefineryRecipes.refining().isOreAllowed(oreItem) ) {
 			RefineryRecipe[] recipes = RefineryRecipes.refining().getRefineryRecipes(oreItem.itemID);
 
-			if ( recipes != null && recipes.length <= 3 ) {
+			if ( recipes != null && recipes.length == 3 ) {
 				boolean ok = true;
 				for ( int i = 0; i < recipes.length; i++) {
 					if ( refineryItemStacks[2+recipes[i].slotId] != null )
@@ -192,11 +198,10 @@ public class TileEntityRefinery extends TileEntityMachine {
 				for ( int i = 0; i < recipes.length; i++) {
 					if ( 
 							refineryItemStacks[2+recipes[i].slotId] != null &&
-							refineryItemStacks[2+recipes[i].slotId].stackSize + recipes[i].max > getSizeInventory()
-					) return false;
+							refineryItemStacks[2+recipes[i].slotId].stackSize + recipes[i].max > getInventoryStackLimit()
+					) ok = false;
 				}
-				
-				return true;
+				if ( ok ) return true;
 			}
 		}
 		
@@ -205,34 +210,17 @@ public class TileEntityRefinery extends TileEntityMachine {
 
 	@Override
 	public int getCurrentFuelBurnTime() {
-		if ( refineryItemStacks[1] == null )
-			return 0;
-		
-		return TileEntityFurnace.getItemBurnTime(refineryItemStacks[1]);
+		return getItemBurnTime(refineryItemStacks[1]);
 	}
 
 	@Override
 	public int getCurrentFuelBurnSpeed() {
-		if ( refineryItemStacks[1] == null )
-			return 0;
-		
-		if ( refineryItemStacks[1].getItem() instanceof IFuelHandlerTMF ) {
-			return ((ItemMineral)refineryItemStacks[1].getItem()).getBurnSpeed(refineryItemStacks[1]);
-		} else {
-			return 200;
-		}
+		return getItemBurnSpeed(refineryItemStacks[1]);
 	}
 
 	@Override
 	public int getCurrentFuelBurnWidth() {
-		if ( refineryItemStacks[1] == null )
-			return 0;
-		
-		if ( refineryItemStacks[1].getItem() instanceof IFuelHandlerTMF ) {
-			return ((ItemMineral)refineryItemStacks[1].getItem()).getBurnWidth(refineryItemStacks[1]);
-		} else {
-			return 1;
-		}
+		return getItemBurnWidth(refineryItemStacks[1]);
 	}
 
 	@Override

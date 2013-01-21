@@ -27,11 +27,11 @@ public class RefineryRecipes {
 	}
 	
 	public void addRefinement(BlockTMFOre ore, int min, int max, ItemMineral mineral ) {
-		if ( mineral.itemID == TMFCore.mineralAcxiumId ) {
+		if ( mineral.itemID == TMFCore.mineralAcxiumId+256 ) {
 			addRefinement(ore,min,max,mineral,0);
-		} else if ( mineral.itemID == TMFCore.mineralBisogenId ) {
+		} else if ( mineral.itemID == TMFCore.mineralBisogenId+256 ) {
 			addRefinement(ore,min,max,mineral,1);
-		} else if ( mineral.itemID == TMFCore.mineralCydrineId ) {
+		} else if ( mineral.itemID == TMFCore.mineralCydrineId+256 ) {
 			addRefinement(ore,min,max,mineral,2);
 		}
 	}
@@ -48,7 +48,7 @@ public class RefineryRecipes {
 		
 		refiningMap.get(ore.blockID).add(recipe);
 	}
-
+	
 	public ItemStack[] getRefiningResults(BlockTMFOre ore) {		
 		return getRefiningResults(ore.blockID);
 	}
@@ -74,7 +74,11 @@ public class RefineryRecipes {
 	public RefineryRecipe[] getRefineryRecipes(int oreId) {
 		if ( !refiningMap.containsKey(oreId) )
 			return null;
-		return (RefineryRecipe[]) refiningMap.get(oreId).toArray();
+		RefineryRecipe[] out = new RefineryRecipe[refiningMap.get(oreId).size()];
+		for ( int i = 0; i < refiningMap.get(oreId).size(); i++ ) {
+			out[i] = refiningMap.get(oreId).get(i);
+		}
+		return out;
 	}
 	
 	public class RefineryRecipe {
@@ -88,6 +92,10 @@ public class RefineryRecipes {
 					mineral,
 					random.nextInt((max-min+1))+min
 			);
+		}
+		
+		public String toString() {
+			return slotId+":"+mineral+":"+min+","+max;
 		}
 	}
 }

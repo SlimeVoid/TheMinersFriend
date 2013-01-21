@@ -3,6 +3,8 @@ package slimevoid.tmf.blocks.machines.tileentities;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import slimevoid.lib.util.SlimevoidHelper;
+import slimevoid.tmf.fuel.IFuelHandlerTMF;
+import slimevoid.tmf.items.ItemMineral;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -11,6 +13,7 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISidedInventory;
 
@@ -69,17 +72,18 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 	public void updateEntity() {
 		boolean wasBurning = isBurning();
 		boolean inventoryChanged = false;
-        
+		
 		if ( isBurning() )
-			burnTime--;
+			--burnTime;
 		
 		if ( !worldObj.isRemote ) {
 			if ( !isBurning() && canSmelt() ) {
 				currentItemBurnTime = burnTime = getCurrentFuelBurnTime();
+				currentItemCookTime = getCurrentFuelBurnSpeed();
 				if ( burnTime > 0 ) {
 					inventoryChanged = true;
 					if ( getCurrentFuelStack() != null ) {
-						getCurrentFuelStack().stackSize--;
+						--getCurrentFuelStack().stackSize;
 						
 						if ( getCurrentFuelStack().stackSize == 0 ) {
 							setCurrentFuelStack(getCurrentFuelStack().getItem().getContainerItemStack(getCurrentFuelStack()));
@@ -89,7 +93,10 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 			}
 			
 			if ( isBurning() && canSmelt() ) {
-				cookTime++;
+				++cookTime;
+				
+				System.out.println(cookTime+"/"+currentItemCookTime);
+				System.out.println(burnTime+"/"+currentItemBurnTime);
 				
 				if ( cookTime == currentItemCookTime ) {
 					cookTime = 0;
@@ -126,6 +133,40 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 	public abstract void setCurrentFuelStack(ItemStack stack);
 	public abstract void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z);
 
+	public static int getItemBurnTime(ItemStack stack) {
+		if ( stack == null )
+			return 0;
+
+		if ( stack.getItem() instanceof IFuelHandlerTMF ) {
+			return ((ItemMineral)stack.getItem()).getBurnTime(stack);
+		} else {
+			return TileEntityFurnace.getItemBurnTime(stack);
+		}
+	}
+	public static int getItemBurnSpeed(ItemStack stack) {
+		if ( stack == null )
+			return 0;
+		
+		if ( stack.getItem() instanceof IFuelHandlerTMF ) {
+			return ((ItemMineral)stack.getItem()).getBurnSpeed(stack);
+		} else {
+			return 200;
+		}
+	}
+	public static int getItemBurnWidth(ItemStack stack) {
+		if ( stack == null )
+			return 0;
+		
+		if ( stack.getItem() instanceof IFuelHandlerTMF ) {
+			return ((ItemMineral)stack.getItem()).getBurnWidth(stack);
+		} else {
+			return 1;
+		}
+	}
+	public static boolean isItemFuel(ItemStack stack) {
+		return getItemBurnTime(stack) > 0 && getItemBurnSpeed(stack) > 0 && getItemBurnWidth(stack) > 0;
+	}
+	
 	@Override
 	public Packet getDescriptionPacket() {
 		NBTTagCompound nbttagcompound = new NBTTagCompound();

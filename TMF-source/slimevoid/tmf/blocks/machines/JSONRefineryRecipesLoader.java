@@ -90,9 +90,6 @@ public class JSONRefineryRecipesLoader {
 						if ( max < 0 && min >= 0 )
 							max = min;
 						
-						if ( min == 0 && max == 0 )
-							continue;
-						
 						registerRecipe(ore,min,max,mineral);
 					}
 				}

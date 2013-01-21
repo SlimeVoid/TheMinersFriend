@@ -16,6 +16,7 @@ import slimevoid.lib.util.XMLRecipeLoader;
 import slimevoid.tmf.blocks.machines.JSONRefineryRecipesLoader;
 import slimevoid.tmf.blocks.machines.RefineryRecipes;
 import slimevoid.tmf.blocks.machines.blocks.BlockRefinery;
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.core.lib.NamingLib;
@@ -196,7 +197,7 @@ public class TMFCore {
 		
 		GameRegistry.registerBlock(refineryIdle,"refinery.idle");
 		GameRegistry.registerBlock(refineryActive,"refinery.active");
-		
+		GameRegistry.registerTileEntity(TileEntityRefinery.class, "TMF Refinery");
 		LanguageRegistry.addName(refineryIdle, NamingLib.REFINERY);
 		LanguageRegistry.addName(refineryActive, NamingLib.REFINERY);
 		

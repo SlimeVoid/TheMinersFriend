@@ -4,7 +4,10 @@ import java.util.Random;
 
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.TheMinersFriend;
+import slimevoid.tmf.core.lib.GuiLib;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -26,5 +29,19 @@ public class BlockRefinery extends BlockMachine {
 
 	public static void updateRefineryBlockState(boolean isBurning, World world, int x, int y, int z) {
 		
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
+		player.openGui(
+				TheMinersFriend.instance,
+				GuiLib.REFINERY_GUIID,
+				world,
+				x,
+				y,
+				z
+		);
+		
+		return true;
 	}
 }
