@@ -126,8 +126,9 @@ public class RecipeLib {
 		String[] recipeLayout = null;
 		int recipeStackSize = 1;
 		int outId = 0;
-		Map<String,Item> recipeItemMap = new HashMap<String,Item>();
-		Map<String,Block> recipeBlockMap = new HashMap<String,Block>();
+		int outMeta = 0;
+		Map<String,ItemStack> recipeItemMap = new HashMap<String,ItemStack>();
+		Map<String,ItemStack> recipeBlockMap = new HashMap<String,ItemStack>();
 		
 		// Fetch stack size and outId
 		NamedNodeMap recAttrs = element.getAttributes();
@@ -135,6 +136,11 @@ public class RecipeLib {
 			if ( recAttrs.item(j).getNodeName().equals("stackSize") ) {
 				try {
 					recipeStackSize = Integer.parseInt(recAttrs.item(j).getNodeValue());
+				} catch ( NumberFormatException e) {} //Ignore if not set
+			}
+			if ( recAttrs.item(j).getNodeName().equals("meta") ) {
+				try {
+					outMeta = Integer.parseInt(recAttrs.item(j).getNodeValue());
 				} catch ( NumberFormatException e) {} //Ignore if not set
 			}
 			if ( recAttrs.item(j).getNodeName().equals("outId") ) {
@@ -178,10 +184,11 @@ public class RecipeLib {
 
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
 				NamedNodeMap attrs = node.getAttributes();
+				int id = 0;
+				int meta = 0;
 				for ( int j = 0; j < attrs.getLength(); j++ ) {
 					if ( attrs.item(j).getNodeName().equals("id") ) {
 						String idStr = attrs.item(j).getNodeValue();
-						int id = 0;
 						try {
 							// Try integer
 							id = Integer.parseInt(idStr);
@@ -191,17 +198,24 @@ public class RecipeLib {
 								id = xmlVariables.get(idStr);
 							}
 						}
-						if ( id == 0 ) {
-							endWithError("itemMapping.id not set! ("+xmlFile.getName()+")");
-							return;
-						}
-						
-						recipeItemMap.put(
-								node.getChildNodes().item(0).getNodeValue(), 
-								Item.itemsList[id]
-						);
+					}
+					if ( attrs.item(j).getNodeName().equals("meta") ) {
+						String metaStr = attrs.item(j).getNodeValue();
+						try {
+							// Try integer
+							meta = Integer.parseInt(metaStr);
+						} catch( NumberFormatException e ) {} //Ignore if not set
 					}
 				}
+				if ( id == 0 ) {
+					endWithError("itemMapping.id not set! ("+xmlFile.getName()+")");
+					return;
+				}
+				recipeItemMap.put(
+						node.getChildNodes().item(0).getNodeValue(), 
+						new ItemStack(Item.itemsList[id],1,meta)
+						
+				);
 			}
 		}
 
@@ -212,10 +226,11 @@ public class RecipeLib {
 
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
 				NamedNodeMap attrs = node.getAttributes();
+				int id = 0;
+				int meta = 0;
 				for ( int j = 0; j < attrs.getLength(); j++ ) {
 					if ( attrs.item(j).getNodeName().equals("id") ) {
 						String idStr = attrs.item(j).getNodeValue();
-						int id = 0;
 						try {
 							// Try integer
 							id = Integer.parseInt(idStr);
@@ -225,17 +240,24 @@ public class RecipeLib {
 								id = xmlVariables.get(idStr);
 							}
 						}
-						if ( id == 0 ) {
-							endWithError("blockMapping.id not set! ("+xmlFile.getName()+")");
-							return;
-						}
-						
-						recipeBlockMap.put(
-								node.getChildNodes().item(0).getNodeValue(), 
-								Block.blocksList[id]
-						);
+					}
+					if ( attrs.item(j).getNodeName().equals("meta") ) {
+						String metaStr = attrs.item(j).getNodeValue();
+						try {
+							// Try integer
+							meta = Integer.parseInt(metaStr);
+						} catch( NumberFormatException e ) {} //Ignore if not set
 					}
 				}
+				if ( id == 0 ) {
+					endWithError("blockMapping.id not set! ("+xmlFile.getName()+")");
+					return;
+				}
+				
+				recipeBlockMap.put(
+						node.getChildNodes().item(0).getNodeValue(), 
+						new ItemStack(Block.blocksList[id],1,meta)
+				);
 			}
 		}
 		
@@ -258,7 +280,7 @@ public class RecipeLib {
 
 		// Register recipe
 		registerRecipe(
-				new ItemStack(outId,recipeStackSize, 0),
+				new ItemStack(outId,recipeStackSize,outMeta),
 				recipe.toArray()
 		);
 	}

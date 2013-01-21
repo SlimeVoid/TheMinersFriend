@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <recipes>
-    <recipe outId="$refineryIdle" stackSize="1">
+    <recipe outId="$refineryIdle" meta="0" stackSize="1">
         <layout>
             X
             Y
+            Z
         </layout>
         <blockMapping id="61">X</blockMapping>
+        <blockMapping id="5" meta="3">Z</blockMapping>
         <itemMapping id="265">Y</itemMapping>
     </recipe>
 </recipes>
