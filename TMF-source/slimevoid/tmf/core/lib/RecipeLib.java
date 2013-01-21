@@ -176,51 +176,9 @@ public class RecipeLib {
 				recipeLayout[i] = null;
 			}
 		}
-		
-		// Fetch item mappings
-		NodeList itemNodes = element.getElementsByTagName("itemMapping");
-		for (int i = 0; i < itemNodes.getLength(); i++) {
-			Node node = itemNodes.item(i);
 
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				NamedNodeMap attrs = node.getAttributes();
-				int id = 0;
-				int meta = 0;
-				for ( int j = 0; j < attrs.getLength(); j++ ) {
-					if ( attrs.item(j).getNodeName().equals("id") ) {
-						String idStr = attrs.item(j).getNodeValue();
-						try {
-							// Try integer
-							id = Integer.parseInt(idStr);
-						} catch( NumberFormatException e ) {
-							// Integer failed, try variable strings.
-							if (xmlVariables.containsKey(idStr)) {
-								id = xmlVariables.get(idStr);
-							}
-						}
-					}
-					if ( attrs.item(j).getNodeName().equals("meta") ) {
-						String metaStr = attrs.item(j).getNodeValue();
-						try {
-							// Try integer
-							meta = Integer.parseInt(metaStr);
-						} catch( NumberFormatException e ) {} //Ignore if not set
-					}
-				}
-				if ( id == 0 ) {
-					endWithError("itemMapping.id not set! ("+xmlFile.getName()+")");
-					return;
-				}
-				recipeItemMap.put(
-						node.getChildNodes().item(0).getNodeValue(), 
-						new ItemStack(Item.itemsList[id],1,meta)
-						
-				);
-			}
-		}
-
-		// Fetch block mappings
-		NodeList blockNodes = element.getElementsByTagName("blockMapping");
+		// Fetch  mappings
+		NodeList blockNodes = element.getElementsByTagName("mapping");
 		for (int i = 0; i < blockNodes.getLength(); i++) {
 			Node node = blockNodes.item(i);
 
@@ -250,13 +208,13 @@ public class RecipeLib {
 					}
 				}
 				if ( id == 0 ) {
-					endWithError("blockMapping.id not set! ("+xmlFile.getName()+")");
+					endWithError("mapping.id not set! ("+xmlFile.getName()+")");
 					return;
 				}
 				
 				recipeBlockMap.put(
 						node.getChildNodes().item(0).getNodeValue(), 
-						new ItemStack(Block.blocksList[id],1,meta)
+						new ItemStack(id,1,meta)
 				);
 			}
 		}

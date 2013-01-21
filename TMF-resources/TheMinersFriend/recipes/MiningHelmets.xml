@@ -5,8 +5,8 @@
 	        X
 	        Y
 	    </layout>
-	    <itemMapping id="$helmetLamp">X</itemMapping>
-	    <itemMapping id="306">Y</itemMapping>
+	    <mapping id="$helmetLamp">X</mapping>
+	    <mapping id="306">Y</mapping>
 	</recipe>
 	
 	<recipe outId="$goldMinersHat" stackSize="1">
@@ -14,8 +14,8 @@
 	        X
 	        Y
 	    </layout>
-	    <itemMapping id="$helmetLamp">X</itemMapping>
-	    <itemMapping id="314">Y</itemMapping>
+	    <mapping id="$helmetLamp">X</mapping>
+	    <mapping id="314">Y</mapping>
 	</recipe>
 	
 	<recipe outId="$diamondMinersHat" stackSize="1">
@@ -23,7 +23,7 @@
 	        X
 	        Y
 	    </layout>
-	    <itemMapping id="$helmetLamp">X</itemMapping>
-	    <itemMapping id="310">Y</itemMapping>
+	    <mapping id="$helmetLamp">X</mapping>
+	    <mapping id="310">Y</mapping>
 	</recipe>
 </recipes>

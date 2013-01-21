@@ -7,8 +7,8 @@
             Y
             Z
         </layout>
-        <blockMapping id="61">X</blockMapping>
-        <blockMapping id="5" meta="3">Z</blockMapping>
-        <itemMapping id="265">Y</itemMapping>
+        <mapping id="61">X</mapping>
+        <mapping id="5" meta="3">Z</mapping>
+        <mapping id="265">Y</mapping>
     </recipe>
 </recipes>
