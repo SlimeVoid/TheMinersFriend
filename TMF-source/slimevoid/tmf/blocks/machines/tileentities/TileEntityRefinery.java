@@ -2,7 +2,9 @@ package slimevoid.tmf.blocks.machines.tileentities;
 
 import slimevoid.tmf.blocks.machines.RefineryRecipes;
 import slimevoid.tmf.blocks.machines.RefineryRecipes.RefineryRecipe;
+import slimevoid.tmf.blocks.machines.blocks.BlockMachine;
 import slimevoid.tmf.blocks.machines.blocks.BlockRefinery;
+import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
 import slimevoid.tmf.items.ItemMineral;
 import net.minecraft.item.ItemStack;
@@ -235,6 +237,6 @@ public class TileEntityRefinery extends TileEntityMachine {
 
 	@Override
 	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
-		BlockRefinery.updateRefineryBlockState(isBurning, world, x, y, z);
+		((BlockMachine)TMFCore.refineryIdle).updateMachineBlockState(isBurning, world, x, y, z);
 	}
 }

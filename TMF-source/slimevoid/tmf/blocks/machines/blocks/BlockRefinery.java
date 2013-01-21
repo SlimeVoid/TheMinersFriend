@@ -9,6 +9,7 @@ import slimevoid.tmf.core.lib.GuiLib;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockRefinery extends BlockMachine {
@@ -27,10 +28,6 @@ public class BlockRefinery extends BlockMachine {
 		return TMFCore.refineryIdleId;
 	}
 
-	public static void updateRefineryBlockState(boolean isBurning, World world, int x, int y, int z) {
-		
-	}
-
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
 		player.openGui(
@@ -43,5 +40,25 @@ public class BlockRefinery extends BlockMachine {
 		);
 		
 		return true;
+	}
+
+	@Override
+	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
+		int meta = world.getBlockMetadata(x, y, z);
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		
+		keepInventory = true;
+		if (isBurning) {
+			world.setBlockWithNotify(x, y, z, TMFCore.refineryActive.blockID);
+		} else {
+			world.setBlockWithNotify(x, y, z, TMFCore.refineryIdle.blockID);
+		}
+		keepInventory = false;
+		
+		world.setBlockMetadataWithNotify(x, y, z, meta);
+		if (tile != null) {
+			tile.validate();
+			world.setBlockTileEntity(x, y, z, tile);
+		}
 	}
 }

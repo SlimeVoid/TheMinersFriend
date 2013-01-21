@@ -96,8 +96,8 @@ public class TMFCore {
 		motionSensor = new ItemMotionSensor(motionSensorId).setItemName("motionSensor").setIconCoord(0, 1);
 		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setItemName("miningToolBelt").setIconCoord(0, 2);
 		
-		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(3200).setItemName("mineralAcxium").setIconCoord(0, 1);
-		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(100).setItemName("mineralBisogen").setIconCoord(1, 1);
+		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(2400).setItemName("mineralAcxium").setIconCoord(0, 1);
+		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(150).setItemName("mineralBisogen").setIconCoord(1, 1);
 		mineralCydrine = new ItemMineral(mineralCydrineId).setBurnWidth(1).setItemName("mineralCydrine").setIconCoord(2, 1);
 		
 		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setItemName("dustAcxium").setIconCoord(0, 2);
