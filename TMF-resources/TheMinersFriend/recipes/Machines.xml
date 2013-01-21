@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<recipes>
+    <recipe outId="$refineryIdle" stackSize="1">
+        <layout>
+            X
+            Y
+        </layout>
+        <blockMapping id="61">X</blockMapping>
+        <itemMapping id="265">Y</itemMapping>
+    </recipe>
+</recipes>

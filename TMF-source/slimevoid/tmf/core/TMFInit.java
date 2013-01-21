@@ -31,8 +31,9 @@ public class TMFInit {
 		((ITMFCommonProxy)TMF.getProxy()).registerConfigurationProperties();
 		
 		SlimevoidCore.console(TMF.getModName(), "Registering items...");
-		TMFCore.addItems();
-		
+		TMFCore.registerItems();
+
+		SlimevoidCore.console(TMF.getModName(), "Registering blocks...");
 		TMFCore.registerBlocks();
 		
 		TMF.getProxy().registerRenderInformation();
@@ -40,11 +41,12 @@ public class TMFInit {
 		TMF.getProxy().registerTickHandler();
 		
 		SlimevoidCore.console(TMF.getModName(), "Naming items...");
-		TMFCore.addItemNames();
+		TMFCore.registerItemNames();
 		
 		SlimevoidCore.console(TMF.getModName(), "Registering recipes...");
-		TMFCore.addItemRecipes();
-		
-		TMFCore.addFuels();
+		TMFCore.registerRecipes();
+
+		SlimevoidCore.console(TMF.getModName(), "Registering fuels...");
+		TMFCore.registerFuels();
 	}
 }

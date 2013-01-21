@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recipes>
+	<recipe outId="$ironMinersHat" stackSize="1">
+	    <layout>
+	        X
+	        Y
+	    </layout>
+	    <itemMapping id="$helmetLamp">X</itemMapping>
+	    <itemMapping id="306">Y</itemMapping>
+	</recipe>
+	
+	<recipe outId="$goldMinersHat" stackSize="1">
+	    <layout>
+	        X
+	        Y
+	    </layout>
+	    <itemMapping id="$helmetLamp">X</itemMapping>
+	    <itemMapping id="314">Y</itemMapping>
+	</recipe>
+	
+	<recipe outId="$diamondMinersHat" stackSize="1">
+	    <layout>
+	        X
+	        Y
+	    </layout>
+	    <itemMapping id="$helmetLamp">X</itemMapping>
+	    <itemMapping id="310">Y</itemMapping>
+	</recipe>
+</recipes>
