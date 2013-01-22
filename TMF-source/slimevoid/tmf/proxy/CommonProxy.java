@@ -35,35 +35,55 @@ public class CommonProxy implements ITMFCommonProxy {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
-		if (ID == GuiLib.TOOL_BELT_GUIID) {
-			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(player, world, player.getHeldItem());
-			return new ContainerMiningToolBelt(player.inventory, data);
+		switch (ID) {
+			case GuiLib.TOOL_BELT_GUIID :
+				MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(
+						player,
+						world,
+						player.getHeldItem()
+				);
+				return new ContainerMiningToolBelt(
+						player.inventory,
+						data
+				);
+			case GuiLib.REFINERY_GUIID :
+				TileEntity tile = world.getBlockTileEntity(x, y, z);
+				if ( tile instanceof TileEntityRefinery ) {
+					TileEntityRefinery tileRefinery = (TileEntityRefinery) tile;
+					return new ContainerRefinery(
+							player.inventory,
+							tileRefinery
+					);
+				}
+			default : return null;
 		}
-		if (ID == GuiLib.REFINERY_GUIID) {
-			TileEntity tile = world.getBlockTileEntity(x, y, z);
-			if ( tile instanceof TileEntityRefinery ) {
-				TileEntityRefinery tileRefinery = (TileEntityRefinery) tile;
-				return new ContainerRefinery(player.inventory, tileRefinery);
-			}
-		}
-		return null;
 	}
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
-		if (ID == GuiLib.TOOL_BELT_GUIID) {
-			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(player, world, player.getHeldItem());
-			return new GuiMiningToolBelt(player, data);
+		switch (ID) {
+			case GuiLib.TOOL_BELT_GUIID :
+				MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(
+						player,
+						world,
+						player.getHeldItem()
+				);
+				return new GuiMiningToolBelt(
+						player,
+						data
+				);
+			case GuiLib.REFINERY_GUIID :
+				TileEntity tile = world.getBlockTileEntity(x, y, z);
+				if ( tile instanceof TileEntityRefinery ) {
+					TileEntityRefinery tileRefinery = (TileEntityRefinery) tile;
+					return new GuiRefinery(
+							player,
+							tileRefinery
+					);
+				}
+			default : return null;
 		}
-		if (ID == GuiLib.REFINERY_GUIID) {
-			TileEntity tile = world.getBlockTileEntity(x, y, z);
-			if ( tile instanceof TileEntityRefinery ) {
-				TileEntityRefinery tileRefinery = (TileEntityRefinery) tile;
-				return new GuiRefinery(player,tileRefinery);
-			}
-		}
-		return null;
 	}
 
 	@Override
@@ -74,7 +94,7 @@ public class CommonProxy implements ITMFCommonProxy {
 		
 		EventLib.registerCommonEvents();
 		
-		MiningMode.InitMiningMode(DataLib.MINING_MODE_STRENGTH);
+		MiningMode.init(DataLib.MINING_MODE_STRENGTH);
 	}
 
 	@Override

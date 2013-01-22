@@ -10,7 +10,7 @@ public class MiningMode {
 	private static List<EntityPlayer> playersInMiningMode;
 	private static float strength;
 	
-	public static void InitMiningMode(float strengthMultiplier) {
+	public static void init(float strengthMultiplier) {
 		playersInMiningMode = new ArrayList<EntityPlayer>();
 		strength = strengthMultiplier;
 	}

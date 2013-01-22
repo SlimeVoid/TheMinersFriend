@@ -123,7 +123,7 @@ public abstract class BlockMachine extends BlockContainer {
 							);
 							
 							if (stack.hasTagCompound()) {
-								entity.func_92014_d().setTagCompound((NBTTagCompound)stack.getTagCompound().copy());
+								entity.getEntityItem().setTagCompound((NBTTagCompound)stack.getTagCompound().copy());
 							}
 							
 							float multi = 0.05F;
@@ -140,6 +140,13 @@ public abstract class BlockMachine extends BlockContainer {
 		super.breakBlock(world, x, y, z, l, m);
 	}
 	
+	@Override 
+	public TileEntity createNewTileEntity(World world) {
+		return this.getTileEntity(world);
+	}
+	
+	protected abstract TileEntity getTileEntity(World world);
+
 	@Override 
 	public int getBlockTexture(IBlockAccess blockAccess, int x, int y, int z, int side) {
 		if ( side == 1 || side == 0 ) {

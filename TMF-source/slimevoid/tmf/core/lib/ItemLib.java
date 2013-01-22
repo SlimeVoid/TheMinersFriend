@@ -26,7 +26,9 @@ public class ItemLib {
 	private static ItemStack playerIsHoldingOrUsingTool(
 			EntityPlayer entityplayer, World world,
 			Class<? extends Item> itemClass) {
-		if (entityplayer.getHeldItem() != null && entityplayer.getHeldItem().getItem() != null && itemClass.isInstance(entityplayer.getHeldItem().getItem())) {
+		if (entityplayer.getHeldItem() != null &&
+			entityplayer.getHeldItem().getItem() != null &&
+			itemClass.isInstance(entityplayer.getHeldItem().getItem())) {
 			return entityplayer.getHeldItem();
 		}
 		return null;
@@ -46,7 +48,9 @@ public class ItemLib {
 		IInventory playerInventory = entityplayer.inventory;
 		for (int slot = 0; slot < playerInventory.getSizeInventory(); slot++) {
 			ItemStack itemstack = playerInventory.getStackInSlot(slot);
-			if (itemstack != null && itemstack.getItem() != null && itemClass.isInstance(itemstack.getItem())) {
+			if (itemstack != null &&
+				itemstack.getItem() != null &&
+				itemClass.isInstance(itemstack.getItem())) {
 				tools.add(itemstack);
 			}
 		}
@@ -61,7 +65,11 @@ public class ItemLib {
 	 * @return the List of Tool Belts (if any)
 	 */
 	public static List<ItemStack> getToolBelts(EntityPlayer entityplayer, World world) {
-		return playerHasTools(entityplayer, world, ItemMiningToolBelt.class);
+		return playerHasTools(
+				entityplayer,
+				world,
+				ItemMiningToolBelt.class
+		);
 	}
 	
 	/**
@@ -74,8 +82,11 @@ public class ItemLib {
 	 */
 	public static ItemStack getToolBelt(EntityPlayer entityplayer, World world, boolean isHeld) {
 		return isHeld ?
-				playerIsHoldingOrUsingTool(entityplayer, world, ItemMiningToolBelt.class) :
-				null;
+				playerIsHoldingOrUsingTool(
+						entityplayer,
+						world,
+						ItemMiningToolBelt.class
+				) :	null;
 	}
 
 	/**
@@ -88,10 +99,17 @@ public class ItemLib {
 		// For every Tool Belt the Player has in their inventory 
 		for (ItemStack toolBelt : getToolBelts(entityplayer, entityplayer.worldObj)) {
 			// Retrieve the Tool Belt Data
-			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(entityplayer, entityplayer.worldObj, toolBelt);
+			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(
+					entityplayer,
+					entityplayer.worldObj,
+					toolBelt
+			);
 			if (data != null) {
 				// If Data Exists Send the Data to the Player to Update their inventory
-				PacketDispatcher.sendPacketToPlayer(data.createPacket().getPacket(), player);
+				PacketDispatcher.sendPacketToPlayer(
+						data.createPacket().getPacket(),
+						player
+				);
 			}
 		}
 	}
@@ -111,7 +129,11 @@ public class ItemLib {
 		// Check that the current itemstack is a Tool Belt
 		if (isToolBelt(itemstack)) {
 			// Retrieve the data for the itemstack
-			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(entityliving, entityliving.worldObj, itemstack);
+			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(
+					entityliving,
+					entityliving.worldObj,
+					itemstack
+			);
 			// Retrieve the selected tool
 			ItemStack selectedTool = data.getSelectedTool();
 			// If there is a tool in the selected slot
