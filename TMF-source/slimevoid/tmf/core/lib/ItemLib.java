@@ -3,6 +3,7 @@ package slimevoid.tmf.core.lib;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -103,5 +104,22 @@ public class ItemLib {
 	 */
 	public static boolean isToolBelt(ItemStack itemstack) {
 		return (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMiningToolBelt);
+	}
+
+	public static ItemStack getSelectedTool(EntityLiving entityliving,
+			World worldObj, ItemStack itemstack) {
+		// Check that the current itemstack is a Tool Belt
+		if (isToolBelt(itemstack)) {
+			// Retrieve the data for the itemstack
+			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(entityliving, entityliving.worldObj, itemstack);
+			// Retrieve the selected tool
+			ItemStack selectedTool = data.getSelectedTool();
+			// If there is a tool in the selected slot
+			if (selectedTool != null) {
+				// Perform the onBlockDestroyed using that Tool
+				return selectedTool;
+			}
+		}
+		return null;
 	}
 }

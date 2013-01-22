@@ -88,33 +88,6 @@ public class ItemMiningToolBelt extends Item {
 			return true;
 		}
 	}
-	
-/*	@Override
-	public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		if (!world.isRemote) {
-			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(entityplayer, world, itemstack);
-			if (data != null) {
-				if (entityplayer.isSneaking()) {
-					ItemStack tool = data.getSelectedTool();
-					if (tool != null) {
-						if (entityplayer instanceof EntityPlayerMP) {
-							EntityPlayerMP entityplayermp = (EntityPlayerMP) entityplayer;
-							ItemInWorldManager itemManager = entityplayermp.theItemInWorldManager;
-							if (itemManager.activateBlockOrUseItem(entityplayer, world, tool, x, y, z, side, hitX, hitY, hitZ)) {
-								return true;
-							} else { 
-								itemManager.tryUseItem(entityplayer, world, tool);
-								return true;
-							}
-						}
-					}
-				} else {
-					this.onItemRightClick(itemstack, world, entityplayer);
-				}
-			}
-		}
-		return true;
-	}*/
 
 	@Override
 	public boolean onBlockDestroyed(ItemStack par1ItemStack, World par2World, int par3, int par4, int par5, int par6, EntityLiving par7EntityLiving) {
@@ -133,18 +106,13 @@ public class ItemMiningToolBelt extends Item {
 			int z,
 			EntityPlayer entityplayer,
 			boolean onBlockStartBreak) {
-		// Check that the current itemstack is a Tool Belt
-		if (ItemLib.isToolBelt(itemstack)) {
-			// Retrieve the data for the itemstack
-			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(entityplayer, entityplayer.worldObj, itemstack);
-			// Retrieve the selected tool
-			ItemStack selectedTool = data.getSelectedTool();
-			// If there is a tool in the selected slot
-			if (selectedTool != null) {
-				// Perform the onBlockDestroyed using that Tool
-				return selectedTool.getItem().onBlockStartBreak(selectedTool, x, y, z, entityplayer);
-			}
+		// Retrieves the Selected Tool within the held Tool Belt
+		ItemStack tool = ItemLib.getSelectedTool(entityplayer, entityplayer.worldObj, itemstack);
+		if (tool != null) {
+			// Perform the onBlockStartBreak method for the itemstack
+			return tool.getItem().onBlockStartBreak(tool, x, y, z, entityplayer);
 		}
+		// Otherwise return the original value
 		return onBlockStartBreak;
 	}
 
@@ -170,18 +138,13 @@ public class ItemMiningToolBelt extends Item {
 			int side,
 			EntityLiving entityliving,
 			boolean onBlockDestroyed) {
-		// Check that the current itemstack is a Tool Belt
-		if (ItemLib.isToolBelt(itemstack)) {
-			// Retrieve the data for the itemstack
-			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(entityliving, world, itemstack);
-			// Retrieve the selected tool
-			ItemStack selectedTool = data.getSelectedTool();
-			// If there is a tool in the selected slot
-			if (selectedTool != null) {
-				// Perform the onBlockDestroyed using that Tool
-				return selectedTool.getItem().onBlockDestroyed(selectedTool, world, x, y, z, side, entityliving);
-			}
+		// Retrieves the Selected Tool within the held Tool Belt
+		ItemStack tool = ItemLib.getSelectedTool(entityliving, world, itemstack);
+		if (tool != null) {
+			// Perform the onBlockDestroyed method for the itemstack
+			return tool.getItem().onBlockDestroyed(tool, world, x, y, z, side, entityliving);
 		}
+		// Otherwise return the original value
 		return onBlockDestroyed;
 	}
 
@@ -247,19 +210,17 @@ public class ItemMiningToolBelt extends Item {
 	 * @param event The harvesting event
 	 */
 	public static void doHarvestCheck(HarvestCheck event) {
-		// Retrieves the Held Tool Belt
-		ItemStack toolBelt = ItemLib.getToolBelt(event.entityPlayer, event.entityPlayer.worldObj, true);
-		// If the player is still holding the Tool Belt
-		if (toolBelt != null) {
-			// Retrieves the Tool Belt data
-			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(event.entityPlayer, event.entityPlayer.worldObj, toolBelt);
-			// Retrieves the selected Tool
-			ItemStack selectedStack = data.getSelectedTool();
-			// If a Tool exists in the selected slot
-			if (selectedStack != null) {
-				// Run a harvest check on that Tool and set the result
-				event.success = selectedStack.canHarvestBlock(event.block);
-			}
+		// Retrieves the Selected Tool within the held Tool Belt
+		ItemStack tool = ItemLib.getSelectedTool(
+				event.entityPlayer,
+				event.entityPlayer.worldObj,
+				event.entityPlayer.getHeldItem()
+		);
+		if (tool != null) {
+			// Run a harvest check on that Tool and set the result
+			event.success = tool.canHarvestBlock(event.block);
+		} else {
+			event.success = event.entityPlayer.getHeldItem().canHarvestBlock(event.block);
 		}
 	}
 
@@ -277,19 +238,14 @@ public class ItemMiningToolBelt extends Item {
 	public static boolean doEntityInteract(EntityInteractEvent event) {
 		// First checks if the player is sneaking
 		if (event.entityPlayer.isSneaking()) {
-			// Retrieves the Held Tool Belt
-			ItemStack toolBelt = ItemLib.getToolBelt(event.entityPlayer, event.entityPlayer.worldObj, true);
-			// If the player is still holding the Tool Belt
-			if (toolBelt != null) {
-				// Retrieves the Tool Belt data
-				MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(event.entityPlayer, event.entityPlayer.worldObj, toolBelt);
-				// Retrieves the selected Tool
-				ItemStack selectedStack = data.getSelectedTool();
-				// If a Tool exists in the selected slot
-				if (selectedStack != null) {
-					// Run the interactWith on the tool
-					return selectedStack.interactWith((EntityLiving) event.target);
-				}
+			// Retrieves the Selected Tool within the held Tool Belt
+			ItemStack tool = ItemLib.getSelectedTool(
+					event.entityPlayer,
+					event.entityPlayer.worldObj,
+					event.entityPlayer.getHeldItem()
+			);
+			if (tool != null) {
+				return tool.interactWith((EntityLiving) event.target);
 			}
 		}
 		return false;
