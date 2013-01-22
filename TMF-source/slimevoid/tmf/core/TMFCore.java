@@ -195,14 +195,17 @@ public class TMFCore {
 		refineryIdle = new BlockRefinery(refineryIdleId,0,0,false).setBlockName("refinery.idle").setHardness(3.5F).setCreativeTab(CreativeTabs.tabBlock);
 		refineryActive = new BlockRefinery(refineryActiveId,0,0,true).setBlockName("refinery.active").setHardness(3.5F).setLightValue(0.875F);
 		
+		grinderIdle = new BlockRefinery(grinderIdleId,0,1,false).setBlockName("grinder.idle").setHardness(3.5F).setCreativeTab(CreativeTabs.tabBlock);
+		grinderActive = new BlockRefinery(grinderActiveId,0,1,true).setBlockName("grinder.active").setHardness(3.5F).setLightValue(0.875F);
+		
 		GameRegistry.registerBlock(refineryIdle,"refinery.idle");
 		GameRegistry.registerBlock(refineryActive,"refinery.active");
 		GameRegistry.registerTileEntity(TileEntityRefinery.class, "TMF Refinery");
 		LanguageRegistry.addName(refineryIdle, NamingLib.REFINERY);
 		LanguageRegistry.addName(refineryActive, NamingLib.REFINERY);
 
-		GameRegistry.registerBlock(grinderIdle,"refinery.idle");
-		GameRegistry.registerBlock(grinderActive,"refinery.active");
+		GameRegistry.registerBlock(grinderIdle,"grinder.idle");
+		GameRegistry.registerBlock(grinderActive,"grinder.active");
 		GameRegistry.registerTileEntity(TileEntityGrinder.class, "TMF Grinder");
 		LanguageRegistry.addName(grinderIdle, NamingLib.REFINERY);
 		LanguageRegistry.addName(grinderActive, NamingLib.REFINERY);
