@@ -1,5 +1,6 @@
 package slimevoid.tmf.blocks.machines.blocks;
 
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.core.TMFCore;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -33,9 +34,8 @@ public class BlockGrinder extends BlockMachine {
 	}
 
 	@Override
-	protected TileEntity getTileEntity(World world) {
-		// TODO Auto-generated method stub
-		return null;
+	public TileEntity createNewTileEntity(World world) {
+		return new TileEntityGrinder();
 	}
 
 }

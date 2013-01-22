@@ -195,7 +195,7 @@ public class TMFCore {
 		LanguageRegistry.addName(refineryIdle, NamingLib.REFINERY);
 		LanguageRegistry.addName(refineryActive, NamingLib.REFINERY);
 		
-		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource("/TheMinersFriend/resources/refinery.json").getFile()));
+		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource("/TheMinersFriend/machines/refinery.json").getFile()));
 	}
 
 	
