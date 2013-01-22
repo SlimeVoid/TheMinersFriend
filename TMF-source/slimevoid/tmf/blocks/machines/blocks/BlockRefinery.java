@@ -16,7 +16,12 @@ public class BlockRefinery extends BlockMachine {
 	public BlockRefinery(int id, int texX, int texY, boolean isActive) {
 		super(id, texX, texY, isActive);
 	}
-	
+
+	@Override
+	public TileEntity createNewTileEntity(World world) {
+		return new TileEntityRefinery();
+	}
+
 	@Override
 	public int idDropped(int par1, Random par2Random, int par3) {
 		return TMFCore.refineryIdleId;
@@ -54,10 +59,5 @@ public class BlockRefinery extends BlockMachine {
 			tile.validate();
 			world.setBlockTileEntity(x, y, z, tile);
 		}
-	}
-
-	@Override
-	protected TileEntity getTileEntity(World world) {
-		return new TileEntityRefinery();
 	}
 }
