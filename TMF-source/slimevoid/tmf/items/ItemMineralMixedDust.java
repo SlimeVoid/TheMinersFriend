@@ -25,7 +25,7 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 		if ( timeLevel == 0 )
 			return 1600;
 		
-		double out = (Math.log(timeLevel+1d)*2300d)+1600d;
+		double out = (Math.log((double)(timeLevel)+1d)*2300d)+1600d;
 		//double out = 1000 + ((double)(timeLevel+1)*600);
 		if ( out >  6400)
 			out = 6400;
@@ -39,7 +39,7 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 		if ( speedLevel == 0 )
 			return 200;
 
-		double out = ( (Math.log((speedLevel)+1d)-133d) * -(1d / ((speedLevel)+1d) ) + 32d );
+		double out = ( (Math.log((double)(speedLevel)+1d)-133d) * -(1d / ((double)(speedLevel)+1d) ) + 32d );
 		//double out = 218.75d + ((double)(speedLevel+1)*18.75d);
 		if ( out < 50)
 			out = 50;
