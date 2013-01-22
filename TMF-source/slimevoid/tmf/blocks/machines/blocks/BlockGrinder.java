@@ -18,7 +18,7 @@ public class BlockGrinder extends BlockMachine {
 
 	@Override
 	public int idDropped(int par1, Random par2Random, int par3) {
-		return TMFCore.refineryIdleId;
+		return TMFCore.grinderIdleId;
 	}
 
 	@Override

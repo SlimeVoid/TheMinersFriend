@@ -21,6 +21,7 @@ public class NamingLib {
 	public static final String ORE_EGIOCLASE = makeName(EGIOCLASE, ORE);
 	
 	public static final String REFINERY = "Refinery";
+	public static final String GRINDER = "Grinder";
 	
 	private static String makeName(String str1, String str2) {
 		return str1 + " " + str2;

@@ -11,9 +11,12 @@ import slimevoid.lib.IPacketHandling;
 import slimevoid.lib.core.SlimevoidCore;
 import slimevoid.tmf.api.ITMFCommonProxy;
 import slimevoid.tmf.blocks.machines.inventory.ContainerRefinery;
+import slimevoid.tmf.blocks.machines.inventory.ContainerGrinder;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.client.gui.GuiMiningToolBelt;
 import slimevoid.tmf.client.gui.GuiRefinery;
+import slimevoid.tmf.client.gui.GuiGrinder;
 import slimevoid.tmf.core.TMFInit;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.data.MiningMode;
@@ -23,7 +26,7 @@ import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.EventLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.PacketLib;
-import slimevoid.tmf.items.inventory.ContainerMiningToolBelt;
+import slimevoid.tmf.inventory.ContainerMiningToolBelt;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.Player;
@@ -35,6 +38,7 @@ public class CommonProxy implements ITMFCommonProxy {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
+		System.out.println(ID);
 		switch (ID) {
 			case GuiLib.TOOL_BELT_GUIID :
 				MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(
@@ -47,14 +51,25 @@ public class CommonProxy implements ITMFCommonProxy {
 						data
 				);
 			case GuiLib.REFINERY_GUIID :
-				TileEntity tile = world.getBlockTileEntity(x, y, z);
-				if ( tile instanceof TileEntityRefinery ) {
-					TileEntityRefinery tileRefinery = (TileEntityRefinery) tile;
+				TileEntity tile1 = world.getBlockTileEntity(x, y, z);
+				if ( tile1 instanceof TileEntityRefinery ) {
+					TileEntityRefinery tileRefinery = (TileEntityRefinery) tile1;
 					return new ContainerRefinery(
 							player.inventory,
 							tileRefinery
 					);
 				}
+				return null;
+			case GuiLib.GRINDER_GUIID :
+				TileEntity tile2 = world.getBlockTileEntity(x, y, z);
+				if ( tile2 instanceof TileEntityGrinder ) {
+					TileEntityGrinder tileGrinder = (TileEntityGrinder) tile2;
+					return new ContainerGrinder(
+							player.inventory,
+							tileGrinder
+					);
+				}
+				return null;
 			default : return null;
 		}
 	}
@@ -74,14 +89,25 @@ public class CommonProxy implements ITMFCommonProxy {
 						data
 				);
 			case GuiLib.REFINERY_GUIID :
-				TileEntity tile = world.getBlockTileEntity(x, y, z);
-				if ( tile instanceof TileEntityRefinery ) {
-					TileEntityRefinery tileRefinery = (TileEntityRefinery) tile;
+				TileEntity tile1 = world.getBlockTileEntity(x, y, z);
+				if ( tile1 instanceof TileEntityRefinery ) {
+					TileEntityRefinery tileRefinery = (TileEntityRefinery) tile1;
 					return new GuiRefinery(
 							player,
 							tileRefinery
 					);
 				}
+				return null;
+			case GuiLib.GRINDER_GUIID :
+				TileEntity tile2 = world.getBlockTileEntity(x, y, z);
+				if ( tile2 instanceof TileEntityGrinder ) {
+					TileEntityGrinder tileGrinder = (TileEntityGrinder) tile2;
+					return new GuiGrinder(
+							player,
+							tileGrinder
+					);
+				}
+				return null;
 			default : return null;
 		}
 	}

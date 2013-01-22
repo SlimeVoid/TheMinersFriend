@@ -1,10 +1,7 @@
 package slimevoid.tmf.blocks.machines.tileentities;
 
 import slimevoid.tmf.blocks.machines.GrinderRecipes;
-import slimevoid.tmf.blocks.machines.RefineryRecipes;
-import slimevoid.tmf.blocks.machines.RefineryRecipes.RefineryRecipe;
 import slimevoid.tmf.blocks.machines.blocks.BlockGrinder;
-import slimevoid.tmf.blocks.machines.blocks.BlockMachine;
 import slimevoid.tmf.core.TMFCore;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -186,7 +183,7 @@ public class TileEntityGrinder extends TileEntityMachine {
 
 	@Override
 	public int getCurrentFuelBurnSpeed() {
-		return getItemBurnSpeed(grinderItemStacks[1]);
+		return getItemBurnSpeed(grinderItemStacks[1]) * 2;
 	}
 
 	@Override
@@ -206,8 +203,7 @@ public class TileEntityGrinder extends TileEntityMachine {
 
 	@Override
 	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
-		// TODOD :: Grinder
-		//((BlockGrinder)TMFCore.refineryIdle).updateMachineBlockState(isBurning, world, x, y, z);
+		((BlockGrinder)TMFCore.grinderIdle).updateMachineBlockState(isBurning, world, x, y, z);
 	}
 
 }
