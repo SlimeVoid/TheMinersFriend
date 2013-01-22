@@ -1,4 +1,4 @@
-package slimevoid.tmf.inventory;
+package slimevoid.tmf.items.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

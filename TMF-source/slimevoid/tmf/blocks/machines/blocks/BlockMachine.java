@@ -141,13 +141,6 @@ public abstract class BlockMachine extends BlockContainer {
 	}
 	
 	@Override 
-	public TileEntity createNewTileEntity(World world) {
-		return this.getTileEntity(world);
-	}
-	
-	protected abstract TileEntity getTileEntity(World world);
-
-	@Override 
 	public int getBlockTexture(IBlockAccess blockAccess, int x, int y, int z, int side) {
 		if ( side == 1 || side == 0 ) {
 			// Top/bottom
