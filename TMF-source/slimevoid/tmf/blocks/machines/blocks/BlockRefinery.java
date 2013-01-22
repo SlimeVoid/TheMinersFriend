@@ -9,7 +9,6 @@ import slimevoid.tmf.core.lib.GuiLib;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockRefinery extends BlockMachine {

@@ -112,9 +112,9 @@ public abstract class BlockMachine extends BlockContainer {
 							stack.stackSize -= rndSize;
 							EntityItem entity = new EntityItem(
 									world, 
-									(double)((float)x + rndX), 
-									(double)((float)y + rndY), 
-									(double)((float)z + rndZ), 
+									(x + rndX), 
+									(y + rndY), 
+									(z + rndZ), 
 									new ItemStack(
 											stack.itemID, 
 											rndSize, 
@@ -127,9 +127,9 @@ public abstract class BlockMachine extends BlockContainer {
 							}
 							
 							float multi = 0.05F;
-							entity.motionX = (double)((float)this.rand.nextGaussian() * multi);
-							entity.motionY = (double)((float)this.rand.nextGaussian() * multi + 0.2F);
-							entity.motionZ = (double)((float)this.rand.nextGaussian() * multi);
+							entity.motionX = ((float)this.rand.nextGaussian() * multi);
+							entity.motionY = ((float)this.rand.nextGaussian() * multi + 0.2F);
+							entity.motionZ = ((float)this.rand.nextGaussian() * multi);
 							world.spawnEntityInWorld(entity);
 						}
 					}

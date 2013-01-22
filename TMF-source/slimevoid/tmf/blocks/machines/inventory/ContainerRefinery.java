@@ -3,17 +3,14 @@ package slimevoid.tmf.blocks.machines.inventory;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import slimevoid.tmf.blocks.machines.RefineryRecipes;
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityMachine;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
-import slimevoid.tmf.inventory.SlotMiningToolBelt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.tileentity.TileEntityFurnace;
 
 public class ContainerRefinery extends Container {
 	private TileEntityRefinery refinery;
@@ -32,7 +29,7 @@ public class ContainerRefinery extends Container {
         this.addSlotToContainer(new SlotRefinery(refinery, 3, 130, 35)); // Bisogen
         this.addSlotToContainer(new SlotRefinery(refinery, 4, 148, 35)); // Cydrine
      
-        bindPlayerInventory((InventoryPlayer) playerInventory);
+        bindPlayerInventory(playerInventory);
 	}
 	
 	protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
@@ -85,7 +82,7 @@ public class ContainerRefinery extends Container {
 					if ( !this.mergeItemStack(stackInSlot, 0, 1, false) ) {
 						return null;
 					}
-				} else if ( TileEntityRefinery.isItemFuel(stackInSlot) ) {
+				} else if ( TileEntityMachine.isItemFuel(stackInSlot) ) {
 					if ( !this.mergeItemStack(stackInSlot, 1, 2, false) ) {
 						return null;
 					}

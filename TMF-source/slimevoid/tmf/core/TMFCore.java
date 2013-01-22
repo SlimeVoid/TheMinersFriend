@@ -1,20 +1,14 @@
 package slimevoid.tmf.core;
 
 import java.io.File;
-import java.io.IOException;
-
-import argo.saj.InvalidSyntaxException;
-
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.lib.util.XMLRecipeLoader;
 import slimevoid.tmf.blocks.machines.JSONRefineryRecipesLoader;
-import slimevoid.tmf.blocks.machines.RefineryRecipes;
 import slimevoid.tmf.blocks.machines.blocks.BlockRefinery;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;

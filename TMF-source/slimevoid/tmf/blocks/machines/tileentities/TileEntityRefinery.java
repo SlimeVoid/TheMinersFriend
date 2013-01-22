@@ -3,14 +3,10 @@ package slimevoid.tmf.blocks.machines.tileentities;
 import slimevoid.tmf.blocks.machines.RefineryRecipes;
 import slimevoid.tmf.blocks.machines.RefineryRecipes.RefineryRecipe;
 import slimevoid.tmf.blocks.machines.blocks.BlockMachine;
-import slimevoid.tmf.blocks.machines.blocks.BlockRefinery;
 import slimevoid.tmf.core.TMFCore;
-import slimevoid.tmf.fuel.IFuelHandlerTMF;
-import slimevoid.tmf.items.ItemMineral;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 

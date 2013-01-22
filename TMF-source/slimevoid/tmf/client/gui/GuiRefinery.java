@@ -6,7 +6,6 @@ import slimevoid.tmf.blocks.machines.inventory.ContainerRefinery;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 
 public class GuiRefinery extends GuiContainer {
 	private TileEntityRefinery refinery;
