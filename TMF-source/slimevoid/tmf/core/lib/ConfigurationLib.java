@@ -168,9 +168,20 @@ public class ConfigurationLib {
 				Configuration.CATEGORY_BLOCK,
 				"refineryActive",
 				1101).value);
-		
 		XMLRecipeLoader.addXmlVariable("$refineryIdle", 		TMFCore.refineryIdleId);
 		XMLRecipeLoader.addXmlVariable("$refineryActive", 	TMFCore.refineryActiveId);
+		
+		TMFCore.grinderIdleId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_BLOCK,
+				"grinderIdle",
+				1102).value);
+		TMFCore.grinderActiveId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_BLOCK,
+				"grinderActive",
+				1103).value);
+		XMLRecipeLoader.addXmlVariable("$grinderIdle", 		TMFCore.grinderIdleId);
+		XMLRecipeLoader.addXmlVariable("$grinderActive", 	TMFCore.grinderActiveId);
+		
 	}
 	private static void loadLogger() {
 		TMFCore.loggerLevel = String.valueOf(TMFCore.configuration.get(

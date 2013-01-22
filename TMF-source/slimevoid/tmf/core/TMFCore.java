@@ -8,8 +8,10 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.lib.util.XMLRecipeLoader;
+import slimevoid.tmf.blocks.machines.JSONGrinderRecipesLoader;
 import slimevoid.tmf.blocks.machines.JSONRefineryRecipesLoader;
 import slimevoid.tmf.blocks.machines.blocks.BlockRefinery;
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.lib.BlockLib;
@@ -143,10 +145,14 @@ public class TMFCore {
 	// MACHINES
 	public static int
 		refineryIdleId,
-		refineryActiveId;
+		refineryActiveId,
+		grinderIdleId,
+		grinderActiveId;
 	public static Block
 		refineryIdle,
-		refineryActive;
+		refineryActive,
+		grinderIdle,
+		grinderActive;
 	
 	// BLOCKS
 
@@ -194,8 +200,15 @@ public class TMFCore {
 		GameRegistry.registerTileEntity(TileEntityRefinery.class, "TMF Refinery");
 		LanguageRegistry.addName(refineryIdle, NamingLib.REFINERY);
 		LanguageRegistry.addName(refineryActive, NamingLib.REFINERY);
+
+		GameRegistry.registerBlock(grinderIdle,"refinery.idle");
+		GameRegistry.registerBlock(grinderActive,"refinery.active");
+		GameRegistry.registerTileEntity(TileEntityGrinder.class, "TMF Grinder");
+		LanguageRegistry.addName(grinderIdle, NamingLib.REFINERY);
+		LanguageRegistry.addName(grinderActive, NamingLib.REFINERY);
 		
 		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource("/TheMinersFriend/machines/refinery.json").getFile()));
+		JSONGrinderRecipesLoader.loadFile(new File(TMFCore.class.getResource("/TheMinersFriend/machines/grinder.json").getFile()));
 	}
 
 	
