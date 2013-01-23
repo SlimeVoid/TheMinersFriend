@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.TMFCore;
-import slimevoid.tmf.resources.items.ItemMineral;
+import slimevoid.tmf.minerals.items.ItemMineral;
 
 import argo.jdom.JdomParser;
 import argo.jdom.JsonNode;

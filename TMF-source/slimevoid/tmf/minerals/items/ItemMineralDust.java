@@ -1,4 +1,4 @@
-package slimevoid.tmf.resources.items;
+package slimevoid.tmf.minerals.items;
 
 public class ItemMineralDust extends ItemMineral {
 

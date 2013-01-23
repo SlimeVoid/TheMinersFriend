@@ -1,4 +1,4 @@
-package slimevoid.tmf.resources.items;
+package slimevoid.tmf.minerals.items;
 
 import slimevoid.tmf.core.TMFCore;
 import net.minecraft.item.ItemStack;

@@ -61,7 +61,7 @@ public class BlockGeologicalEquipment extends BlockMachine {
 	
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return new TileEntityGeologicalEquipment();
+		return new TileEntityGeologicalEquipment(world);
 	}
 
 }

@@ -6,8 +6,8 @@ import java.util.Random;
 
 import net.minecraft.item.ItemStack;
 
-import slimevoid.tmf.resources.items.ItemMineral;
-import slimevoid.tmf.resources.items.ItemMineralDust;
+import slimevoid.tmf.minerals.items.ItemMineral;
+import slimevoid.tmf.minerals.items.ItemMineralDust;
 
 public class GrinderRecipes {
 	private static final GrinderRecipes grinderBase = new GrinderRecipes();

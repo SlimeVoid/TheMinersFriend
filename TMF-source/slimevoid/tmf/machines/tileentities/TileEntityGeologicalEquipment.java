@@ -1,8 +1,11 @@
 package slimevoid.tmf.machines.tileentities;
 
+import java.util.HashMap;
+
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
-import slimevoid.tmf.resources.items.ItemMineral;
+import slimevoid.tmf.minerals.items.ItemMineral;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockOre;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -14,11 +17,109 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	 * Fuel
 	 */
 	private ItemStack fuelStack;
+	
+	/**
+	 * The width of the Geo scan in relation to this xCoord and zCoord
+	 */
+	private int maxScanWidth;
+	
+	/**
+	 * How many levels that Geo Equipment can scan along yCoord
+	 */
+	private int maxScanDepth;
+	
+	/**
+	 * The current level of scan
+	 */
+	private int currentLevel;
+	
+	/**
+	 * The scan speed based on fuel
+	 */
+	private int scanSpeed;
 
 	/**
-	 * Survey data [block height]
+	 * Survey data
+	 * 
+	 * Idea is to store each level (Integer) with Array of blocks of scanSize
 	 */
-	private Block[] surveyData = new Block[256];
+	private HashMap<Integer, Block[]> surveyData;
+	
+	private boolean hasOre;
+
+	public TileEntityGeologicalEquipment(World world) {
+		this.surveyData = new HashMap<Integer, Block[]>();
+		this.hasOre = false;
+	}
+	
+	@Override
+	public void updateEntity() {
+		this.calculateScan();
+		this.scanLevel();
+		this.gotoNextLevel();
+	}
+	
+	private void calculateScan() {
+		// TODO :: calculate the scan speed based on fuel
+		this.scanSpeed = this.getCurrentFuelBurnSpeed(); // ???
+		// TODO :: calculate the maxScanWidth based on fuel
+		this.maxScanWidth= this.getCurrentFuelBurnWidth(); // ???
+		// TODO :: calculate the maxScanDepth based on fuel
+		this.maxScanDepth = yCoord /* - some value from fuel */;
+	}
+	
+	private void scanLevel() {
+		// TODO : Scan currentLevel using scanWidth
+	}
+	
+	private void gotoNextLevel() {
+		if (currentLevel <= this.maxScanDepth) {
+			currentLevel = this.yCoord - 1;
+		} else {
+			currentLevel--;
+		}
+	}
+
+	public void setBlock(World world, int x, int y, int z, Block block) {
+		// If we're at bedrock or top of the world do nothing
+		if (y >= world.getHeight() || (y -  this.maxScanDepth) <= 0) {
+			return;
+		}
+		// TODO :: Refine setBlock process and storage
+		if (world.equals(this.getWorldObj())) {
+			Block[] blocks = new Block[this.maxScanWidth];
+			if (!this.surveyData.containsKey(y)) {
+				blocks[0] = block;
+			} else {
+				blocks = this.surveyData.get(y);
+				for (int i = 0; i < blocks.length; i++) {
+					if (blocks[i] == null) {
+						blocks[i] = block;
+						break;
+					}
+				}
+			}
+			if (!this.hasOre && block instanceof BlockOre) {
+				this.hasOre = true;
+			}
+			this.surveyData.put(y, blocks);
+		}
+	}
+
+	public Block getBlockAt(World world, int x, int y, int z) {
+		return Block.blocksList[world.getBlockId(x, y, z)];
+	}
+	
+	public boolean oreFound() {
+		return hasOre;
+	}
+	
+	public Block[] getBlocksAt(int level) {
+		if (surveyData.containsKey(level)) {
+			return surveyData.get(level);
+		}
+		return null;
+	}
 	
 	@Override
 	public int getSizeInventory() {

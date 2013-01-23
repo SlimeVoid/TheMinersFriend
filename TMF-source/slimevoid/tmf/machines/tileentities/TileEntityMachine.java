@@ -4,7 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import slimevoid.lib.util.SlimevoidHelper;
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
-import slimevoid.tmf.resources.items.ItemMineral;
+import slimevoid.tmf.minerals.items.ItemMineral;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

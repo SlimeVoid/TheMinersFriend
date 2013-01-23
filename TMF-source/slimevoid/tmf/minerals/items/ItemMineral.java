@@ -1,4 +1,4 @@
-package slimevoid.tmf.resources.items;
+package slimevoid.tmf.minerals.items;
 
 import slimevoid.tmf.core.lib.SpriteLib;
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
