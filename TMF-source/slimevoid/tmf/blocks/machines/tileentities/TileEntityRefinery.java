@@ -32,39 +32,6 @@ public class TileEntityRefinery extends TileEntityMachine {
 		return refineryItemStacks[index];
 	}
 
-	@Override
-	public ItemStack decrStackSize(int index, int ammount) {
-		if (refineryItemStacks[index] != null) {
-			ItemStack newStack;
-			
-			if (refineryItemStacks[index].stackSize <= ammount) {
-				newStack = refineryItemStacks[index];
-				refineryItemStacks[index] = null;
-				return newStack;
-			} else {
-				newStack = refineryItemStacks[index].splitStack(ammount);
-				
-				if (refineryItemStacks[index].stackSize == 0) {
-					refineryItemStacks[index] = null;
-				}
-				
-				return newStack;
-			}
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public ItemStack getStackInSlotOnClosing(int index) {
-		if (refineryItemStacks[index] != null) {
-			ItemStack stack = refineryItemStacks[index];
-			refineryItemStacks[index] = null;
-			return stack;
-		} else {
-			return null;
-		}
-	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
@@ -115,12 +82,6 @@ public class TileEntityRefinery extends TileEntityMachine {
 		super.writeToNBT(ntbCompound);
 		
 	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		return 64;
-	}
-	
     
 	@Override
 	public int getStartInventorySide(ForgeDirection side) {

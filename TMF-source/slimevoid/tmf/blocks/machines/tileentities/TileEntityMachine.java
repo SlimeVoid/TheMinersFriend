@@ -49,6 +49,45 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 
 	@Override
 	public void closeChest() {}
+
+	@Override
+	public ItemStack decrStackSize(int index, int ammount) {
+		if (getStackInSlot(index) != null) {
+			ItemStack newStack;
+			
+			if (getStackInSlot(index).stackSize <= ammount) {
+				newStack = getStackInSlot(index);
+				setInventorySlotContents(index, null);
+				return newStack;
+			} else {
+				newStack = getStackInSlot(index).splitStack(ammount);
+				
+				if (getStackInSlot(index).stackSize == 0) {
+					setInventorySlotContents(index, null);
+				}
+				
+				return newStack;
+			}
+		} else {
+			return null;
+		}
+	}
+	
+	@Override
+	public ItemStack getStackInSlotOnClosing(int index) {
+		if (getStackInSlot(index) != null) {
+			ItemStack stack = getStackInSlot(index);
+			setInventorySlotContents(index, null);
+			return stack;
+		} else {
+			return null;
+		}
+	}
+	
+	@Override
+	public int getInventoryStackLimit() {
+		return 64;
+	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound ntbCompound) {
@@ -130,7 +169,7 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 	public abstract void setCurrentFuelStack(ItemStack stack);
 	public abstract void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z);
 
-	public static int getItemBurnTime(ItemStack stack) {
+	public int getItemBurnTime(ItemStack stack) {
 		if ( stack == null )
 			return 0;
 
@@ -140,7 +179,7 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 			return TileEntityFurnace.getItemBurnTime(stack);
 		}
 	}
-	public static int getItemBurnSpeed(ItemStack stack) {
+	public int getItemBurnSpeed(ItemStack stack) {
 		if ( stack == null )
 			return 0;
 		
@@ -150,7 +189,7 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 			return 200;
 		}
 	}
-	public static int getItemBurnWidth(ItemStack stack) {
+	public int getItemBurnWidth(ItemStack stack) {
 		if ( stack == null )
 			return 0;
 		
@@ -160,7 +199,7 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 			return 1;
 		}
 	}
-	public static boolean isItemFuel(ItemStack stack) {
+	public boolean isItemFuel(ItemStack stack) {
 		return getItemBurnTime(stack) > 0 && getItemBurnSpeed(stack) > 0 && getItemBurnWidth(stack) > 0;
 	}
 	

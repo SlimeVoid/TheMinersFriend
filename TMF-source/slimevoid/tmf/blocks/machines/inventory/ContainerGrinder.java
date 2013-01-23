@@ -80,7 +80,7 @@ public class ContainerGrinder extends Container {
 					if ( !this.mergeItemStack(stackInSlot, 0, 1, false) ) {
 						return null;
 					}
-				} else if ( TileEntityMachine.isItemFuel(stackInSlot) ) {
+				} else if ( grinder.isItemFuel(stackInSlot) ) {
 					if ( !this.mergeItemStack(stackInSlot, 1, 2, false) ) {
 						return null;
 					}

@@ -29,40 +29,6 @@ public class TileEntityGrinder extends TileEntityMachine {
 	}
 
 	@Override
-	public ItemStack decrStackSize(int index, int ammount) {
-		if (grinderItemStacks[index] != null) {
-			ItemStack newStack;
-			
-			if (grinderItemStacks[index].stackSize <= ammount) {
-				newStack = grinderItemStacks[index];
-				grinderItemStacks[index] = null;
-				return newStack;
-			} else {
-				newStack = grinderItemStacks[index].splitStack(ammount);
-				
-				if (grinderItemStacks[index].stackSize == 0) {
-					grinderItemStacks[index] = null;
-				}
-				
-				return newStack;
-			}
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public ItemStack getStackInSlotOnClosing(int index) {
-		if (grinderItemStacks[index] != null) {
-			ItemStack stack = grinderItemStacks[index];
-			grinderItemStacks[index] = null;
-			return stack;
-		} else {
-			return null;
-		}
-	}
-
-	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
 		grinderItemStacks[index] = stack;
 		
@@ -110,11 +76,6 @@ public class TileEntityGrinder extends TileEntityMachine {
 		
 		super.writeToNBT(ntbCompound);
 		
-	}
-	
-	@Override
-	public int getInventoryStackLimit() {
-		return 64;
 	}
 
 	@Override
