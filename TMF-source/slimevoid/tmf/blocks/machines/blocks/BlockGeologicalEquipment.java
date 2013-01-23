@@ -2,6 +2,8 @@ package slimevoid.tmf.blocks.machines.blocks;
 
 import java.util.Random;
 
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -58,9 +60,8 @@ public class BlockGeologicalEquipment extends BlockMachine {
 	}
 	
 	@Override
-	public TileEntity createNewTileEntity(World var1) {
-		// TODO :: GeoEquip tileentity
-		return null;
+	public TileEntity createNewTileEntity(World world) {
+		return new TileEntityGeologicalEquipment();
 	}
 
 }
