@@ -1,4 +1,4 @@
-package slimevoid.tmf.blocks.machines.inventory;
+package slimevoid.tmf.machines.inventory;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

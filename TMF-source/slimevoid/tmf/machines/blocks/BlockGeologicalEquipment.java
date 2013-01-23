@@ -1,8 +1,8 @@
-package slimevoid.tmf.blocks.machines.blocks;
+package slimevoid.tmf.machines.blocks;
 
 import java.util.Random;
 
-import slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
+import slimevoid.tmf.machines.tileentities.TileEntityGeologicalEquipment;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;

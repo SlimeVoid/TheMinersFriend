@@ -1,4 +1,4 @@
-package slimevoid.tmf.blocks.machines.tileentities;
+package slimevoid.tmf.machines.tileentities;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

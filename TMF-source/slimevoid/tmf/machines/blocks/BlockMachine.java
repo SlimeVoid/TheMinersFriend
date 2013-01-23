@@ -1,10 +1,10 @@
-package slimevoid.tmf.blocks.machines.blocks;
+package slimevoid.tmf.machines.blocks;
 
 import java.util.Random;
 
-import slimevoid.tmf.blocks.machines.tileentities.TileEntityMachine;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.lib.SpriteLib;
+import slimevoid.tmf.machines.tileentities.TileEntityMachine;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

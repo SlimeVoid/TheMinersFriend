@@ -1,9 +1,9 @@
-package slimevoid.tmf.blocks.machines.tileentities;
+package slimevoid.tmf.machines.tileentities;
 
-import slimevoid.tmf.blocks.machines.RefineryRecipes;
-import slimevoid.tmf.blocks.machines.RefineryRecipes.RefineryRecipe;
-import slimevoid.tmf.blocks.machines.blocks.BlockMachine;
 import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.machines.RefineryRecipes;
+import slimevoid.tmf.machines.RefineryRecipes.RefineryRecipe;
+import slimevoid.tmf.machines.blocks.BlockMachine;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

@@ -1,4 +1,4 @@
-package slimevoid.tmf.blocks.machines;
+package slimevoid.tmf.machines;
 
 import java.util.ArrayList;
 import java.util.HashMap;

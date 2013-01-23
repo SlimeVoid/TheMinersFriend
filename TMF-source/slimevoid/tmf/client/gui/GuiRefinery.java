@@ -2,8 +2,8 @@ package slimevoid.tmf.client.gui;
 
 import org.lwjgl.opengl.GL11;
 
-import slimevoid.tmf.blocks.machines.inventory.ContainerRefinery;
-import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
+import slimevoid.tmf.machines.inventory.ContainerRefinery;
+import slimevoid.tmf.machines.tileentities.TileEntityRefinery;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 

@@ -1,8 +1,8 @@
-package slimevoid.tmf.blocks.machines.tileentities;
+package slimevoid.tmf.machines.tileentities;
 
-import slimevoid.tmf.blocks.machines.GrinderRecipes;
-import slimevoid.tmf.blocks.machines.blocks.BlockGrinder;
 import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.machines.GrinderRecipes;
+import slimevoid.tmf.machines.blocks.BlockGrinder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

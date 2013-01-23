@@ -1,11 +1,11 @@
-package slimevoid.tmf.blocks.machines.blocks;
+package slimevoid.tmf.machines.blocks;
 
 import java.util.Random;
 
-import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.lib.GuiLib;
+import slimevoid.tmf.machines.tileentities.TileEntityRefinery;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;

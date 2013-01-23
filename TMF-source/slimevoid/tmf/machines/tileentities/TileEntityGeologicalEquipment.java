@@ -1,4 +1,4 @@
-package slimevoid.tmf.blocks.machines.tileentities;
+package slimevoid.tmf.machines.tileentities;
 
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
 import slimevoid.tmf.items.ItemMineral;

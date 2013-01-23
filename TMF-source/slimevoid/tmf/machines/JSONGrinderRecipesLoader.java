@@ -1,4 +1,4 @@
-package slimevoid.tmf.blocks.machines;
+package slimevoid.tmf.machines;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -1,10 +1,10 @@
-package slimevoid.tmf.blocks.machines.inventory;
+package slimevoid.tmf.machines.inventory;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import slimevoid.tmf.blocks.machines.RefineryRecipes;
-import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
-import slimevoid.tmf.blocks.machines.tileentities.TileEntityMachine;
+import slimevoid.tmf.machines.RefineryRecipes;
+import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
+import slimevoid.tmf.machines.tileentities.TileEntityMachine;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
