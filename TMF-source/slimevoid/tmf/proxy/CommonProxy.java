@@ -26,7 +26,7 @@ import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.EventLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.PacketLib;
-import slimevoid.tmf.inventory.ContainerMiningToolBelt;
+import slimevoid.tmf.items.inventory.ContainerMiningToolBelt;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.Player;
