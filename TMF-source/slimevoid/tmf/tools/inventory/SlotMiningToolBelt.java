@@ -1,4 +1,4 @@
-package slimevoid.tmf.items.inventory;
+package slimevoid.tmf.tools.inventory;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
-import slimevoid.tmf.items.ItemMotionSensor;
+import slimevoid.tmf.tools.items.ItemMotionSensor;
 
 public class SlotMiningToolBelt extends Slot {
 

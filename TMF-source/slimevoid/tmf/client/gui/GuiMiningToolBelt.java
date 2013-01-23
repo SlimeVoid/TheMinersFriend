@@ -8,7 +8,7 @@ import net.minecraft.inventory.Slot;
 import org.lwjgl.opengl.GL11;
 
 import slimevoid.tmf.core.data.MiningToolBelt;
-import slimevoid.tmf.items.inventory.ContainerMiningToolBelt;
+import slimevoid.tmf.tools.inventory.ContainerMiningToolBelt;
 
 public class GuiMiningToolBelt extends GuiContainer {
 	MiningToolBelt data;

@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import slimevoid.tmf.core.TMFCore;
-import slimevoid.tmf.items.ItemMineral;
-import slimevoid.tmf.items.ItemMineralDust;
+import slimevoid.tmf.resources.items.ItemMineral;
+import slimevoid.tmf.resources.items.ItemMineralDust;
 
 import argo.jdom.JdomParser;
 import argo.jdom.JsonNode;

@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.TMFCore;
-import slimevoid.tmf.items.ItemMineral;
+import slimevoid.tmf.resources.items.ItemMineral;
 
 public class RefineryRecipes {
 	private static final RefineryRecipes refiningBase = new RefineryRecipes();

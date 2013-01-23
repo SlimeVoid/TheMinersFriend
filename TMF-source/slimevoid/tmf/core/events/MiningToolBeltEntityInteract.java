@@ -1,6 +1,6 @@
 package slimevoid.tmf.core.events;
 
-import slimevoid.tmf.items.ItemMiningToolBelt;
+import slimevoid.tmf.tools.items.ItemMiningToolBelt;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 

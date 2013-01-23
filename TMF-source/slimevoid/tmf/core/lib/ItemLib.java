@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.tmf.core.data.MiningToolBelt;
-import slimevoid.tmf.items.ItemMiningToolBelt;
+import slimevoid.tmf.tools.items.ItemMiningToolBelt;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 

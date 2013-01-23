@@ -1,4 +1,4 @@
-package slimevoid.tmf.items;
+package slimevoid.tmf.resources.items;
 
 import slimevoid.tmf.core.TMFCore;
 import net.minecraft.inventory.InventoryCrafting;

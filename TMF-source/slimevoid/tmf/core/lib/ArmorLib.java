@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.lib.data.Logger;
 import slimevoid.tmf.core.LoggerTMF;
-import slimevoid.tmf.items.ItemMiningHelmet;
+import slimevoid.tmf.tools.items.ItemMiningHelmet;
 
 public class ArmorLib {
 	

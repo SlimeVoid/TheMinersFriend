@@ -1,4 +1,4 @@
-package slimevoid.tmf.items;
+package slimevoid.tmf.tools.items;
 
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;

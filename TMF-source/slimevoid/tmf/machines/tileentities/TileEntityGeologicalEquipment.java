@@ -1,7 +1,7 @@
 package slimevoid.tmf.machines.tileentities;
 
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
-import slimevoid.tmf.items.ItemMineral;
+import slimevoid.tmf.resources.items.ItemMineral;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
