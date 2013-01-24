@@ -23,12 +23,12 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 	}
 
 	public String getItemDisplayName(ItemStack itemstack) {
-		return (getDustMeta(itemstack)
-				+ " | " +
-				StringTranslate.getInstance().translateNamedKey(
+		return (StringTranslate.getInstance().translateNamedKey(
 						this.getLocalItemName(
 								itemstack)
 						)
+				+ " | "
+				+ getDustMeta(itemstack)
 				).trim();
 	}
 	
