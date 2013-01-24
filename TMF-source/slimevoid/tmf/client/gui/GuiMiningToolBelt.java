@@ -8,6 +8,7 @@ import net.minecraft.inventory.Slot;
 import org.lwjgl.opengl.GL11;
 
 import slimevoid.tmf.core.data.MiningToolBelt;
+import slimevoid.tmf.core.lib.SpriteLib;
 import slimevoid.tmf.tools.inventory.ContainerMiningToolBelt;
 
 public class GuiMiningToolBelt extends GuiContainer {
@@ -71,7 +72,7 @@ public class GuiMiningToolBelt extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int var2,int var3) {
-		int tex = mc.renderEngine.getTexture("/TheMinersFriend/gui/toolbeltGui.png");
+		int tex = mc.renderEngine.getTexture(SpriteLib.GUI_TOOLBELT);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.renderEngine.bindTexture(tex);
 		int sizeX = (width - xSize) / 2;
