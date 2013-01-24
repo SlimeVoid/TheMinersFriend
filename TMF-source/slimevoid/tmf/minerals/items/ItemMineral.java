@@ -14,6 +14,7 @@ public class ItemMineral extends Item implements IFuelHandlerTMF {
 
 	public ItemMineral(int id) {
 		super(id - ConfigurationLib.ITEMID_OFFSET);
+		this.setNoRepair();
 		this.setCreativeTab(CreativeTabTMF.tabTMF);
 	}
 
