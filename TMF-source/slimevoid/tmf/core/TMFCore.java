@@ -9,6 +9,7 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.lib.util.XMLRecipeLoader;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
+import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.core.lib.NamingLib;
 import slimevoid.tmf.core.world.WorldGeneration;
@@ -128,6 +129,8 @@ public class TMFCore {
 		LanguageRegistry.addName(dustBisogen, "Bisogen Dust");
 		LanguageRegistry.addName(dustCydrine, "Cydrine Dust");
 		LanguageRegistry.addName(dustMixed, "Mixed Dust");
+		
+		LanguageRegistry.instance().addStringLocalization(CreativeTabTMF.tabTMF.getTranslatedTabLabel(), NamingLib.TMFNAME);
 	}
 	
 	// ORES

@@ -4,7 +4,9 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.IArmorTextureProvider;
+import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.ArmorLib;
+import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.SpriteLib;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,7 +15,8 @@ public class ItemMiningHelmet extends ItemArmor implements IArmorTextureProvider
 
 	public ItemMiningHelmet(int itemID, EnumArmorMaterial material,
 			int renderIndex, int armorType) {
-		super(itemID, material, renderIndex, armorType);
+		super(itemID - ConfigurationLib.ITEMID_OFFSET, material, renderIndex, armorType);
+		this.setCreativeTab(CreativeTabTMF.tabTMF);
 	}
 
 	@SideOnly(Side.CLIENT)

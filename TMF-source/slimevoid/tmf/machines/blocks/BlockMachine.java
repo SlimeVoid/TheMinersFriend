@@ -2,7 +2,7 @@ package slimevoid.tmf.machines.blocks;
 
 import java.util.Random;
 
-import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.SpriteLib;
 import slimevoid.tmf.machines.tileentities.TileEntityMachine;
 import net.minecraft.block.Block;
@@ -12,8 +12,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -25,6 +23,7 @@ public abstract class BlockMachine extends BlockContainer {
 	
 	public BlockMachine(int id, int texX, int texY, boolean isActive) {
 		super(id, Material.rock);
+		this.setCreativeTab(CreativeTabTMF.tabTMF);
         setTextureFile(SpriteLib.MACHINE_TEXTURE_PATH);
         this.blockIndexInTexture = texX+(texY*16);
         this.isActive = isActive;

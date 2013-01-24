@@ -1,18 +1,19 @@
 package slimevoid.tmf.tools.items;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
+import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.SpriteLib;
 
 public class ItemMotionSensor extends Item {
 
-	public ItemMotionSensor(int itemId) {
-		super(itemId);
-		this.setCreativeTab(CreativeTabs.tabTools);
-		maxStackSize = 1;
+	public ItemMotionSensor(int itemID) {
+		super(itemID - ConfigurationLib.ITEMID_OFFSET);
+		this.setCreativeTab(CreativeTabTMF.tabTMF);
+		this.setMaxStackSize(1);
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package slimevoid.tmf.tools.items;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -14,8 +13,10 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import slimevoid.lib.data.Logger;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.core.TheMinersFriend;
+import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.data.MiningMode;
 import slimevoid.tmf.core.data.MiningToolBelt;
+import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.SpriteLib;
@@ -23,9 +24,9 @@ import slimevoid.tmf.core.lib.SpriteLib;
 public class ItemMiningToolBelt extends Item {
 
 	public ItemMiningToolBelt(int itemID) {
-		super(itemID);
+		super(itemID - ConfigurationLib.ITEMID_OFFSET);
 		this.setNoRepair();
-		this.setCreativeTab(CreativeTabs.tabTools);
+		this.setCreativeTab(CreativeTabTMF.tabTMF);
 	}
 
 	@Override

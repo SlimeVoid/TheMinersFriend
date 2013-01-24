@@ -10,6 +10,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ConfigurationLib {
 	
+	public static final int ITEMID_OFFSET = 256;
 	@SideOnly(Side.CLIENT)
 	public static int motionSensorMaxEntityDistance;
 	@SideOnly(Side.CLIENT)

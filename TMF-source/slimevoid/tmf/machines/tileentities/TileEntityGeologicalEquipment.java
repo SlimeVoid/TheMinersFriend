@@ -7,7 +7,6 @@ import slimevoid.tmf.fuel.IFuelHandlerTMF;
 import slimevoid.tmf.machines.blocks.BlockGeologicalEquipment;
 import slimevoid.tmf.minerals.items.ItemMineral;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockOre;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

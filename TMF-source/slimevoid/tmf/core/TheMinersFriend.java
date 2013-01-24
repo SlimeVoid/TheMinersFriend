@@ -2,6 +2,7 @@ package slimevoid.tmf.core;
 
 import slimevoid.tmf.api.ITMFCommonProxy;
 import slimevoid.tmf.client.network.ClientPacketHandler;
+import slimevoid.tmf.core.lib.NamingLib;
 import slimevoid.tmf.network.CommonPacketHandler;
 import slimevoid.tmf.network.TMFConnectionHandler;
 import cpw.mods.fml.common.Mod;
@@ -17,7 +18,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 
 @Mod(
-		modid = "TheMinersFriend",
+		modid = NamingLib.TMFID,
 		name = "The Miner's Friend",
 		version = "1.0.0.0",
 		dependencies = "after:SlimevoidLib")
@@ -37,7 +38,7 @@ public class TheMinersFriend {
 			serverSide = "slimevoid.tmf.proxy.CommonProxy")
 	public static ITMFCommonProxy proxy;
 	
-	@Instance("TheMinersFriend")
+	@Instance(NamingLib.TMFID)
 	public static TheMinersFriend instance;
 
 	@PreInit

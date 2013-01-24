@@ -1,8 +1,9 @@
 package slimevoid.tmf.minerals.items;
 
+import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
+import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.SpriteLib;
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -12,8 +13,8 @@ public class ItemMineral extends Item implements IFuelHandlerTMF {
 	private int burnWidth = 1;
 
 	public ItemMineral(int id) {
-		super(id);
-		this.setCreativeTab(CreativeTabs.tabMaterials);
+		super(id - ConfigurationLib.ITEMID_OFFSET);
+		this.setCreativeTab(CreativeTabTMF.tabTMF);
 	}
 
 	@Override

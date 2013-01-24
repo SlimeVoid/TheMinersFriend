@@ -27,11 +27,11 @@ public class RefineryRecipes {
 	}
 	
 	public void addRefinement(BlockTMFOre ore, int min, int max, ItemMineral mineral ) {
-		if ( mineral.itemID == TMFCore.mineralAcxiumId+256 ) {
+		if ( mineral.itemID == TMFCore.mineralAcxiumId ) {
 			addRefinement(ore,min,max,mineral,0);
-		} else if ( mineral.itemID == TMFCore.mineralBisogenId+256 ) {
+		} else if ( mineral.itemID == TMFCore.mineralBisogenId ) {
 			addRefinement(ore,min,max,mineral,1);
-		} else if ( mineral.itemID == TMFCore.mineralCydrineId+256 ) {
+		} else if ( mineral.itemID == TMFCore.mineralCydrineId ) {
 			addRefinement(ore,min,max,mineral,2);
 		}
 	}
