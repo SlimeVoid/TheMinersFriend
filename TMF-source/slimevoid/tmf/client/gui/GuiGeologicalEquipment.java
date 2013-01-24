@@ -79,7 +79,7 @@ public class GuiGeologicalEquipment extends GuiContainer {
 					x1, 
 					y1 + (int)(levelHeight*(float)(length-depth)),
 					x2, 
-					y1 + ((int)(levelHeight*(float)(length-depth))*2),
+					y1 + ((int)(levelHeight*(float)(length-depth+1))),
 					color
 			);
 		}
