@@ -27,6 +27,9 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 	public int cookTime = 0;
 	/** The number of ticks that a fresh copy of the currently-burning item would take to cook */
 	public int currentItemCookTime = 0;
+	
+	/** The currently-burning item's width */
+	public int currentItemWidth = 0;
 		
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
@@ -95,8 +98,9 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 		
 		burnTime = ntbCompound.getShort("BurnTime");
         cookTime = ntbCompound.getShort("CookTime");
-        currentItemBurnTime = getCurrentFuelBurnTime();
-        currentItemCookTime = getCurrentFuelBurnSpeed();
+        currentItemBurnTime = ntbCompound.getShort("CurrentBurnTime");
+        currentItemCookTime = ntbCompound.getShort("CurrentCookTime");
+        currentItemWidth = ntbCompound.getShort("CurrentWidth");
 	}
 	
 	@Override
@@ -105,6 +109,9 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 		
 		ntbCompound.setShort("BurnTime", (short)burnTime);
 		ntbCompound.setShort("CookTime", (short)cookTime);
+		ntbCompound.setShort("CurrentBurnTime", (short)currentItemBurnTime);
+		ntbCompound.setShort("CurrentCookTime", (short)currentItemCookTime);
+		ntbCompound.setShort("CurrentWidth", (short)currentItemWidth);
 	}
 	
 	@Override
@@ -119,6 +126,7 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 			if ( !isBurning() && canSmelt() ) {
 				currentItemBurnTime = burnTime = getCurrentFuelBurnTime();
 				currentItemCookTime = getCurrentFuelBurnSpeed();
+				currentItemWidth = getCurrentFuelBurnWidth();
 				if ( burnTime > 0 ) {
 					inventoryChanged = true;
 					if ( getCurrentFuelStack() != null ) {
@@ -130,15 +138,15 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 					}
 				}
 			}
-			
+
 			if ( isBurning() && canSmelt() ) {
 				++cookTime;
-				
 				if ( cookTime == currentItemCookTime ) {
 					cookTime = 0;
 					smeltItem();
 					inventoryChanged = true;
 				}
+				System.out.println(cookTime+"/"+currentItemCookTime);
 			} else {
 				cookTime = 0;
 			}
@@ -225,7 +233,7 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 	public int getCookProgressScaled(int par1) {
 		if ( currentItemCookTime <= 0 )
 			return 0;
-    	
+		
     	return cookTime * par1 / currentItemCookTime;
 	}
 	

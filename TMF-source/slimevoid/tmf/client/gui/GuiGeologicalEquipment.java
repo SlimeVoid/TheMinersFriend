@@ -23,20 +23,15 @@ public class GuiGeologicalEquipment extends GuiContainer {
 		int sizeX = (width - xSize) / 2;
 		int sizeY = (height - ySize) / 2;
 		drawTexturedModalRect(sizeX, sizeY, 0, 0, xSize, ySize);
-		
-		// TODO :: GeoEquip: Move burn progress bar
-		/*
+
 		int var7;
+		
 		if ( geoEquip.isBurning() ) {
 			var7 = this.geoEquip.getBurnTimeRemainingScaled(12);
-			this.drawTexturedModalRect(sizeX + 56, sizeY + 36 + 12 - var7, 176, 12 - var7, 14, var7 + 2);
-		}*/
-		
-		// TODO :: GeoEquip: Move cook progress bar.
-		/*
+			this.drawTexturedModalRect(sizeX + 9, sizeY + 52 + 12 - var7, 176, 12 - var7, 14, var7 + 2);
+		}
 		var7 = this.geoEquip.getCookProgressScaled(24);
-		this.drawTexturedModalRect(sizeX + 79, sizeY + 34, 176, 14, var7 + 1, 16);
-		*/
+		this.drawTexturedModalRect(sizeX + 31, sizeY + 51, 176, 14, var7 + 1, 16);
 	}
 
 }

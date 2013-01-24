@@ -41,7 +41,6 @@ public class CommonProxy implements ITMFCommonProxy {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
-		System.out.println(ID);
 		switch (ID) {
 			case GuiLib.TOOL_BELT_GUIID :
 				MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(

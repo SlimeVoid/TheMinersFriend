@@ -2,7 +2,9 @@ package slimevoid.tmf.machines.tileentities;
 
 import java.util.HashMap;
 
+import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
+import slimevoid.tmf.machines.blocks.BlockGeologicalEquipment;
 import slimevoid.tmf.minerals.items.ItemMineral;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
@@ -47,24 +49,17 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	
 	private boolean hasOre;
 
-	public TileEntityGeologicalEquipment(World world) {
+	public TileEntityGeologicalEquipment() {
 		this.surveyData = new HashMap<Integer, Block[]>();
 		this.hasOre = false;
 	}
 	
-	@Override
-	public void updateEntity() {
-		this.calculateScan();
-		this.scanLevel();
-		this.gotoNextLevel();
-	}
-	
 	private void calculateScan() {
-		// TODO :: calculate the scan speed based on fuel
+		// TODO :: GeoEquip: calculate the scan speed based on fuel
 		this.scanSpeed = this.getCurrentFuelBurnSpeed(); // ???
-		// TODO :: calculate the maxScanWidth based on fuel
+		// TODO :: GeoEquip: calculate the maxScanWidth based on fuel
 		this.maxScanWidth= this.getCurrentFuelBurnWidth(); // ???
-		// TODO :: calculate the maxScanDepth based on fuel
+		// TODO :: GeoEquip: calculate the maxScanDepth based on fuel
 		this.maxScanDepth = yCoord /* - some value from fuel */;
 	}
 	
@@ -85,7 +80,7 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 		if (y >= world.getHeight() || (y -  this.maxScanDepth) <= 0) {
 			return;
 		}
-		// TODO :: Refine setBlock process and storage
+		// TODO :: GeoEquip: Refine setBlock process and storage
 		if (world.equals(this.getWorldObj())) {
 			Block[] blocks = new Block[this.maxScanWidth];
 			if (!this.surveyData.containsKey(y)) {
@@ -189,16 +184,30 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	@Override
 	public void smeltItem() {
 		if ( canSmelt() ) {
-			// TODO :: GeoEquip smelt item
+			// TODO :: GeoEquip: smelt item
+			
 		}
 	}
 
 	@Override
-	protected boolean canSmelt() {
-		if ( fuelStack == null )
-			return false;
-		
-		// TODO :: GeoEquip can smelt
+	protected boolean canSmelt() {		
+		if ( currentLevel >= 0 ) {
+			int lastLevelScannedNumber = 0;
+			
+			if ( surveyData.containsKey(0) ) {
+				if ( surveyData.get(0).length == 9 ) {
+					for ( Block b: surveyData.get(0) ) {
+						if ( b == null )
+							continue;
+						lastLevelScannedNumber++;
+					}
+				}
+			}
+			
+			if ( lastLevelScannedNumber == 9 )
+				return false;
+			return true;
+		}
 		
 		return false;
 	}
@@ -217,12 +226,12 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	
 	@Override
 	public int getCurrentFuelBurnTime() {
-		return getItemBurnTime(fuelStack);
+		return getItemBurnTime(fuelStack)/2;
 	}
 
 	@Override
 	public int getCurrentFuelBurnSpeed() {
-		return getItemBurnSpeed(fuelStack);
+		return getItemBurnSpeed(fuelStack)*2;
 	}
 
 	@Override
@@ -242,7 +251,6 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 
 	@Override
 	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
-		// TODO :: GeoEquip update state
-		//((BlockGrinder)TMFCore.grinderIdle).updateMachineBlockState(isBurning, world, x, y, z);
+		((BlockGeologicalEquipment)TMFCore.geoEquipIdle).updateMachineBlockState(isBurning, world, x, y, z);
 	}
 }

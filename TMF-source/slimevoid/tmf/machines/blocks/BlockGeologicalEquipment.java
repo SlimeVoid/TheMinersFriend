@@ -3,6 +3,7 @@ package slimevoid.tmf.machines.blocks;
 import java.util.Random;
 
 import slimevoid.tmf.core.lib.GuiLib;
+import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.machines.tileentities.TileEntityGeologicalEquipment;
 
@@ -18,9 +19,7 @@ public class BlockGeologicalEquipment extends BlockMachine {
 
 	@Override
 	public int idDropped(int par1, Random par2Random, int par3) {
-		// TODO :: GeoEquip idle ID
-		//return TMFCore.grinderIdleId;
-		return 0;
+		return TMFCore.geoEquipIdleId;
 	}
 	
 	@Override
@@ -30,11 +29,9 @@ public class BlockGeologicalEquipment extends BlockMachine {
 		
 		keepInventory = true;
 		if (isBurning) {
-			// TODO :: GeoEquip active ID
-			//world.setBlockWithNotify(x, y, z, TMFCore.grinderActive.blockID);
+			world.setBlockWithNotify(x, y, z, TMFCore.geoEquipActive.blockID);
 		} else {
-			// TODO :: GeoEquip inactive ID
-			//world.setBlockWithNotify(x, y, z, TMFCore.grinderIdle.blockID);
+			world.setBlockWithNotify(x, y, z, TMFCore.geoEquipIdle.blockID);
 		}
 		keepInventory = false;
 		
@@ -61,7 +58,7 @@ public class BlockGeologicalEquipment extends BlockMachine {
 	
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return new TileEntityGeologicalEquipment(world);
+		return new TileEntityGeologicalEquipment();
 	}
 
 }
