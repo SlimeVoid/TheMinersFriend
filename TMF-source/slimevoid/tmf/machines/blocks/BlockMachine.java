@@ -123,7 +123,7 @@ public abstract class BlockMachine extends BlockContainer {
 							);
 							
 							if (stack.hasTagCompound()) {
-								entity.getEntityItem().setTagCompound((NBTTagCompound)stack.getTagCompound().copy());
+								entity.func_92014_d().setTagCompound((NBTTagCompound)stack.getTagCompound().copy());
 							}
 							
 							float multi = 0.05F;

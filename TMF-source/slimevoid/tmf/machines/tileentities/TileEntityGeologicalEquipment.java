@@ -151,8 +151,10 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	public void readFromNBT(NBTTagCompound ntbCompound) {
 		NBTTagList items = ntbCompound.getTagList("Items");
 		
-		NBTTagCompound itemInSlot = (NBTTagCompound)items.tagAt(0);
-		fuelStack = ItemStack.loadItemStackFromNBT(itemInSlot);
+		if ( items.tagCount() > 0 ) {
+			NBTTagCompound itemInSlot = (NBTTagCompound)items.tagAt(0);
+			fuelStack = ItemStack.loadItemStackFromNBT(itemInSlot);
+		}
 		
 		super.readFromNBT(ntbCompound);
 	}
@@ -161,9 +163,11 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	public void writeToNBT(NBTTagCompound ntbCompound) {
 		NBTTagList items = new NBTTagList();
 		
-		NBTTagCompound itemInSlot = new NBTTagCompound();
-		fuelStack.writeToNBT(itemInSlot);
-		items.appendTag(itemInSlot);
+		if ( fuelStack != null ) {
+			NBTTagCompound itemInSlot = new NBTTagCompound();
+			fuelStack.writeToNBT(itemInSlot);
+			items.appendTag(itemInSlot);
+		}
 		ntbCompound.setTag("Items", items);
 		
 		super.writeToNBT(ntbCompound);

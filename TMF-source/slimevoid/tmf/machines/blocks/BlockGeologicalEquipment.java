@@ -2,6 +2,8 @@ package slimevoid.tmf.machines.blocks;
 
 import java.util.Random;
 
+import slimevoid.tmf.core.lib.GuiLib;
+import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.machines.tileentities.TileEntityGeologicalEquipment;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -45,16 +47,14 @@ public class BlockGeologicalEquipment extends BlockMachine {
 	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
-		// TODO :: GEOEQUIP_GUIID
-		
-		/*player.openGui(
+		player.openGui(
 				TheMinersFriend.instance,
-				GuiLib.GRINDER_GUIID,
+				GuiLib.GEOEQUIP_GUIID,
 				world,
 				x,
 				y,
 				z
-		);*/
+		);
 		
 		return true;
 	}

@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import slimevoid.lib.IPacketHandling;
 import slimevoid.lib.core.SlimevoidCore;
 import slimevoid.tmf.api.ITMFCommonProxy;
+import slimevoid.tmf.client.gui.GuiGeologicalEquipment;
 import slimevoid.tmf.client.gui.GuiMiningToolBelt;
 import slimevoid.tmf.client.gui.GuiRefinery;
 import slimevoid.tmf.client.gui.GuiGrinder;
@@ -22,8 +23,10 @@ import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.EventLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.PacketLib;
+import slimevoid.tmf.machines.inventory.ContainerGeologicalEquipment;
 import slimevoid.tmf.machines.inventory.ContainerGrinder;
 import slimevoid.tmf.machines.inventory.ContainerRefinery;
+import slimevoid.tmf.machines.tileentities.TileEntityGeologicalEquipment;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.machines.tileentities.TileEntityRefinery;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
@@ -70,6 +73,16 @@ public class CommonProxy implements ITMFCommonProxy {
 					);
 				}
 				return null;
+			case GuiLib.GEOEQUIP_GUIID :
+				TileEntity tileGeo = world.getBlockTileEntity(x, y, z);
+				if ( tileGeo instanceof TileEntityGeologicalEquipment ) {
+					TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) tileGeo;
+					return new ContainerGeologicalEquipment(
+							player.inventory,
+							tileGeoEquip
+					);
+				}
+				return null;
 			default : return null;
 		}
 	}
@@ -105,6 +118,16 @@ public class CommonProxy implements ITMFCommonProxy {
 					return new GuiGrinder(
 							player,
 							tileGrinder
+					);
+				}
+				return null;
+			case GuiLib.GEOEQUIP_GUIID :
+				TileEntity tileGeo = world.getBlockTileEntity(x, y, z);
+				if ( tileGeo instanceof TileEntityGeologicalEquipment ) {
+					TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) tileGeo;
+					return new GuiGeologicalEquipment(
+							player,
+							tileGeoEquip
 					);
 				}
 				return null;

@@ -22,6 +22,7 @@ public class NamingLib {
 	
 	public static final String REFINERY = "Refinery";
 	public static final String GRINDER = "Grinder";
+	public static final String GEOEQUIP = "Geological Equipment";
 	
 	private static String makeName(String str1, String str2) {
 		return str1 + " " + str2;

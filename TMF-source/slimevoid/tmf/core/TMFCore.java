@@ -15,8 +15,10 @@ import slimevoid.tmf.core.world.WorldGeneration;
 import slimevoid.tmf.fuel.MineralFuelHandler;
 import slimevoid.tmf.machines.JSONGrinderRecipesLoader;
 import slimevoid.tmf.machines.JSONRefineryRecipesLoader;
+import slimevoid.tmf.machines.blocks.BlockGeologicalEquipment;
 import slimevoid.tmf.machines.blocks.BlockGrinder;
 import slimevoid.tmf.machines.blocks.BlockRefinery;
+import slimevoid.tmf.machines.tileentities.TileEntityGeologicalEquipment;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.machines.tileentities.TileEntityRefinery;
 import slimevoid.tmf.minerals.items.ItemMineral;
@@ -148,12 +150,16 @@ public class TMFCore {
 		refineryIdleId,
 		refineryActiveId,
 		grinderIdleId,
-		grinderActiveId;
+		grinderActiveId,
+		geoEquipIdleId,
+		geoEquipActiveId;
 	public static Block
 		refineryIdle,
 		refineryActive,
 		grinderIdle,
-		grinderActive;
+		grinderActive,
+		geoEquipIdle,
+		geoEquipActive;
 	
 	// BLOCKS
 
@@ -193,11 +199,9 @@ public class TMFCore {
 	}
 	
 	public static void registerMachines() {
+		// REFINERY
 		refineryIdle = new BlockRefinery(refineryIdleId,0,0,false).setBlockName("refinery.idle").setHardness(3.5F).setCreativeTab(CreativeTabs.tabBlock);
 		refineryActive = new BlockRefinery(refineryActiveId,0,0,true).setBlockName("refinery.active").setHardness(3.5F).setLightValue(0.875F);
-		
-		grinderIdle = new BlockGrinder(grinderIdleId,0,1,false).setBlockName("grinder.idle").setHardness(3.5F).setCreativeTab(CreativeTabs.tabBlock);
-		grinderActive = new BlockGrinder(grinderActiveId,0,1,true).setBlockName("grinder.active").setHardness(3.5F).setLightValue(0.875F);
 		
 		GameRegistry.registerBlock(refineryIdle,"refinery.idle");
 		GameRegistry.registerBlock(refineryActive,"refinery.active");
@@ -205,14 +209,29 @@ public class TMFCore {
 		LanguageRegistry.addName(refineryIdle, NamingLib.REFINERY);
 		LanguageRegistry.addName(refineryActive, NamingLib.REFINERY);
 
+		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource("/TheMinersFriend/machines/refinery.json").getFile()));
+
+		// GRINDER
+		grinderIdle = new BlockGrinder(grinderIdleId,0,1,false).setBlockName("grinder.idle").setHardness(3.5F).setCreativeTab(CreativeTabs.tabBlock);
+		grinderActive = new BlockGrinder(grinderActiveId,0,1,true).setBlockName("grinder.active").setHardness(3.5F).setLightValue(0.875F);
+		
 		GameRegistry.registerBlock(grinderIdle,"grinder.idle");
 		GameRegistry.registerBlock(grinderActive,"grinder.active");
 		GameRegistry.registerTileEntity(TileEntityGrinder.class, "TMF Grinder");
 		LanguageRegistry.addName(grinderIdle, NamingLib.GRINDER);
 		LanguageRegistry.addName(grinderActive, NamingLib.GRINDER);
 		
-		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource("/TheMinersFriend/machines/refinery.json").getFile()));
 		JSONGrinderRecipesLoader.loadFile(new File(TMFCore.class.getResource("/TheMinersFriend/machines/grinder.json").getFile()));
+
+		// GEOLOGICAL EQUIPMENT
+		geoEquipIdle = new BlockGeologicalEquipment(geoEquipIdleId,0,2,false).setBlockName("geoEquip.idle").setHardness(3.5F).setCreativeTab(CreativeTabs.tabBlock);
+		geoEquipActive = new BlockGeologicalEquipment(geoEquipActiveId,0,2,true).setBlockName("geoEquip.active").setHardness(3.5F).setLightValue(0.875F);
+		
+		GameRegistry.registerBlock(geoEquipIdle,"geoEquip.idle");
+		GameRegistry.registerBlock(geoEquipActive,"geoEquip.active");
+		GameRegistry.registerTileEntity(TileEntityGeologicalEquipment.class, "TMF Geological Equipment");
+		LanguageRegistry.addName(geoEquipIdle, NamingLib.GEOEQUIP);
+		LanguageRegistry.addName(geoEquipActive, NamingLib.GEOEQUIP);
 	}
 
 	

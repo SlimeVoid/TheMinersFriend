@@ -182,6 +182,17 @@ public class ConfigurationLib {
 		XMLRecipeLoader.addXmlVariable("$grinderIdle", 		TMFCore.grinderIdleId);
 		XMLRecipeLoader.addXmlVariable("$grinderActive", 	TMFCore.grinderActiveId);
 		
+		TMFCore.geoEquipIdleId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_BLOCK,
+				"geoEquipIdle",
+				1104).value);
+		TMFCore.geoEquipActiveId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_BLOCK,
+				"geoEquipActive",
+				1105).value);
+		XMLRecipeLoader.addXmlVariable("$geoEquipIdle", 	TMFCore.geoEquipIdleId);
+		XMLRecipeLoader.addXmlVariable("$geoEquipActive", 	TMFCore.geoEquipActiveId);
+		
 	}
 	private static void loadLogger() {
 		TMFCore.loggerLevel = String.valueOf(TMFCore.configuration.get(
