@@ -116,8 +116,12 @@ public class GuiGeologicalEquipment extends GuiContainer {
 			}
 			
 			// Blend colors
-			int color = 0;
+			int color = 0xff000000;
 			for ( int c: colorMap ) {
+				if ( c == getBlockColor(Block.oreCoal) ) {
+					color = getBlockColor(Block.oreCoal);
+					break;
+				}
 				color += c/colorMap.size();
 			}
 
@@ -147,6 +151,20 @@ public class GuiGeologicalEquipment extends GuiContainer {
 			
 			drawBlock( x+36, y, 15, 15, blocks[7] );
 			drawBlock( x+36, y+36, 15, 15, blocks[8] );
+		} else {
+			drawBlock( x+18, y+18, 15, 15, null );
+			
+			drawBlock( x+18, y, 15, 15, null );
+			drawBlock( x+18, y+36, 15, 15, null );
+			
+			drawBlock( x, y+18, 15, 15, null );
+			drawBlock( x+36, y+18, 15, 15, null );
+			
+			drawBlock( x, y, 15, 15, null );
+			drawBlock( x, y+36, 15, 15, null );
+			
+			drawBlock( x+36, y, 15, 15, null );
+			drawBlock( x+36, y+36, 15, 15, null );
 		}
 	}
 	private void drawBlock(int x, int y, int width, int height, Block block) {

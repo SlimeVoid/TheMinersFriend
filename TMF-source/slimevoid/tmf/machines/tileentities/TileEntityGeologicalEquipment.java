@@ -334,12 +334,12 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	
 	@Override
 	public int getCurrentFuelBurnTime() {
-		return getItemBurnTime(fuelStack)/2;
+		return getItemBurnTime(fuelStack);
 	}
 
 	@Override
 	public int getCurrentFuelBurnSpeed() {
-		return getItemBurnSpeed(fuelStack)*2;
+		return getItemBurnSpeed(fuelStack);
 	}
 
 	@Override
