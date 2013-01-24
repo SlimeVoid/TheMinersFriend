@@ -33,8 +33,8 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	/**
 	 * The current level of scan
 	 */
-	private int currentLevel;
-	private int currentLevelIdx;
+	public int currentLevel;
+	public int currentLevelIdx;
 	
 	/**
 	 * The scan speed based on fuel
@@ -128,8 +128,6 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 		}
 		
 		surveyData.get(depth)[idx] = block;
-		
-		System.out.println(depth+":"+idx+":"+block.blockID);
 	}
 	
 	/*

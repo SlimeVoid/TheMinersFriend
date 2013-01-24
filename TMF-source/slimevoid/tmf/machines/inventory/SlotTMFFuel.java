@@ -23,8 +23,10 @@ public class SlotTMFFuel extends Slot {
 		if ( !(stack.getItem() instanceof IFuelHandlerTMF) )
 			return false;
 
-		int totalLevel = ItemMineralMixedDust.getTotalLevel(stack.getItemDamage());
-		
+		int totalLevel = 1;
+		if ( stack.getItem() instanceof ItemMineralMixedDust )
+			totalLevel = ItemMineralMixedDust.getTotalLevel(stack.getItemDamage());
+
 		return (
 				totalLevel >= minFuelLevel &&
 				totalLevel <= maxFuelLevel

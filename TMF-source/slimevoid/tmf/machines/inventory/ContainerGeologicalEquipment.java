@@ -24,7 +24,7 @@ public class ContainerGeologicalEquipment extends Container {
         this.addSlotToContainer(new SlotTMFFuel(
         		geoEquip, 	// Inventory
         		0, 			// Slot
-        		4, 			// Min fuel level
+        		1, 			// Min fuel level
         		10,			// Max fuel level
         		9, 			// X
         		69			// Y

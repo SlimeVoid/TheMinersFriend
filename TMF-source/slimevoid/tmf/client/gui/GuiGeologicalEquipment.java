@@ -3,6 +3,7 @@ package slimevoid.tmf.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import slimevoid.tmf.machines.inventory.ContainerGeologicalEquipment;
@@ -52,6 +53,52 @@ public class GuiGeologicalEquipment extends GuiContainer {
 				sizeX + 77, 
 				sizeY + 135
 		);
+
+        int mouseX = Mouse.getEventX() * this.width / this.mc.displayWidth;
+        int mouseY = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
+
+        int level = getLevel(
+				mouseX,
+				mouseY,
+				sizeX + 62, 
+				sizeY + 32,
+				sizeX + 77, 
+				sizeY + 135
+		);
+        
+		fontRenderer.drawString(
+				"Level: "+level,
+				sizeX + 102,
+				sizeY + 36,
+				0x404040
+		);
+		
+		drawLevel(
+				sizeX + 98,
+				sizeY + 51,
+				geoEquip.getBlocksAt(level)
+		);
+	}
+	
+	private int getLevel(int mouseX, int mouseY, int listX1, int listY1, int listX2, int listY2) {
+		if (
+				mouseX >= listX1 &&
+				mouseX <= listX2 &&
+				mouseY >= listY1 &&
+				mouseY <= listY2 
+		) {
+			int length = geoEquip.yCoord;
+			float levelHeight = (float)(listY2-listY1) / (float)length;
+			for ( int depth = length-1; depth >= 0; depth-- ) {
+				if ( 
+						mouseY >= listY1 + (int)(levelHeight*(float)(length-depth)) &&
+						mouseY <= listY1 + ((int)(levelHeight*(float)(length-depth+1)))
+				)
+					return depth;
+			}
+		}
+		
+		return geoEquip.currentLevel;
 	}
 
 	private void drawResultList(int x1, int y1, int x2, int y2) {
@@ -83,6 +130,33 @@ public class GuiGeologicalEquipment extends GuiContainer {
 					color
 			);
 		}
+	}
+	
+	private void drawLevel(int x, int y, Block[] blocks) {
+		if ( blocks != null && blocks.length == 9) {
+			drawBlock( x+18, y+18, 15, 15, blocks[0] );
+			
+			drawBlock( x+18, y, 15, 15, blocks[1] );
+			drawBlock( x+18, y+36, 15, 15, blocks[2] );
+			
+			drawBlock( x, y+18, 15, 15, blocks[3] );
+			drawBlock( x+36, y+18, 15, 15, blocks[4] );
+			
+			drawBlock( x, y, 15, 15, blocks[5] );
+			drawBlock( x, y+36, 15, 15, blocks[6] );
+			
+			drawBlock( x+36, y, 15, 15, blocks[7] );
+			drawBlock( x+36, y+36, 15, 15, blocks[8] );
+		}
+	}
+	private void drawBlock(int x, int y, int width, int height, Block block) {
+		drawRect(
+				x, 
+				y,
+				x+width, 
+				y+height,
+				getBlockColor(block)
+		);
 	}
 	
 	private int getBlockColor(Block block) {
