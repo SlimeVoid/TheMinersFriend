@@ -55,38 +55,31 @@ public class GuiGeologicalEquipment extends GuiContainer {
 	}
 
 	private void drawResultList(int x1, int y1, int x2, int y2) {
-		int length = geoEquip.yCoord-1;
-		float levelHeight = (float)length / (float)(y2-y1);
-		for ( int depth = length; depth >= 0; depth-- ) {
+		int length = geoEquip.yCoord;
+		float levelHeight = (float)(y2-y1) / (float)length;
+		for ( int depth = length-1; depth >= 0; depth-- ) {
 			// Assemble colors
 			List<Integer> colorMap = new ArrayList<Integer>();
 			Block[] blocks = geoEquip.getSurveyResult(depth);
 			if ( blocks != null ) {
 				for ( Block block: blocks ) {
-					colorMap.add(getBlockColor(block));
+					if ( block != null )
+						colorMap.add(getBlockColor(block));
 				}
 			}
 			
 			// Blend colors
 			int color = 0;
 			for ( int c: colorMap ) {
-				color += c/9;
+				color += c/colorMap.size();
 			}
-			
-			if ( blocks != null ) {
-				System.out.println(depth+":"+Integer.toHexString(color));
-				System.out.println(x1+","+
-				(y1 + (int)(levelHeight*(float)depth))+","+
-				x2+","+
-				(y2 + (int)(levelHeight*(float)depth)*2));
-			}
-			
+
 			// Draw color
 			drawRect(
 					x1, 
-					y1 + (int)(levelHeight*(float)depth),
+					y1 + (int)(levelHeight*(float)(length-depth)),
 					x2, 
-					y2 + (int)(levelHeight*(float)depth)*2,
+					y1 + ((int)(levelHeight*(float)(length-depth))*2),
 					color
 			);
 		}
@@ -94,11 +87,11 @@ public class GuiGeologicalEquipment extends GuiContainer {
 	
 	private int getBlockColor(Block block) {
 		if ( block == null )
-			return 0;
+			return 0xff000000;
 		
 		if ( block instanceof BlockOre )
-			return 0xff0000;
+			return 0xffff0000;
 		
-		return block.blockMaterial.materialMapColor.colorValue;
+		return block.blockMaterial.materialMapColor.colorValue | 0xff000000;
 	}
 }

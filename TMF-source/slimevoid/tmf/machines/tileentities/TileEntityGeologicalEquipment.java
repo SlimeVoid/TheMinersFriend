@@ -73,7 +73,7 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 				depth,
 				zCoord+indexToRelativeZ(idx)
 		);
-		System.out.println(block);
+
 		if ( block != null ) {
 			addSurveyData(
 					depth,
@@ -120,7 +120,7 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 		}
 	}
 	public void addSurveyData(int depth, int idx, Block block) {
-		if (depth >= worldObj.getHeight() || (depth -  this.maxScanDepth) <= 0)
+		if ( (worldObj != null && depth >= worldObj.getHeight()) || (depth -  this.maxScanDepth) <= 0)
 			return;
 		
 		if ( !surveyData.containsKey(depth) ) {
@@ -219,23 +219,31 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 			fuelStack = ItemStack.loadItemStackFromNBT(itemInSlot);
 		}
 
+		System.out.println("READ");
 		surveyData = new HashMap<Integer, Block[]>();
 		NBTTagList survey = ntbCompound.getTagList("Survey");
+		System.out.println("  Count:"+survey.tagCount());
 		for (int i = 0; i < survey.tagCount(); ++i) {
 			NBTTagList depthTag = (NBTTagList) survey.tagAt(i);
 
 			NBTTagCompound depthData = (NBTTagCompound)depthTag.tagAt(0);
-			int depth = depthData.getInteger("Slot");
+			int depth = depthData.getInteger("Depth");
+			System.out.println("    Depth:"+depth);
 			
 			for ( int j = 1; j <= 9; j++ ) {
 				NBTTagCompound block = (NBTTagCompound)depthTag.tagAt(j);
 				int blockId = block.getInteger("Block");
+				System.out.println("      Block:"+j+":"+blockId);
 				
-				addSurveyData(depth, j-1, Block.blocksList[blockId]);
+				if ( blockId >= 0 )
+					addSurveyData(depth, j-1, Block.blocksList[blockId]);
 			}
 		}
 		
 		System.out.println(surveyData);
+		
+		currentLevel = ntbCompound.getInteger("CurrentLevel");
+		currentLevelIdx = ntbCompound.getInteger("CurrentLevelIdx");
 		
 		super.readFromNBT(ntbCompound);
 	}
@@ -250,9 +258,11 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 		}
 		ntbCompound.setTag("Items", items);
 
+		System.out.println("WRITE");
 		NBTTagList survey = new NBTTagList();
 		for (int depth: surveyData.keySet() ) {
 			if (surveyData.get(depth) != null) {
+				System.out.println("  Depth:"+depth);
 				NBTTagList depthTag = new NBTTagList();
 				NBTTagCompound depthData = new NBTTagCompound();
 				depthData.setInteger("Depth", depth);
@@ -262,8 +272,10 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 					NBTTagCompound blockId = new NBTTagCompound();
 					if ( surveyData.get(depth)[idx] == null ) {
 						blockId.setInteger("Block", -1);
+						System.out.println("      Block:"+idx+":"+-1);
 					} else {
 						blockId.setInteger("Block", surveyData.get(depth)[idx].blockID);
+						System.out.println("      Block:"+idx+":"+surveyData.get(depth)[idx].blockID);
 					}
 					depthTag.appendTag(blockId);
 				}
@@ -271,6 +283,9 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 			}
 		}
 		ntbCompound.setTag("Survey", survey);
+
+		ntbCompound.setInteger("CurrentLevel", currentLevel);
+		ntbCompound.setInteger("CurrentLevelIdx", currentLevelIdx);
 		
 		super.writeToNBT(ntbCompound);
 		
@@ -292,7 +307,7 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	public void smeltItem() {
 		if ( canSmelt() ) {
 			for ( int i=0; i < this.currentItemWidth+1; i++ ) {
-				if ( currentLevelIdx >= 8) {
+				if ( currentLevelIdx > 8) {
 					gotoNextLevel();
 				}
 				scan(currentLevel, currentLevelIdx);
