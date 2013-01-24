@@ -128,34 +128,6 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 		
 		surveyData.get(depth)[idx] = block;
 	}
-	
-	/*
-	public void setBlock(World world, int x, int y, int z, Block block) {
-		// If we're at bedrock or top of the world do nothing
-		if (y >= world.getHeight() || (y -  this.maxScanDepth) <= 0) {
-			return;
-		}
-		// TODO :: GeoEquip: Refine setBlock process and storage
-		if (world.equals(this.getWorldObj())) {
-			Block[] blocks = new Block[this.maxScanWidth];
-			if (!this.surveyData.containsKey(y)) {
-				blocks[0] = block;
-			} else {
-				blocks = this.surveyData.get(y);
-				for (int i = 0; i < blocks.length; i++) {
-					if (blocks[i] == null) {
-						blocks[i] = block;
-						break;
-					}
-				}
-			}
-			if (!this.hasOre && block instanceof BlockOre) {
-				this.hasOre = true;
-			}
-			this.surveyData.put(y, blocks);
-		}
-	}
-	*/
 
 	public Block getBlockAt(World world, int x, int y, int z) {
 		return Block.blocksList[world.getBlockId(x, y, z)];
