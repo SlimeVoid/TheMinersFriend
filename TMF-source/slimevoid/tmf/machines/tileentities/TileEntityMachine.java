@@ -244,4 +244,16 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 	
 		return burnTime * par1 / currentItemBurnTime;
 	}
+	
+	@Override
+	public void onInventoryChanged() {
+		super.onInventoryChanged();
+		this.onInventoryHasChanged(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+	}
+
+	/**
+	 * If we need to send information to the client
+	 * it should be done here
+	 */
+	protected abstract void onInventoryHasChanged(World world, int x, int y, int z);
 }

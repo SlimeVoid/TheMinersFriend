@@ -112,6 +112,8 @@ public class TMFCore {
 	}
 
 	public static void registerItemNames() {
+		// TODO :: Use Localization XML to register names
+		
 		LanguageRegistry.addName(miningHelmetLamp, "Mining Helmet Lamp");
 		LanguageRegistry.addName(miningHelmetIron, "Iron Mining Helmet");
 		LanguageRegistry.addName(miningHelmetGold, "Gold Mining Helmet");

@@ -196,4 +196,10 @@ public class TileEntityRefinery extends TileEntityMachine {
 	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
 		((BlockMachine)TMFCore.refineryIdle).updateMachineBlockState(isBurning, world, x, y, z);
 	}
+
+	@Override
+	protected void onInventoryHasChanged(World world, int x, int y, int z) {
+		// TODO Auto-generated method stub
+		
+	}
 }

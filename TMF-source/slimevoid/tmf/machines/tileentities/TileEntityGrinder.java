@@ -167,4 +167,10 @@ public class TileEntityGrinder extends TileEntityMachine {
 		((BlockGrinder)TMFCore.grinderIdle).updateMachineBlockState(isBurning, world, x, y, z);
 	}
 
+	@Override
+	protected void onInventoryHasChanged(World world , int x, int y, int z) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -360,4 +360,13 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
 		((BlockGeologicalEquipment)TMFCore.geoEquipIdle).updateMachineBlockState(isBurning, world, x, y, z);
 	}
+	
+	@Override
+	public void onInventoryHasChanged(World world, int x, int y, int z) {
+		/*
+		 * Sends block to client for update
+		 * Automatically updates the associated GUI should it be open
+		 */
+		world.markBlockForUpdate(x, y, z);
+	}
 }
