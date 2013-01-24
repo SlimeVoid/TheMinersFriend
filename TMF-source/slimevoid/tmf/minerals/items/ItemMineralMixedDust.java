@@ -1,12 +1,6 @@
 package slimevoid.tmf.minerals.items;
 
-import java.util.List;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import slimevoid.tmf.core.TMFCore;
-import slimevoid.tmf.core.lib.NamingLib;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
 
@@ -19,6 +13,9 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 
 	public ItemMineralMixedDust(int id) {
 		super(id);
+		/**
+		 * Set this to true since we will be storing item damage data for each mixed dust
+		 */
 		this.setHasSubtypes(true);
 	}
 
