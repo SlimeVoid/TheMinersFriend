@@ -1,9 +1,15 @@
 package slimevoid.tmf.client.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.opengl.GL11;
 
 import slimevoid.tmf.machines.inventory.ContainerGeologicalEquipment;
 import slimevoid.tmf.machines.tileentities.TileEntityGeologicalEquipment;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockOre;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -32,6 +38,67 @@ public class GuiGeologicalEquipment extends GuiContainer {
 		}
 		var7 = this.geoEquip.getCookProgressScaled(24);
 		this.drawTexturedModalRect(sizeX + 31, sizeY + 51, 176, 14, var7 + 1, 16);
+
+		fontRenderer.drawString(
+				"Level: "+geoEquip.yCoord,
+				sizeX + 81,
+				sizeY + 15,
+				0x404040
+		);
+		
+		drawResultList(
+				sizeX + 62, 
+				sizeY + 32,
+				sizeX + 77, 
+				sizeY + 135
+		);
 	}
 
+	private void drawResultList(int x1, int y1, int x2, int y2) {
+		int length = geoEquip.yCoord-1;
+		float levelHeight = (float)length / (float)(y2-y1);
+		for ( int depth = length; depth >= 0; depth-- ) {
+			// Assemble colors
+			List<Integer> colorMap = new ArrayList<Integer>();
+			Block[] blocks = geoEquip.getSurveyResult(depth);
+			if ( blocks != null ) {
+				for ( Block block: blocks ) {
+					colorMap.add(getBlockColor(block));
+				}
+			}
+			
+			// Blend colors
+			int color = 0;
+			for ( int c: colorMap ) {
+				color += c/9;
+			}
+			
+			if ( blocks != null ) {
+				System.out.println(depth+":"+Integer.toHexString(color));
+				System.out.println(x1+","+
+				(y1 + (int)(levelHeight*(float)depth))+","+
+				x2+","+
+				(y2 + (int)(levelHeight*(float)depth)*2));
+			}
+			
+			// Draw color
+			drawRect(
+					x1, 
+					y1 + (int)(levelHeight*(float)depth),
+					x2, 
+					y2 + (int)(levelHeight*(float)depth)*2,
+					color
+			);
+		}
+	}
+	
+	private int getBlockColor(Block block) {
+		if ( block == null )
+			return 0;
+		
+		if ( block instanceof BlockOre )
+			return 0xff0000;
+		
+		return block.blockMaterial.materialMapColor.colorValue;
+	}
 }

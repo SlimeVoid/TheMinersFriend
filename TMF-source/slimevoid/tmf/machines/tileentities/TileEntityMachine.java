@@ -146,7 +146,6 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 					smeltItem();
 					inventoryChanged = true;
 				}
-				System.out.println(cookTime+"/"+currentItemCookTime);
 			} else {
 				cookTime = 0;
 			}
