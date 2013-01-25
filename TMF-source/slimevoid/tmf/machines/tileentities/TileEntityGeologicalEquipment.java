@@ -188,28 +188,22 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 			fuelStack = ItemStack.loadItemStackFromNBT(itemInSlot);
 		}
 
-		System.out.println("READ");
 		surveyData = new HashMap<Integer, Block[]>();
 		NBTTagList survey = ntbCompound.getTagList("Survey");
-		System.out.println("  Count:"+survey.tagCount());
 		for (int i = 0; i < survey.tagCount(); ++i) {
 			NBTTagList depthTag = (NBTTagList) survey.tagAt(i);
 
 			NBTTagCompound depthData = (NBTTagCompound)depthTag.tagAt(0);
 			int depth = depthData.getInteger("Depth");
-			System.out.println("    Depth:"+depth);
 			
 			for ( int j = 1; j <= 9; j++ ) {
 				NBTTagCompound block = (NBTTagCompound)depthTag.tagAt(j);
 				int blockId = block.getInteger("Block");
-				System.out.println("      Block:"+j+":"+blockId);
 				
 				if ( blockId >= 0 )
 					addSurveyData(depth, j-1, Block.blocksList[blockId]);
 			}
 		}
-		
-		System.out.println(surveyData);
 		
 		currentLevel = ntbCompound.getInteger("CurrentLevel");
 		currentLevelIdx = ntbCompound.getInteger("CurrentLevelIdx");
@@ -227,11 +221,9 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 		}
 		ntbCompound.setTag("Items", items);
 
-		System.out.println("WRITE");
 		NBTTagList survey = new NBTTagList();
 		for (int depth: surveyData.keySet() ) {
 			if (surveyData.get(depth) != null) {
-				System.out.println("  Depth:"+depth);
 				NBTTagList depthTag = new NBTTagList();
 				NBTTagCompound depthData = new NBTTagCompound();
 				depthData.setInteger("Depth", depth);
@@ -241,10 +233,8 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 					NBTTagCompound blockId = new NBTTagCompound();
 					if ( surveyData.get(depth)[idx] == null ) {
 						blockId.setInteger("Block", -1);
-						System.out.println("      Block:"+idx+":"+-1);
 					} else {
 						blockId.setInteger("Block", surveyData.get(depth)[idx].blockID);
-						System.out.println("      Block:"+idx+":"+surveyData.get(depth)[idx].blockID);
 					}
 					depthTag.appendTag(blockId);
 				}
