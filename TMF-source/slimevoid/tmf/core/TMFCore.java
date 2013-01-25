@@ -250,7 +250,7 @@ public class TMFCore {
 		GameRegistry.registerTileEntity(TileEntityGeologicalEquipment.class, "tile."+BlockLib.BLOCK_GEOEQUIPMENT);
 
 		// AUTOMATIC MIXING TABLE
-		autoMixTable = new BlockAutomaticMixingTable(autoMixTableId,0,3,false).setBlockName("autoMixTable").setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
+		autoMixTable = new BlockAutomaticMixingTable(autoMixTableId,0,3,false).setBlockName(BlockLib.AUTOMIXTABLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
 		
 		GameRegistry.registerBlock(autoMixTable,BlockLib.AUTOMIXTABLE);
 		GameRegistry.registerTileEntity(TileEntityAutomaticMixingTable.class, "tile."+BlockLib.AUTOMIXTABLE);
