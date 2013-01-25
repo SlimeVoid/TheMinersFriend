@@ -263,7 +263,7 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	@Override
 	public void smeltItem() {
 		if ( canSmelt() ) {
-			for ( int i=0; i < this.currentItemWidth+1; i++ ) {
+			for ( int i=0; i < this.currentItemWidth; i++ ) {
 				if ( currentLevelIdx > 8) {
 					gotoNextLevel();
 				}

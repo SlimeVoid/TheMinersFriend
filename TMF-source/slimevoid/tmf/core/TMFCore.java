@@ -7,6 +7,8 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import slimevoid.lib.util.FileReader;
+import slimevoid.lib.util.JSParser;
 import slimevoid.lib.util.XMLLanguageLoader;
 import slimevoid.lib.util.XMLRecipeLoader;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
@@ -43,7 +45,7 @@ public class TMFCore {
 	
 	public static String loggerLevel = "INFO";
 	
-	// MINING EQUIPMENT
+	// TOOLS
 	public static int 
 		miningHelmetLampId,
 		miningHelmetIronId, 
@@ -88,22 +90,36 @@ public class TMFCore {
 		dustMixedId;
 	
 	// ======== ITEM REGISTRATION ========
-	
 	public static void registerItems() {
+		registerTools();
+		registerMinerals();
+		registerDusts();
+	}
+	private static void registerTools() {
+		registerMiningHelmets();
+		registerMotionSensor();
+		registerToolBelt();
+	}
+	private static void registerMiningHelmets() {
 		miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setItemName("miningHelmetLamp").setIconCoord(4, 0);
 		miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setItemName("ironMiningHelmet").setIconCoord(2, 0);
 		miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setItemName("goldMiningHelmet").setIconCoord(1, 0);
 		miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setItemName("diamondMiningHelmet").setIconCoord(0, 0);
-		motionSensor = new ItemMotionSensor(motionSensorId).setItemName("motionSensor").setIconCoord(0, 1);
-		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setItemName("miningToolBelt").setIconCoord(0, 2);
 		
 		XMLLanguageLoader.addItemMapping(miningHelmetLamp);
 		XMLLanguageLoader.addItemMapping(miningHelmetIron);
 		XMLLanguageLoader.addItemMapping(miningHelmetGold);
 		XMLLanguageLoader.addItemMapping(miningHelmetDiamond);
+	}
+	private static void registerMotionSensor() {
+		motionSensor = new ItemMotionSensor(motionSensorId).setItemName("motionSensor").setIconCoord(0, 1);
 		XMLLanguageLoader.addItemMapping(motionSensor);
+	}
+	private static void registerToolBelt() {
+		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setItemName("miningToolBelt").setIconCoord(0, 2);
 		XMLLanguageLoader.addItemMapping(miningToolBelt);
-		
+	}
+	private static void registerMinerals() {
 		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(2400).setItemName("mineralAcxium").setIconCoord(0, 1);
 		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(150).setItemName("mineralBisogen").setIconCoord(1, 1);
 		mineralCydrine = new ItemMineral(mineralCydrineId).setBurnWidth(1).setItemName("mineralCydrine").setIconCoord(2, 1);
@@ -111,19 +127,26 @@ public class TMFCore {
 		XMLLanguageLoader.addItemMapping(mineralAcxium);
 		XMLLanguageLoader.addItemMapping(mineralBisogen);
 		XMLLanguageLoader.addItemMapping(mineralCydrine);
-		
+	}
+	private static void registerDusts() {
 		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setItemName("dustAcxium").setIconCoord(0, 2);
 		dustBisogen = new ItemMineralDust(dustBisogenId).setBurnSpeed(100).setItemName("dustBisogen").setIconCoord(1, 2);
 		dustCydrine = new ItemMineralDust(dustCydrineId).setBurnWidth(1).setItemName("dustCydrine").setIconCoord(2, 2);
 		
 		dustMixed = new ItemMineralMixedDust(dustMixedId).setItemName("dustMixed").setIconCoord(3, 2);
 		
+		ItemMineralMixedDust.script = FileReader.readFile(new File(TMFCore.class.getResource("/TheMinersFriend/resources/mixedDust.js").getFile()));
+		ItemMineralMixedDust.script_burnTime = "getBurnTime()";
+		ItemMineralMixedDust.script_burnSpeed = "getBurnSpeed()";
+		ItemMineralMixedDust.script_burnWidth = "getBurnWidth()";
+		
 		XMLLanguageLoader.addItemMapping(dustAcxium);
 		XMLLanguageLoader.addItemMapping(dustBisogen);
 		XMLLanguageLoader.addItemMapping(dustCydrine);
 		XMLLanguageLoader.addItemMapping(dustMixed);
 	}
-	
+
+	// ======== FUEL REGISTRATION ========
 	public static void registerFuels() {
 		GameRegistry.registerFuelHandler(new MineralFuelHandler());
 	}
@@ -135,7 +158,6 @@ public class TMFCore {
 		crokereOreId,
 		derniteOreId,
 		egioclaseOreId;
-	
 	public static Block
 		arkiteOre,
 		bistiteOre,
@@ -158,14 +180,19 @@ public class TMFCore {
 		grinderActive,
 		geoEquipIdle,
 		geoEquipActive;
-	
-	// BLOCKS
 
 	// ======== BLOCK REGISTRATION ========
 	public static void registerBlocks() {
 		
 		BlockLib.init();
 		
+		registerOres();
+        
+        GameRegistry.registerWorldGenerator(new WorldGeneration());
+        
+        registerMachines();
+	}
+	private static void registerOres() {
 		// BlockTMFOre(int id, int texture, int spawnLevel, int spawnRate, int spawnSize, int veinSize, int lightLevel)
 		arkiteOre = new BlockTMFOre(arkiteOreId, 0, 60, 100, 5, 0.2F).setBlockName("arkiteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
 		bistiteOre = new BlockTMFOre(bistiteOreId, 1, 36, 100, 5, 0.3F).setBlockName("bistiteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
@@ -184,13 +211,8 @@ public class TMFCore {
         MinecraftForge.setBlockHarvestLevel(crokereOre,  "pickaxe", 2);
         MinecraftForge.setBlockHarvestLevel(derniteOre,  "pickaxe", 2);
         MinecraftForge.setBlockHarvestLevel(egioclaseOre,  "pickaxe", 2);
-        
-        GameRegistry.registerWorldGenerator(new WorldGeneration());
-        
-        registerMachines();
 	}
-	
-	public static void registerMachines() {
+	private static void registerMachines() {
 		// REFINERY
 		refineryIdle = new BlockRefinery(refineryIdleId,0,0,false).setBlockName("refinery.idle").setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
 		refineryActive = new BlockRefinery(refineryActiveId,0,0,true).setBlockName("refinery.active").setHardness(3.5F).setLightValue(0.875F);
@@ -220,6 +242,7 @@ public class TMFCore {
 		GameRegistry.registerTileEntity(TileEntityGeologicalEquipment.class, "TMF Geological Equipment");
 	}
 
+	// ======== NAME REGISTRATION ========
 	public static void registerNames() {
 		XMLLanguageLoader.loadDefaults(new File(TMFCore.class.getResource("/TheMinersFriend/names").getFile()));
 		XMLLanguageLoader.loadFolder(new File(TMFInit.TMF.getProxy().getMinecraftDir()+"/config/TMFNames"));

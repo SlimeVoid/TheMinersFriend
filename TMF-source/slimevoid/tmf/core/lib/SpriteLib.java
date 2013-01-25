@@ -4,7 +4,7 @@ public class SpriteLib {
 	public final static String SPRITE_PREFIX = "/TheMinersFriend/";
 	
 	public static final String BLOCK_TEXTURE_PATH = 	SPRITE_PREFIX + "terrain.png";
-	public static final String MACHINE_TEXTURE_PATH = 	SPRITE_PREFIX + "machines/terrain.png";
+	public static final String MACHINE_TEXTURE_PATH = 	SPRITE_PREFIX + "machines/machines.png";
 	public static final String RESOURCE_SPRITE_PATH = 	SPRITE_PREFIX + "resources/resources.png";
 
 	public static final String ARMOR_PREFIX = SPRITE_PREFIX + "armor/";

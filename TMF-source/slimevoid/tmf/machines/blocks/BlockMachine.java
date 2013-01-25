@@ -23,11 +23,14 @@ public abstract class BlockMachine extends BlockContainer {
 	
 	public BlockMachine(int id, int texX, int texY, boolean isActive) {
 		super(id, Material.rock);
-        setTextureFile(SpriteLib.MACHINE_TEXTURE_PATH);
         this.blockIndexInTexture = texX+(texY*16);
         this.isActive = isActive;
 	}
-
+	
+	public String getTextureFile() {
+		return SpriteLib.MACHINE_TEXTURE_PATH;
+	}
+	
 	public abstract void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z);
 	
 	@Override

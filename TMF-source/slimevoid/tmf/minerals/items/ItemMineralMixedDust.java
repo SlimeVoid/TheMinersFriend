@@ -1,15 +1,18 @@
 package slimevoid.tmf.minerals.items;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import slimevoid.lib.util.JSParser;
 import slimevoid.tmf.core.TMFCore;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
 
-public class ItemMineralMixedDust extends ItemMineralDust {
-	/**
-	 * Color multiplier.
-	 * This makes sure max level (9) equals max color (15)
-	 */
-	private static final float COLOR_MULTI = 5f/3f;
+public class ItemMineralMixedDust extends ItemMineralDust {	
+	public static String script = null;
+	public static String script_burnTime;
+	public static String script_burnSpeed;
+	public static String script_burnWidth;
 
 	public ItemMineralMixedDust(int id) {
 		super(id);
@@ -44,37 +47,41 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 	@Override
 	public int getBurnTime(ItemStack stack) {
 		int timeLevel = (getDustMeta(stack) >> 8) & 15;
-		if ( timeLevel == 0 )
-			return 1600;
 		
-		double out = (Math.log((double)(timeLevel)+1d)*2300d)+1600d;
-		//double out = 1000 + ((double)(timeLevel+1)*600);
-		if ( out >  6400)
-			out = 6400;
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("level", timeLevel);
 		
+		Object ret = JSParser.parse(script,script_burnTime,params);
+		if ( ret instanceof Number )
+			return ((Number)ret).intValue();
 		
-		return (int) out;
+		return 1600;
 	}
 	@Override
 	public int getBurnSpeed(ItemStack stack) {
 		int speedLevel = (getDustMeta(stack) >> 4) & 15;
-		if ( speedLevel == 0 )
-			return 200;
-
-		double out = ( (Math.log((double)(speedLevel)+1d)-133d) * -(1d / ((double)(speedLevel)+1d) ) + 32d );
-		//double out = 218.75d + ((double)(speedLevel+1)*18.75d);
-		if ( out < 50)
-			out = 50;
 		
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("level", speedLevel);
 		
-		return (int) out;
+		Object ret = JSParser.parse(script,script_burnSpeed,params);
+		if ( ret instanceof Number )
+			return ((Number)ret).intValue();
+		
+		return 200;
 	}
 	@Override
 	public int getBurnWidth(ItemStack stack) {
 		int widthLevel = getDustMeta(stack) & 15;
-		if ( widthLevel > 9)
-			widthLevel = 9;
-		return widthLevel;
+		
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("level", widthLevel);
+		
+		Object ret = JSParser.parse(script,script_burnWidth,params);
+		if ( ret instanceof Number )
+			return ((Number)ret).intValue();
+		
+		return 1;
 	}
 	
 	/**

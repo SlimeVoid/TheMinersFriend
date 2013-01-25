@@ -62,6 +62,7 @@ public class ClientProxy extends CommonProxy {
 		);
 		MinecraftForgeClient.preloadTexture(SpriteLib.ITEM_SPRITE_PATH);
 		MinecraftForgeClient.preloadTexture(SpriteLib.RESOURCE_SPRITE_PATH);
+		MinecraftForgeClient.preloadTexture(SpriteLib.MACHINE_TEXTURE_PATH);
 	}
 	
 	@Override
