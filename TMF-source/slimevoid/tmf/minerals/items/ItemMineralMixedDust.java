@@ -25,17 +25,7 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 	}
 
 	public String getItemDisplayName(ItemStack itemstack) {
-		// Fetch individual colors
-		int meta = getDustMeta(itemstack);
-		int iR = getBurnTimeLevel(meta);
-		int iG = getBurnSpeedLevel(meta);
-		int iB = getBurnWidthLevel(meta);
-		
-		return (StringTranslate.getInstance().translateNamedKey(
-						this.getLocalItemName(itemstack)
-				) + " | "
-				+ MixedDustNameRegistry.getName(iR,iG,iB)
-				).trim();
+		return MixedDustNameRegistry.getName(getDustMeta(itemstack));
 	}
 	
 	@Override
