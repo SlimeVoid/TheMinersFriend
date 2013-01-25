@@ -21,12 +21,18 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 	}
 
 	public String getItemDisplayName(ItemStack itemstack) {
+		// Fetch individual colors
+		int meta = getDustMeta(itemstack);
+		int iR = ((meta >> 8) & 15);
+		int iG = ((meta >> 4) & 15);
+		int iB = (meta & 15);
+		
 		return (StringTranslate.getInstance().translateNamedKey(
 						this.getLocalItemName(
 								itemstack)
 						)
 				+ " | "
-				+ getDustMeta(itemstack)
+				+ iR+","+iG+","+iB
 				).trim();
 	}
 	
@@ -83,33 +89,18 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 		int iG = ((meta >> 4) & 15);
 		int iB = (meta & 15);
 		
-		// Multiply the colors
-		iR = (int) Math.ceil(iR*COLOR_MULTI);
-		iG = (int) Math.ceil(iG*COLOR_MULTI);
-		iB = (int) Math.ceil(iB*COLOR_MULTI);
-		
-		// Check which one is the largest
-		int max = Math.max(Math.max(iR, iG),iB);
-		
-		// This flips the colors
-		// The highest level color will be x = x+15-x = 15, which gives it max color.
-		// The lowest level color will be x = x+15+max, which gives it the least color.
-		// The higher the max is compared to the min, the stronger the color will be
-		iR += 15-max;
-		iG += 15-max;
-		iB += 15-max;
-		
-		// Reassemble the meta
-		meta = (iR << 8) | (iG << 4) |  iB;
-		
-		// Iterate each bit in the meta and double it.
-		// 12-bit to 24-bit.
-		int out = 0;
-		for ( int b = 0; b <= 12; b++ ) {
-			int shift = 1 << b;
-			int bit = (meta & shift) >> b;
-			int doubleBit = doubleBit(bit==1);
-			out |= ((doubleBit) << (b*2));
+		// Blend
+		int out = 0xffffff;
+		for ( int i = 0; i < 9; i++ ) {
+			if ( iR > i) {
+				out -= 0x001919;
+			}
+			if ( iG > i) {
+				out -= 0x190019;
+			}
+			if ( iB > i) {
+				out -= 0x191900;
+			}
 		}
 		return out;
 	}
