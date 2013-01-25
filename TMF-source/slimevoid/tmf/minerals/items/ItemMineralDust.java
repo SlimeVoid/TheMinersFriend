@@ -42,7 +42,7 @@ public class ItemMineralDust extends ItemMineral {
 		
         float strength = 1.0F;
         world.createExplosion(player, player.posX, player.posY, player.posZ, strength, true);
-		
+		player.setVelocity(0, 5, 0);
 		return stack;
 	}
 }
