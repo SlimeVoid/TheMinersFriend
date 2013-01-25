@@ -87,7 +87,29 @@ public class TileEntityRefinery extends TileEntityMachine {
 	public int getStartInventorySide(ForgeDirection side) {
 		if (side == ForgeDirection.DOWN) return 1;
 		if (side == ForgeDirection.UP) return 0;
-		return 2;
+		
+		int maxSize = 0;
+		int maxSizeSlot = 2;
+		if ( getStackInSlot(2) != null  ) {
+			if ( maxSize < getStackInSlot(2).stackSize ) {
+				maxSize = getStackInSlot(2).stackSize;
+				maxSizeSlot = 2;
+			}
+		}
+		if ( getStackInSlot(3) != null  ) {
+			if ( maxSize < getStackInSlot(3).stackSize ) {
+				maxSize = getStackInSlot(3).stackSize;
+				maxSizeSlot = 3;
+			}
+		}
+		if ( getStackInSlot(4) != null  ) {
+			if ( maxSize < getStackInSlot(4).stackSize ) {
+				maxSize = getStackInSlot(4).stackSize;
+				maxSizeSlot = 4;
+			}
+		}
+		
+		return maxSizeSlot;
 	}
 
 	@Override

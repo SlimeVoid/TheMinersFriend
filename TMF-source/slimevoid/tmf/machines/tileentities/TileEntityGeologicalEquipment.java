@@ -262,9 +262,7 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	
 	@Override
 	public int getStartInventorySide(ForgeDirection side) {
-		if (side == ForgeDirection.DOWN) return 1;
-		if (side == ForgeDirection.UP) return 0;
-		return 2;
+		return 0;
 	}
 
 	@Override
