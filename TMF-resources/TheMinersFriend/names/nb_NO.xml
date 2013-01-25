@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties version="1.0">
-	<comment>English (US) Localization File</comment>
+	<comment>Norsk Localization File</comment>
 	<entry key="itemGroup.TheMinersFriend">The Miner's Friend</entry>
 	<entry key="tile.tmf.grinder.idle.name">Mineralmølle</entry>
 	<entry key="tile.tmf.refinery.idle.name">Raffineri</entry>
@@ -19,9 +19,9 @@
 	<entry key="item.tmf.miningHelmet.diamond.name">Diamant Gruvehjelm</entry>
 	<entry key="item.tmf.sensor.motion.name">Bevegelsessensor</entry>
 	<entry key="item.tmf.sensor.heat.name"></entry>
-	<entry key="item.tmf.mineral.axcium.name"></entry>
-	<entry key="item.tmf.mineral.bisogen.name"></entry>
-	<entry key="item.tmf.mineral.cydrine.name"></entry>
+	<entry key="item.tmf.mineral.axcium.name">Axcium</entry>
+	<entry key="item.tmf.mineral.bisogen.name">Bisogen</entry>
+	<entry key="item.tmf.mineral.cydrine.name">Cydrine</entry>
 	<entry key="item.tmf.dust.axcium.name">Acxiumstøv</entry>
 	<entry key="item.tmf.dust.bisogen.name">Bisogenstøv</entry>
 	<entry key="item.tmf.dust.cydrine.name">Cydrinestøv</entry>

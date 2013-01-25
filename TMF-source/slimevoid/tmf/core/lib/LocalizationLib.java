@@ -6,7 +6,10 @@ public class LocalizationLib {
 
 	private static final String LANGUAGE_PATH = "/TheMinersFriend/names/";
 
-	public static String[] localeFiles = { LANGUAGE_PATH + "en_US.xml" };
+	public static String[] localeFiles = {
+		LANGUAGE_PATH + "en_US.xml",
+		LANGUAGE_PATH + "nb_NO.xml"
+	};
 
 	public static void registerLanguages() {
 		// For every file specified in the localeFiles class, load them into the Language Registry
