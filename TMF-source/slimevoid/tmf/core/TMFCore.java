@@ -7,6 +7,7 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import slimevoid.lib.util.XMLLanguageLoader;
 import slimevoid.lib.util.XMLRecipeLoader;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
@@ -96,43 +97,35 @@ public class TMFCore {
 		motionSensor = new ItemMotionSensor(motionSensorId).setItemName("motionSensor").setIconCoord(0, 1);
 		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setItemName("miningToolBelt").setIconCoord(0, 2);
 		
+		XMLLanguageLoader.addItemMapping(miningHelmetLamp);
+		XMLLanguageLoader.addItemMapping(miningHelmetIron);
+		XMLLanguageLoader.addItemMapping(miningHelmetGold);
+		XMLLanguageLoader.addItemMapping(miningHelmetDiamond);
+		XMLLanguageLoader.addItemMapping(motionSensor);
+		XMLLanguageLoader.addItemMapping(miningToolBelt);
+		
 		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(2400).setItemName("mineralAcxium").setIconCoord(0, 1);
 		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(150).setItemName("mineralBisogen").setIconCoord(1, 1);
 		mineralCydrine = new ItemMineral(mineralCydrineId).setBurnWidth(1).setItemName("mineralCydrine").setIconCoord(2, 1);
+
+		XMLLanguageLoader.addItemMapping(mineralAcxium);
+		XMLLanguageLoader.addItemMapping(mineralBisogen);
+		XMLLanguageLoader.addItemMapping(mineralCydrine);
 		
 		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setItemName("dustAcxium").setIconCoord(0, 2);
 		dustBisogen = new ItemMineralDust(dustBisogenId).setBurnSpeed(100).setItemName("dustBisogen").setIconCoord(1, 2);
 		dustCydrine = new ItemMineralDust(dustCydrineId).setBurnWidth(1).setItemName("dustCydrine").setIconCoord(2, 2);
 		
 		dustMixed = new ItemMineralMixedDust(dustMixedId).setItemName("dustMixed").setIconCoord(3, 2);
+		
+		XMLLanguageLoader.addItemMapping(dustAcxium);
+		XMLLanguageLoader.addItemMapping(dustBisogen);
+		XMLLanguageLoader.addItemMapping(dustCydrine);
+		XMLLanguageLoader.addItemMapping(dustMixed);
 	}
 	
 	public static void registerFuels() {
 		GameRegistry.registerFuelHandler(new MineralFuelHandler());
-	}
-
-	public static void registerItemNames() {
-		// TODO :: Use Localization XML to register names
-		
-		LanguageRegistry.addName(miningHelmetLamp, "Mining Helmet Lamp");
-		LanguageRegistry.addName(miningHelmetIron, "Iron Mining Helmet");
-		LanguageRegistry.addName(miningHelmetGold, "Gold Mining Helmet");
-		LanguageRegistry.addName(miningHelmetDiamond, "Diamond Mining Helmet");
-		
-		LanguageRegistry.addName(motionSensor, "Motion Sensor");
-		
-		LanguageRegistry.addName(miningToolBelt, "Miner's ToolBelt");
-		
-		LanguageRegistry.addName(mineralAcxium, "Acxium");
-		LanguageRegistry.addName(mineralBisogen, "Bisogen");
-		LanguageRegistry.addName(mineralCydrine, "Cydrine");
-		
-		LanguageRegistry.addName(dustAcxium, "Acxium Dust");
-		LanguageRegistry.addName(dustBisogen, "Bisogen Dust");
-		LanguageRegistry.addName(dustCydrine, "Cydrine Dust");
-		LanguageRegistry.addName(dustMixed, "Mixed Dust");
-		
-		LanguageRegistry.instance().addStringLocalization(CreativeTabTMF.tabTMF.getTranslatedTabLabel(), NamingLib.TMFNAME);
 	}
 	
 	// ORES
@@ -186,12 +179,6 @@ public class TMFCore {
 		GameRegistry.registerBlock(derniteOre, "derniteOre");
 		GameRegistry.registerBlock(egioclaseOre, "egioclaseOre");
 
-		LanguageRegistry.addName(arkiteOre, NamingLib.ORE_ARKITE);
-		LanguageRegistry.addName(bistiteOre, NamingLib.ORE_BISTITE);
-		LanguageRegistry.addName(crokereOre, NamingLib.ORE_CROKERE);
-		LanguageRegistry.addName(derniteOre, NamingLib.ORE_DERNITE);
-		LanguageRegistry.addName(egioclaseOre, NamingLib.ORE_EGIOCLASE);
-
         MinecraftForge.setBlockHarvestLevel(arkiteOre,  "pickaxe", 2);
         MinecraftForge.setBlockHarvestLevel(bistiteOre,  "pickaxe", 2);
         MinecraftForge.setBlockHarvestLevel(crokereOre,  "pickaxe", 2);
@@ -211,8 +198,6 @@ public class TMFCore {
 		GameRegistry.registerBlock(refineryIdle,"refinery.idle");
 		GameRegistry.registerBlock(refineryActive,"refinery.active");
 		GameRegistry.registerTileEntity(TileEntityRefinery.class, "TMF Refinery");
-		LanguageRegistry.addName(refineryIdle, NamingLib.REFINERY);
-		LanguageRegistry.addName(refineryActive, NamingLib.REFINERY);
 
 		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource("/TheMinersFriend/machines/refinery.json").getFile()));
 
@@ -223,8 +208,6 @@ public class TMFCore {
 		GameRegistry.registerBlock(grinderIdle,"grinder.idle");
 		GameRegistry.registerBlock(grinderActive,"grinder.active");
 		GameRegistry.registerTileEntity(TileEntityGrinder.class, "TMF Grinder");
-		LanguageRegistry.addName(grinderIdle, NamingLib.GRINDER);
-		LanguageRegistry.addName(grinderActive, NamingLib.GRINDER);
 		
 		JSONGrinderRecipesLoader.loadFile(new File(TMFCore.class.getResource("/TheMinersFriend/machines/grinder.json").getFile()));
 
@@ -235,17 +218,17 @@ public class TMFCore {
 		GameRegistry.registerBlock(geoEquipIdle,"geoEquip.idle");
 		GameRegistry.registerBlock(geoEquipActive,"geoEquip.active");
 		GameRegistry.registerTileEntity(TileEntityGeologicalEquipment.class, "TMF Geological Equipment");
-		LanguageRegistry.addName(geoEquipIdle, NamingLib.GEOEQUIP);
-		LanguageRegistry.addName(geoEquipActive, NamingLib.GEOEQUIP);
 	}
 
-	
+	public static void registerNames() {
+		
+	}
 	
 	// ======= RECIPE REGISTRATION =======
 	public static void registerRecipes() {
-		XMLRecipeLoader.loadDefaults(new File(TMFCore.class.getResource("/TheMinersFriend/recipes").getFile()));
-		XMLRecipeLoader.loadFolder(new File(TMFInit.TMF.getProxy().getMinecraftDir()+"/config/TMFRecipes"));
+		XMLLanguageLoader.loadDefaults(new File(TMFCore.class.getResource("/TheMinersFriend/names").getFile()));
+		XMLLanguageLoader.loadFolder(new File(TMFInit.TMF.getProxy().getMinecraftDir()+"/config/TMFNames"));
 		
-		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
+		LanguageRegistry.instance().addStringLocalization(CreativeTabTMF.tabTMF.getTranslatedTabLabel(), NamingLib.TMFNAME);
 	}
 }
