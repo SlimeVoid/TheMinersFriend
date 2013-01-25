@@ -59,7 +59,7 @@ public class ConfigurationLib {
 				"motionSensor",
 				15003).value);
 		
-		XMLLoader.addXmlVariable("$motionSensor", TMFCore.motionSensorId+256);
+		XMLLoader.addXmlVariable("$motionSensor", TMFCore.motionSensorId);
 	}
 	private static void loadMiningHelmet() {
 		TMFCore.miningHelmetIronId = Integer.valueOf(TMFCore.configuration.get(
@@ -79,10 +79,10 @@ public class ConfigurationLib {
 				"helmetLamp",
 				15004).value);
 		
-		XMLLoader.addXmlVariable("$ironMinersHelmet",		TMFCore.miningHelmetIronId+256);
-		XMLLoader.addXmlVariable("$goldMinersHelmet",		TMFCore.miningHelmetGoldId+256);
-		XMLLoader.addXmlVariable("$diamondMinersHelmet",	TMFCore.miningHelmetDiamondId+256);
-		XMLLoader.addXmlVariable("$helmetLamp", 			TMFCore.miningHelmetLampId+256);
+		XMLLoader.addXmlVariable("$ironMinersHelmet",		TMFCore.miningHelmetIronId);
+		XMLLoader.addXmlVariable("$goldMinersHelmet",		TMFCore.miningHelmetGoldId);
+		XMLLoader.addXmlVariable("$diamondMinersHelmet",	TMFCore.miningHelmetDiamondId);
+		XMLLoader.addXmlVariable("$helmetLamp", 			TMFCore.miningHelmetLampId);
 	}
 	private static void loadToolBelt() {
 		TMFCore.miningToolBeltId = Integer.valueOf(TMFCore.configuration.get(
