@@ -106,9 +106,9 @@ public class ConfigurationLib {
 				"mineralCydrine",
 				15012).value);
 		
-		XMLLoader.addXmlVariable("$mineralAcxium", 		TMFCore.mineralAcxiumId+256);
-		XMLLoader.addXmlVariable("$mineralBisogen", 	TMFCore.mineralBisogenId+256);
-		XMLLoader.addXmlVariable("$mineralCydrine", 	TMFCore.mineralCydrineId+256);
+		XMLLoader.addXmlVariable("$mineralAcxium", 		TMFCore.mineralAcxiumId);
+		XMLLoader.addXmlVariable("$mineralBisogen", 	TMFCore.mineralBisogenId);
+		XMLLoader.addXmlVariable("$mineralCydrine", 	TMFCore.mineralCydrineId);
 	}
 	private static void loadDusts() {
 		TMFCore.dustAcxiumId = Integer.valueOf(TMFCore.configuration.get(
@@ -128,10 +128,10 @@ public class ConfigurationLib {
 				"dustMixed",
 				15023).value);
 		
-		XMLLoader.addXmlVariable("$dustAcxium", 	TMFCore.dustAcxiumId+256);
-		XMLLoader.addXmlVariable("$dustBisogen", 	TMFCore.dustBisogenId+256);
-		XMLLoader.addXmlVariable("$dustCydrine", 	TMFCore.dustCydrineId+256);
-		XMLLoader.addXmlVariable("$dustMixed", 		TMFCore.dustMixedId+256);
+		XMLLoader.addXmlVariable("$dustAcxium", 	TMFCore.dustAcxiumId);
+		XMLLoader.addXmlVariable("$dustBisogen", 	TMFCore.dustBisogenId);
+		XMLLoader.addXmlVariable("$dustCydrine", 	TMFCore.dustCydrineId);
+		XMLLoader.addXmlVariable("$dustMixed", 		TMFCore.dustMixedId);
 	}
 	private static void loadOres() {
 		TMFCore.arkiteOreId = Integer.valueOf(TMFCore.configuration.get(
