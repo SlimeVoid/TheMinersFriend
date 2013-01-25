@@ -6,7 +6,7 @@ import java.util.List;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import slimevoid.tmf.core.lib.SpriteLib;
+import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.machines.inventory.ContainerGeologicalEquipment;
 import slimevoid.tmf.machines.tileentities.TileEntityGeologicalEquipment;
 import net.minecraft.block.Block;
@@ -29,7 +29,7 @@ public class GuiGeologicalEquipment extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int var2,int var3) {
-		int tex = mc.renderEngine.getTexture(SpriteLib.GUI_GEOEQUIP);
+		int tex = mc.renderEngine.getTexture(ResourceLib.GUI_GEOEQUIP);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.renderEngine.bindTexture(tex);
 		int sizeX = (width - xSize) / 2;

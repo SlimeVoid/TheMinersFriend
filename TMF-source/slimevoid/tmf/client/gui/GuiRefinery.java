@@ -2,7 +2,7 @@ package slimevoid.tmf.client.gui;
 
 import org.lwjgl.opengl.GL11;
 
-import slimevoid.tmf.core.lib.SpriteLib;
+import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.machines.inventory.ContainerRefinery;
 import slimevoid.tmf.machines.tileentities.TileEntityRefinery;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -18,7 +18,7 @@ public class GuiRefinery extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int var2,int var3) {
-		int tex = mc.renderEngine.getTexture(SpriteLib.GUI_REFINERY);
+		int tex = mc.renderEngine.getTexture(ResourceLib.GUI_REFINERY);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.renderEngine.bindTexture(tex);
 		int sizeX = (width - xSize) / 2;

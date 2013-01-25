@@ -3,7 +3,7 @@ package slimevoid.tmf.machines.blocks;
 import java.util.Random;
 
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
-import slimevoid.tmf.core.lib.SpriteLib;
+import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.machines.tileentities.TileEntityMachine;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -28,7 +28,7 @@ public abstract class BlockMachine extends BlockContainer {
 	}
 	
 	public String getTextureFile() {
-		return SpriteLib.MACHINE_TEXTURE_PATH;
+		return ResourceLib.MACHINE_TEXTURE_PATH;
 	}
 	
 	public abstract void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z);

@@ -2,19 +2,18 @@ package slimevoid.tmf.core;
 
 import java.io.File;
 import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.lib.util.FileReader;
-import slimevoid.lib.util.JSParser;
 import slimevoid.lib.util.XMLLanguageLoader;
 import slimevoid.lib.util.XMLRecipeLoader;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.core.lib.NamingLib;
+import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.core.world.WorldGeneration;
 import slimevoid.tmf.fuel.MineralFuelHandler;
 import slimevoid.tmf.fuel.MixedDustNameRegistry;
@@ -227,7 +226,7 @@ public class TMFCore {
 		GameRegistry.registerBlock(refineryActive,"refinery.active");
 		GameRegistry.registerTileEntity(TileEntityRefinery.class, "TMF Refinery");
 
-		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource("/TheMinersFriend/machines/refinery.json").getFile()));
+		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource(ResourceLib.RECIPES_REFINERY).getFile()));
 
 		// GRINDER
 		grinderIdle = new BlockGrinder(grinderIdleId,0,1,false).setBlockName("grinder.idle").setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
@@ -237,7 +236,7 @@ public class TMFCore {
 		GameRegistry.registerBlock(grinderActive,"grinder.active");
 		GameRegistry.registerTileEntity(TileEntityGrinder.class, "TMF Grinder");
 		
-		JSONGrinderRecipesLoader.loadFile(new File(TMFCore.class.getResource("/TheMinersFriend/machines/grinder.json").getFile()));
+		JSONGrinderRecipesLoader.loadFile(new File(TMFCore.class.getResource(ResourceLib.RECIPES_GRINDER).getFile()));
 
 		// GEOLOGICAL EQUIPMENT
 		geoEquipIdle = new BlockGeologicalEquipment(geoEquipIdleId,0,2,false).setBlockName("geoEquip.idle").setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);

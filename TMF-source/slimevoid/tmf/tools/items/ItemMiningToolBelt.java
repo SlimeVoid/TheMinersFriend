@@ -19,7 +19,7 @@ import slimevoid.tmf.core.data.MiningToolBelt;
 import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.ItemLib;
-import slimevoid.tmf.core.lib.SpriteLib;
+import slimevoid.tmf.core.lib.ResourceLib;
 
 public class ItemMiningToolBelt extends Item {
 
@@ -169,7 +169,7 @@ public class ItemMiningToolBelt extends Item {
 	
 	@Override
 	public String getTextureFile() {
-		return SpriteLib.ITEM_SPRITE_PATH;
+		return ResourceLib.ITEM_SPRITE_PATH;
 	}
 
 	/**

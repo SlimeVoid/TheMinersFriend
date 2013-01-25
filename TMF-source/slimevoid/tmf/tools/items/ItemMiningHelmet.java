@@ -7,7 +7,7 @@ import net.minecraftforge.common.IArmorTextureProvider;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.ArmorLib;
 import slimevoid.tmf.core.lib.ConfigurationLib;
-import slimevoid.tmf.core.lib.SpriteLib;
+import slimevoid.tmf.core.lib.ResourceLib;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -38,6 +38,6 @@ public class ItemMiningHelmet extends ItemArmor implements IArmorTextureProvider
 
 	@Override
 	public String getTextureFile() {
-		return SpriteLib.ITEM_SPRITE_PATH;
+		return ResourceLib.ITEM_SPRITE_PATH;
 	}
 }

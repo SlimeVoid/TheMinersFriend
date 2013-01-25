@@ -14,7 +14,7 @@ import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.EventLib;
 import slimevoid.tmf.core.lib.KeyBindings;
 import slimevoid.tmf.core.lib.PacketLib;
-import slimevoid.tmf.core.lib.SpriteLib;
+import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import cpw.mods.fml.common.registry.TickRegistry;
@@ -48,21 +48,21 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.preloadTexture(
 				ArmorLib.registerArmorTexture(
 						TMFCore.miningHelmetIron,
-						SpriteLib.IRON_MINING_HELMET)
+						ResourceLib.IRON_MINING_HELMET)
 		);
 		MinecraftForgeClient.preloadTexture(
 				ArmorLib.registerArmorTexture(
 						TMFCore.miningHelmetGold,
-						SpriteLib.GOLD_MINING_HELMET)
+						ResourceLib.GOLD_MINING_HELMET)
 		);
 		MinecraftForgeClient.preloadTexture(
 				ArmorLib.registerArmorTexture(
 						TMFCore.miningHelmetDiamond,
-						SpriteLib.DIAMOND_MINING_HELMET)
+						ResourceLib.DIAMOND_MINING_HELMET)
 		);
-		MinecraftForgeClient.preloadTexture(SpriteLib.ITEM_SPRITE_PATH);
-		MinecraftForgeClient.preloadTexture(SpriteLib.RESOURCE_SPRITE_PATH);
-		MinecraftForgeClient.preloadTexture(SpriteLib.MACHINE_TEXTURE_PATH);
+		MinecraftForgeClient.preloadTexture(ResourceLib.ITEM_SPRITE_PATH);
+		MinecraftForgeClient.preloadTexture(ResourceLib.RESOURCE_SPRITE_PATH);
+		MinecraftForgeClient.preloadTexture(ResourceLib.MACHINE_TEXTURE_PATH);
 	}
 	
 	@Override

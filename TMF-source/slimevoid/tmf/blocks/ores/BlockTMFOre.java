@@ -1,7 +1,7 @@
 package slimevoid.tmf.blocks.ores;
 
 import slimevoid.tmf.core.lib.BlockLib;
-import slimevoid.tmf.core.lib.SpriteLib;
+import slimevoid.tmf.core.lib.ResourceLib;
 import net.minecraft.block.BlockOre;
 
 public class BlockTMFOre extends BlockOre {
@@ -26,6 +26,6 @@ public class BlockTMFOre extends BlockOre {
 	}
 
 	public String getTextureFile() {
-		return SpriteLib.RESOURCE_SPRITE_PATH;
+		return ResourceLib.RESOURCE_SPRITE_PATH;
 	}
 }
