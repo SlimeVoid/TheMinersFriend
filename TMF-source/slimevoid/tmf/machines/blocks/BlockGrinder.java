@@ -4,7 +4,6 @@ import java.util.Random;
 
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TheMinersFriend;
-import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import net.minecraft.entity.player.EntityPlayer;

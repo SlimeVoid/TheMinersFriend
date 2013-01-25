@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import slimevoid.lib.network.PacketPayload;
 import slimevoid.lib.network.PacketUpdate;
-import slimevoid.tmf.core.TMFInit;
+import slimevoid.tmf.core.lib.ReferenceLib;
 
 /**
  * Extend for new packets
@@ -49,7 +49,7 @@ public abstract class PacketMining extends PacketUpdate {
 	 */
 	public PacketMining(int packetId) {
 		super(packetId);
-		this.setChannel(TMFInit.TMF.getModChannel());
+		this.setChannel(ReferenceLib.MOD_CHANNEL);
 	}
 
 	/**
@@ -62,7 +62,7 @@ public abstract class PacketMining extends PacketUpdate {
 	 */
 	public PacketMining(int packetId, PacketPayload payload) {
 		super(packetId, payload);
-		this.setChannel(TMFInit.TMF.getModChannel());
+		this.setChannel(ReferenceLib.MOD_CHANNEL);
 	}
 
 	@Override

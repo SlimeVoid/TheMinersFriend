@@ -3,7 +3,6 @@ package slimevoid.tmf.machines.inventory;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import slimevoid.tmf.machines.RefineryRecipes;
-import slimevoid.tmf.machines.tileentities.TileEntityMachine;
 import slimevoid.tmf.machines.tileentities.TileEntityRefinery;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

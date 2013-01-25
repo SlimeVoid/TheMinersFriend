@@ -8,12 +8,12 @@ import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
 import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleInToolbelt;
 import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleOnHotbar;
 import slimevoid.tmf.core.TMFCore;
-import slimevoid.tmf.core.TMFInit;
 import slimevoid.tmf.core.lib.ArmorLib;
 import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.EventLib;
 import slimevoid.tmf.core.lib.KeyBindings;
 import slimevoid.tmf.core.lib.PacketLib;
+import slimevoid.tmf.core.lib.ReferenceLib;
 import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
@@ -44,7 +44,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerRenderInformation() {
-		SlimevoidCore.console(TMFInit.TMF.getModName(), "Registering Renderers...");
+		SlimevoidCore.console(ReferenceLib.MOD_ID, "Registering Renderers...");
 		MinecraftForgeClient.preloadTexture(
 				ArmorLib.registerArmorTexture(
 						TMFCore.miningHelmetIron,
@@ -68,7 +68,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void registerTickHandler() {
 		super.registerTickHandler();
-		SlimevoidCore.console(TMFInit.TMF.getModName(), "Registering Client tick handlers...");
+		SlimevoidCore.console(ReferenceLib.MOD_ID, "Registering Client tick handlers...");
 		
 		MotionSensorTickHandler motionSensor = new MotionSensorTickHandler(
 				ConfigurationLib.motionSensorMaxEntityDistance, 

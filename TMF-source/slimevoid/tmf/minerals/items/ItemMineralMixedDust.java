@@ -7,7 +7,6 @@ import slimevoid.lib.util.JSParser;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.fuel.MixedDustNameRegistry;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StringTranslate;
 
 public class ItemMineralMixedDust extends ItemMineralDust {	
 	public static String script = null;

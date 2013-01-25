@@ -2,7 +2,6 @@ package slimevoid.tmf.machines.blocks;
 
 import java.util.Random;
 
-import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.machines.tileentities.TileEntityMachine;
 import net.minecraft.block.Block;

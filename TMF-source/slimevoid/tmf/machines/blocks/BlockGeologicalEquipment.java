@@ -2,7 +2,6 @@ package slimevoid.tmf.machines.blocks;
 
 import java.util.Random;
 
-import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TheMinersFriend;

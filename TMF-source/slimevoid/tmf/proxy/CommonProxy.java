@@ -14,7 +14,6 @@ import slimevoid.tmf.client.gui.GuiGeologicalEquipment;
 import slimevoid.tmf.client.gui.GuiMiningToolBelt;
 import slimevoid.tmf.client.gui.GuiRefinery;
 import slimevoid.tmf.client.gui.GuiGrinder;
-import slimevoid.tmf.core.TMFInit;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.data.MiningMode;
 import slimevoid.tmf.core.data.MiningToolBelt;
@@ -23,6 +22,7 @@ import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.EventLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.PacketLib;
+import slimevoid.tmf.core.lib.ReferenceLib;
 import slimevoid.tmf.machines.inventory.ContainerGeologicalEquipment;
 import slimevoid.tmf.machines.inventory.ContainerGrinder;
 import slimevoid.tmf.machines.inventory.ContainerRefinery;
@@ -147,7 +147,7 @@ public class CommonProxy implements ITMFCommonProxy {
 
 	@Override
 	public void registerConfigurationProperties() {
-		SlimevoidCore.console(TMFInit.TMF.getModName(), "Loading properties...");
+		SlimevoidCore.console(ReferenceLib.MOD_ID, "Loading properties...");
 		ConfigurationLib.CommonConfig();
 	}
 
