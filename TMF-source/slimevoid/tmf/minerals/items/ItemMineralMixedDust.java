@@ -17,6 +17,7 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 		 * Set this to true since we will be storing item damage data for each mixed dust
 		 */
 		this.setHasSubtypes(true);
+		this.setCreativeTab(null);
 	}
 
 	public String getItemDisplayName(ItemStack itemstack) {

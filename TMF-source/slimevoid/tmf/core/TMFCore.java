@@ -174,11 +174,11 @@ public class TMFCore {
 		BlockLib.init();
 		
 		// BlockTMFOre(int id, int texture, int spawnLevel, int spawnRate, int spawnSize, int veinSize, int lightLevel)
-		arkiteOre = new BlockTMFOre(arkiteOreId, 0, 60, 100, 5, 0.2F).setBlockName("arkiteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);
-		bistiteOre = new BlockTMFOre(bistiteOreId, 1, 36, 100, 5, 0.3F).setBlockName("bistiteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
-		crokereOre = new BlockTMFOre(crokereOreId, 2, 30, 100, 5, 0.4F).setBlockName("crokereOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
-		derniteOre = new BlockTMFOre(derniteOreId, 3, 26, 100, 5, 0.5F).setBlockName("derniteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
-		egioclaseOre = new BlockTMFOre(egioclaseOreId, 4, 20, 100, 5, 0.6F).setBlockName("egioclaseOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);;
+		arkiteOre = new BlockTMFOre(arkiteOreId, 0, 60, 100, 5, 0.2F).setBlockName("arkiteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		bistiteOre = new BlockTMFOre(bistiteOreId, 1, 36, 100, 5, 0.3F).setBlockName("bistiteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		crokereOre = new BlockTMFOre(crokereOreId, 2, 30, 100, 5, 0.4F).setBlockName("crokereOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		derniteOre = new BlockTMFOre(derniteOreId, 3, 26, 100, 5, 0.5F).setBlockName("derniteOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		egioclaseOre = new BlockTMFOre(egioclaseOreId, 4, 20, 100, 5, 0.6F).setBlockName("egioclaseOre").setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
 
 		GameRegistry.registerBlock(arkiteOre, "arkiteOre");
 		GameRegistry.registerBlock(bistiteOre, "bistiteOre");
@@ -205,7 +205,7 @@ public class TMFCore {
 	
 	public static void registerMachines() {
 		// REFINERY
-		refineryIdle = new BlockRefinery(refineryIdleId,0,0,false).setBlockName("refinery.idle").setHardness(3.5F).setCreativeTab(CreativeTabs.tabBlock);
+		refineryIdle = new BlockRefinery(refineryIdleId,0,0,false).setBlockName("refinery.idle").setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
 		refineryActive = new BlockRefinery(refineryActiveId,0,0,true).setBlockName("refinery.active").setHardness(3.5F).setLightValue(0.875F);
 		
 		GameRegistry.registerBlock(refineryIdle,"refinery.idle");
@@ -217,7 +217,7 @@ public class TMFCore {
 		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource("/TheMinersFriend/machines/refinery.json").getFile()));
 
 		// GRINDER
-		grinderIdle = new BlockGrinder(grinderIdleId,0,1,false).setBlockName("grinder.idle").setHardness(3.5F).setCreativeTab(CreativeTabs.tabBlock);
+		grinderIdle = new BlockGrinder(grinderIdleId,0,1,false).setBlockName("grinder.idle").setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
 		grinderActive = new BlockGrinder(grinderActiveId,0,1,true).setBlockName("grinder.active").setHardness(3.5F).setLightValue(0.875F);
 		
 		GameRegistry.registerBlock(grinderIdle,"grinder.idle");
@@ -229,7 +229,7 @@ public class TMFCore {
 		JSONGrinderRecipesLoader.loadFile(new File(TMFCore.class.getResource("/TheMinersFriend/machines/grinder.json").getFile()));
 
 		// GEOLOGICAL EQUIPMENT
-		geoEquipIdle = new BlockGeologicalEquipment(geoEquipIdleId,0,2,false).setBlockName("geoEquip.idle").setHardness(3.5F).setCreativeTab(CreativeTabs.tabBlock);
+		geoEquipIdle = new BlockGeologicalEquipment(geoEquipIdleId,0,2,false).setBlockName("geoEquip.idle").setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
 		geoEquipActive = new BlockGeologicalEquipment(geoEquipActiveId,0,2,true).setBlockName("geoEquip.active").setHardness(3.5F).setLightValue(0.875F);
 		
 		GameRegistry.registerBlock(geoEquipIdle,"geoEquip.idle");

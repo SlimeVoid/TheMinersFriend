@@ -23,7 +23,6 @@ public abstract class BlockMachine extends BlockContainer {
 	
 	public BlockMachine(int id, int texX, int texY, boolean isActive) {
 		super(id, Material.rock);
-		this.setCreativeTab(CreativeTabTMF.tabTMF);
         setTextureFile(SpriteLib.MACHINE_TEXTURE_PATH);
         this.blockIndexInTexture = texX+(texY*16);
         this.isActive = isActive;
