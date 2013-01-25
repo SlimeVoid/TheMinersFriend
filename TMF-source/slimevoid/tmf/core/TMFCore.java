@@ -227,7 +227,7 @@ public class TMFCore {
 		
 		GameRegistry.registerBlock(refineryIdle,BlockLib.REFINERY_IDLE);
 		GameRegistry.registerBlock(refineryActive,BlockLib.REFINERY_ACTIVE);
-		GameRegistry.registerTileEntity(TileEntityRefinery.class, "tile."+BlockLib.BLOCK_REFINERY);
+		GameRegistry.registerTileEntity(TileEntityRefinery.class, BlockLib.TILE_REFINERY);
 
 		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource(ResourceLib.RECIPES_REFINERY).getFile()));
 
@@ -237,7 +237,7 @@ public class TMFCore {
 		
 		GameRegistry.registerBlock(grinderIdle,BlockLib.GRINDER_IDLE);
 		GameRegistry.registerBlock(grinderActive,BlockLib.GRINDER_ACTIVE);
-		GameRegistry.registerTileEntity(TileEntityGrinder.class, "tile."+BlockLib.BLOCK_GRINDER);
+		GameRegistry.registerTileEntity(TileEntityGrinder.class, BlockLib.TILE_GRINDER);
 		
 		JSONGrinderRecipesLoader.loadFile(new File(TMFCore.class.getResource(ResourceLib.RECIPES_GRINDER).getFile()));
 
@@ -247,13 +247,13 @@ public class TMFCore {
 		
 		GameRegistry.registerBlock(geoEquipIdle,BlockLib.GEOEQUIP_IDLE);
 		GameRegistry.registerBlock(geoEquipActive,BlockLib.GEOEQUIP_ACTIVE);
-		GameRegistry.registerTileEntity(TileEntityGeologicalEquipment.class, "tile."+BlockLib.BLOCK_GEOEQUIPMENT);
+		GameRegistry.registerTileEntity(TileEntityGeologicalEquipment.class, BlockLib.TILE_GEOEQUIPMENT);
 
 		// AUTOMATIC MIXING TABLE
-		autoMixTable = new BlockAutomaticMixingTable(autoMixTableId,0,3,false).setBlockName(BlockLib.AUTOMIXTABLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
+		autoMixTable = new BlockAutomaticMixingTable(autoMixTableId,0,3,false).setBlockName(BlockLib.BLOCK_AUTOMIXTABLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
 		
-		GameRegistry.registerBlock(autoMixTable,BlockLib.AUTOMIXTABLE);
-		GameRegistry.registerTileEntity(TileEntityAutomaticMixingTable.class, "tile."+BlockLib.AUTOMIXTABLE);
+		GameRegistry.registerBlock(autoMixTable,BlockLib.BLOCK_AUTOMIXTABLE);
+		GameRegistry.registerTileEntity(TileEntityAutomaticMixingTable.class, BlockLib.TILE_AUTOMIXTABLE);
 	}
 
 	// ======== NAME REGISTRATION ========
