@@ -12,4 +12,8 @@
         <language lang="en_US">Geological Equipment</language>
         <language lang="nb_NO">Geologisk Utstyr</language>
     </name>
+    <name objId="$autoMixTable">
+        <language lang="en_US">Automatic Mixing Table</language>
+        <language lang="nb_NO">Automatisk Miksebord</language>
+    </name>
 </names>

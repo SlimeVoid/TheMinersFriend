@@ -169,8 +169,6 @@ public class TileEntityGrinder extends TileEntityMachine {
 
 	@Override
 	protected void onInventoryHasChanged(World world , int x, int y, int z) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

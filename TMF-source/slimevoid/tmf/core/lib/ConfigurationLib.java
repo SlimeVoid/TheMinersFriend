@@ -195,6 +195,12 @@ public class ConfigurationLib {
 		XMLLoader.addXmlVariable("$geoEquipIdle", 		TMFCore.geoEquipIdleId);
 		XMLLoader.addXmlVariable("$geoEquipActive", 	TMFCore.geoEquipActiveId);
 		
+		TMFCore.autoMixTableId = Integer.valueOf(TMFCore.configuration.get(
+				Configuration.CATEGORY_BLOCK,
+				"autoMixTable",
+				1110).value);
+		XMLLoader.addXmlVariable("$autoMixTable", 		TMFCore.autoMixTableId);
+		
 	}
 	private static void loadLogger() {
 		TMFCore.loggerLevel = String.valueOf(TMFCore.configuration.get(

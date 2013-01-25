@@ -19,9 +19,11 @@ import slimevoid.tmf.fuel.MineralFuelHandler;
 import slimevoid.tmf.fuel.MixedDustNameRegistry;
 import slimevoid.tmf.machines.JSONGrinderRecipesLoader;
 import slimevoid.tmf.machines.JSONRefineryRecipesLoader;
+import slimevoid.tmf.machines.blocks.BlockAutomaticMixingTable;
 import slimevoid.tmf.machines.blocks.BlockGeologicalEquipment;
 import slimevoid.tmf.machines.blocks.BlockGrinder;
 import slimevoid.tmf.machines.blocks.BlockRefinery;
+import slimevoid.tmf.machines.tileentities.TileEntityAutomaticMixingTable;
 import slimevoid.tmf.machines.tileentities.TileEntityGeologicalEquipment;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.machines.tileentities.TileEntityRefinery;
@@ -177,14 +179,16 @@ public class TMFCore {
 		grinderIdleId,
 		grinderActiveId,
 		geoEquipIdleId,
-		geoEquipActiveId;
+		geoEquipActiveId,
+		autoMixTableId;
 	public static Block
 		refineryIdle,
 		refineryActive,
 		grinderIdle,
 		grinderActive,
 		geoEquipIdle,
-		geoEquipActive;
+		geoEquipActive,
+		autoMixTable;
 
 	// ======== BLOCK REGISTRATION ========
 	public static void registerBlocks() {
@@ -245,6 +249,12 @@ public class TMFCore {
 		GameRegistry.registerBlock(geoEquipIdle,"geoEquip.idle");
 		GameRegistry.registerBlock(geoEquipActive,"geoEquip.active");
 		GameRegistry.registerTileEntity(TileEntityGeologicalEquipment.class, "TMF Geological Equipment");
+
+		// AUTOMATIC MIXING TABLE
+		autoMixTable = new BlockAutomaticMixingTable(autoMixTableId,0,3,false).setBlockName("autoMixTable").setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
+		
+		GameRegistry.registerBlock(autoMixTable,"autoMixTable");
+		GameRegistry.registerTileEntity(TileEntityAutomaticMixingTable.class, "TMF Automatic Mixing Table");
 	}
 
 	// ======== NAME REGISTRATION ========
