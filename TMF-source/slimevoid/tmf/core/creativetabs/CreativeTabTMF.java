@@ -1,7 +1,7 @@
 package slimevoid.tmf.core.creativetabs;
 
 import slimevoid.tmf.core.TMFCore;
-import slimevoid.tmf.core.lib.NamingLib;
+import slimevoid.tmf.core.lib.ReferenceLib;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
@@ -9,7 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 
 public class CreativeTabTMF extends CreativeTabs {
 	
-	public static CreativeTabs tabTMF = new CreativeTabTMF(NamingLib.TMFID);
+	public static CreativeTabs tabTMF = new CreativeTabTMF(ReferenceLib.MOD_ID);
 	
 	CreativeTabTMF(String par2Str)
     {

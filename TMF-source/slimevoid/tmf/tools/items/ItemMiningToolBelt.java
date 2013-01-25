@@ -16,9 +16,9 @@ import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.data.MiningMode;
 import slimevoid.tmf.core.data.MiningToolBelt;
+import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.GuiLib;
-import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.ResourceLib;
 
 public class ItemMiningToolBelt extends Item {
@@ -108,7 +108,7 @@ public class ItemMiningToolBelt extends Item {
 			EntityPlayer entityplayer,
 			boolean onBlockStartBreak) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemLib.getSelectedTool(entityplayer, entityplayer.worldObj, itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(entityplayer, entityplayer.worldObj, itemstack);
 		if (tool != null) {
 			// Perform the onBlockStartBreak method for the itemstack
 			return tool.getItem().onBlockStartBreak(tool, x, y, z, entityplayer);
@@ -140,7 +140,7 @@ public class ItemMiningToolBelt extends Item {
 			EntityLiving entityliving,
 			boolean onBlockDestroyed) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemLib.getSelectedTool(entityliving, world, itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(entityliving, world, itemstack);
 		if (tool != null) {
 			// Perform the onBlockDestroyed method for the itemstack
 			return tool.getItem().onBlockDestroyed(tool, world, x, y, z, side, entityliving);
@@ -181,7 +181,7 @@ public class ItemMiningToolBelt extends Item {
 	 */
 	public static void doBreakSpeed(BreakSpeed event) {
 		// Retrieves the Held Tool Belt
-		ItemStack toolBelt = ItemLib.getToolBelt(event.entityPlayer, event.entityPlayer.worldObj, true);
+		ItemStack toolBelt = ItemHelper.getToolBelt(event.entityPlayer, event.entityPlayer.worldObj, true);
 		// If the player is still holding the tool belt 
 		if (toolBelt != null) {
 			// Retrieves the Tool Belt data
@@ -212,7 +212,7 @@ public class ItemMiningToolBelt extends Item {
 	 */
 	public static void doHarvestCheck(HarvestCheck event) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemLib.getSelectedTool(
+		ItemStack tool = ItemHelper.getSelectedTool(
 				event.entityPlayer,
 				event.entityPlayer.worldObj,
 				event.entityPlayer.getHeldItem()
@@ -240,7 +240,7 @@ public class ItemMiningToolBelt extends Item {
 		// First checks if the player is sneaking
 		if (event.entityPlayer.isSneaking()) {
 			// Retrieves the Selected Tool within the held Tool Belt
-			ItemStack tool = ItemLib.getSelectedTool(
+			ItemStack tool = ItemHelper.getSelectedTool(
 					event.entityPlayer,
 					event.entityPlayer.worldObj,
 					event.entityPlayer.getHeldItem()

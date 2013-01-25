@@ -1,8 +1,8 @@
 package slimevoid.tmf.core;
 
 import slimevoid.tmf.api.ITMFCommonProxy;
+import slimevoid.tmf.core.lib.ReferenceLib;
 import slimevoid.tmf.client.network.ClientPacketHandler;
-import slimevoid.tmf.core.lib.NamingLib;
 import slimevoid.tmf.network.CommonPacketHandler;
 import slimevoid.tmf.network.TMFConnectionHandler;
 import cpw.mods.fml.common.Mod;
@@ -18,27 +18,27 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 
 @Mod(
-		modid = NamingLib.TMFID,
-		name = "The Miner's Friend",
-		version = "1.0.0.0",
-		dependencies = "after:SlimevoidLib")
+		modid = ReferenceLib.MOD_ID,
+		name = ReferenceLib.MOD_NAME,
+		version = ReferenceLib.MOD_VERSION,
+		dependencies = ReferenceLib.MOD_DEPENDENCIES)
 @NetworkMod(
 		clientSideRequired = true,
 		serverSideRequired = false,
 		clientPacketHandlerSpec = @SidedPacketHandler(
-				channels = { TMFCore.packetChannel },
+				channels = { ReferenceLib.MOD_CHANNEL },
 				packetHandler = ClientPacketHandler.class),
 		serverPacketHandlerSpec = @SidedPacketHandler(
-				channels = { TMFCore.packetChannel },
+				channels = { ReferenceLib.MOD_CHANNEL },
 				packetHandler = CommonPacketHandler.class),
 		connectionHandler = TMFConnectionHandler.class)
 public class TheMinersFriend {
 	@SidedProxy(
-			clientSide = "slimevoid.tmf.client.proxy.ClientProxy",
-			serverSide = "slimevoid.tmf.proxy.CommonProxy")
+			clientSide = ReferenceLib.PROXY_CLIENT,
+			serverSide = ReferenceLib.PROXY_COMMON)
 	public static ITMFCommonProxy proxy;
 	
-	@Instance(NamingLib.TMFID)
+	@Instance(ReferenceLib.MOD_ID)
 	public static TheMinersFriend instance;
 
 	@PreInit

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version="1.0">
+	<comment>English (US) Localization File</comment>
+	<entry key="itemGroup.TheMinersFriend">The Miner's Friend</entry>
+	<entry key="tile.tmf.grinder.idle.name">Mineral Grinder</entry>
+	<entry key="tile.tmf.refinery.idle.name">Ore Refinery</entry>
+	<entry key="tile.tmf.geoEquip.idle.name">Geological Equipment</entry>
+	<entry key="tile.tmf.ore.arkite.name">Arkite Ore</entry>
+	<entry key="tile.tmf.ore.bistite.name">Bistite Ore</entry>
+	<entry key="tile.tmf.ore.crokere.name">Crokere Ore</entry>
+	<entry key="tile.tmf.ore.dernite.name">Dernite Ore</entry>
+	<entry key="tile.tmf.ore.egioclase.name">Egioclase Ore</entry>
+	<entry key="item.tmf.miningToolBelt.name">Mining Tool-Belt</entry>
+	<entry key="item.tmf.miningHelmet.lamp.name">Mining Helmet Lamp</entry>
+	<entry key="item.tmf.miningHelmet.iron.name">Iron Mining Helmet</entry>
+	<entry key="item.tmf.miningHelmet.gold.name">Gold Mining Helmet</entry>
+	<entry key="item.tmf.miningHelmet.diamond.name">Diamond Mining Helmet</entry>
+	<entry key="item.tmf.sensor.motion.name">Motion Sensor</entry>
+	<entry key="item.tmf.sensor.heat.name">Heat Sensor</entry>
+	<entry key="item.tmf.mineral.axcium.name">Axcium</entry>
+	<entry key="item.tmf.mineral.bisogen.name">Bisogen</entry>
+	<entry key="item.tmf.mineral.cydrine.name">Cydrine</entry>
+	<entry key="item.tmf.dust.axcium.name">Axcium Dust</entry>
+	<entry key="item.tmf.dust.bisogen.name">Bisogen Dust</entry>
+	<entry key="item.tmf.dust.cydrine.name">Cydrine Dust</entry>
+</properties>

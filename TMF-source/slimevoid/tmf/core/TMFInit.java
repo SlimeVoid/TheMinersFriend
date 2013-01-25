@@ -8,6 +8,7 @@ import slimevoid.lib.ICore;
 import slimevoid.lib.core.Core;
 import slimevoid.lib.core.SlimevoidCore;
 import slimevoid.tmf.api.ITMFCommonProxy;
+import slimevoid.tmf.core.lib.ReferenceLib;
 
 public class TMFInit {
 	public static ICore TMF;
@@ -18,8 +19,8 @@ public class TMFInit {
 			return;
 		initialized = true;
 		TMF = new Core(proxy);
-		TMF.setModName("TheMinersFriend");
-		TMF.setModChannel(TMFCore.packetChannel);
+		TMF.setModName(ReferenceLib.MOD_ID);
+		TMF.setModChannel(ReferenceLib.MOD_CHANNEL);
 		TMFCore.configFile = new File(
 				TMF.getProxy().getMinecraftDir(),
 					"config/TheMinersFriend.cfg");

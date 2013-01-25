@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
 import slimevoid.tmf.core.lib.CommandLib;
 import slimevoid.tmf.core.lib.DataLib;
-import slimevoid.tmf.core.lib.NamingLib;
+import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
@@ -208,7 +208,7 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 
 	@Override
 	public String getInvName() {
-		return NamingLib.MINING_TOOL_BELT;
+		return ItemLib.MINING_TOOLBELT;
 	}
 
 	@Override

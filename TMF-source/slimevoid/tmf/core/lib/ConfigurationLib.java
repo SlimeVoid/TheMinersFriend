@@ -3,7 +3,6 @@ package slimevoid.tmf.core.lib;
 import net.minecraftforge.common.Configuration;
 import slimevoid.lib.data.Logger;
 import slimevoid.lib.util.XMLLoader;
-import slimevoid.lib.util.XMLRecipeLoader;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.core.TMFCore;
 import cpw.mods.fml.relauncher.Side;
