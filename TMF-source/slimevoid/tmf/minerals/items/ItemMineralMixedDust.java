@@ -5,6 +5,7 @@ import java.util.Map;
 
 import slimevoid.lib.util.JSParser;
 import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.fuel.MixedDustNameRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringTranslate;
 
@@ -26,16 +27,14 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 	public String getItemDisplayName(ItemStack itemstack) {
 		// Fetch individual colors
 		int meta = getDustMeta(itemstack);
-		int iR = ((meta >> 8) & 15);
-		int iG = ((meta >> 4) & 15);
-		int iB = (meta & 15);
+		int iR = getBurnTimeLevel(meta);
+		int iG = getBurnSpeedLevel(meta);
+		int iB = getBurnWidthLevel(meta);
 		
 		return (StringTranslate.getInstance().translateNamedKey(
-						this.getLocalItemName(
-								itemstack)
-						)
-				+ " | "
-				+ iR+","+iG+","+iB
+						this.getLocalItemName(itemstack)
+				) + " | "
+				+ MixedDustNameRegistry.getName(iR,iG,iB)
 				).trim();
 	}
 	
@@ -44,9 +43,19 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 		return metaToColor(item.getItemDamage());
 	}
 
+	public static int getBurnTimeLevel(int meta) {
+		return (meta >> 8) & 15;
+	}
+	public static int getBurnSpeedLevel(int meta) {
+		return (meta >> 4) & 15;
+	}
+	public static int getBurnWidthLevel(int meta) {
+		return meta & 15;
+	}
+	
 	@Override
 	public int getBurnTime(ItemStack stack) {
-		int timeLevel = (getDustMeta(stack) >> 8) & 15;
+		int timeLevel = getBurnTimeLevel(getDustMeta(stack));
 		
 		Map<String,Object> params = new HashMap<String,Object>();
 		params.put("level", timeLevel);
@@ -59,7 +68,7 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 	}
 	@Override
 	public int getBurnSpeed(ItemStack stack) {
-		int speedLevel = (getDustMeta(stack) >> 4) & 15;
+		int speedLevel = getBurnSpeedLevel(getDustMeta(stack));
 		
 		Map<String,Object> params = new HashMap<String,Object>();
 		params.put("level", speedLevel);
@@ -72,7 +81,7 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 	}
 	@Override
 	public int getBurnWidth(ItemStack stack) {
-		int widthLevel = getDustMeta(stack) & 15;
+		int widthLevel = getBurnWidthLevel(getDustMeta(stack));
 		
 		Map<String,Object> params = new HashMap<String,Object>();
 		params.put("level", widthLevel);
@@ -92,9 +101,9 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 	 */
 	private static int metaToColor(int meta) {
 		// Fetch individual colors
-		int iR = ((meta >> 8) & 15);
-		int iG = ((meta >> 4) & 15);
-		int iB = (meta & 15);
+		int iR = getBurnTimeLevel(meta);
+		int iG = getBurnSpeedLevel(meta);
+		int iB = getBurnWidthLevel(meta);
 		
 		// Blend
 		int out = 0xffffff;
@@ -111,22 +120,7 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 		}
 		return out;
 	}
-	
-	/**
-	 * Doubles the bit
-	 * 1 = 11
-	 * 0 = 00
-	 * 
-	 * @param bit
-	 * @return
-	 */
-	private static int doubleBit(boolean bit) {
-		if ( bit )
-			return 3;
-		else
-			return 0;
-	}
-	
+		
 	/**
 	 * Fetches the dust meta based on item stack with dust.
 	 * 
@@ -158,14 +152,14 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 	 */
 	public static int mixDustMeta(int mA, int mB) {
 		// Fetch the individual levels
-		int rA = (mA >> 8) & 15;
-		int rB = (mB >> 8) & 15;
+		int rA = getBurnTimeLevel(mA);
+		int rB = getBurnTimeLevel(mB);
 
-		int gA = (mA >> 4) & 15;
-		int gB = (mB >> 4) & 15;
+		int gA = getBurnSpeedLevel(mA);
+		int gB = getBurnSpeedLevel(mB);
 		
-		int bA = mA & 15;
-		int bB = mB & 15;
+		int bA = getBurnWidthLevel(mA);
+		int bB = getBurnWidthLevel(mB);
 
 		// Add the levels up
 		int r = rA+rB;
@@ -190,7 +184,7 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 	 * @return level
 	 */
 	public static int getTotalLevel(int meta) {
-		return ((meta >> 8) & 15)+((meta >> 4) & 15)+(meta & 15);
+		return getBurnTimeLevel(meta) + getBurnSpeedLevel(meta) + getBurnWidthLevel(meta);
 	}
 	
 	/**
@@ -200,9 +194,9 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 	 * @return
 	 */
 	public static boolean isMetaCleanDust(int meta) {
-		int r = (meta >> 8) & 15;
-		int g = (meta >> 4) & 15;
-		int b = meta & 15;
+		int r = getBurnTimeLevel(meta);
+		int g = getBurnSpeedLevel(meta);
+		int b = getBurnWidthLevel(meta);
 		
 		// Meta is clean if all the levels summed together is 1
 		// If it is mixed; it will be greater (obviously)

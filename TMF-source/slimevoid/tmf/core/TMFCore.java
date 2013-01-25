@@ -17,6 +17,7 @@ import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.core.lib.NamingLib;
 import slimevoid.tmf.core.world.WorldGeneration;
 import slimevoid.tmf.fuel.MineralFuelHandler;
+import slimevoid.tmf.fuel.MixedDustNameRegistry;
 import slimevoid.tmf.machines.JSONGrinderRecipesLoader;
 import slimevoid.tmf.machines.JSONRefineryRecipesLoader;
 import slimevoid.tmf.machines.blocks.BlockGeologicalEquipment;
@@ -144,6 +145,11 @@ public class TMFCore {
 		XMLLanguageLoader.addItemMapping(dustBisogen);
 		XMLLanguageLoader.addItemMapping(dustCydrine);
 		XMLLanguageLoader.addItemMapping(dustMixed);
+		
+		// TODO :: MixedDustNameRegistry : Move to or something
+		MixedDustNameRegistry.addName(1, 1, 0, "Axogen");
+		MixedDustNameRegistry.addName(1, 0, 1, "Axodrine");
+		MixedDustNameRegistry.addName(0, 1, 1, "Bisodrine");
 	}
 
 	// ======== FUEL REGISTRATION ========
