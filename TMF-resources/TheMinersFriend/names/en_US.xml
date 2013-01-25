@@ -6,6 +6,7 @@
 	<entry key="tile.tmf.grinder.idle.name">Mineral Grinder</entry>
 	<entry key="tile.tmf.refinery.idle.name">Ore Refinery</entry>
 	<entry key="tile.tmf.geoEquip.idle.name">Geological Equipment</entry>
+	<entry key="tile.tmf.autoMixTable.name">Automatic Mixing Table</entry>
 	<entry key="tile.tmf.ore.arkite.name">Arkite Ore</entry>
 	<entry key="tile.tmf.ore.bistite.name">Bistite Ore</entry>
 	<entry key="tile.tmf.ore.crokere.name">Crokere Ore</entry>

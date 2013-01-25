@@ -32,6 +32,8 @@ public class BlockLib {
 	public static final String ORE_CROKERE = 		ORE + 					"crokere";
 	public static final String ORE_DERNITE = 		ORE + 					"dernite";
 	public static final String ORE_EGIOCLASE = 		ORE + 					"egioclase";
+
+	public static final String AUTOMIXTABLE = 		BLOCK_PREFIX + 			"autoMixTable";
 	
 	private static List<BlockTMFOre> ores;
 	
