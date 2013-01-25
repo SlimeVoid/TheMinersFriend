@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<names>
+    <name objId="$mineralAcxium">
+        <language lang="en_US">Acxium</language>
+    </name> 
+    <name objId="$mineralBisogen">
+        <language lang="en_US">Bisogen</language>
+    </name> 
+    <name objId="$mineralCydrine">
+        <language lang="en_US">Cydrine</language>
+    </name> 
+    
+    <name objId="$dustAcxium">
+        <language lang="en_US">Acxium Dust</language>
+        <language lang="nb_NO">Acxiumstøv</language>
+    </name> 
+    <name objId="$dustBisogen">
+        <language lang="en_US">Bisogen Dust</language>
+        <language lang="nb_NO">Bisogenstøv</language>
+    </name> 
+    <name objId="$dustCydrine">
+        <language lang="en_US">Cydrine Dust</language>
+        <language lang="nb_NO">Cydrinestøv</language>
+    </name> 
+    <name objId="$dustMixed">
+        <language lang="en_US">Mixed Dust</language>
+        <language lang="nb_NO">Blandet Støv</language>
+    </name> 
+    
+    <name objId="$arkiteOre">
+        <language lang="en_US">Arkite Ore</language>
+        <language lang="nb_NO">Arkittmalm</language>
+    </name> 
+    <name objId="$bistiteOre">
+        <language lang="en_US">Bistite Ore</language>
+        <language lang="nb_NO">Bistittmalm</language>
+    </name> 
+    <name objId="$crokereOre">
+        <language lang="en_US">Crokere Ore</language>
+        <language lang="nb_NO">Corkeremalm</language>
+    </name> 
+    <name objId="$derniteOre">
+        <language lang="en_US">Dernite Ore</language>
+        <language lang="nb_NO">Dernittmalm</language>
+    </name> 
+    <name objId="$egioclaseOre">
+        <language lang="en_US">Egioclase Ore</language>
+        <language lang="nb_NO">Egioclasemalm</language>
+    </name> 
+</names>

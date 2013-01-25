@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<names>
+    <name objId="$refineryIdle">
+        <language lang="en_US">Refinery</language>
+        <language lang="nb_NO">Raffineri</language>
+    </name> 
+    <name objId="$grinderIdle">
+        <language lang="en_US">Mineral Grinder</language>
+        <language lang="nb_NO">Mineralmølle</language>
+    </name>
+    <name objId="$geoEquipIdle">
+        <language lang="en_US">Geological Equipment</language>
+        <language lang="nb_NO">Geologisk Utstyr</language>
+    </name>
+</names>
