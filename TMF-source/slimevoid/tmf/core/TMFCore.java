@@ -221,14 +221,17 @@ public class TMFCore {
 	}
 
 	public static void registerNames() {
-		
-	}
-	
-	// ======= RECIPE REGISTRATION =======
-	public static void registerRecipes() {
 		XMLLanguageLoader.loadDefaults(new File(TMFCore.class.getResource("/TheMinersFriend/names").getFile()));
 		XMLLanguageLoader.loadFolder(new File(TMFInit.TMF.getProxy().getMinecraftDir()+"/config/TMFNames"));
 		
 		LanguageRegistry.instance().addStringLocalization(CreativeTabTMF.tabTMF.getTranslatedTabLabel(), NamingLib.TMFNAME);
+	}
+	
+	// ======= RECIPE REGISTRATION =======
+	public static void registerRecipes() {	
+		XMLRecipeLoader.loadDefaults(new File(TMFCore.class.getResource("/TheMinersFriend/recipes").getFile()));
+		XMLRecipeLoader.loadFolder(new File(TMFInit.TMF.getProxy().getMinecraftDir()+"/config/TMFRecipes"));	
+		
+		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
 	}
 }
