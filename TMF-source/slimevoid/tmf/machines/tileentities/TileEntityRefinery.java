@@ -1,6 +1,7 @@
 package slimevoid.tmf.machines.tileentities;
 
 import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.machines.RefineryRecipes;
 import slimevoid.tmf.machines.RefineryRecipes.RefineryRecipe;
 import slimevoid.tmf.machines.blocks.BlockMachine;
@@ -44,7 +45,7 @@ public class TileEntityRefinery extends TileEntityMachine {
 
 	@Override
 	public String getInvName() {
-		return "container.tmf.refinery";
+		return BlockLib.CONTAINER_REFINERY;
 	}
 	
 	@Override

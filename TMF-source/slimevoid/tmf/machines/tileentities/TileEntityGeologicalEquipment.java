@@ -3,6 +3,7 @@ package slimevoid.tmf.machines.tileentities;
 import java.util.HashMap;
 
 import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
 import slimevoid.tmf.machines.blocks.BlockGeologicalEquipment;
 import slimevoid.tmf.minerals.items.ItemMineral;
@@ -177,7 +178,7 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 
 	@Override
 	public String getInvName() {
-		return "container.tmf.geoequip";
+		return BlockLib.CONTAINER_GEOEQUIPMENT;
 	}
 
 	@Override

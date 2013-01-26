@@ -1,5 +1,6 @@
 package slimevoid.tmf.machines.tileentities;
 
+import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.minerals.items.ItemMineralMixedDust;
 import slimevoid.tmf.minerals.items.ItemMineralDust;
 import net.minecraft.item.ItemStack;
@@ -52,7 +53,7 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 
 	@Override
 	public String getInvName() {
-		return "container.tmf.automixtable";
+		return BlockLib.CONTAINER_AUTOMIXTABLE;
 	}
 
 	

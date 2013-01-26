@@ -1,6 +1,7 @@
 package slimevoid.tmf.machines.tileentities;
 
 import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.machines.GrinderRecipes;
 import slimevoid.tmf.machines.blocks.BlockGrinder;
 import net.minecraft.item.ItemStack;
@@ -39,7 +40,7 @@ public class TileEntityGrinder extends TileEntityMachine {
 
 	@Override
 	public String getInvName() {
-		return "container.tmf.grinder";
+		return BlockLib.CONTAINER_GRINDER;
 	}
 
 	@Override
