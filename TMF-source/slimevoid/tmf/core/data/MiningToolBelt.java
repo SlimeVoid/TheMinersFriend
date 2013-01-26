@@ -333,4 +333,17 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 		packet.setSelectedTool(this.selectedTool);
 		return packet;
 	}
+
+	private void clearSelectedStack() {
+		this.miningTools[this.selectedTool] = null;
+		this.onInventoryChanged();
+	}
+
+	public static void checkSelectedStack(ItemStack itemstack, World world,
+			EntityLiving entityliving) {
+		MiningToolBelt data = getToolBeltDataFromItemStack(entityliving, world, itemstack);
+		if (data != null && (data.getSelectedTool() == null || data.getSelectedTool().stackSize <= 0)) {
+			data.clearSelectedStack();
+		}
+	}
 }

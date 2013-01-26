@@ -1,8 +1,8 @@
 package slimevoid.tmf.tools.items;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -28,71 +28,94 @@ public class ItemMiningToolBelt extends Item {
 		this.setNoRepair();
 		this.setCreativeTab(CreativeTabTMF.tabTMF);
 	}
+	
+	@Override
+	public void onUpdate(ItemStack itemstack, World world, Entity entity, int tick, boolean isHeld) {
+		if (!world.isRemote && isHeld && entity instanceof EntityLiving) {
+			MiningToolBelt.checkSelectedStack(itemstack, world, (EntityLiving) entity);
+		}
+	}
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
-		MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(entityplayer, world, itemstack);
-		if (data != null) {
-			if (entityplayer.isSneaking()) {
-				ItemStack tool = data.getSelectedTool();
-				if (tool != null) {
-					if (!world.isRemote && this.tryUseItem(data, entityplayer, world, tool)) {
-						return itemstack;
-					}
-					//tool.useItemRightClick(world, entityplayer);
-				}
-			} else {
-				// If Tool Belt data exists then Open the Tool Belt GUI
-				entityplayer.openGui(
-						TheMinersFriend.instance,
-						GuiLib.TOOL_BELT_GUIID,
-						world,
-						(int)entityplayer.posX,
-						(int)entityplayer.posY,
-						(int)entityplayer.posZ);
-			}
+		if (entityplayer.isSneaking()) {
+			doItemRightClick(itemstack, world, entityplayer);
+		} else {
+			entityplayer.openGui(
+					TheMinersFriend.instance,
+					GuiLib.TOOL_BELT_GUIID,
+					world,
+					(int)entityplayer.posX,
+					(int)entityplayer.posY,
+					(int)entityplayer.posZ);
 		}
 		return itemstack;
 	}
 
-	private boolean tryUseItem(MiningToolBelt data, EntityPlayer entityplayer, World world,
-			ItemStack itemstack) {
-		EntityPlayerMP entityplayermp = (EntityPlayerMP)entityplayer;
-		int stacksize = itemstack.stackSize;
-		int itemdamage = itemstack.getItemDamage();
-		ItemStack itemRightClicked = itemstack.useItemRightClick(world,
-				entityplayer);
+    @Override
+    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		if (entityplayer.isSneaking()) {
+			return doItemUse(itemstack, entityplayer, world, x, y, z, side, hitX, hitY, hitZ);
+		}
+		return false;
+    }
 
-		if (itemRightClicked == itemstack
-				&& (itemRightClicked == null || itemRightClicked.stackSize == stacksize
-						&& itemRightClicked.getMaxItemUseDuration() <= 0
-						&& itemRightClicked.getItemDamage() == itemdamage)) {
-			return false;
-		} else {
-			if (entityplayermp.theItemInWorldManager.isCreative()) {
-				itemRightClicked.stackSize = stacksize;
+    @Override
+    public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		if (entityplayer.isSneaking()) {
+			return doItemUseFirst(itemstack, entityplayer, world, x, y, z, side, hitX, hitY, hitZ);
+		}
+		return false;
+    }
+    
+    @Override
+    public ItemStack onFoodEaten(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+		if (entityplayer.isSneaking()) {
+			doFoodEaten(itemstack, world, entityplayer);
+		}
+		return itemstack;
+    }
 
-				if (itemRightClicked.isItemStackDamageable()) {
-					itemRightClicked.setItemDamage(itemdamage);
-				}
-			}
+	public static void doItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+		// Retrieves the Selected Tool within the held Tool Belt
+		ItemStack tool = ItemHelper.getSelectedTool(entityplayer, entityplayer.worldObj, itemstack);
+		if (tool != null) {
+			tool.getItem().onItemRightClick(tool, world, entityplayer);
+		}
+	}
 
-			if (itemRightClicked.stackSize == 0) {
-				data.setInventorySlotContents(data.getSelectedSlot(), null);
-			}
+	public static boolean doItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int x,
+			int y, int z, int side, float hitX, float hitY, float hitZ) {
+		// Retrieves the Selected Tool within the held Tool Belt
+		ItemStack tool = ItemHelper.getSelectedTool(entityplayer, entityplayer.worldObj, itemstack);
+		if (tool != null) {
+			return tool.getItem().onItemUse(tool, entityplayer, world, x, y, z, side, hitX, hitY, hitZ);
+		}
+		return false;
+	}
 
-			if (!entityplayer.isUsingItem()) {
-				entityplayermp.sendContainerToPlayer(entityplayer.inventoryContainer);
-			}
+	public static boolean doItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world,
+			int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		// Retrieves the Selected Tool within the held Tool Belt
+		ItemStack tool = ItemHelper.getSelectedTool(entityplayer, entityplayer.worldObj, itemstack);
+		if (tool != null) {
+			return tool.getItem().onItemUseFirst(tool, entityplayer, world, x, y, z, side, hitX, hitY, hitZ);
+		}
+		return false;
+	}
 
-			return true;
+	public static void doFoodEaten(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+		// Retrieves the Selected Tool within the held Tool Belt
+		ItemStack tool = ItemHelper.getSelectedTool(entityplayer, entityplayer.worldObj, itemstack);
+		if (tool != null) {
+			tool.getItem().onFoodEaten(tool, world, entityplayer);
 		}
 	}
 
 	@Override
-	public boolean onBlockDestroyed(ItemStack par1ItemStack, World par2World, int par3, int par4, int par5, int par6, EntityLiving par7EntityLiving) {
-		return doDestroyBlock(par1ItemStack, par2World, par3, par4, par5, par6, par7EntityLiving, super.onBlockDestroyed(par1ItemStack, par2World, par3, par4, par5, par6, par7EntityLiving));
+	public boolean onBlockDestroyed(ItemStack itemstack, World world, int x, int y, int z, int side, EntityLiving entityliving) {
+		return doDestroyBlock(itemstack, world, x, y, z, side, entityliving, super.onBlockDestroyed(itemstack, world, x, y, z, side, entityliving));
 	}
 	
 	@Override
