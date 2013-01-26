@@ -19,7 +19,6 @@ public class ItemMotionSensor extends Item {
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world,
 			EntityPlayer entityplayer) {
-		System.out.println("Being Used");
 		return itemstack;
 	}
 

@@ -113,9 +113,7 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 
 	@Override
 	public void smeltItem() {
-		if ( canSmelt() ) {
-			System.out.println("smelt");
-			
+		if ( canSmelt() ) {			
 			// Get blueprint's levels
 			int meta = stacks[0].getItemDamage();
 			int blueprintLevelA = ItemMineralMixedDust.getBurnTimeLevel(meta);
