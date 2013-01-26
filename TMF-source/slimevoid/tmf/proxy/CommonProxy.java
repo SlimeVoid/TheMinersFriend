@@ -53,9 +53,9 @@ public class CommonProxy implements ITMFCommonProxy {
 						data
 				);
 			case GuiLib.REFINERY_GUIID :
-				TileEntity tile1 = world.getBlockTileEntity(x, y, z);
-				if ( tile1 instanceof TileEntityRefinery ) {
-					TileEntityRefinery tileRefinery = (TileEntityRefinery) tile1;
+				TileEntity tileRef = world.getBlockTileEntity(x, y, z);
+				if ( tileRef instanceof TileEntityRefinery ) {
+					TileEntityRefinery tileRefinery = (TileEntityRefinery) tileRef;
 					return new ContainerRefinery(
 							player.inventory,
 							tileRefinery
@@ -63,9 +63,9 @@ public class CommonProxy implements ITMFCommonProxy {
 				}
 				return null;
 			case GuiLib.GRINDER_GUIID :
-				TileEntity tile2 = world.getBlockTileEntity(x, y, z);
-				if ( tile2 instanceof TileEntityGrinder ) {
-					TileEntityGrinder tileGrinder = (TileEntityGrinder) tile2;
+				TileEntity tileGrind = world.getBlockTileEntity(x, y, z);
+				if ( tileGrind instanceof TileEntityGrinder ) {
+					TileEntityGrinder tileGrinder = (TileEntityGrinder) tileGrind;
 					return new ContainerGrinder(
 							player.inventory,
 							tileGrinder
