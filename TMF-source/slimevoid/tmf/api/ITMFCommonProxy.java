@@ -9,4 +9,5 @@ public interface ITMFCommonProxy extends ICommonProxy {
 	 */
 	public void registerConfigurationProperties();
 
+	public void registerTESRenderers();
 }

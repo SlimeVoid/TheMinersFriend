@@ -43,5 +43,7 @@ public class TMFInit {
 
 		SlimevoidCore.console(ReferenceLib.MOD_ID, "Registering fuels...");
 		TMFCore.registerFuels();
+		
+		TheMinersFriend.proxy.registerTESRenderers();
 	}
 }

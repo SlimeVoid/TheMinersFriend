@@ -150,7 +150,9 @@ public abstract class BlockMachine extends BlockContainer {
 				return blockIndexInTexture+5;
 			}
 		} else {
-			int meta = blockAccess.getBlockMetadata(x, y, z);
+			int meta = 4;
+			if ( blockAccess != null )
+				meta = blockAccess.getBlockMetadata(x, y, z);
 			if ( side == meta ) {
 				// Front
 				if ( isActive ) {

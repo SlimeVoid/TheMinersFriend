@@ -2,6 +2,7 @@ package slimevoid.tmf.machines.blocks;
 
 import java.util.Random;
 
+import slimevoid.tmf.client.renderers.SimpleBlockRenderingHandlerGrinder;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.lib.GuiLib;
@@ -16,6 +17,19 @@ public class BlockGrinder extends BlockMachine {
 		super(id, texX, texY, isActive);
 	}
 
+	@Override
+	public int getRenderType() {
+		return SimpleBlockRenderingHandlerGrinder.id;
+	}
+	@Override
+	public boolean isOpaqueCube() {
+		return false;
+	}
+	@Override
+	public boolean renderAsNormalBlock() {
+		return false;
+	}
+	
 	@Override
 	public int idDropped(int par1, Random par2Random, int par3) {
 		return TMFCore.grinderIdleId;

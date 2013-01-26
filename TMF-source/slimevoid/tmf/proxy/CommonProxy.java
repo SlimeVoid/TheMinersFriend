@@ -237,4 +237,8 @@ public class CommonProxy implements ITMFCommonProxy {
 	public void login(NetHandler handler, INetworkManager manager,
 			Packet1Login login) {
 	}
+
+	@Override
+	public void registerTESRenderers() {
+	}
 }

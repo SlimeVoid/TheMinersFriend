@@ -3,6 +3,8 @@ package slimevoid.tmf.client.proxy;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.MinecraftForgeClient;
 import slimevoid.lib.core.SlimevoidCore;
+import slimevoid.tmf.client.renderers.SimpleBlockRenderingHandlerGrinder;
+import slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
 import slimevoid.tmf.client.tickhandlers.MiningHelmetRenderTickHandler;
 import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
 import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleInToolbelt;
@@ -15,8 +17,11 @@ import slimevoid.tmf.core.lib.KeyBindings;
 import slimevoid.tmf.core.lib.PacketLib;
 import slimevoid.tmf.core.lib.ReferenceLib;
 import slimevoid.tmf.core.lib.ResourceLib;
+import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -63,6 +68,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.preloadTexture(ResourceLib.ITEM_SPRITE_PATH);
 		MinecraftForgeClient.preloadTexture(ResourceLib.RESOURCE_SPRITE_PATH);
 		MinecraftForgeClient.preloadTexture(ResourceLib.MACHINE_TEXTURE_PATH);
+		
 	}
 	
 	@Override
@@ -86,5 +92,11 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public String getMinecraftDir() {
 		return Minecraft.getMinecraftDir().toString();
+	}
+	
+	@Override
+	public void registerTESRenderers() {
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGrinder.class, new TileEntitySpecialRendererGrinder());
+		RenderingRegistry.registerBlockHandler(new SimpleBlockRenderingHandlerGrinder());
 	}
 }
