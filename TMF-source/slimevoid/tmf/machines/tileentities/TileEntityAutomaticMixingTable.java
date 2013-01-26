@@ -114,6 +114,8 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 	@Override
 	public void smeltItem() {
 		if ( canSmelt() ) {
+			System.out.println("smelt");
+			
 			// Get blueprint's levels
 			int meta = stacks[0].getItemDamage();
 			int blueprintLevelA = ItemMineralMixedDust.getBurnTimeLevel(meta);
@@ -127,8 +129,8 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 			for ( int i = 2; i < stacks.length; i++ ) {
 				if ( stacks[i] == null )
 					continue;
-				
-				int inputMeta = stacks[i].getItemDamage();
+
+				int inputMeta = ItemMineralMixedDust.getDustMeta(stacks[i]);
 				if ( !ItemMineralMixedDust.isMetaCleanDust(inputMeta) )
 					continue;
 
@@ -180,6 +182,9 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 		if ( stacks[0] == null )
 			return false;
 		
+		if ( stacks[1] != null && stacks[1].stackSize >= getInventoryStackLimit() )
+			return false;
+		
 		// Get blueprint's levels
 		int meta = stacks[0].getItemDamage();
 		int blueprintLevelA = ItemMineralMixedDust.getBurnTimeLevel(meta);
@@ -194,16 +199,17 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 			if ( stacks[i] == null )
 				continue;
 			
-			int inputMeta = stacks[i].getItemDamage();
+			int inputMeta = ItemMineralMixedDust.getDustMeta(stacks[i]);
 			if ( !ItemMineralMixedDust.isMetaCleanDust(inputMeta) )
 				continue;
 			
-			if ( ItemMineralMixedDust.getBurnTimeLevel(inputMeta) > 0 )
+			if ( ItemMineralMixedDust.getBurnTimeLevel(inputMeta) > 0 ) {
 				inputLevelA += stacks[i].stackSize;
-			else if ( ItemMineralMixedDust.getBurnSpeedLevel(inputMeta) > 0 )
+			} else if ( ItemMineralMixedDust.getBurnSpeedLevel(inputMeta) > 0 ) {
 				inputLevelB += stacks[i].stackSize;
-			else if ( ItemMineralMixedDust.getBurnWidthLevel(inputMeta) > 0 )
+			} else if ( ItemMineralMixedDust.getBurnWidthLevel(inputMeta) > 0 ) {
 				inputLevelC += stacks[i].stackSize;
+			}
 		}
 		
 		// True if there is enough input to create the blueprint

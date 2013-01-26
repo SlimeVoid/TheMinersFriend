@@ -24,9 +24,9 @@ public class ContainerRefinery extends Container {
         this.addSlotToContainer(new Slot(refinery, 0, 56, 17)); // Ore
         this.addSlotToContainer(new Slot(refinery, 1, 56, 53)); // Fuel
         
-        this.addSlotToContainer(new SlotRefinery(refinery, 2, 112, 35)); // Acxium
-        this.addSlotToContainer(new SlotRefinery(refinery, 3, 130, 35)); // Bisogen
-        this.addSlotToContainer(new SlotRefinery(refinery, 4, 148, 35)); // Cydrine
+        this.addSlotToContainer(new SlotMachineOutput(refinery, 2, 112, 35)); // Acxium
+        this.addSlotToContainer(new SlotMachineOutput(refinery, 3, 130, 35)); // Bisogen
+        this.addSlotToContainer(new SlotMachineOutput(refinery, 4, 148, 35)); // Cydrine
      
         bindPlayerInventory(playerInventory);
 	}

@@ -2,11 +2,13 @@ package slimevoid.tmf.machines.blocks;
 
 import java.util.Random;
 
-import slimevoid.tmf.core.TMFCore;
-import slimevoid.tmf.machines.tileentities.TileEntityAutomaticMixingTable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.TheMinersFriend;
+import slimevoid.tmf.core.lib.GuiLib;
+import slimevoid.tmf.machines.tileentities.TileEntityAutomaticMixingTable;
 
 public class BlockAutomaticMixingTable extends BlockMachine {
 
@@ -27,8 +29,6 @@ public class BlockAutomaticMixingTable extends BlockMachine {
 	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int a, float b, float c, float d) {
-		// TODO :: MixingTable : onBlockActivated GUIID
-		/*
 		player.openGui(
 				TheMinersFriend.instance,
 				GuiLib.MIXINGTABLE_GUIID,
@@ -37,7 +37,6 @@ public class BlockAutomaticMixingTable extends BlockMachine {
 				y,
 				z
 		);
-		*/
 		return true;
 	}
 

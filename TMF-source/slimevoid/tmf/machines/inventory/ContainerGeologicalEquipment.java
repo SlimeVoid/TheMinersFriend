@@ -27,7 +27,8 @@ public class ContainerGeologicalEquipment extends Container {
         		1, 			// Min fuel level
         		10,			// Max fuel level
         		9, 			// X
-        		69			// Y
+        		69,			// Y
+        		false		// Only dust?
         )); // Fuel
      
         bindPlayerInventory(playerInventory);
@@ -71,7 +72,7 @@ public class ContainerGeologicalEquipment extends Container {
 			stack = stackInSlot.copy();
 
 			//merges the item into player inventory since its in the inventory
-			if (slot == 2 || slot == 3 || slot == 4) {
+			if (slot == 0) {
 				if (!mergeItemStack(stackInSlot, 1, inventorySlots.size(), true)) {
 					return null;
 				}
@@ -87,7 +88,7 @@ public class ContainerGeologicalEquipment extends Container {
 					if ( !this.mergeItemStack(stackInSlot, 1, 2, false) ) {
 						return null;
 					}
-				} else if (slot >= 5 && slot < 32) {
+				} else if (slot >= 1 && slot < 32) {
 					if ( !this.mergeItemStack(stackInSlot, 32, 41, false) ) {
 						return null;
 					}

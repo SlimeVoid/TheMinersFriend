@@ -20,6 +20,7 @@ public class ResourceLib {
 	public static final String GUI_GEOEQUIP = 			GUI_PREFIX + 		"geoequip.png";
 	public static final String GUI_GRINDER = 			GUI_PREFIX + 		"grinder.png";
 	public static final String GUI_REFINERY = 			GUI_PREFIX + 		"refinery.png";
+	public static final String GUI_AUTOMIXTABLE = 		GUI_PREFIX + 		"automixtable.png";
 
 	public static final String MACHINE_PREFIX = PATH_PREFIX + "machines/";
 	

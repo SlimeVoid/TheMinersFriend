@@ -24,7 +24,7 @@ public class ContainerGrinder extends Container {
         this.addSlotToContainer(new Slot(grinder, 0, 56, 17)); // Ore
         this.addSlotToContainer(new Slot(grinder, 1, 56, 53)); // Fuel
         
-        this.addSlotToContainer(new SlotRefinery(grinder, 2, 116, 35)); // Dust
+        this.addSlotToContainer(new SlotMachineOutput(grinder, 2, 116, 35)); // Dust
      
         bindPlayerInventory(playerInventory);
 	}
@@ -67,7 +67,7 @@ public class ContainerGrinder extends Container {
 			stack = stackInSlot.copy();
 
 			//merges the item into player inventory since its in the inventory
-			if (slot == 2 || slot == 3 || slot == 4) {
+			if (slot == 2 ) {
 				if (!mergeItemStack(stackInSlot, 1, inventorySlots.size(), true)) {
 					return null;
 				}
@@ -83,7 +83,7 @@ public class ContainerGrinder extends Container {
 					if ( !this.mergeItemStack(stackInSlot, 1, 2, false) ) {
 						return null;
 					}
-				} else if (slot >= 5 && slot < 32) {
+				} else if (slot >= 3 && slot < 32) {
 					if ( !this.mergeItemStack(stackInSlot, 32, 41, false) ) {
 						return null;
 					}
