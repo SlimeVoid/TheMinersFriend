@@ -1,5 +1,8 @@
 package slimevoid.tmf.client.renderers.models;
 
+import java.io.File;
+
+import slimevoid.tmf.client.renderers.WavefrontOBJModelLoader;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import net.minecraft.client.model.ModelBase;
@@ -7,10 +10,16 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.tileentity.TileEntity;
 
 public class ModelGrinder extends ModelBase {
-	public ModelTMFObject bottom;
+	public ModelTMFObject base;
 	
 	public ModelGrinder(TileEntityGrinder tile) {
-		
+		if ( base == null )
+			base = (new WavefrontOBJModelLoader()).loadObjFile(
+					this, 
+					256, 256, 
+					new File(TMFCore.class.getResource("/TheMinersFriend/machines/grinder.obj").getFile())
+			);
+		/*
 		bottom = new ModelTMFObject((new ModelRenderer(this, 0, 0)).setTextureSize(256, 256));
 		
 		bottom.addVertex(16, 0,  0,  0, 0);
@@ -41,9 +50,10 @@ public class ModelGrinder extends ModelBase {
 		bottom.addQuad(1, 7, 6, 2, 4, 5, 6, 7, false);
 		bottom.addQuad(2, 6, 5, 3, 8, 9, 10, 11, false);
 		bottom.addQuad(4, 0, 3, 5, 6, 7, 4, 5, false);
+		*/
 	}
 	
 	public void renderAll() {
-		bottom.render(0.0625F);
+		base.render(0.0625F);
 	}
 }
