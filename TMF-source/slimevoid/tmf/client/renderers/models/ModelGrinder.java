@@ -22,6 +22,8 @@ public class ModelGrinder extends ModelBase {
 	public ModelSlimevoidObject spinner;
 	public TileEntityGrinder tile;
 	
+	public int rotationSpeedDivider = 2;
+	
 	public ModelGrinder(TileEntityGrinder tile) {
 		this.tile = tile;
 		try {
@@ -81,7 +83,7 @@ public class ModelGrinder extends ModelBase {
 		GL11.glPushMatrix();
 		if ( tile != null && tile.getBlockType() != null && ((BlockMachine)(tile.getBlockType())).isActive ) {
 			GL11.glTranslatef(0.5f, 0, 0.5f);	
-			GL11.glRotatef(System.currentTimeMillis()%360, 0, 1, 0);
+			GL11.glRotatef((System.currentTimeMillis()/rotationSpeedDivider)%360, 0, 1, 0);
 			GL11.glTranslatef(-0.5f, 0, -0.5f);
 		}
 		spinner.render(0.0625F);
