@@ -22,6 +22,28 @@ public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer 
 			
 			this.bindTextureByName(ResourceLib.MACHINE_TEXTURE_PATH);
 			
+			int meta = 0;
+			if ( tile.worldObj != null )
+				meta = tile.getBlockMetadata();
+			
+			switch (meta) {
+				case 2:
+					GL11.glTranslatef(0.5f, 0.5f, 0.5f);
+					GL11.glRotatef(270, 0, 1, 0);
+					GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
+					break;
+				case 3:
+					GL11.glTranslatef(0.5f, 0.5f, 0.5f);
+					GL11.glRotatef(90, 0, 1, 0);
+					GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
+					break;
+				case 5:
+					GL11.glTranslatef(0.5f, 0.5f, 0.5f);
+					GL11.glRotatef(180, 0, 1, 0);
+					GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
+					break;
+			}
+
 			grinder.renderAll();
 			
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);

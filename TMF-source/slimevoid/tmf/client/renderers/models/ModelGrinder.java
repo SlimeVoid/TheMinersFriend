@@ -13,28 +13,34 @@ public class ModelGrinder extends ModelBase {
 		
 		bottom = new ModelTMFObject((new ModelRenderer(this, 0, 0)).setTextureSize(256, 256));
 		
-		bottom.addVertex(5,  5,  5,  0, 0);
-		bottom.addVertex(10, 5,  5,  0, 0);
-		bottom.addVertex(10, 10, 5,  0, 0);
-		bottom.addVertex(5,  10, 5,  0, 0);
-		bottom.addVertex(5,  5,  10, 0, 0);
-		bottom.addVertex(10, 5,  10, 0, 0);
-		bottom.addVertex(10, 10, 10, 0, 0);
-		bottom.addVertex(5,  10, 10, 0, 0);
+		bottom.addVertex(16, 0,  0,  0, 0);
+		bottom.addVertex(16, 0,  16, 0, 0);
+		bottom.addVertex(0,  0,  16, 0, 0);
+		bottom.addVertex(0,  0,  0,  0, 0);
+		bottom.addVertex(16, 16, 0,  0, 0);
+		bottom.addVertex(0,  16, 0,  0, 0);
+		bottom.addVertex(0,  16, 16, 0, 0);
+		bottom.addVertex(16, 16, 16, 0, 0);
+				
+		bottom.addVertexTexture(0.312500f, 0.937500f);
+		bottom.addVertexTexture(0.375000f, 0.937500f);
+		bottom.addVertexTexture(0.375000f, 0.875000f);
+		bottom.addVertexTexture(0.312500f, 0.875000f);
+		bottom.addVertexTexture(0.250000f, 0.875000f);
+		bottom.addVertexTexture(0.250000f, 0.937500f);
+		bottom.addVertexTexture(0.187500f, 0.937500f);
+		bottom.addVertexTexture(0.187500f, 0.875000f);
+		bottom.addVertexTexture(0.125000f, 0.875000f);
+		bottom.addVertexTexture(0.125000f, 0.937500f);
+		bottom.addVertexTexture(0.062500f, 0.937500f);
+		bottom.addVertexTexture(0.062500f, 0.875000f);
 		
-		int tex0 = tile.getBlockType().getBlockTexture(tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord, 0);
-		int tex1 = tile.getBlockType().getBlockTexture(tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord, 1);
-		int tex2 = tile.getBlockType().getBlockTexture(tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord, 2);
-		int tex3 = tile.getBlockType().getBlockTexture(tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord, 3);
-		int tex4 = tile.getBlockType().getBlockTexture(tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord, 4);
-		int tex5 = tile.getBlockType().getBlockTexture(tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord, 5);
-		
-		bottom.addQuad(5,4,0,1, ((tex0)%16)*16+16, ((tex0)/16)*16+16, ((tex0)%16)*16, ((tex0)/16)*16, false);
-		bottom.addQuad(2,3,7,6, ((tex1)%16)*16+16, ((tex1)/16)*16+16, ((tex1)%16)*16, ((tex1)/16)*16, false);
-		bottom.addQuad(1,0,3,2, ((tex2)%16)*16+16, ((tex2)/16)*16+16, ((tex2)%16)*16, ((tex2)/16)*16, false);
-		bottom.addQuad(4,5,6,7, ((tex3)%16)*16+16, ((tex3)/16)*16+16, ((tex3)%16)*16, ((tex3)/16)*16, false);
-		bottom.addQuad(0,4,7,3, ((tex4)%16)*16+16, ((tex4)/16)*16+16, ((tex4)%16)*16, ((tex4)/16)*16, false);
-		bottom.addQuad(5,1,2,6, ((tex5)%16)*16+16, ((tex5)/16)*16+16, ((tex5)%16)*16, ((tex5)/16)*16, false);
+		bottom.addQuad(0, 1, 2, 3, 0, 1, 2, 3, false);
+		bottom.addQuad(4, 5, 6, 7, 0, 3, 2, 1, false);
+		bottom.addQuad(0, 4, 7, 1, 4, 5, 6, 7, false);
+		bottom.addQuad(1, 7, 6, 2, 4, 5, 6, 7, false);
+		bottom.addQuad(2, 6, 5, 3, 8, 9, 10, 11, false);
+		bottom.addQuad(4, 0, 3, 5, 6, 7, 4, 5, false);
 	}
 	
 	public void renderAll() {
