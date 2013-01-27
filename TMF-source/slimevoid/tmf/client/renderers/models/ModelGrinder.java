@@ -4,20 +4,22 @@ import java.io.File;
 
 import org.lwjgl.opengl.GL11;
 
-import slimevoid.lib.data.ModelSimevoidObject;
+import slimevoid.lib.data.ModelSlimevoidObject;
 import slimevoid.lib.util.WavefrontOBJModelLoader;
 import slimevoid.lib.util.WavefrontOBJModelLoader.FaceMissingTextureException;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.machines.blocks.BlockMachine;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
+import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.model.PositionTextureVertex;
 import net.minecraft.tileentity.TileEntity;
 
 public class ModelGrinder extends ModelBase {
-	public ModelSimevoidObject base;
-	public ModelSimevoidObject spinner;
+	public ModelSlimevoidObject base;
+	public ModelSlimevoidObject spinner;
 	public TileEntityGrinder tile;
 	
 	public ModelGrinder(TileEntityGrinder tile) {
@@ -40,6 +42,38 @@ public class ModelGrinder extends ModelBase {
 		} catch (FaceMissingTextureException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void updateBounds(Block block) {
+		ModelSlimevoidObject.ModelSlimevoidObjectBounds baseBound = base.getBounds();
+		ModelSlimevoidObject.ModelSlimevoidObjectBounds spinnerBound = spinner.getBounds();
+
+		int minX = 0;
+		int minY = 0;
+		int minZ = 0;
+		int maxX = 0;
+		int maxY = 0;
+		int maxZ = 0;
+		
+		minX = baseBound.minX;
+		
+		if ( baseBound.minY > spinnerBound.minY )
+			minY = spinnerBound.minY;
+		else
+			minY = baseBound.minY;
+		
+		minZ = baseBound.minZ;
+		
+		maxX = baseBound.maxX;
+		
+		if ( baseBound.maxY < spinnerBound.maxY )
+			maxY = spinnerBound.maxY;
+		else
+			maxY = baseBound.maxY;
+		
+		maxZ = baseBound.maxZ;
+				
+		block.setBlockBounds((float)minX/16f, (float)minY/16f, (float)minZ/16f, (float)maxX/16f, (float)maxY/16f, (float)maxZ/16f);
 	}
 	
 	public void renderAll() {
