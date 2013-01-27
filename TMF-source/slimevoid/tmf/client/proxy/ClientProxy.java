@@ -3,6 +3,7 @@ package slimevoid.tmf.client.proxy;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.MinecraftForgeClient;
 import slimevoid.lib.core.SlimevoidCore;
+import slimevoid.tmf.client.renderers.ItemRendererToolBelt;
 import slimevoid.tmf.client.renderers.SimpleBlockRenderingHandlerGrinder;
 import slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
 import slimevoid.tmf.client.tickhandlers.MiningHelmetRenderTickHandler;
@@ -69,6 +70,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForgeClient.preloadTexture(ResourceLib.RESOURCE_SPRITE_PATH);
 		MinecraftForgeClient.preloadTexture(ResourceLib.MACHINE_TEXTURE_PATH);
 		
+		ItemRendererToolBelt.init();
 	}
 	
 	@Override
