@@ -28,4 +28,6 @@ public class ResourceLib {
 	public static final String RECIPES_REFINERY = 		MACHINE_PREFIX + 	"refinery.json";
 	public static final String RECIPES_GRINDER = 		MACHINE_PREFIX + 	"grinder.json";
 	
+	public static final String MODEL_GRINDER = 			MACHINE_PREFIX + 	"grinder.obj";
+	
 }

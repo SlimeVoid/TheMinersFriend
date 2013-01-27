@@ -5,6 +5,7 @@ import java.io.File;
 import slimevoid.lib.data.ModelSimevoidObject;
 import slimevoid.lib.util.WavefrontOBJModelLoader;
 import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -17,7 +18,7 @@ public class ModelGrinder extends ModelBase {
 		base = (new WavefrontOBJModelLoader()).loadObjFile(
 				this, 
 				256, 256, 
-				new File(TMFCore.class.getResource("/TheMinersFriend/machines/grinder.obj").getFile())
+				new File(TMFCore.class.getResource(ResourceLib.MODEL_GRINDER).getFile())
 		);
 	}
 	
