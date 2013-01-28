@@ -4,9 +4,9 @@ import java.io.File;
 
 import org.lwjgl.opengl.GL11;
 
-import slimevoid.lib.data.ModelSlimevoidObject;
-import slimevoid.lib.util.WavefrontOBJModelLoader;
-import slimevoid.lib.util.WavefrontOBJModelLoader.FaceMissingTextureException;
+import slimevoid.lib.render.ModelSlimevoidObject;
+import slimevoid.lib.render.WavefrontOBJModelLoader;
+import slimevoid.lib.render.WavefrontOBJModelLoader.FaceMissingTextureException;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.machines.blocks.BlockMachine;
