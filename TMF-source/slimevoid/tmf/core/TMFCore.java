@@ -7,7 +7,6 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.lib.util.FileReader;
-import slimevoid.lib.util.xml.XMLLanguageLoader;
 import slimevoid.lib.util.xml.XMLRecipeLoader;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
@@ -106,28 +105,17 @@ public class TMFCore {
 		miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setItemName(ItemLib.MINING_HELMET_IRON).setIconCoord(2, 0);
 		miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setItemName(ItemLib.MINING_HELMET_GOLD).setIconCoord(1, 0);
 		miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setItemName(ItemLib.MINING_HELMET_DIAMOND).setIconCoord(0, 0);
-		
-		XMLLanguageLoader.addItemMapping(miningHelmetLamp);
-		XMLLanguageLoader.addItemMapping(miningHelmetIron);
-		XMLLanguageLoader.addItemMapping(miningHelmetGold);
-		XMLLanguageLoader.addItemMapping(miningHelmetDiamond);
 	}
 	private static void registerMotionSensor() {
 		motionSensor = new ItemMotionSensor(motionSensorId).setItemName(ItemLib.MOTION_SENSOR).setIconCoord(0, 1);
-		XMLLanguageLoader.addItemMapping(motionSensor);
 	}
 	private static void registerToolBelt() {
 		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setItemName(ItemLib.MINING_TOOLBELT).setIconCoord(0, 2);
-		XMLLanguageLoader.addItemMapping(miningToolBelt);
 	}
 	private static void registerMinerals() {
 		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(2400).setItemName(ItemLib.MINERAL_AXCIUM).setIconCoord(0, 1);
 		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(150).setItemName(ItemLib.MINERAL_BISOGEN).setIconCoord(1, 1);
 		mineralCydrine = new ItemMineral(mineralCydrineId).setBurnWidth(1).setItemName(ItemLib.MINERAL_CYDRINE).setIconCoord(2, 1);
-
-		XMLLanguageLoader.addItemMapping(mineralAcxium);
-		XMLLanguageLoader.addItemMapping(mineralBisogen);
-		XMLLanguageLoader.addItemMapping(mineralCydrine);
 	}
 	private static void registerDusts() {
 		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setItemName(ItemLib.DUST_AXCIUM).setIconCoord(0, 2);
@@ -140,11 +128,6 @@ public class TMFCore {
 		ItemMineralMixedDust.script_burnTime = "getBurnTime()";
 		ItemMineralMixedDust.script_burnSpeed = "getBurnSpeed()";
 		ItemMineralMixedDust.script_burnWidth = "getBurnWidth()";
-		
-		XMLLanguageLoader.addItemMapping(dustAcxium);
-		XMLLanguageLoader.addItemMapping(dustBisogen);
-		XMLLanguageLoader.addItemMapping(dustCydrine);
-		XMLLanguageLoader.addItemMapping(dustMixed);
 		
 		// TODO :: MixedDustNameRegistry : Move to or something
 		MixedDustNameRegistry.addName(1, 1, 0, "Monoaxogen");
@@ -257,10 +240,7 @@ public class TMFCore {
 	}
 
 	// ======== NAME REGISTRATION ========
-	public static void registerNames() {
-		//XMLLanguageLoader.loadDefaults(new File(TMFCore.class.getResource("/TheMinersFriend/names").getFile()));
-		//XMLLanguageLoader.loadFolder(new File(TMFInit.TMF.getProxy().getMinecraftDir()+"/config/TMFNames"));
-		
+	public static void registerNames() {		
 		LocalizationLib.registerLanguages();//LanguageRegistry.instance().addStringLocalization(CreativeTabTMF.tabTMF.getTranslatedTabLabel(), NamingLib.TMFNAME);
 	}
 	
