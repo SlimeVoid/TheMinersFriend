@@ -52,6 +52,5 @@ public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer 
 			
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 }

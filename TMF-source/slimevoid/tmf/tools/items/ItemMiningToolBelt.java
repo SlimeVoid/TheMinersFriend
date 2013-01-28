@@ -219,7 +219,7 @@ public class ItemMiningToolBelt extends Item {
 			// If an item exists in the selected slot of the Tool Belt
 			if (selectedStack != null) {
 				// Generate break speed for that Tool vs. Block
-				float newSpeed = (selectedStack.getStrVsBlock(event.block)) + MiningMode.getPlayerStrength(event.entityPlayer, toolBelt, data);
+				float newSpeed = (selectedStack.getStrVsBlock(event.block)) * MiningMode.getPlayerStrength(event.entityPlayer, toolBelt, data);
 				// If the new speed is greater than the speed being parsed in the event then set the new speed
 				event.newSpeed =  newSpeed > event.originalSpeed ? newSpeed : event.originalSpeed;
 			}

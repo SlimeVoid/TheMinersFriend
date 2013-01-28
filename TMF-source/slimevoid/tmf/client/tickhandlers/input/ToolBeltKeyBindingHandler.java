@@ -9,8 +9,8 @@ import cpw.mods.fml.common.TickType;
 
 public class ToolBeltKeyBindingHandler extends KeyHandler {
 
-	public ToolBeltKeyBindingHandler(KeyBinding[] keyBindings) {
-		super(keyBindings, new boolean[]{false});
+	public ToolBeltKeyBindingHandler(KeyBinding[] keyBindings, boolean[] repeatings) {
+		super(keyBindings, repeatings);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class ToolBeltKeyBindingHandler extends KeyHandler {
 	@Override
 	public void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd) {
 		if (tickEnd)
-			KeyBindings.doToolBeltKeyUp();
+			KeyBindings.doKeyUp(types, kb);
 	}
 
 	@Override

@@ -346,4 +346,8 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 			data.clearSelectedStack();
 		}
 	}
+
+	public void toggleMiningMode(EntityPlayer entityplayer) {
+		MiningMode.toggleMiningModeForPlayer(entityplayer);
+	}
 }
