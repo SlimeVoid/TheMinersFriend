@@ -1,10 +1,5 @@
 package slimevoid.tmf.client.renderers;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import slimevoid.tmf.client.renderers.models.ModelGrinder;
-import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

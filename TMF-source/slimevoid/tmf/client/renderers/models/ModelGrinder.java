@@ -13,9 +13,6 @@ import slimevoid.tmf.machines.blocks.BlockMachine;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.model.PositionTextureVertex;
-import net.minecraft.tileentity.TileEntity;
 
 public class ModelGrinder extends ModelBase {
 	public ModelSlimevoidObject base;
