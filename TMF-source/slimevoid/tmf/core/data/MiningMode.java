@@ -40,7 +40,7 @@ public class MiningMode {
 		if (isPlayerInMiningMode(entityplayer)) {
 			return strength;
 		}
-		return 0;
+		return 1;
 	}
 
 }

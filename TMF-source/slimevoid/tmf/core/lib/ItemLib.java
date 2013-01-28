@@ -30,4 +30,6 @@ public class ItemLib {
 	public static final String MINERAL_CYDRINE = 			MINERAL_PREFIX + 		"cydrine";
 
 	public static final String MINING_TOOLBELT = 			ITEM_PREFIX + 			"miningToolBelt";
+
+	public static final String MINING_MODE = 				ITEM_PREFIX +			"miningMode";
 }
