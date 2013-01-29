@@ -1,5 +1,8 @@
 package slimevoid.tmf.client.renderers;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -17,6 +20,7 @@ public class SimpleBlockRenderingHandlerGrinder implements ISimpleBlockRendering
 		TileEntityGrinder tile = new TileEntityGrinder();
 		tile.blockType = block;
 		TileEntityRenderer.instance.renderTileEntityAt(tile, 0.0D, 0.0D, 0.0D, 0.0F);
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 	}
 
 	@Override
