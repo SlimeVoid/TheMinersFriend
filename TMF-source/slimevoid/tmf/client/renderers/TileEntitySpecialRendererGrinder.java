@@ -11,6 +11,10 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer {	
+	
+	public void bindTexture(String tex) {
+		this.bindTextureByName(tex);
+	}
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTickTime) {
 		ModelGrinder grinder = new ModelGrinder((TileEntityGrinder) tile);
@@ -20,31 +24,34 @@ public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer 
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glTranslatef((float)x, (float)y, (float)z);
 			
-			this.bindTextureByName(ResourceLib.MACHINE_TEXTURE_PATH);
-			
 			int meta = 0;
 			if ( tile.worldObj != null )
 				meta = tile.getBlockMetadata();
 			
+			boolean dir = true;
 			switch (meta) {
 				case 2:
-					GL11.glTranslatef(0.5f, 0.5f, 0.5f);
-					GL11.glRotatef(90, 0, 1, 0);
-					GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
+					dir = false;
 					break;
 				case 3:
+					GL11.glTranslatef(0.5f, 0.5f, 0.5f);
+					GL11.glRotatef(180, 0, 1, 0);
+					GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
+					dir = false;
+					break;
+				case 4:
 					GL11.glTranslatef(0.5f, 0.5f, 0.5f);
 					GL11.glRotatef(270, 0, 1, 0);
 					GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
 					break;
-				case 4:
+				case 5:
 					GL11.glTranslatef(0.5f, 0.5f, 0.5f);
-					GL11.glRotatef(180, 0, 1, 0);
+					GL11.glRotatef(90, 0, 1, 0);
 					GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
 					break;
 			}
 
-			grinder.renderAll();
+			grinder.renderAll(this, dir);
 			
 			if ( tile.getBlockType() != null ) {
 				grinder.updateBounds(tile.getBlockType());
