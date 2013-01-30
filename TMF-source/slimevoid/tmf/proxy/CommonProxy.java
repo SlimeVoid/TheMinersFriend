@@ -20,6 +20,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import slimevoid.lib.IPacketHandling;
 import slimevoid.lib.core.SlimevoidCore;
+import slimevoid.lib.util.SlimevoidHelper;
 import slimevoid.tmf.api.ITMFCommonProxy;
 import slimevoid.tmf.client.gui.GuiAutomaticMixingTable;
 import slimevoid.tmf.client.gui.GuiGeologicalEquipment;
@@ -67,7 +68,7 @@ public class CommonProxy implements ITMFCommonProxy {
 						data
 				);
 			case GuiLib.REFINERY_GUIID :
-				TileEntity tileRef = world.getBlockTileEntity(x, y, z);
+				TileEntity tileRef = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
 				if ( tileRef instanceof TileEntityRefinery ) {
 					TileEntityRefinery tileRefinery = (TileEntityRefinery) tileRef;
 					return new ContainerRefinery(
@@ -77,7 +78,7 @@ public class CommonProxy implements ITMFCommonProxy {
 				}
 				return null;
 			case GuiLib.GRINDER_GUIID :
-				TileEntity tileGrind = world.getBlockTileEntity(x, y, z);
+				TileEntity tileGrind = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
 				if ( tileGrind instanceof TileEntityGrinder ) {
 					TileEntityGrinder tileGrinder = (TileEntityGrinder) tileGrind;
 					return new ContainerGrinder(
@@ -87,7 +88,7 @@ public class CommonProxy implements ITMFCommonProxy {
 				}
 				return null;
 			case GuiLib.GEOEQUIP_GUIID :
-				TileEntity tileGeo = world.getBlockTileEntity(x, y, z);
+				TileEntity tileGeo = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
 				if ( tileGeo instanceof TileEntityGeologicalEquipment ) {
 					TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) tileGeo;
 					return new ContainerGeologicalEquipment(
@@ -97,7 +98,7 @@ public class CommonProxy implements ITMFCommonProxy {
 				}
 				return null;
 			case GuiLib.MIXINGTABLE_GUIID :
-				TileEntity tileMix = world.getBlockTileEntity(x, y, z);
+				TileEntity tileMix = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
 				if ( tileMix instanceof TileEntityAutomaticMixingTable ) {
 					TileEntityAutomaticMixingTable tileMixTable = (TileEntityAutomaticMixingTable) tileMix;
 					return new ContainerAutomaticMixingTable(
@@ -125,7 +126,7 @@ public class CommonProxy implements ITMFCommonProxy {
 						data
 				);
 			case GuiLib.REFINERY_GUIID :
-				TileEntity tile1 = world.getBlockTileEntity(x, y, z);
+				TileEntity tile1 = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
 				if ( tile1 instanceof TileEntityRefinery ) {
 					TileEntityRefinery tileRefinery = (TileEntityRefinery) tile1;
 					return new GuiRefinery(
@@ -135,7 +136,7 @@ public class CommonProxy implements ITMFCommonProxy {
 				}
 				return null;
 			case GuiLib.GRINDER_GUIID :
-				TileEntity tile2 = world.getBlockTileEntity(x, y, z);
+				TileEntity tile2 = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
 				if ( tile2 instanceof TileEntityGrinder ) {
 					TileEntityGrinder tileGrinder = (TileEntityGrinder) tile2;
 					return new GuiGrinder(
@@ -145,7 +146,7 @@ public class CommonProxy implements ITMFCommonProxy {
 				}
 				return null;
 			case GuiLib.GEOEQUIP_GUIID :
-				TileEntity tileGeo = world.getBlockTileEntity(x, y, z);
+				TileEntity tileGeo = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
 				if ( tileGeo instanceof TileEntityGeologicalEquipment ) {
 					TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) tileGeo;
 					return new GuiGeologicalEquipment(
@@ -155,7 +156,7 @@ public class CommonProxy implements ITMFCommonProxy {
 				}
 				return null;
 			case GuiLib.MIXINGTABLE_GUIID :
-				TileEntity tileMix = world.getBlockTileEntity(x, y, z);
+				TileEntity tileMix = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
 				if ( tileMix instanceof TileEntityAutomaticMixingTable ) {
 					TileEntityAutomaticMixingTable tileMixTable = (TileEntityAutomaticMixingTable) tileMix;
 					return new GuiAutomaticMixingTable(
