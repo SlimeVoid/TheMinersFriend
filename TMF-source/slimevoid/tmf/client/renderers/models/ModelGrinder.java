@@ -15,6 +15,8 @@ import java.io.File;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.client.FMLClientHandler;
+
 import slimevoid.lib.render.ModelSlimevoidObject;
 import slimevoid.lib.render.WavefrontOBJModelLoader;
 import slimevoid.lib.render.WavefrontOBJModelLoader.FaceMissingTextureException;
@@ -45,11 +47,19 @@ public class ModelGrinder extends ModelBase {
 					256, 256, 
 					new File(TMFCore.class.getResource(ResourceLib.MACHINE_PREFIX+"grinderStatic.obj").getFile())
 			);
-			rollerModel = (new WavefrontOBJModelLoader()).loadObjFile(
-					this, 
-					256, 256, 
-					new File(TMFCore.class.getResource(ResourceLib.MACHINE_PREFIX+"grinderRoller.obj").getFile())
-			);
+			if ( FMLClientHandler.instance().getClient().gameSettings.fancyGraphics ) {
+				rollerModel = (new WavefrontOBJModelLoader()).loadObjFile(
+						this, 
+						256, 256, 
+						new File(TMFCore.class.getResource(ResourceLib.MACHINE_PREFIX+"hd/grinderRoller.obj").getFile())
+				);
+			} else {
+				rollerModel = (new WavefrontOBJModelLoader()).loadObjFile(
+						this, 
+						256, 256, 
+						new File(TMFCore.class.getResource(ResourceLib.MACHINE_PREFIX+"grinderRoller.obj").getFile())
+				);
+			}
 			axlesModel = (new WavefrontOBJModelLoader()).loadObjFile(
 					this, 
 					256, 256, 
