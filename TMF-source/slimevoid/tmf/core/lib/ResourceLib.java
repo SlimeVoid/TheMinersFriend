@@ -41,8 +41,8 @@ public class ResourceLib {
 	public static final String RECIPES_REFINERY = 		MACHINE_PREFIX + 	"refinery.json";
 	public static final String RECIPES_GRINDER = 		MACHINE_PREFIX + 	"grinder.json";
 	
-	public static final String MODEL_PREFIX = 			MACHINE_PREFIX + 	"models/";
-	public static final String HD_PREFIX =				"hd/";
+	private static final String MODEL_PREFIX = 			MACHINE_PREFIX + 	"models/";
+	private static final String HD_PREFIX =				"hd/";
 	
 	public static String getModelPath(boolean hasHDModel) {
 		if ( hasHDModel && FMLClientHandler.instance().getClient().gameSettings.fancyGraphics && FMLClientHandler.instance().getClient().gameSettings.advancedOpengl ) {
