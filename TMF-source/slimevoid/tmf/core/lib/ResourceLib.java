@@ -11,6 +11,8 @@
  */
 package slimevoid.tmf.core.lib;
 
+import cpw.mods.fml.client.FMLClientHandler;
+
 public class ResourceLib {
 	public final static String PATH_PREFIX = "/TheMinersFriend/";
 	
@@ -39,6 +41,14 @@ public class ResourceLib {
 	public static final String RECIPES_REFINERY = 		MACHINE_PREFIX + 	"refinery.json";
 	public static final String RECIPES_GRINDER = 		MACHINE_PREFIX + 	"grinder.json";
 	
-	public static final String MODEL_GRINDER = 			MACHINE_PREFIX + 	"grinder.obj";
+	public static final String MODEL_PREFIX = 			MACHINE_PREFIX + 	"models/";
+	public static final String HD_PREFIX =				"hd/";
+	
+	public static String getModelPath(boolean hasHDModel) {
+		if ( hasHDModel && FMLClientHandler.instance().getClient().gameSettings.fancyGraphics && FMLClientHandler.instance().getClient().gameSettings.advancedOpengl ) {
+			return MODEL_PREFIX + HD_PREFIX;
+		}
+		return MODEL_PREFIX;
+	}
 	
 }

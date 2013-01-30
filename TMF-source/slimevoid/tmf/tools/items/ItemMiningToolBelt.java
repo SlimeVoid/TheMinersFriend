@@ -254,8 +254,6 @@ public class ItemMiningToolBelt extends Item {
 		if (tool != null) {
 			// Run a harvest check on that Tool and set the result
 			event.success = tool.canHarvestBlock(event.block);
-		} else {
-			event.success = event.entityPlayer.getHeldItem().canHarvestBlock(event.block);
 		}
 	}
 
