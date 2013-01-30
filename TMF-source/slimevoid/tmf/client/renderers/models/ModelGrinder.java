@@ -42,33 +42,43 @@ public class ModelGrinder extends ModelBase {
 	public ModelGrinder(TileEntityGrinder tile) {
 		this.tile = tile;
 		try {
-			staticModel = (new WavefrontOBJModelLoader()).loadObjFile(
-					this, 
-					256, 256, 
-					new File(TMFCore.class.getResource(ResourceLib.MACHINE_PREFIX+"grinderStatic.obj").getFile())
-			);
-			if ( FMLClientHandler.instance().getClient().gameSettings.fancyGraphics ) {
+			if ( FMLClientHandler.instance().getClient().gameSettings.fancyGraphics && FMLClientHandler.instance().getClient().gameSettings.advancedOpengl ) {
+				staticModel = (new WavefrontOBJModelLoader()).loadObjFile(
+						this, 
+						256, 256, 
+						new File(TMFCore.class.getResource(ResourceLib.MACHINE_PREFIX+"hd/grinderStatic.obj").getFile())
+				);
 				rollerModel = (new WavefrontOBJModelLoader()).loadObjFile(
 						this, 
 						256, 256, 
 						new File(TMFCore.class.getResource(ResourceLib.MACHINE_PREFIX+"hd/grinderRoller.obj").getFile())
 				);
+				gearsModel = (new WavefrontOBJModelLoader()).loadObjFile(
+						this, 
+						256, 256, 
+						new File(TMFCore.class.getResource(ResourceLib.MACHINE_PREFIX+"hd/grinderGears.obj").getFile())
+				);
 			} else {
+				staticModel = (new WavefrontOBJModelLoader()).loadObjFile(
+						this, 
+						256, 256, 
+						new File(TMFCore.class.getResource(ResourceLib.MACHINE_PREFIX+"grinderStatic.obj").getFile())
+				);
 				rollerModel = (new WavefrontOBJModelLoader()).loadObjFile(
 						this, 
 						256, 256, 
 						new File(TMFCore.class.getResource(ResourceLib.MACHINE_PREFIX+"grinderRoller.obj").getFile())
+				);
+				gearsModel = (new WavefrontOBJModelLoader()).loadObjFile(
+						this, 
+						256, 256, 
+						new File(TMFCore.class.getResource(ResourceLib.MACHINE_PREFIX+"grinderGears.obj").getFile())
 				);
 			}
 			axlesModel = (new WavefrontOBJModelLoader()).loadObjFile(
 					this, 
 					256, 256, 
 					new File(TMFCore.class.getResource(ResourceLib.MACHINE_PREFIX+"grinderAxles.obj").getFile())
-			);
-			gearsModel = (new WavefrontOBJModelLoader()).loadObjFile(
-					this, 
-					256, 256, 
-					new File(TMFCore.class.getResource(ResourceLib.MACHINE_PREFIX+"grinderGears.obj").getFile())
 			);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
