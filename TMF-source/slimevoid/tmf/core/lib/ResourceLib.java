@@ -14,19 +14,19 @@ package slimevoid.tmf.core.lib;
 import cpw.mods.fml.client.FMLClientHandler;
 
 public class ResourceLib {
-	public final static String PATH_PREFIX = "/TheMinersFriend/";
+	private static final String PATH_PREFIX = "/TheMinersFriend/";
 	
 	public static final String BLOCK_TEXTURE_PATH = 	PATH_PREFIX + 		"terrain.png";
 	
 	public static final String RESOURCE_SPRITE_PATH = 	PATH_PREFIX + 		"resources/resources.png";
 
-	public static final String ARMOR_PREFIX = PATH_PREFIX + "armor/";
+	private static final String ARMOR_PREFIX = PATH_PREFIX + "armor/";
 	
 	public static final String IRON_MINING_HELMET = 	ARMOR_PREFIX + 		"tmfiron.png";
 	public static final String GOLD_MINING_HELMET = 	ARMOR_PREFIX + 		"tmfgold.png";
 	public static final String DIAMOND_MINING_HELMET = 	ARMOR_PREFIX + 		"tmfdiamond.png";
 
-	public static final String GUI_PREFIX = PATH_PREFIX + "gui/";
+	private static final String GUI_PREFIX = PATH_PREFIX + "gui/";
 	
 	public static final String ITEM_SPRITE_PATH = 		GUI_PREFIX + 		"items.png";
 	public static final String GUI_TOOLBELT = 			GUI_PREFIX + 		"toolbeltGui.png";
