@@ -47,7 +47,7 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 		return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this 
 				? false 
 				: SlimevoidHelper.isUseableByPlayer(
-						this.getWorldObj(),
+						this.worldObj,
 						player,
 						this.xCoord,
 						this.yCoord,
