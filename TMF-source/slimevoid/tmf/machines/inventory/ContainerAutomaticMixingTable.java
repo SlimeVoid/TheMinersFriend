@@ -13,17 +13,15 @@ package slimevoid.tmf.machines.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import slimevoid.tmf.machines.RefineryRecipes;
 import slimevoid.tmf.machines.tileentities.TileEntityAutomaticMixingTable;
 
-public class ContainerAutomaticMixingTable extends Container {
-	private TileEntityAutomaticMixingTable autoMixTable;
+public class ContainerAutomaticMixingTable extends ContainerTMFMachine {
 	
 	public ContainerAutomaticMixingTable(InventoryPlayer playerInventory, TileEntityAutomaticMixingTable autoMixTable) {
-		this.autoMixTable = autoMixTable;
+		this.inventory = autoMixTable;
 
         // Min level > 2 => only mixed dust.
         this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 0, 2, 10, 44, 32, true)); // blueprint
@@ -40,34 +38,7 @@ public class ContainerAutomaticMixingTable extends Container {
         this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 9, 1, 1, 80, 104, true));
         this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 10, 1, 1, 98, 104, true));
      
-        bindPlayerInventory(playerInventory);
-	}
-	
-	protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 9; j++) {
-				addSlotToContainer(new Slot(
-						inventoryPlayer,
-						j + i * 9 + 9,
-						8 + j * 18, 
-						84+56 + i * 18)
-				);
-			}
-		}
-
-		for (int i = 0; i < 9; i++) {
-			addSlotToContainer(new Slot(
-					inventoryPlayer, 
-					i, 
-					8 + i * 18, 
-					142+56
-			));
-		}
-	}
-	
-	@Override
-	public boolean canInteractWith(EntityPlayer player) {
-		return autoMixTable.isUseableByPlayer(player);
+        this.bindPlayerInventory(playerInventory, 56);
 	}
 
 	@Override
@@ -93,7 +64,7 @@ public class ContainerAutomaticMixingTable extends Container {
 					if ( !this.mergeItemStack(stackInSlot, 0, 1, false) ) {
 						return null;
 					}
-				} else if ( autoMixTable.isItemFuel(stackInSlot) ) {
+				} else if ( inventory.isItemFuel(stackInSlot) ) {
 					if ( !this.mergeItemStack(stackInSlot, 1, 2, false) ) {
 						return null;
 					}
