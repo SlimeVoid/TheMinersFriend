@@ -23,8 +23,8 @@ import slimevoid.tmf.machines.tileentities.TileEntityAutomaticMixingTable;
 
 public class BlockAutomaticMixingTable extends BlockMachine {
 
-	public BlockAutomaticMixingTable(int id, int texX, int texY, boolean isActive) {
-		super(id, texX, texY, isActive);
+	public BlockAutomaticMixingTable(int id, String textureName, boolean isActive) {
+		super(id, textureName, isActive);
 	}
 
 	@Override

@@ -16,6 +16,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -24,17 +25,34 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import slimevoid.tmf.core.lib.ResourceLib;
+import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.CoreLib;
 import slimevoid.tmf.machines.tileentities.TileEntityMachine;
 
 public abstract class BlockMachine extends BlockContainer {
+	
+	public Icon iconList[] = new Icon[4];
 	private Random rand = new Random();
 	public boolean isActive;
 	public static boolean keepInventory = false;
 	
-	public BlockMachine(int id, int texX, int texY, boolean isActive) {
+	@Override
+	public void registerIcons(IconRegister iconRegister) {
+		iconList[0] = iconRegister.registerIcon(this.getTextureName() + "_front");
+		iconList[1] = iconRegister.registerIcon(this.getTextureName() + "_side");
+		iconList[2] = iconRegister.registerIcon(this.getTextureName() + "_top");
+		iconList[3] = iconRegister.registerIcon(this.getTextureName() + "_bottom");
+	}
+	
+	@Override
+	public String getTextureName() {
+		return CoreLib.MOD_RESOURCES + ":" + this.textureName;
+	}
+	
+	public BlockMachine(int id, String name, boolean isActive) {
 		super(id, Material.rock);
-        //this.blockIndexInTexture = texX+(texY*16);
+		this.setUnlocalizedName(name);
+		this.textureName = name;
         this.isActive = isActive;
 	}
 	
@@ -150,33 +168,22 @@ public abstract class BlockMachine extends BlockContainer {
 	
 	@Override 
 	public Icon getBlockTexture(IBlockAccess blockAccess, int x, int y, int z, int side) {
-		if ( side == 1 || side == 0 ) {
-			// Top/bottom
-			if ( isActive ) {
-				//return blockIndexInTexture+4;
-			} else {
-				//return blockIndexInTexture+5;
-			}
+		// Top/bottom
+		if ( side == 1) {
+			return this.iconList[2];
+		} else if (side == 0) {
+			return this.iconList[3];
 		} else {
 			int meta = 4;
 			if ( blockAccess != null )
 				meta = blockAccess.getBlockMetadata(x, y, z);
 			if ( side == meta ) {
 				// Front
-				if ( isActive ) {
-					//return blockIndexInTexture;
-				} else {
-					//return blockIndexInTexture+1;
-				}
+				return this.iconList[0];
 			} else {
 				// Sides
-				if ( isActive ) {
-					//return blockIndexInTexture+2;
-				} else {
-					//return blockIndexInTexture+3;
-				}
+				return this.iconList[1];
 			}
 		}
-		return this.blockIcon;
 	}
 }

@@ -24,8 +24,8 @@ import net.minecraft.world.World;
 
 public class BlockRefinery extends BlockMachine {
 	
-	public BlockRefinery(int id, int texX, int texY, boolean isActive) {
-		super(id, texX, texY, isActive);
+	public BlockRefinery(int id, String textureName, boolean isActive) {
+		super(id, textureName, isActive);
 	}
 
 	@Override

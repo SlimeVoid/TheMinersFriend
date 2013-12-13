@@ -24,8 +24,8 @@ import net.minecraft.world.World;
 
 public class BlockGrinder extends BlockMachine {
 
-	public BlockGrinder(int id, int texX, int texY, boolean isActive) {
-		super(id, texX, texY, isActive);
+	public BlockGrinder(int id, String textureName, boolean isActive) {
+		super(id, textureName, isActive);
 		this.setBlockBounds(
 				0.1875f, 0f, 0.1875f, 
 				0.8125f, 0.9f, 0.8125f		

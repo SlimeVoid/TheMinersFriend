@@ -195,11 +195,11 @@ public class TMFCore {
 	}
 	private static void registerOres() {
 		// BlockTMFOre(int id, int texture, int spawnLevel, int spawnRate, int spawnSize, int veinSize, int lightLevel)
-		arkiteOre = new BlockTMFOre(arkiteOreId, 0, 60, 100, 5, 0.2F).setUnlocalizedName(BlockLib.ORE_ARKITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		bistiteOre = new BlockTMFOre(bistiteOreId, 1, 36, 100, 5, 0.3F).setUnlocalizedName(BlockLib.ORE_BISTITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		crokereOre = new BlockTMFOre(crokereOreId, 2, 30, 100, 5, 0.4F).setUnlocalizedName(BlockLib.ORE_CROKERE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		derniteOre = new BlockTMFOre(derniteOreId, 3, 26, 100, 5, 0.5F).setUnlocalizedName(BlockLib.ORE_DERNITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		egioclaseOre = new BlockTMFOre(egioclaseOreId, 4, 20, 100, 5, 0.6F).setUnlocalizedName(BlockLib.ORE_EGIOCLASE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		arkiteOre = new BlockTMFOre(arkiteOreId,  60, 100, 5, 0.2F).setUnlocalizedName(BlockLib.ORE_ARKITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		bistiteOre = new BlockTMFOre(bistiteOreId, 36, 100, 5, 0.3F).setUnlocalizedName(BlockLib.ORE_BISTITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		crokereOre = new BlockTMFOre(crokereOreId, 30, 100, 5, 0.4F).setUnlocalizedName(BlockLib.ORE_CROKERE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		derniteOre = new BlockTMFOre(derniteOreId, 26, 100, 5, 0.5F).setUnlocalizedName(BlockLib.ORE_DERNITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		egioclaseOre = new BlockTMFOre(egioclaseOreId, 20, 100, 5, 0.6F).setUnlocalizedName(BlockLib.ORE_EGIOCLASE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
 
 		GameRegistry.registerBlock(arkiteOre, BlockLib.ORE_ARKITE);
 		GameRegistry.registerBlock(bistiteOre, BlockLib.ORE_BISTITE);
@@ -215,37 +215,37 @@ public class TMFCore {
 	}
 	private static void registerMachines() {
 		// REFINERY
-		refineryIdle = new BlockRefinery(refineryIdleId,0,0,false).setUnlocalizedName(BlockLib.REFINERY_IDLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
-		refineryActive = new BlockRefinery(refineryActiveId,0,0,true).setUnlocalizedName(BlockLib.REFINERY_ACTIVE).setHardness(3.5F).setLightValue(0.875F);
+		refineryIdle = new BlockRefinery(refineryIdleId, BlockLib.REFINERY_IDLE, false).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
+		refineryActive = new BlockRefinery(refineryActiveId, BlockLib.REFINERY_ACTIVE, true).setHardness(3.5F).setLightValue(0.875F);
 		
-		GameRegistry.registerBlock(refineryIdle,BlockLib.REFINERY_IDLE);
-		GameRegistry.registerBlock(refineryActive,BlockLib.REFINERY_ACTIVE);
+		GameRegistry.registerBlock(refineryIdle, BlockLib.REFINERY_IDLE);
+		GameRegistry.registerBlock(refineryActive, BlockLib.REFINERY_ACTIVE);
 		GameRegistry.registerTileEntity(TileEntityRefinery.class, BlockLib.BLOCK_REFINERY);
 
 		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource(ResourceLib.RECIPES_REFINERY).getFile()));
 
 		// GRINDER
-		grinderIdle = new BlockGrinder(grinderIdleId,0,1,false).setUnlocalizedName(BlockLib.GRINDER_IDLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
-		grinderActive = new BlockGrinder(grinderActiveId,0,1,true).setUnlocalizedName(BlockLib.GRINDER_ACTIVE).setHardness(3.5F).setLightValue(0.875F);
+		grinderIdle = new BlockGrinder(grinderIdleId, BlockLib.GRINDER_IDLE, false).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
+		grinderActive = new BlockGrinder(grinderActiveId, BlockLib.GRINDER_ACTIVE, true).setHardness(3.5F).setLightValue(0.875F);
 		
-		GameRegistry.registerBlock(grinderIdle,BlockLib.GRINDER_IDLE);
-		GameRegistry.registerBlock(grinderActive,BlockLib.GRINDER_ACTIVE);
+		GameRegistry.registerBlock(grinderIdle, BlockLib.GRINDER_IDLE);
+		GameRegistry.registerBlock(grinderActive, BlockLib.GRINDER_ACTIVE);
 		GameRegistry.registerTileEntity(TileEntityGrinder.class, BlockLib.BLOCK_GRINDER);
 		
 		JSONGrinderRecipesLoader.loadFile(new File(TMFCore.class.getResource(ResourceLib.RECIPES_GRINDER).getFile()));
 
 		// GEOLOGICAL EQUIPMENT
-		geoEquipIdle = new BlockGeologicalEquipment(geoEquipIdleId,0,2,false).setUnlocalizedName(BlockLib.GEOEQUIP_IDLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
-		geoEquipActive = new BlockGeologicalEquipment(geoEquipActiveId,0,2,true).setUnlocalizedName(BlockLib.GEOEQUIP_ACTIVE).setHardness(3.5F).setLightValue(0.875F);
+		geoEquipIdle = new BlockGeologicalEquipment(geoEquipIdleId, BlockLib.GEOEQUIP_IDLE, false).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
+		geoEquipActive = new BlockGeologicalEquipment(geoEquipActiveId, BlockLib.GEOEQUIP_ACTIVE, true).setHardness(3.5F).setLightValue(0.875F);
 		
-		GameRegistry.registerBlock(geoEquipIdle,BlockLib.GEOEQUIP_IDLE);
-		GameRegistry.registerBlock(geoEquipActive,BlockLib.GEOEQUIP_ACTIVE);
+		GameRegistry.registerBlock(geoEquipIdle, BlockLib.GEOEQUIP_IDLE);
+		GameRegistry.registerBlock(geoEquipActive, BlockLib.GEOEQUIP_ACTIVE);
 		GameRegistry.registerTileEntity(TileEntityGeologicalEquipment.class, BlockLib.BLOCK_GEOEQUIPMENT);
 
 		// AUTOMATIC MIXING TABLE
-		autoMixTable = new BlockAutomaticMixingTable(autoMixTableId,0,3,false).setUnlocalizedName(BlockLib.BLOCK_AUTOMIXTABLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
+		autoMixTable = new BlockAutomaticMixingTable(autoMixTableId, BlockLib.BLOCK_AUTOMIXTABLE, false).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
 		
-		GameRegistry.registerBlock(autoMixTable,BlockLib.BLOCK_AUTOMIXTABLE);
+		GameRegistry.registerBlock(autoMixTable, BlockLib.BLOCK_AUTOMIXTABLE);
 		GameRegistry.registerTileEntity(TileEntityAutomaticMixingTable.class, BlockLib.BLOCK_AUTOMIXTABLE);
 	}
 

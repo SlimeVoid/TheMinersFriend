@@ -19,31 +19,33 @@ import slimevoid.tmf.blocks.ores.BlockTMFOre;
 public class BlockLib {
 
 	private static String BLOCK_PREFIX = 										"tmf.";
-
-	public static final String BLOCK_REFINERY = 		BLOCK_PREFIX + 			"refinery";
-	public static final String BLOCK_GRINDER = 			BLOCK_PREFIX + 			"grinder";
-	public static final String BLOCK_GEOEQUIPMENT = 	BLOCK_PREFIX + 			"geoEquip";
-	public static final String BLOCK_AUTOMIXTABLE = 	BLOCK_PREFIX + 			"autoMixTable";
 	
-	private static final String IDLE = 											".idle";
+	private static String MACHINE_PREFIX =				BLOCK_PREFIX +			"machines.";
+
+	public static final String BLOCK_REFINERY = 		MACHINE_PREFIX + 		"refinery";
+	public static final String BLOCK_GRINDER = 			MACHINE_PREFIX + 		"grinder";
+	public static final String BLOCK_GEOEQUIPMENT = 	MACHINE_PREFIX + 		"geoEquip";
+	public static final String BLOCK_AUTOMIXTABLE = 	MACHINE_PREFIX + 		"autoMixTable";
+	
+	private static final String IDLE = 											"_idle";
 
 	public static final String REFINERY_IDLE = 			BLOCK_REFINERY + 		IDLE;
 	public static final String GRINDER_IDLE = 			BLOCK_GRINDER + 		IDLE;
 	public static final String GEOEQUIP_IDLE = 			BLOCK_GEOEQUIPMENT + 	IDLE;
 	
-	private static final String ACTIVE = 										".active";
+	private static final String ACTIVE = 										"_active";
 
 	public static final String REFINERY_ACTIVE = 		BLOCK_REFINERY + 		ACTIVE;
 	public static final String GRINDER_ACTIVE = 		BLOCK_GRINDER + 		ACTIVE;
 	public static final String GEOEQUIP_ACTIVE = 		BLOCK_GEOEQUIPMENT + 	ACTIVE;
 	
-	private static final String ORE =					BLOCK_PREFIX + 			"ore.";
+	private static final String ORE_PREFIX =			BLOCK_PREFIX + 			"ore.";
 	
-	public static final String ORE_ARKITE = 			ORE + 					"arkite";
-	public static final String ORE_BISTITE = 			ORE + 					"bistite";
-	public static final String ORE_CROKERE = 			ORE + 					"crokere";
-	public static final String ORE_DERNITE = 			ORE + 					"dernite";
-	public static final String ORE_EGIOCLASE = 			ORE + 					"egioclase";
+	public static final String ORE_ARKITE = 			ORE_PREFIX + 			"arkite";
+	public static final String ORE_BISTITE = 			ORE_PREFIX + 			"bistite";
+	public static final String ORE_CROKERE = 			ORE_PREFIX + 			"crokere";
+	public static final String ORE_DERNITE = 			ORE_PREFIX + 			"dernite";
+	public static final String ORE_EGIOCLASE = 			ORE_PREFIX + 			"egioclase";
 
 	//private static final String TILE = 											"tile.";
 

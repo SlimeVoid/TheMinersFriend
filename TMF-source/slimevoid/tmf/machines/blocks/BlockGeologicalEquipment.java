@@ -24,8 +24,8 @@ import net.minecraft.world.World;
 
 public class BlockGeologicalEquipment extends BlockMachine {
 
-	public BlockGeologicalEquipment(int id, int texX, int texY, boolean isActive) {
-		super(id, texX, texY, isActive);
+	public BlockGeologicalEquipment(int id, String textureName, boolean isActive) {
+		super(id, textureName, isActive);
 	}
 
 	@Override

@@ -3,10 +3,10 @@
 <properties version="1.0">
 	<comment>Norsk Localization File</comment>
 	<entry key="itemGroup.TheMinersFriend">The Miner's Friend</entry>
-	<entry key="tile.tmf.grinder.idle.name">Mineralmølle</entry>
-	<entry key="tile.tmf.refinery.idle.name">Raffineri</entry>
-	<entry key="tile.tmf.geoEquip.idle.name">Geologisk Utstyr</entry>
-	<entry key="tile.tmf.autoMixTable.name">Automatisk Miksebord</entry>
+	<entry key="tile.tmf.machines.grinder_idle.name">Mineralmølle</entry>
+	<entry key="tile.tmf.machines.refinery_idle.name">Raffineri</entry>
+	<entry key="tile.tmf.machines.geoEquip_idle.name">Geologisk Utstyr</entry>
+	<entry key="tile.tmf.machines.autoMixTable.name">Automatisk Miksebord</entry>
 	<entry key="tile.tmf.ore.arkite.name">Arkittmalm</entry>
 	<entry key="tile.tmf.ore.bistite.name">Bistittmalm</entry>
 	<entry key="tile.tmf.ore.crokere.name">Corkeremalm</entry>

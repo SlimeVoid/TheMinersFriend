@@ -52,7 +52,7 @@ public class ResourceLib {
 	private static final String MODEL_PREFIX = 			MACHINE_PREFIX + 	"models/";
 	private static final String HD_PREFIX =				"hd/";
 
-	private static final String TRACKER_PREFIX = PATH_PREFIX + "tracker/";
+	private static final String TRACKER_PREFIX = GUI_PREFIX + "tracker/";
 	
 	private static final String TRACKER_BG_PATH = TRACKER_PREFIX + "trackerBG.png";
 	public static final ResourceLocation	TRACKER_BG	= new ResourceLocation(CoreLib.MOD_RESOURCES, TRACKER_BG_PATH);

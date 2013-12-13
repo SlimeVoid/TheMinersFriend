@@ -12,7 +12,8 @@
 package slimevoid.tmf.blocks.ores;
 
 import slimevoid.tmf.core.lib.BlockLib;
-import slimevoid.tmf.core.lib.ResourceLib;
+import slimevoid.tmf.core.lib.CoreLib;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 
 public class BlockTMFOre extends BlockOre {
@@ -22,7 +23,6 @@ public class BlockTMFOre extends BlockOre {
 
 	public BlockTMFOre(
 			int id,
-			int blockIndexInTexture,
 			int spawnLevel,
 			int spawnRate,
 			int spawnSize,
@@ -34,5 +34,16 @@ public class BlockTMFOre extends BlockOre {
 		this.lightLevel = lightLevel;
 		this.setLightValue(lightLevel);
 		BlockLib.registerTMFOre(this);
+	}
+	
+	@Override
+	public Block setUnlocalizedName(String name) {
+		this.textureName = name;
+		return super.setUnlocalizedName(name);
+	}
+	
+	@Override
+	public String getTextureName() {
+		return CoreLib.MOD_RESOURCES + ":" + this.textureName;
 	}
 }
