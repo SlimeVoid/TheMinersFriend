@@ -11,7 +11,7 @@
  */
 package slimevoid.tmf.core;
 
-import slimevoid.lib.data.Logger;
+import slimevoidlib.data.Logger;
 
 public class LoggerTMF extends Logger {
 	

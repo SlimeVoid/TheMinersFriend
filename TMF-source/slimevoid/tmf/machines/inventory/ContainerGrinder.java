@@ -11,6 +11,7 @@
  */
 package slimevoid.tmf.machines.inventory;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import slimevoid.tmf.machines.RefineryRecipes;
@@ -62,13 +63,13 @@ public class ContainerGrinder extends ContainerTMFMachine {
 						return null;
 					}
 				} else if (slot >= 3 && slot < 32) {
-					if ( !this.mergeItemStack(stackInSlot, 32, 41, false) ) {
+					if ( !this.mergeItemStack(stackInSlot, 32, 39, false) ) {
 						return null;
 					}
-				} else if (slot >= 32 && slot < 41 && !this.mergeItemStack(stackInSlot, 5, 32, false)) {
+				} else if (slot >= 32 && slot < 39 && !this.mergeItemStack(stackInSlot, 5, 32, false)) {
 					return null;
 				}
-			} else if (!mergeItemStack(stackInSlot, 5, 41, false)) {
+			} else if (!mergeItemStack(stackInSlot, 5, 39, false)) {
 				return null;
 			}
 

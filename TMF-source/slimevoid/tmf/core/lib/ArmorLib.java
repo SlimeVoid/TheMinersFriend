@@ -18,7 +18,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import slimevoid.lib.data.Logger;
+import slimevoidlib.data.Logger;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.tools.items.ItemMiningHelmet;
 
@@ -51,7 +51,7 @@ public class ArmorLib {
 			LoggerTMF.getInstance("ArmorLib"
 					).write(
 							true,
-							"Texture file for item [" + item.getItemName() + "] already registered",
+							"Texture file for item [" + item.getUnlocalizedName() + "] already registered",
 							Logger.LogLevel.DEBUG);
 		}
 		return "";

@@ -56,7 +56,7 @@ public class TileEntityRefinery extends TileEntityMachine {
 
 	@Override
 	public String getInvName() {
-		return BlockLib.CONTAINER_REFINERY;
+		return BlockLib.BLOCK_REFINERY;
 	}
 	
 	@Override
@@ -94,11 +94,21 @@ public class TileEntityRefinery extends TileEntityMachine {
 		super.writeToNBT(ntbCompound);
 		
 	}
-    
+
 	@Override
-	public int getStartInventorySide(ForgeDirection side) {
-		if (side == ForgeDirection.DOWN) return 1;
-		if (side == ForgeDirection.UP) return 0;
+	public boolean isInvNameLocalized() {
+		return false;
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+		return true;
+	}
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		if (ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) return new int[] { 1 };
+		if (ForgeDirection.getOrientation(side) == ForgeDirection.UP) return new int[] { 0 };
 		
 		int maxSize = 0;
 		int maxSizeSlot = 2;
@@ -121,12 +131,17 @@ public class TileEntityRefinery extends TileEntityMachine {
 			}
 		}
 		
-		return maxSizeSlot;
+		return new int [] { maxSizeSlot };
 	}
 
 	@Override
-	public int getSizeInventorySide(ForgeDirection side) {
-		return 1;
+	public boolean canInsertItem(int slot, ItemStack itemstack, int side) {
+		return true;
+	}
+
+	@Override
+	public boolean canExtractItem(int slot, ItemStack itemstack, int side) {
+		return true;
 	}
 
 	@Override

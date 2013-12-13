@@ -17,8 +17,8 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
-import slimevoid.lib.util.FileReader;
-import slimevoid.lib.util.xml.XMLRecipeLoader;
+import slimevoidlib.util.FileReader;
+import slimevoidlib.util.xml.XMLRecipeLoader;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.BlockLib;
@@ -51,7 +51,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class TMFCore {
 	
 	// CONFIG
-	public static File configFile;
 	public static Configuration configuration;
 	
 	public static String loggerLevel = "INFO";
@@ -112,30 +111,30 @@ public class TMFCore {
 		registerToolBelt();
 	}
 	private static void registerMiningHelmets() {
-		miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setItemName(ItemLib.MINING_HELMET_LAMP).setIconCoord(4, 0);
-		miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setItemName(ItemLib.MINING_HELMET_IRON).setIconCoord(2, 0);
-		miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setItemName(ItemLib.MINING_HELMET_GOLD).setIconCoord(1, 0);
-		miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setItemName(ItemLib.MINING_HELMET_DIAMOND).setIconCoord(0, 0);
+		miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setUnlocalizedName(ItemLib.MINING_HELMET_LAMP);//.setIconCoord(4, 0);
+		miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setUnlocalizedName(ItemLib.MINING_HELMET_IRON);//.setIconCoord(2, 0);
+		miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setUnlocalizedName(ItemLib.MINING_HELMET_GOLD);//.setIconCoord(1, 0);
+		miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setUnlocalizedName(ItemLib.MINING_HELMET_DIAMOND);//.setIconCoord(0, 0);
 	}
 	private static void registerMotionSensor() {
-		motionSensor = new ItemMotionSensor(motionSensorId).setItemName(ItemLib.MOTION_SENSOR).setIconCoord(0, 1);
+		motionSensor = new ItemMotionSensor(motionSensorId).setUnlocalizedName(ItemLib.MOTION_SENSOR);//.setIconCoord(0, 1);
 	}
 	private static void registerToolBelt() {
-		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setItemName(ItemLib.MINING_TOOLBELT).setIconCoord(0, 2);
+		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setUnlocalizedName(ItemLib.MINING_TOOLBELT);//.setIconCoord(0, 2);
 	}
 	private static void registerMinerals() {
-		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(2400).setItemName(ItemLib.MINERAL_AXCIUM).setIconCoord(0, 1);
-		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(150).setItemName(ItemLib.MINERAL_BISOGEN).setIconCoord(1, 1);
-		mineralCydrine = new ItemMineral(mineralCydrineId).setBurnWidth(1).setItemName(ItemLib.MINERAL_CYDRINE).setIconCoord(2, 1);
+		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(2400).setUnlocalizedName(ItemLib.MINERAL_AXCIUM);//.setIconCoord(0, 1);
+		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(150).setUnlocalizedName(ItemLib.MINERAL_BISOGEN);//.setIconCoord(1, 1);
+		mineralCydrine = new ItemMineral(mineralCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.MINERAL_CYDRINE);//.setIconCoord(2, 1);
 	}
 	private static void registerDusts() {
-		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setItemName(ItemLib.DUST_AXCIUM).setIconCoord(0, 2);
-		dustBisogen = new ItemMineralDust(dustBisogenId).setBurnSpeed(100).setItemName(ItemLib.DUST_BISOGEN).setIconCoord(1, 2);
-		dustCydrine = new ItemMineralDust(dustCydrineId).setBurnWidth(1).setItemName(ItemLib.DUST_CYDRINE).setIconCoord(2, 2);
+		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setUnlocalizedName(ItemLib.DUST_AXCIUM);//.setIconCoord(0, 2);
+		dustBisogen = new ItemMineralDust(dustBisogenId).setBurnSpeed(100).setUnlocalizedName(ItemLib.DUST_BISOGEN);//.setIconCoord(1, 2);
+		dustCydrine = new ItemMineralDust(dustCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.DUST_CYDRINE);//.setIconCoord(2, 2);
 		
-		dustMixed = new ItemMineralMixedDust(dustMixedId).setItemName(ItemLib.DUST_MIXED).setIconCoord(3, 2);
+		dustMixed = new ItemMineralMixedDust(dustMixedId).setUnlocalizedName(ItemLib.DUST_MIXED);//.setIconCoord(3, 2);
 		
-		ItemMineralMixedDust.script = FileReader.readFile(new File(TMFCore.class.getResource("/TheMinersFriend/resources/mixedDust.js").getFile()));
+		ItemMineralMixedDust.script = FileReader.readFile(new File(TMFCore.class.getResource(ResourceLib.DUST_LIB).getFile()));
 		ItemMineralMixedDust.script_burnTime = "getBurnTime()";
 		ItemMineralMixedDust.script_burnSpeed = "getBurnSpeed()";
 		ItemMineralMixedDust.script_burnWidth = "getBurnWidth()";
@@ -196,11 +195,11 @@ public class TMFCore {
 	}
 	private static void registerOres() {
 		// BlockTMFOre(int id, int texture, int spawnLevel, int spawnRate, int spawnSize, int veinSize, int lightLevel)
-		arkiteOre = new BlockTMFOre(arkiteOreId, 0, 60, 100, 5, 0.2F).setBlockName(BlockLib.ORE_ARKITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		bistiteOre = new BlockTMFOre(bistiteOreId, 1, 36, 100, 5, 0.3F).setBlockName(BlockLib.ORE_BISTITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		crokereOre = new BlockTMFOre(crokereOreId, 2, 30, 100, 5, 0.4F).setBlockName(BlockLib.ORE_CROKERE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		derniteOre = new BlockTMFOre(derniteOreId, 3, 26, 100, 5, 0.5F).setBlockName(BlockLib.ORE_DERNITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		egioclaseOre = new BlockTMFOre(egioclaseOreId, 4, 20, 100, 5, 0.6F).setBlockName(BlockLib.ORE_EGIOCLASE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		arkiteOre = new BlockTMFOre(arkiteOreId, 0, 60, 100, 5, 0.2F).setUnlocalizedName(BlockLib.ORE_ARKITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		bistiteOre = new BlockTMFOre(bistiteOreId, 1, 36, 100, 5, 0.3F).setUnlocalizedName(BlockLib.ORE_BISTITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		crokereOre = new BlockTMFOre(crokereOreId, 2, 30, 100, 5, 0.4F).setUnlocalizedName(BlockLib.ORE_CROKERE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		derniteOre = new BlockTMFOre(derniteOreId, 3, 26, 100, 5, 0.5F).setUnlocalizedName(BlockLib.ORE_DERNITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		egioclaseOre = new BlockTMFOre(egioclaseOreId, 4, 20, 100, 5, 0.6F).setUnlocalizedName(BlockLib.ORE_EGIOCLASE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
 
 		GameRegistry.registerBlock(arkiteOre, BlockLib.ORE_ARKITE);
 		GameRegistry.registerBlock(bistiteOre, BlockLib.ORE_BISTITE);
@@ -216,38 +215,38 @@ public class TMFCore {
 	}
 	private static void registerMachines() {
 		// REFINERY
-		refineryIdle = new BlockRefinery(refineryIdleId,0,0,false).setBlockName(BlockLib.REFINERY_IDLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
-		refineryActive = new BlockRefinery(refineryActiveId,0,0,true).setBlockName(BlockLib.REFINERY_ACTIVE).setHardness(3.5F).setLightValue(0.875F);
+		refineryIdle = new BlockRefinery(refineryIdleId,0,0,false).setUnlocalizedName(BlockLib.REFINERY_IDLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
+		refineryActive = new BlockRefinery(refineryActiveId,0,0,true).setUnlocalizedName(BlockLib.REFINERY_ACTIVE).setHardness(3.5F).setLightValue(0.875F);
 		
 		GameRegistry.registerBlock(refineryIdle,BlockLib.REFINERY_IDLE);
 		GameRegistry.registerBlock(refineryActive,BlockLib.REFINERY_ACTIVE);
-		GameRegistry.registerTileEntity(TileEntityRefinery.class, BlockLib.TILE_REFINERY);
+		GameRegistry.registerTileEntity(TileEntityRefinery.class, BlockLib.BLOCK_REFINERY);
 
 		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource(ResourceLib.RECIPES_REFINERY).getFile()));
 
 		// GRINDER
-		grinderIdle = new BlockGrinder(grinderIdleId,0,1,false).setBlockName(BlockLib.GRINDER_IDLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
-		grinderActive = new BlockGrinder(grinderActiveId,0,1,true).setBlockName(BlockLib.GRINDER_ACTIVE).setHardness(3.5F).setLightValue(0.875F);
+		grinderIdle = new BlockGrinder(grinderIdleId,0,1,false).setUnlocalizedName(BlockLib.GRINDER_IDLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
+		grinderActive = new BlockGrinder(grinderActiveId,0,1,true).setUnlocalizedName(BlockLib.GRINDER_ACTIVE).setHardness(3.5F).setLightValue(0.875F);
 		
 		GameRegistry.registerBlock(grinderIdle,BlockLib.GRINDER_IDLE);
 		GameRegistry.registerBlock(grinderActive,BlockLib.GRINDER_ACTIVE);
-		GameRegistry.registerTileEntity(TileEntityGrinder.class, BlockLib.TILE_GRINDER);
+		GameRegistry.registerTileEntity(TileEntityGrinder.class, BlockLib.BLOCK_GRINDER);
 		
 		JSONGrinderRecipesLoader.loadFile(new File(TMFCore.class.getResource(ResourceLib.RECIPES_GRINDER).getFile()));
 
 		// GEOLOGICAL EQUIPMENT
-		geoEquipIdle = new BlockGeologicalEquipment(geoEquipIdleId,0,2,false).setBlockName(BlockLib.GEOEQUIP_IDLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
-		geoEquipActive = new BlockGeologicalEquipment(geoEquipActiveId,0,2,true).setBlockName(BlockLib.GEOEQUIP_ACTIVE).setHardness(3.5F).setLightValue(0.875F);
+		geoEquipIdle = new BlockGeologicalEquipment(geoEquipIdleId,0,2,false).setUnlocalizedName(BlockLib.GEOEQUIP_IDLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
+		geoEquipActive = new BlockGeologicalEquipment(geoEquipActiveId,0,2,true).setUnlocalizedName(BlockLib.GEOEQUIP_ACTIVE).setHardness(3.5F).setLightValue(0.875F);
 		
 		GameRegistry.registerBlock(geoEquipIdle,BlockLib.GEOEQUIP_IDLE);
 		GameRegistry.registerBlock(geoEquipActive,BlockLib.GEOEQUIP_ACTIVE);
-		GameRegistry.registerTileEntity(TileEntityGeologicalEquipment.class, BlockLib.TILE_GEOEQUIPMENT);
+		GameRegistry.registerTileEntity(TileEntityGeologicalEquipment.class, BlockLib.BLOCK_GEOEQUIPMENT);
 
 		// AUTOMATIC MIXING TABLE
-		autoMixTable = new BlockAutomaticMixingTable(autoMixTableId,0,3,false).setBlockName(BlockLib.BLOCK_AUTOMIXTABLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
+		autoMixTable = new BlockAutomaticMixingTable(autoMixTableId,0,3,false).setUnlocalizedName(BlockLib.BLOCK_AUTOMIXTABLE).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
 		
 		GameRegistry.registerBlock(autoMixTable,BlockLib.BLOCK_AUTOMIXTABLE);
-		GameRegistry.registerTileEntity(TileEntityAutomaticMixingTable.class, BlockLib.TILE_AUTOMIXTABLE);
+		GameRegistry.registerTileEntity(TileEntityAutomaticMixingTable.class, BlockLib.BLOCK_AUTOMIXTABLE);
 	}
 
 	// ======== NAME REGISTRATION ========
@@ -257,7 +256,7 @@ public class TMFCore {
 	
 	// ======= RECIPE REGISTRATION =======
 	public static void registerRecipes() {	
-		XMLRecipeLoader.loadDefaults(new File(TMFCore.class.getResource("/TheMinersFriend/recipes").getFile()));
+		XMLRecipeLoader.loadDefaults(new File(TMFCore.class.getResource(ResourceLib.RECIPE_PATH).getFile()));
 		XMLRecipeLoader.loadFolder(new File(TheMinersFriend.proxy.getMinecraftDir()+"/config/TMFRecipes"));	
 		
 		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());

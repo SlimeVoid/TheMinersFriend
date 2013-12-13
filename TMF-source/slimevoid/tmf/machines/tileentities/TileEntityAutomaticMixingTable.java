@@ -64,7 +64,7 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 
 	@Override
 	public String getInvName() {
-		return BlockLib.CONTAINER_AUTOMIXTABLE;
+		return BlockLib.BLOCK_AUTOMIXTABLE;
 	}
 
 	
@@ -103,24 +103,37 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 		super.writeToNBT(ntbCompound);
 		
 	}
-	
+
 	@Override
-	public int getStartInventorySide(ForgeDirection side) {
-		if (side == ForgeDirection.DOWN) return 1;
-		if (side == ForgeDirection.UP) return 0;
-		
-		for ( int i = 2; i < stacks.length; i++ ) {
-			if ( stacks[i] != null && stacks[i].stackSize > 0 ) {
-				return i;
-			}
-		}
-		
-		return 2;
+	public boolean isInvNameLocalized() {
+		return false;
 	}
 
 	@Override
-	public int getSizeInventorySide(ForgeDirection side) {
-		return 1;
+	public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+		return true;
+	}
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		if (ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) return new int[] { 1 };
+		if (ForgeDirection.getOrientation(side) == ForgeDirection.UP) return new int[] { 0 };
+		for ( int i = 2; i < stacks.length; i++ ) {
+			if ( stacks[i] != null && stacks[i].stackSize > 0 ) {
+				return new int[] { i };
+			}
+		}
+		return new int[] { 2 };
+	}
+
+	@Override
+	public boolean canInsertItem(int slot, ItemStack itemstack, int side) {
+		return true;
+	}
+
+	@Override
+	public boolean canExtractItem(int slot, ItemStack itemstack, int side) {
+		return true;
 	}
 
 	@Override

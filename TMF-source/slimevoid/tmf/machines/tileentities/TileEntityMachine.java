@@ -13,11 +13,12 @@ package slimevoid.tmf.machines.tileentities;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import slimevoid.lib.util.SlimevoidHelper;
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
 import slimevoid.tmf.minerals.items.ItemMineral;
+import slimevoidlib.util.helpers.SlimevoidHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
@@ -26,7 +27,6 @@ import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ISidedInventory;
 
 public abstract class TileEntityMachine extends TileEntity implements IInventory, ISidedInventory {
 	/** The number of ticks that the machine will keep burning */
@@ -235,7 +235,7 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 	
 	@Override
 	public void onDataPacket(INetworkManager netmanager, Packet132TileEntityData pkt) {
-		this.readFromNBT(pkt.customParam1);
+		this.readFromNBT(pkt.data);
 		this.onInventoryChanged();
 	}
 	

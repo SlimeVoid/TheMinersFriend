@@ -19,8 +19,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
-import slimevoid.lib.nbt.NBTHelper;
-import slimevoid.lib.network.PacketPayload;
+import slimevoidlib.nbt.NBTHelper;
+import slimevoidlib.network.PacketPayload;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.PacketLib;
 

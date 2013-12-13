@@ -59,13 +59,13 @@ public class BlockRefinery extends BlockMachine {
 		
 		keepInventory = true;
 		if (isBurning) {
-			world.setBlockWithNotify(x, y, z, TMFCore.refineryActive.blockID);
+			world.setBlock(x, y, z, TMFCore.refineryActive.blockID, 0, 0x1);
 		} else {
-			world.setBlockWithNotify(x, y, z, TMFCore.refineryIdle.blockID);
+			world.setBlock(x, y, z, TMFCore.refineryIdle.blockID, 0, 0x1);
 		}
 		keepInventory = false;
 		
-		world.setBlockMetadataWithNotify(x, y, z, meta);
+		world.setBlockMetadataWithNotify(x, y, z, meta, 0x1);
 		if (tile != null) {
 			tile.validate();
 			world.setBlockTileEntity(x, y, z, tile);

@@ -40,13 +40,13 @@ public class BlockGeologicalEquipment extends BlockMachine {
 		
 		keepInventory = true;
 		if (isBurning) {
-			world.setBlockWithNotify(x, y, z, TMFCore.geoEquipActive.blockID);
+			world.setBlock(x, y, z, TMFCore.geoEquipActive.blockID, 0, 0x1);
 		} else {
-			world.setBlockWithNotify(x, y, z, TMFCore.geoEquipIdle.blockID);
+			world.setBlock(x, y, z, TMFCore.geoEquipIdle.blockID, 0, 0x1);
 		}
 		keepInventory = false;
 		
-		world.setBlockMetadataWithNotify(x, y, z, meta);
+		world.setBlockMetadataWithNotify(x, y, z, meta, 0x1);
 		if (tile != null) {
 			tile.validate();
 			world.setBlockTileEntity(x, y, z, tile);

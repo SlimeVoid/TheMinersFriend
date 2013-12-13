@@ -13,9 +13,8 @@ package slimevoid.tmf.client.sounds;
 
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
-import slimevoid.lib.data.Logger;
+import slimevoidlib.data.Logger;
 import slimevoid.tmf.core.LoggerTMF;
-import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.lib.SoundLib;
 import cpw.mods.fml.common.FMLCommonHandler;
 
@@ -28,7 +27,7 @@ public class TrackerSounds {
 		for (String file : SoundLib.trackerFiles) {
             // Try to add the custom sound file to the pool of sounds
 			try {
-				event.manager.soundPoolSounds.addSound(SoundLib.trackerSounds[i], TMFCore.class.getResource("/"+file));
+				event.manager.soundPoolSounds.addSound(file);
 				i++;
 			}
             // If we cannot add the custom sound file to the pool, log the exception 

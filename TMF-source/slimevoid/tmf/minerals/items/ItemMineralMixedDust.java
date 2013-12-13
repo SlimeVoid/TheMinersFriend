@@ -14,7 +14,7 @@ package slimevoid.tmf.minerals.items;
 import java.util.HashMap;
 import java.util.Map;
 
-import slimevoid.lib.util.javascript.JSParser;
+import slimevoidlib.util.javascript.JSParser;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.fuel.MixedDustNameRegistry;
 import net.minecraft.item.ItemStack;

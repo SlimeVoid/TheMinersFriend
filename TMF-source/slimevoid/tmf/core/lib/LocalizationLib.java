@@ -15,7 +15,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class LocalizationLib {
 
-	private static final String LANGUAGE_PATH = "/TheMinersFriend/names/";
+	private static final String LANGUAGE_PATH = "/assets/tmf/locale/";
 
 	public static String[] localeFiles = {
 		LANGUAGE_PATH + "en_US.xml",

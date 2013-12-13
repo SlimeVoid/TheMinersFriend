@@ -69,11 +69,13 @@ public class KeyBindings {
 	}
 
 	public static void doKeyUp(EnumSet<TickType> types, KeyBinding kb) {
-		if (kb.equals(TOOL_BELT_KEY)) {
-			doToolBeltKeyUp(); 
-		}
-		if (kb.equals(MINING_MODE_KEY)) {
-			doMiningModeKeyUp();
+		if (FMLClientHandler.instance().getClient().currentScreen == null) {
+			if (kb.equals(TOOL_BELT_KEY)) {
+				doToolBeltKeyUp(); 
+			}
+			if (kb.equals(MINING_MODE_KEY)) {
+				doMiningModeKeyUp();
+			}
 		}
 	}
 }

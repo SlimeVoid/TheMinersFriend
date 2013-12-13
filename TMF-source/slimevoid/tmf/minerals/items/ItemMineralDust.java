@@ -44,7 +44,7 @@ public class ItemMineralDust extends ItemMineral {
 	}
 
 	@Override
-	public ItemStack onFoodEaten(ItemStack stack, World world, EntityPlayer player){
+	public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player){
 		--stack.stackSize;
 		player.getFoodStats().addStats(0,0);
 		world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);

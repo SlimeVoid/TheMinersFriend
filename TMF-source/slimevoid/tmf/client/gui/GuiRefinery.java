@@ -29,9 +29,8 @@ public class GuiRefinery extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int var2,int var3) {
-		int tex = mc.renderEngine.getTexture(ResourceLib.GUI_REFINERY);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture(tex);
+		mc.renderEngine.bindTexture(ResourceLib.GUI_REFINERY);
 		int sizeX = (width - xSize) / 2;
 		int sizeY = (height - ySize) / 2;
 		drawTexturedModalRect(sizeX, sizeY, 0, 0, xSize, ySize);

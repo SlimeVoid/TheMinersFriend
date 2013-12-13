@@ -11,16 +11,17 @@
  */
 package slimevoid.tmf.proxy;
 
+import java.io.File;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
+import net.minecraft.network.NetLoginHandler;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import slimevoid.lib.IPacketHandling;
-import slimevoid.lib.core.SlimevoidCore;
-import slimevoid.lib.util.SlimevoidHelper;
 import slimevoid.tmf.api.ITMFCommonProxy;
 import slimevoid.tmf.client.gui.GuiAutomaticMixingTable;
 import slimevoid.tmf.client.gui.GuiGeologicalEquipment;
@@ -35,7 +36,7 @@ import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.EventLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.PacketLib;
-import slimevoid.tmf.core.lib.ReferenceLib;
+import slimevoid.tmf.core.lib.CoreLib;
 import slimevoid.tmf.machines.inventory.ContainerAutomaticMixingTable;
 import slimevoid.tmf.machines.inventory.ContainerGeologicalEquipment;
 import slimevoid.tmf.machines.inventory.ContainerGrinder;
@@ -46,6 +47,9 @@ import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.machines.tileentities.TileEntityRefinery;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import slimevoid.tmf.tools.inventory.ContainerMiningToolBelt;
+import slimevoidlib.IPacketHandling;
+import slimevoidlib.core.SlimevoidCore;
+import slimevoidlib.util.helpers.SlimevoidHelper;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.TickRegistry;
@@ -181,13 +185,13 @@ public class CommonProxy implements ITMFCommonProxy {
 	}
 
 	@Override
-	public void registerConfigurationProperties() {
-		SlimevoidCore.console(ReferenceLib.MOD_ID, "Loading properties...");
-		ConfigurationLib.CommonConfig();
+	public void registerConfigurationProperties(File configFile) {
+		SlimevoidCore.console(CoreLib.MOD_ID, "Loading properties...");
+		ConfigurationLib.CommonConfig(configFile);
 	}
 
 	@Override
-	public void registerTickHandler() {
+	public void registerTickHandlers() {
 		TickRegistry.registerTickHandler(new MiningHelmetTickHandler(), Side.SERVER);
 	}
 
@@ -199,17 +203,7 @@ public class CommonProxy implements ITMFCommonProxy {
 	public String getMinecraftDir() {
 		return "./";
 	}
-
-	@Override
-	public int getBlockTextureFromSideAndMetadata(int side, int meta) {
-		return 0;
-	}
-
-	@Override
-	public int getBlockTextureFromMetadata(int meta) {
-		return 0;
-	}
-
+	
 	@Override
 	public void onPacketData(INetworkManager manager,
 			Packet250CustomPayload packet, Player player) {
@@ -226,31 +220,54 @@ public class CommonProxy implements ITMFCommonProxy {
 	}
 
 	@Override
-	public void displayTileEntityGui(EntityPlayer entityplayer,
-			TileEntity tileentity) {
-	}
-
-	@Override
-	public World getWorld() {
-		return null;
-	}
-
-	@Override
-	public World getWorld(NetHandler handler) {
-		return null;
-	}
-
-	@Override
-	public EntityPlayer getPlayer() {
-		return null;
-	}
-
-	@Override
-	public void login(NetHandler handler, INetworkManager manager,
-			Packet1Login login) {
-	}
-
-	@Override
 	public void registerTESRenderers() {
+	}
+
+	@Override
+	public void registerEventHandlers() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isClient(World world) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void playerLoggedIn(Player player, NetHandler netHandler, INetworkManager manager) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String connectionReceived(NetLoginHandler netHandler, INetworkManager manager) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void connectionOpened(NetHandler netClientHandler, String server, int port, INetworkManager manager) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void connectionOpened(NetHandler netClientHandler, MinecraftServer server, INetworkManager manager) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void connectionClosed(INetworkManager manager) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clientLoggedIn(NetHandler clientHandler, INetworkManager manager, Packet1Login login) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -11,9 +11,9 @@
  */
 package slimevoid.tmf.client.proxy;
 
+import java.io.File;
+
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.MinecraftForgeClient;
-import slimevoid.lib.core.SlimevoidCore;
 import slimevoid.tmf.client.renderers.ItemRendererToolBelt;
 import slimevoid.tmf.client.renderers.SimpleBlockRenderingHandlerGrinder;
 import slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
@@ -27,11 +27,12 @@ import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.EventLib;
 import slimevoid.tmf.core.lib.KeyBindings;
 import slimevoid.tmf.core.lib.PacketLib;
-import slimevoid.tmf.core.lib.ReferenceLib;
+import slimevoid.tmf.core.lib.CoreLib;
 import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
+import slimevoidlib.core.SlimevoidCore;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
@@ -54,40 +55,40 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public void registerConfigurationProperties() {
-		super.registerConfigurationProperties();
+	public void registerConfigurationProperties(File configFile) {
+		super.registerConfigurationProperties(configFile);
 		ConfigurationLib.ClientConfig();
 	}
 
 	@Override
 	public void registerRenderInformation() {
-		SlimevoidCore.console(ReferenceLib.MOD_ID, "Registering Renderers...");
-		MinecraftForgeClient.preloadTexture(
+		SlimevoidCore.console(CoreLib.MOD_ID, "Registering Renderers...");
+//		MinecraftForgeClient.preloadTexture(
 				ArmorLib.registerArmorTexture(
 						TMFCore.miningHelmetIron,
-						ResourceLib.IRON_MINING_HELMET)
-		);
-		MinecraftForgeClient.preloadTexture(
+						ResourceLib.IRON_MINING_HELMET);
+//		);
+//		MinecraftForgeClient.preloadTexture(
 				ArmorLib.registerArmorTexture(
 						TMFCore.miningHelmetGold,
-						ResourceLib.GOLD_MINING_HELMET)
-		);
-		MinecraftForgeClient.preloadTexture(
+						ResourceLib.GOLD_MINING_HELMET);
+//		);
+//		MinecraftForgeClient.preloadTexture(
 				ArmorLib.registerArmorTexture(
 						TMFCore.miningHelmetDiamond,
-						ResourceLib.DIAMOND_MINING_HELMET)
-		);
-		MinecraftForgeClient.preloadTexture(ResourceLib.ITEM_SPRITE_PATH);
-		MinecraftForgeClient.preloadTexture(ResourceLib.RESOURCE_SPRITE_PATH);
-		MinecraftForgeClient.preloadTexture(ResourceLib.MACHINE_TEXTURE_PATH);
+						ResourceLib.DIAMOND_MINING_HELMET);
+//		);
+//		MinecraftForgeClient.preloadTexture(ResourceLib.ITEM_SPRITE_PATH);
+//		MinecraftForgeClient.preloadTexture(ResourceLib.RESOURCE_SPRITE_PATH);
+//		MinecraftForgeClient.preloadTexture(ResourceLib.MACHINE_TEXTURE_PATH);
 		
 		ItemRendererToolBelt.init();
 	}
 	
 	@Override
-	public void registerTickHandler() {
-		super.registerTickHandler();
-		SlimevoidCore.console(ReferenceLib.MOD_ID, "Registering Client tick handlers...");
+	public void registerTickHandlers() {
+		super.registerTickHandlers();
+		SlimevoidCore.console(CoreLib.MOD_ID, "Registering Client tick handlers...");
 		
 		MotionSensorTickHandler motionSensor = new MotionSensorTickHandler(
 				ConfigurationLib.motionSensorMaxEntityDistance, 
@@ -104,7 +105,7 @@ public class ClientProxy extends CommonProxy {
 	
 	@Override
 	public String getMinecraftDir() {
-		return Minecraft.getMinecraftDir().toString();
+		return Minecraft.getMinecraft().mcDataDir.getPath();
 	}
 	
 	@Override

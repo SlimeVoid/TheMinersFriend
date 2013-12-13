@@ -11,9 +11,10 @@
  */
 package slimevoid.tmf.core.lib;
 
-public class ReferenceLib {
+public class CoreLib {
 
-	public static final String MOD_ID = 			"TheMinersFriend";
+	public static final String MOD_ID = 			"theminersfriend";
+	public static final String MOD_RESOURCES = 		"tmf";
 	public static final String MOD_NAME = 			"The Miner's Friend";
 	public static final String MOD_VERSION = 		"1.0.0.0";
 	public static final String MOD_DEPENDENCIES = 	"after:SlimevoidLib";

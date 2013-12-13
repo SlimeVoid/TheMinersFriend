@@ -12,7 +12,7 @@
 package slimevoid.tmf.network.packets;
 
 import net.minecraft.entity.Entity;
-import slimevoid.lib.network.PacketPayload;
+import slimevoidlib.network.PacketPayload;
 import slimevoid.tmf.api.IMotionSensor;
 import slimevoid.tmf.core.lib.PacketLib;
 

@@ -27,16 +27,12 @@ public class BlockTMFOre extends BlockOre {
 			int spawnRate,
 			int spawnSize,
 			float lightLevel) {
-		super(id, blockIndexInTexture);
+		super(id);
 		this.spawnLevel = spawnLevel;
 		this.spawnRate = spawnRate;
 		this.spawnSize = spawnSize;
 		this.lightLevel = lightLevel;
 		this.setLightValue(lightLevel);
 		BlockLib.registerTMFOre(this);
-	}
-
-	public String getTextureFile() {
-		return ResourceLib.RESOURCE_SPRITE_PATH;
 	}
 }

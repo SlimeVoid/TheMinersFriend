@@ -20,7 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.world.World;
-import slimevoid.lib.data.Logger;
+import slimevoidlib.data.Logger;
 import slimevoid.tmf.api.IPacketExecutor;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.network.packets.PacketMining;

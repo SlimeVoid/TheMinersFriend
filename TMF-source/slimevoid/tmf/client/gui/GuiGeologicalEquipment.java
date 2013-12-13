@@ -40,9 +40,8 @@ public class GuiGeologicalEquipment extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int var2,int var3) {
-		int tex = mc.renderEngine.getTexture(ResourceLib.GUI_GEOEQUIP);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture(tex);
+		mc.renderEngine.bindTexture(ResourceLib.GUI_GEOEQUIP);
 		int sizeX = (width - xSize) / 2;
 		int sizeY = (height - ySize) / 2;
 		drawTexturedModalRect(sizeX, sizeY, 0, 0, xSize, ySize);
@@ -211,6 +210,16 @@ public class GuiGeologicalEquipment extends GuiContainer {
 				public void openChest() {}
 				@Override
 				public void closeChest() {}
+
+				@Override
+				public boolean isInvNameLocalized() {
+					return false;
+				}
+
+				@Override
+				public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+					return false;
+				}
 			};
 			Slot slot = new Slot(inv,block.blockID,x,y);
 			this.drawSlotInventory(slot);

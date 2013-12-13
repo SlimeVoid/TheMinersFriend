@@ -13,21 +13,20 @@ package slimevoid.tmf.client.renderers.models;
 
 import java.io.File;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.model.ModelBase;
+
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.client.FMLClientHandler;
-
-import slimevoid.lib.render.ModelSlimevoidObject;
-import slimevoid.lib.render.WavefrontOBJModelLoader;
-import slimevoid.lib.render.WavefrontOBJModelLoader.FaceMissingTextureException;
 import slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
 import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.lib.ModelLib;
 import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.machines.blocks.BlockMachine;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
-import net.minecraft.block.Block;
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.PositionTextureVertex;
+import slimevoidlib.render.ModelSlimevoidObject;
+import slimevoidlib.render.WavefrontOBJModelLoader;
+import slimevoidlib.render.WavefrontOBJModelLoader.FaceMissingTextureException;
 
 public class ModelGrinder extends ModelBase {
 	public ModelSlimevoidObject staticModel;
@@ -109,7 +108,7 @@ public class ModelGrinder extends ModelBase {
 	}
 	
 	public void renderAll(TileEntitySpecialRendererGrinder renderer, boolean dir) {
-		renderer.bindTexture(ResourceLib.MACHINE_PREFIX+"grinderStatic.png");
+		renderer.bindResource(ModelLib.GRINDER_STATIC);
 		staticModel.render(0.0625F);
 
 		GL11.glPushMatrix();
@@ -119,9 +118,9 @@ public class ModelGrinder extends ModelBase {
 			else 		GL11.glRotatef((-System.currentTimeMillis()/rotationSpeedDivider)%360, 1, 0, 0);
 			GL11.glTranslatef(0, -0.5f, -0.5f);
 		}
-		renderer.bindTexture(ResourceLib.MACHINE_PREFIX+"grinderRoller.png");
+		renderer.bindResource(ModelLib.GRINDER_ROLLERS);
 		rollerModel.render(0.0625F);
-		renderer.bindTexture(ResourceLib.MACHINE_PREFIX+"grinderGears.png");
+		renderer.bindResource(ModelLib.GRINDER_GEARS);
 		gearsModel.render(0.0625F);
 		GL11.glPopMatrix();
 		
@@ -132,7 +131,7 @@ public class ModelGrinder extends ModelBase {
 			else 		GL11.glRotatef((System.currentTimeMillis()/rotationSpeedDivider)%360, 1, 0, 0);
 			GL11.glTranslatef(0, -0.21875f, -0.5f);
 		}
-		renderer.bindTexture(ResourceLib.MACHINE_PREFIX+"grinderAxles.png");
+		renderer.bindResource(ModelLib.GRINDER_AXELS);
 		axlesModel.render(0.0625F);
 		GL11.glPopMatrix();
 	}

@@ -25,12 +25,14 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
 import slimevoid.tmf.client.tickhandlers.rules.IMotionSensorRule;
 import slimevoid.tmf.core.lib.CommandLib;
+import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.network.packets.PacketMotionSensor;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.ITickHandler;
@@ -297,10 +299,9 @@ public class MotionSensorTickHandler implements ITickHandler {
 				motionTickProg
 		);
 	}
-	private void renderSprite(int x, int y, int u, int v, int width, int height, String texture, float alpha) {
-		int tex = mc.renderEngine.getTexture(texture);
+	private void renderSprite(int x, int y, int u, int v, int width, int height, ResourceLocation texture, float alpha) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, alpha);
-		mc.renderEngine.bindTexture(tex);
+		mc.renderEngine.bindTexture(texture);
 		float scalex = 0.00390625F*2;
 		float scaley = 0.00390625F*2;
 		Tessellator var9 = Tessellator.instance;
@@ -354,7 +355,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 						0,
 						128,
 						128,
-						"/TheMinersFriend/tracker/trackerBG.png",
+						ResourceLib.TRACKER_BG,
 						1
 				);
 				GL11.glEnable(GL11.GL_LIGHTING);
@@ -443,7 +444,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 						0,
 						128,
 						128,
-						"/TheMinersFriend/tracker/contact.png",
+						ResourceLib.TRACKER_CONTACT,
 						(float) (0.4d+Math.log(3.2d-deltaTick*3d)*0.6d)
 				);
 				GL11.glEnable(GL11.GL_LIGHTING);
@@ -488,7 +489,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 						0,
 						128,
 						128,
-						"/TheMinersFriend/tracker/trackerSweep.png",
+						ResourceLib.TRACKER_SWEEP,
 						(float) (1d-deltaTick/2d)
 				);
 				GL11.glEnable(GL11.GL_LIGHTING);

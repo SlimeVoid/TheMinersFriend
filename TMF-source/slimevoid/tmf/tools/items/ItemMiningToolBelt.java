@@ -13,6 +13,7 @@ package slimevoid.tmf.tools.items;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,7 +22,6 @@ import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import slimevoid.lib.data.Logger;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
@@ -31,6 +31,7 @@ import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.ResourceLib;
+import slimevoidlib.data.Logger;
 
 public class ItemMiningToolBelt extends Item {
 
@@ -81,7 +82,7 @@ public class ItemMiningToolBelt extends Item {
     }
     
     @Override
-    public ItemStack onFoodEaten(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+    public ItemStack onEaten(ItemStack itemstack, World world, EntityPlayer entityplayer) {
 		if (entityplayer.isSneaking()) {
 			doFoodEaten(itemstack, world, entityplayer);
 		}
@@ -120,12 +121,12 @@ public class ItemMiningToolBelt extends Item {
 		// Retrieves the Selected Tool within the held Tool Belt
 		ItemStack tool = ItemHelper.getSelectedTool(entityplayer, entityplayer.worldObj, itemstack);
 		if (tool != null) {
-			tool.getItem().onFoodEaten(tool, world, entityplayer);
+			tool.getItem().onEaten(tool, world, entityplayer);
 		}
 	}
 
 	@Override
-	public boolean onBlockDestroyed(ItemStack itemstack, World world, int x, int y, int z, int side, EntityLiving entityliving) {
+	public boolean onBlockDestroyed(ItemStack itemstack, World world, int x, int y, int z, int side, EntityLivingBase entityliving) {
 		return doDestroyBlock(itemstack, world, x, y, z, side, entityliving, super.onBlockDestroyed(itemstack, world, x, y, z, side, entityliving));
 	}
 	
@@ -171,7 +172,7 @@ public class ItemMiningToolBelt extends Item {
 			int y,
 			int z,
 			int side,
-			EntityLiving entityliving,
+			EntityLivingBase entityliving,
 			boolean onBlockDestroyed) {
 		// Retrieves the Selected Tool within the held Tool Belt
 		ItemStack tool = ItemHelper.getSelectedTool(entityliving, world, itemstack);
@@ -188,7 +189,7 @@ public class ItemMiningToolBelt extends Item {
 			EntityPlayer entityplayer) {
 		// Retrieves a unique data ID from the world and sets the ItemStack to that ID
 		// This Unique ID is used to store world data for a Tool Belt
-		itemstack.setItemDamage(world.getUniqueDataId(this.getItemName()));
+		itemstack.setItemDamage(world.getUniqueDataId(this.getUnlocalizedName()));
 		// Attempt to get existing data (this should theoretically not exist
 		if (MiningToolBelt.getToolBeltDataFromItemStack(entityplayer, world, itemstack) == null) {
 			// If we end with no data then Log an error
@@ -199,11 +200,6 @@ public class ItemMiningToolBelt extends Item {
 							Logger.LogLevel.DEBUG
 					);
 		}
-	}
-	
-	@Override
-	public String getTextureFile() {
-		return ResourceLib.ITEM_SPRITE_PATH;
 	}
 
 	/**
@@ -278,7 +274,7 @@ public class ItemMiningToolBelt extends Item {
 					event.entityPlayer.getHeldItem()
 			);
 			if (tool != null) {
-				return tool.interactWith((EntityLiving) event.target);
+				return tool.func_111282_a(event.entityPlayer, (EntityLivingBase) event.target);//.interactWith(event.target);
 			}
 		}
 		return false;

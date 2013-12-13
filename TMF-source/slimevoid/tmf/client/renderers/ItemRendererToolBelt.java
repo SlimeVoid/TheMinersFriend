@@ -11,24 +11,22 @@
  */
 package slimevoid.tmf.client.renderers;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.client.FMLClientHandler;
-
-import slimevoid.tmf.core.TMFCore;
-import slimevoid.tmf.core.helpers.ItemHelper;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.storage.MapData;
+import net.minecraft.util.Icon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+
+import org.lwjgl.opengl.GL11;
+
+import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.helpers.ItemHelper;
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class ItemRendererToolBelt implements IItemRenderer {
 
@@ -85,22 +83,19 @@ public class ItemRendererToolBelt implements IItemRenderer {
 		if (tool != null) {
 			itemstack = tool;
 		}
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine
-				.getTexture(itemstack.getItem().getTextureFile()));
 
 		Tessellator tessellator = Tessellator.instance;
-		int icon = entityliving.getItemIcon(itemstack, index);
-		float v1 = ((float) (icon % 16 * 16) + 0.0F) / 256.0F;
-		float v2 = ((float) (icon % 16 * 16) + 15.99F) / 256.0F;
-		float v3 = ((float) (icon / 16 * 16) + 0.0F) / 256.0F;
-		float v4 = ((float) (icon / 16 * 16) + 15.99F) / 256.0F;
-		ItemRenderer.renderItemIn2D(tessellator, v2, v3, v1, v4, 0.0625F);
+		Icon icon = entityliving.getItemIcon(itemstack, index);
+		float v1 = icon.getMinU();//((float) (icon % 16 * 16) + 0.0F) / 256.0F;
+		float v2 = icon.getMaxU();//((float) (icon % 16 * 16) + 15.99F) / 256.0F;
+		float v3 = icon.getMinV();//((float) (icon / 16 * 16) + 0.0F) / 256.0F;
+		float v4 = icon.getMaxV();//((float) (icon / 16 * 16) + 15.99F) / 256.0F;
+		ItemRenderer.renderItemIn2D(tessellator, v2, v3, v1, v4, icon.getIconHeight(), icon.getIconWidth(), 0.0625F);
 
 		if (itemstack != null && itemstack.hasEffect() && index == 0) {
 			GL11.glDepthFunc(GL11.GL_EQUAL);
 			GL11.glDisable(GL11.GL_LIGHTING);
-			this.mc.renderEngine.bindTexture(this.mc.renderEngine
-					.getTexture("%blur%/misc/glint.png"));
+			this.mc.renderEngine.bindTexture(new ResourceLocation("%blur%/misc/glint.png"));
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
 			float colourMultiplier = 0.76F;
@@ -112,7 +107,7 @@ public class ItemRendererToolBelt implements IItemRenderer {
 			float tTime = (float) (Minecraft.getSystemTime() % 3000L) / 3000.0F * 8.0F;
 			GL11.glTranslatef(tTime, 0.0F, 0.0F);
 			GL11.glRotatef(-50.0F, 0.0F, 0.0F, 1.0F);
-			ItemRenderer.renderItemIn2D(tessellator, 0.0F, 0.0F, 1.0F, 1.0F,
+			ItemRenderer.renderItemIn2D(tessellator, 0.0F, 0.0F, 1.0F, 1.0F, 1, 1,
 					0.0625F);
 			GL11.glPopMatrix();
 			GL11.glPushMatrix();
@@ -120,7 +115,7 @@ public class ItemRendererToolBelt implements IItemRenderer {
 			tTime = (float) (Minecraft.getSystemTime() % 4873L) / 4873.0F * 8.0F;
 			GL11.glTranslatef(-tTime, 0.0F, 0.0F);
 			GL11.glRotatef(10.0F, 0.0F, 0.0F, 1.0F);
-			ItemRenderer.renderItemIn2D(tessellator, 0.0F, 0.0F, 1.0F, 1.0F,
+			ItemRenderer.renderItemIn2D(tessellator, 0.0F, 0.0F, 1.0F, 1.0F, 1, 1,
 					0.0625F);
 			GL11.glPopMatrix();
 			GL11.glMatrixMode(GL11.GL_MODELVIEW);

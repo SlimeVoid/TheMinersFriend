@@ -13,7 +13,6 @@ package slimevoid.tmf.minerals.items;
 
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.ConfigurationLib;
-import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -32,11 +31,6 @@ public class ItemMineral extends Item implements IFuelHandlerTMF {
 	@Override
 	public boolean isFull3D() {
 		return true;
-	}
-	
-	@Override
-	public String getTextureFile() {
-		return ResourceLib.RESOURCE_SPRITE_PATH;
 	}
 	
 	public Item setBurnSettings(int time, int speed, int width) {

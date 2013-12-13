@@ -11,9 +11,11 @@
  */
 package slimevoid.tmf.core.lib;
 
+import java.io.File;
+
 import net.minecraftforge.common.Configuration;
-import slimevoid.lib.data.Logger;
-import slimevoid.lib.util.xml.XMLLoader;
+import slimevoidlib.data.Logger;
+import slimevoidlib.util.xml.XMLLoader;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.core.TMFCore;
 import cpw.mods.fml.relauncher.Side;
@@ -38,7 +40,9 @@ public class ConfigurationLib {
 		TMFCore.configuration.save();
 	}
 	
-	public static void CommonConfig() {
+	public static void CommonConfig(File configFile) {
+		TMFCore.configuration = new Configuration(configFile);
+		
 		TMFCore.configuration.load();
 		
 		loadLogger();
@@ -57,7 +61,7 @@ public class ConfigurationLib {
 		motionSensorDrawRight = Boolean.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_GENERAL,
 				"motionSensorDrawRight",
-				motionSensorDrawRight).value);
+				motionSensorDrawRight).getBoolean(motionSensorDrawRight));
 		
 		motionSensorMaxEntityDistance = 20;
 		motionSensorMaxGameTicks = 40;
@@ -67,7 +71,7 @@ public class ConfigurationLib {
 		TMFCore.motionSensorId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_ITEM,
 				"motionSensor",
-				15003).value);
+				15003).getInt());
 		
 		XMLLoader.addXmlVariable("$motionSensor", TMFCore.motionSensorId);
 	}
@@ -75,19 +79,19 @@ public class ConfigurationLib {
 		TMFCore.miningHelmetIronId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_ITEM,
 				"ironMinersHelmet",
-				15000).value);
+				15000).getInt());
 		TMFCore.miningHelmetGoldId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_ITEM,
 				"goldMinersHelmet",
-				15001).value);
+				15001).getInt());
 		TMFCore.miningHelmetDiamondId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_ITEM,
 				"diamondMinersHelmet",
-				15002).value);
+				15002).getInt());
 		TMFCore.miningHelmetLampId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_ITEM,
 				"helmetLamp",
-				15004).value);
+				15004).getInt());
 		
 		XMLLoader.addXmlVariable("$ironMinersHelmet",		TMFCore.miningHelmetIronId);
 		XMLLoader.addXmlVariable("$goldMinersHelmet",		TMFCore.miningHelmetGoldId);
@@ -98,7 +102,7 @@ public class ConfigurationLib {
 		TMFCore.miningToolBeltId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_ITEM,
 				"toolBelt",
-				15005).value);
+				15005).getInt());
 		
 		XMLLoader.addXmlVariable("$toolBelt", TMFCore.miningToolBeltId);
 	}
@@ -106,15 +110,15 @@ public class ConfigurationLib {
 		TMFCore.mineralAcxiumId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_ITEM,
 				"mineralAcxium",
-				15010).value);
+				15010).getInt());
 		TMFCore.mineralBisogenId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_ITEM,
 				"mineralBisogen",
-				15011).value);
+				15011).getInt());
 		TMFCore.mineralCydrineId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_ITEM,
 				"mineralCydrine",
-				15012).value);
+				15012).getInt());
 		
 		XMLLoader.addXmlVariable("$mineralAcxium", 		TMFCore.mineralAcxiumId);
 		XMLLoader.addXmlVariable("$mineralBisogen", 	TMFCore.mineralBisogenId);
@@ -124,19 +128,19 @@ public class ConfigurationLib {
 		TMFCore.dustAcxiumId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_ITEM,
 				"dustAcxium",
-				15020).value);
+				15020).getInt());
 		TMFCore.dustBisogenId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_ITEM,
 				"dustBisogen",
-				15021).value);
+				15021).getInt());
 		TMFCore.dustCydrineId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_ITEM,
 				"dustCydrine",
-				15022).value);
+				15022).getInt());
 		TMFCore.dustMixedId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_ITEM,
 				"dustMixed",
-				15023).value);
+				15023).getInt());
 		
 		XMLLoader.addXmlVariable("$dustAcxium", 	TMFCore.dustAcxiumId);
 		XMLLoader.addXmlVariable("$dustBisogen", 	TMFCore.dustBisogenId);
@@ -147,23 +151,23 @@ public class ConfigurationLib {
 		TMFCore.arkiteOreId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,
 				"arkiteOre",
-				1025).value);
+				1025).getInt());
 		TMFCore.bistiteOreId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,
 				"bistiteOre",
-				1026).value);
+				1026).getInt());
 		TMFCore.crokereOreId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,
 				"crokereOre",
-				1027).value);
+				1027).getInt());
 		TMFCore.derniteOreId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,
 				"derniteOre",
-				1028).value);
+				1028).getInt());
 		TMFCore.egioclaseOreId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,
 				"egioclaseOre",
-				1029).value);
+				1029).getInt());
 		
 		XMLLoader.addXmlVariable("$arkiteOre", 		TMFCore.arkiteOreId);
 		XMLLoader.addXmlVariable("$bistiteOre", 	TMFCore.bistiteOreId);
@@ -175,40 +179,40 @@ public class ConfigurationLib {
 		TMFCore.refineryIdleId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,
 				"refineryIdle",
-				1100).value);
+				1100).getInt());
 		TMFCore.refineryActiveId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,
 				"refineryActive",
-				1101).value);
+				1101).getInt());
 		XMLLoader.addXmlVariable("$refineryIdle", 		TMFCore.refineryIdleId);
 		XMLLoader.addXmlVariable("$refineryActive", 	TMFCore.refineryActiveId);
 		
 		TMFCore.grinderIdleId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,
 				"grinderIdle",
-				1102).value);
+				1102).getInt());
 		TMFCore.grinderActiveId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,
 				"grinderActive",
-				1103).value);
+				1103).getInt());
 		XMLLoader.addXmlVariable("$grinderIdle", 		TMFCore.grinderIdleId);
 		XMLLoader.addXmlVariable("$grinderActive", 		TMFCore.grinderActiveId);
 		
 		TMFCore.geoEquipIdleId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,
 				"geoEquipIdle",
-				1104).value);
+				1104).getInt());
 		TMFCore.geoEquipActiveId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,
 				"geoEquipActive",
-				1105).value);
+				1105).getInt());
 		XMLLoader.addXmlVariable("$geoEquipIdle", 		TMFCore.geoEquipIdleId);
 		XMLLoader.addXmlVariable("$geoEquipActive", 	TMFCore.geoEquipActiveId);
 		
 		TMFCore.autoMixTableId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,
 				"autoMixTable",
-				1110).value);
+				1110).getInt());
 		XMLLoader.addXmlVariable("$autoMixTable", 		TMFCore.autoMixTableId);
 		
 	}
@@ -216,7 +220,7 @@ public class ConfigurationLib {
 		TMFCore.loggerLevel = String.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_GENERAL,
 				"loggerLevel",
-				TMFCore.loggerLevel).value);
+				TMFCore.loggerLevel).getString());
 		
 		LoggerTMF.getInstance(
 				Logger.filterClassName(

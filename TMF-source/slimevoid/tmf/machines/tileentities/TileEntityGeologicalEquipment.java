@@ -189,7 +189,7 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 
 	@Override
 	public String getInvName() {
-		return BlockLib.CONTAINER_GEOEQUIPMENT;
+		return BlockLib.BLOCK_GEOEQUIPMENT;
 	}
 
 	@Override
@@ -261,15 +261,32 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 		super.writeToNBT(ntbCompound);
 		
 	}
-	
+
 	@Override
-	public int getStartInventorySide(ForgeDirection side) {
-		return 0;
+	public boolean isInvNameLocalized() {
+		return false;
 	}
 
 	@Override
-	public int getSizeInventorySide(ForgeDirection side) {
-		return 1;
+	public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+		return true;
+	}
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		//if (ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) return new int[] { 1 };
+		//if (ForgeDirection.getOrientation(side) == ForgeDirection.UP) return new int[] { 0 };
+		return new int[] { 0 };
+	}
+
+	@Override
+	public boolean canInsertItem(int slot, ItemStack itemstack, int side) {
+		return true;
+	}
+
+	@Override
+	public boolean canExtractItem(int slot, ItemStack itemstack, int side) {
+		return true;
 	}
 
 	@Override

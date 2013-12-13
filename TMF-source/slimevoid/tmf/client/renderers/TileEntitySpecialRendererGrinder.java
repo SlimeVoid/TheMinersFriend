@@ -11,21 +11,22 @@
  */
 package slimevoid.tmf.client.renderers;
 
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import slimevoid.tmf.client.renderers.models.ModelGrinder;
-import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
-
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
 
 public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer {	
 	
-	public void bindTexture(String tex) {
-		this.bindTextureByName(tex);
+	public void bindResource(ResourceLocation resourceLocation) {
+		this.bindTexture(resourceLocation);
 	}
+	
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTickTime) {
 		ModelGrinder grinder = new ModelGrinder((TileEntityGrinder) tile);

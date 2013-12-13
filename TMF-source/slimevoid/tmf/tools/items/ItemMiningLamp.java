@@ -22,10 +22,5 @@ public class ItemMiningLamp extends Item {
 		super(itemID - ConfigurationLib.ITEMID_OFFSET);
 		this.setCreativeTab(CreativeTabTMF.tabTMF);
 	}
-	
-	@Override
-	public String getTextureFile() {
-		return ResourceLib.ITEM_SPRITE_PATH;
-	}
 
 }

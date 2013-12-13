@@ -14,7 +14,7 @@ package slimevoid.tmf.core.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -135,7 +135,7 @@ public class ItemHelper {
 		return (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMiningToolBelt);
 	}
 
-	public static ItemStack getSelectedTool(EntityLiving entityliving,
+	public static ItemStack getSelectedTool(EntityLivingBase entityliving,
 			World worldObj, ItemStack itemstack) {
 		// Check that the current itemstack is a Tool Belt
 		if (isToolBelt(itemstack)) {

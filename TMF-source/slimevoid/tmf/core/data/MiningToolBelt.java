@@ -12,6 +12,7 @@
 package slimevoid.tmf.core.data;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -271,7 +272,7 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	 * @param itemstack the (usually held) Tool Belt ItemStack
 	 * @return the Tool Belt data
 	 */
-	public static MiningToolBelt getToolBeltDataFromItemStack(EntityLiving entityliving, World world, ItemStack heldItem) {
+	public static MiningToolBelt getToolBeltDataFromItemStack(EntityLivingBase entityliving, World world, ItemStack heldItem) {
 		MiningToolBelt data = (MiningToolBelt)world.loadItemData(MiningToolBelt.class, getWorldIndexFromItemStack(heldItem));// Check if the data is null
 		if (data == null) {
 			// Retrieve a new data set for the current Tool Belt
@@ -298,7 +299,7 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	 * @param toolBeltId the Tool Belt ID
 	 * @return Tool Belt data
 	 */
-	public static MiningToolBelt getToolBeltDataFromId(EntityLiving entityliving, World world, int toolBeltId) {
+	public static MiningToolBelt getToolBeltDataFromId(EntityLivingBase entityliving, World world, int toolBeltId) {
 		MiningToolBelt data = (MiningToolBelt)world.loadItemData(MiningToolBelt.class, getWorldIndexFromId(toolBeltId));
 		return data;
 	}
@@ -332,7 +333,7 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	 * @return the new instance
 	 */
 	public static MiningToolBelt getNewToolBeltData(
-			EntityLiving entityliving, World world, ItemStack itemstack) {
+			EntityLivingBase entityliving, World world, ItemStack itemstack) {
 		// Creates a new instance of MiningToolBelt
 		return new MiningToolBelt(getWorldIndexFromItemStack(itemstack));
 	}
@@ -361,4 +362,14 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	public void toggleMiningMode(EntityPlayer entityplayer) {
 		MiningMode.toggleMiningModeForPlayer(entityplayer);
 	}
+
+    @Override
+    public boolean isInvNameLocalized() {
+        return false;
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+        return true;
+    }
 }

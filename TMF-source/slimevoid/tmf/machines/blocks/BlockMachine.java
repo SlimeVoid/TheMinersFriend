@@ -13,18 +13,19 @@ package slimevoid.tmf.machines.blocks;
 
 import java.util.Random;
 
-import slimevoid.tmf.core.lib.ResourceLib;
-import slimevoid.tmf.machines.tileentities.TileEntityMachine;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import slimevoid.tmf.core.lib.ResourceLib;
+import slimevoid.tmf.machines.tileentities.TileEntityMachine;
 
 public abstract class BlockMachine extends BlockContainer {
 	private Random rand = new Random();
@@ -33,12 +34,8 @@ public abstract class BlockMachine extends BlockContainer {
 	
 	public BlockMachine(int id, int texX, int texY, boolean isActive) {
 		super(id, Material.rock);
-        this.blockIndexInTexture = texX+(texY*16);
+        //this.blockIndexInTexture = texX+(texY*16);
         this.isActive = isActive;
-	}
-	
-	public String getTextureFile() {
-		return ResourceLib.MACHINE_TEXTURE_PATH;
 	}
 	
 	public abstract void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z);
@@ -74,28 +71,28 @@ public abstract class BlockMachine extends BlockContainer {
 				dir = 4;
 			}
 			
-			world.setBlockMetadataWithNotify(x, y, z, dir);
+			world.setBlockMetadataWithNotify(x, y, z, dir, 0x1);
 		}
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving placer) {
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase placer, ItemStack itemstack) {
 		int var6 = MathHelper.floor_double((placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		
 		if (var6 == 0) {
-			world.setBlockMetadataWithNotify(x, y, z, 2);
+			world.setBlockMetadataWithNotify(x, y, z, 2, 0x1);
 		}
 		
 		if (var6 == 1) {
-			world.setBlockMetadataWithNotify(x, y, z, 5);
+			world.setBlockMetadataWithNotify(x, y, z, 5, 0x1);
 		}
 		
 		if (var6 == 2) {
-			world.setBlockMetadataWithNotify(x, y, z, 3);
+			world.setBlockMetadataWithNotify(x, y, z, 3, 0x1);
 		}
 		
 		if (var6 == 3) {
-			world.setBlockMetadataWithNotify(x, y, z, 4);
+			world.setBlockMetadataWithNotify(x, y, z, 4, 0x1);
 		}
 	}
 
@@ -152,13 +149,13 @@ public abstract class BlockMachine extends BlockContainer {
 	}
 	
 	@Override 
-	public int getBlockTexture(IBlockAccess blockAccess, int x, int y, int z, int side) {
+	public Icon getBlockTexture(IBlockAccess blockAccess, int x, int y, int z, int side) {
 		if ( side == 1 || side == 0 ) {
 			// Top/bottom
 			if ( isActive ) {
-				return blockIndexInTexture+4;
+				//return blockIndexInTexture+4;
 			} else {
-				return blockIndexInTexture+5;
+				//return blockIndexInTexture+5;
 			}
 		} else {
 			int meta = 4;
@@ -167,18 +164,19 @@ public abstract class BlockMachine extends BlockContainer {
 			if ( side == meta ) {
 				// Front
 				if ( isActive ) {
-					return blockIndexInTexture;
+					//return blockIndexInTexture;
 				} else {
-					return blockIndexInTexture+1;
+					//return blockIndexInTexture+1;
 				}
 			} else {
 				// Sides
 				if ( isActive ) {
-					return blockIndexInTexture+2;
+					//return blockIndexInTexture+2;
 				} else {
-					return blockIndexInTexture+3;
+					//return blockIndexInTexture+3;
 				}
 			}
 		}
+		return this.blockIcon;
 	}
 }
