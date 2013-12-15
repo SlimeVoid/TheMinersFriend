@@ -13,24 +13,23 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public enum EnumMachine {
 	
-	REFINERY(0, BlockLib.BLOCK_REFINERY, TileEntityRefinery.class, true),
-	GRINDER(1, BlockLib.BLOCK_GRINDER, TileEntityGrinder.class, new BlockGrinderRenderer(), true),
-	GEOEQUIP(2, BlockLib.BLOCK_GEOEQUIPMENT, TileEntityGeologicalEquipment.class, true),
-	AUTOMIXTABLE(3, BlockLib.BLOCK_AUTOMIXTABLE, TileEntityAutomaticMixingTable.class, false);
+	REFINERY(BlockLib.BLOCK_REFINERY, TileEntityRefinery.class, true),
+	GRINDER(BlockLib.BLOCK_GRINDER, TileEntityGrinder.class, new BlockGrinderRenderer(), true),
+	GEOEQUIP(BlockLib.BLOCK_GEOEQUIPMENT, TileEntityGeologicalEquipment.class, true),
+	AUTOMIXTABLE(BlockLib.BLOCK_AUTOMIXTABLE, TileEntityAutomaticMixingTable.class, false);
 	
-	int machineId;
-	String machineName;
-	boolean hasState;
-	ISimpleBlockRenderingHandler renderHandler;
-	Class <? extends TileEntityBase> _class;
-	Icon[] iconList;
+	private int machineId = this.ordinal();
+	private String machineName;
+	private boolean hasState;
+	private ISimpleBlockRenderingHandler renderHandler;
+	private Class <? extends TileEntityBase> _class;
+	private Icon[] iconList;
 	
-	EnumMachine(int tileId, String name, Class <? extends TileEntityBase> tileClass, boolean hasState) {
-		this(tileId, name, tileClass, null, hasState);
+	EnumMachine(String name, Class <? extends TileEntityBase> tileClass, boolean hasState) {
+		this(name, tileClass, null, hasState);
 	}
 	
-	EnumMachine(int tileId, String name, Class <? extends TileEntityBase> tileClass, ISimpleBlockRenderingHandler renderHandler, boolean hasState) {
-		this.machineId = tileId;
+	EnumMachine(String name, Class <? extends TileEntityBase> tileClass, ISimpleBlockRenderingHandler renderHandler, boolean hasState) {
 		this.machineName = name;
 		this._class = tileClass;
 		this.renderHandler = renderHandler;
