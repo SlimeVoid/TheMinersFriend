@@ -17,12 +17,18 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import slimevoid.tmf.machines.RefineryRecipes;
 import slimevoid.tmf.machines.tileentities.TileEntityAutomaticMixingTable;
+import slimevoid.tmf.machines.tileentities.TileEntityMachine;
 
-public class ContainerAutomaticMixingTable extends ContainerTMFMachine {
+public class ContainerAutomaticMixingTable extends ContainerMachine {
 	
 	public ContainerAutomaticMixingTable(InventoryPlayer playerInventory, TileEntityAutomaticMixingTable autoMixTable) {
-		this.inventory = autoMixTable;
-
+		super(playerInventory, autoMixTable, autoMixTable.worldObj, 0, 84);
+	}
+	
+	@Override
+	protected void bindLocalInventory() {
+		TileEntityMachine autoMixTable = this.getMachineData();
+		
         // Min level > 2 => only mixed dust.
         this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 0, 2, 10, 44, 32, true)); // blueprint
         this.addSlotToContainer(new SlotMachineOutput(autoMixTable, 1, 116, 32)); // output
@@ -37,8 +43,6 @@ public class ContainerAutomaticMixingTable extends ContainerTMFMachine {
         this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 8, 1, 1, 62, 104, true));
         this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 9, 1, 1, 80, 104, true));
         this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 10, 1, 1, 98, 104, true));
-     
-        this.bindPlayerInventory(playerInventory, 56);
 	}
 
 	@Override
@@ -60,16 +64,16 @@ public class ContainerAutomaticMixingTable extends ContainerTMFMachine {
 				//places it into the inventory is possible since its in the player inventory
 			} else if (slot != 1 && slot != 0) {
 				ItemStack[] results = RefineryRecipes.refining().getRefiningResults(stackInSlot.itemID);
-				if ( results != null && results.length > 0 ) {
-					if ( !this.mergeItemStack(stackInSlot, 0, 1, false) ) {
+				if (results != null && results.length > 0) {
+					if (!this.mergeItemStack(stackInSlot, 0, 1, false)) {
 						return null;
 					}
-				} else if ( inventory.isItemFuel(stackInSlot) ) {
-					if ( !this.mergeItemStack(stackInSlot, 1, 2, false) ) {
+				} else if ( this.getMachineData().isItemFuel(stackInSlot) ) {
+					if (!this.mergeItemStack(stackInSlot, 1, 2, false)) {
 						return null;
 					}
 				} else if (slot >= 11 && slot < 32) {
-					if ( !this.mergeItemStack(stackInSlot, 32, 41, false) ) {
+					if (!this.mergeItemStack(stackInSlot, 32, 41, false)) {
 						return null;
 					}
 				} else if (slot >= 32 && slot < 41 && !this.mergeItemStack(stackInSlot, 5, 32, false)) {
@@ -93,5 +97,10 @@ public class ContainerAutomaticMixingTable extends ContainerTMFMachine {
 		}
 
 		return stack;
+	}
+	
+	@Override
+	protected boolean hasProgressBar() {
+		return false;
 	}
 }
