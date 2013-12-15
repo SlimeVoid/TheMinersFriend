@@ -57,6 +57,10 @@ public enum EnumMachine {
 	public ISimpleBlockRenderingHandler getRenderHandler() {
 		return this.renderHandler;
 	}
+	
+	public boolean hasState() {
+		return this.hasState;
+	}
 
 	public Icon getIcon(int side) {
 		if (side >= 0 && side < this.iconList.length) {

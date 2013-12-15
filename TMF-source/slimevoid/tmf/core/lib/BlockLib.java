@@ -48,20 +48,6 @@ public class BlockLib {
 	public static final String ORE_CROKERE = 			ORE_PREFIX + 			"crokere";
 	public static final String ORE_DERNITE = 			ORE_PREFIX + 			"dernite";
 	public static final String ORE_EGIOCLASE = 			ORE_PREFIX + 			"egioclase";
-
-	//private static final String TILE = 											"tile.";
-
-	//public static final String TILE_REFINERY = 			TILE +	 				BLOCK_REFINERY;
-	//public static final String TILE_GRINDER = 			TILE + 					BLOCK_GRINDER;
-	//public static final String TILE_GEOEQUIPMENT = 		TILE + 					BLOCK_GEOEQUIPMENT;
-	//public static final String TILE_AUTOMIXTABLE = 		TILE + 					BLOCK_AUTOMIXTABLE;
-
-	//private static final String CONTAINER = 									"container.";
-
-	//public static final String CONTAINER_REFINERY = 	CONTAINER +	 			BLOCK_REFINERY;
-	//public static final String CONTAINER_GRINDER = 		CONTAINER + 			BLOCK_GRINDER;
-	//public static final String CONTAINER_GEOEQUIPMENT = CONTAINER + 			BLOCK_GEOEQUIPMENT;
-	//public static final String CONTAINER_AUTOMIXTABLE = CONTAINER + 			BLOCK_AUTOMIXTABLE;
 	
 	private static List<BlockTMFOre> ores;
 	

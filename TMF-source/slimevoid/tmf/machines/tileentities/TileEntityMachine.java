@@ -50,11 +50,12 @@ public abstract class TileEntityMachine extends TileEntityBase implements ISided
 	/** The currently-burning item's width */
 	public int currentItemWidth = 0;
 	
-	public boolean isActive = false;
+	public boolean isActive;
 
 	public Icon getBlockTexture(int x, int y, int z, int metadata, int side) {
 		side = this.getRotatedSide(side);
-		return Block.blocksList[this.getBlockID()].getIcon(	isActive ? side + 6 : side,
+		side = this.isActive ? side + 6 : side;
+		return Block.blocksList[this.getBlockID()].getIcon(	side,
 															metadata);
 	}
 		
@@ -120,29 +121,32 @@ public abstract class TileEntityMachine extends TileEntityBase implements ISided
 	}
 	
 	@Override
-	public void readFromNBT(NBTTagCompound ntbCompound) {
-		super.readFromNBT(ntbCompound);
+	public void readFromNBT(NBTTagCompound nbtCompound) {
+		super.readFromNBT(nbtCompound);
 		
-		burnTime = ntbCompound.getShort("BurnTime");
-        cookTime = ntbCompound.getShort("CookTime");
-        currentItemBurnTime = ntbCompound.getShort("CurrentBurnTime");
-        currentItemCookTime = ntbCompound.getShort("CurrentCookTime");
-        currentItemWidth = ntbCompound.getShort("CurrentWidth");
+		burnTime = nbtCompound.getShort("BurnTime");
+        cookTime = nbtCompound.getShort("CookTime");
+        currentItemBurnTime = nbtCompound.getShort("CurrentBurnTime");
+        currentItemCookTime = nbtCompound.getShort("CurrentCookTime");
+        currentItemWidth = nbtCompound.getShort("CurrentWidth");
+        isActive = nbtCompound.getBoolean("Status");
 	}
 	
 	@Override
-	public void writeToNBT(NBTTagCompound ntbCompound) {
-		super.writeToNBT(ntbCompound);
+	public void writeToNBT(NBTTagCompound nbtCompound) {
+		super.writeToNBT(nbtCompound);
 		
-		ntbCompound.setShort("BurnTime", (short)burnTime);
-		ntbCompound.setShort("CookTime", (short)cookTime);
-		ntbCompound.setShort("CurrentBurnTime", (short)currentItemBurnTime);
-		ntbCompound.setShort("CurrentCookTime", (short)currentItemCookTime);
-		ntbCompound.setShort("CurrentWidth", (short)currentItemWidth);
+		nbtCompound.setShort("BurnTime", (short)burnTime);
+		nbtCompound.setShort("CookTime", (short)cookTime);
+		nbtCompound.setShort("CurrentBurnTime", (short)currentItemBurnTime);
+		nbtCompound.setShort("CurrentCookTime", (short)currentItemCookTime);
+		nbtCompound.setShort("CurrentWidth", (short)currentItemWidth);
+		nbtCompound.setBoolean("Status", isActive);
 	}
 	
 	@Override
 	public void updateEntity() {
+		super.updateEntity();
 		boolean wasBurning = isBurning();
 		boolean inventoryChanged = false;
 		
@@ -184,7 +188,7 @@ public abstract class TileEntityMachine extends TileEntityBase implements ISided
 		}
 		
 		if ( inventoryChanged ) {
-			onInventoryChanged();
+			this.onInventoryChanged();
 		}
 	}
 
@@ -282,5 +286,7 @@ public abstract class TileEntityMachine extends TileEntityBase implements ISided
 	 * If we need to send information to the client
 	 * it should be done here
 	 */
-	protected abstract void onInventoryHasChanged(World world, int x, int y, int z);
+	protected void onInventoryHasChanged(World world, int x, int y, int z) {
+		world.markBlockForUpdate(x, y, z);
+	}
 }

@@ -77,6 +77,8 @@ public class TileEntityRefinery extends TileEntityMachine {
 	
 	@Override
 	public void readFromNBT(NBTTagCompound ntbCompound) {
+		super.readFromNBT(ntbCompound);
+		
 		NBTTagList items = ntbCompound.getTagList("Items");
 		refineryItemStacks = new ItemStack[getSizeInventory()];
 		
@@ -88,12 +90,12 @@ public class TileEntityRefinery extends TileEntityMachine {
 				refineryItemStacks[itemBytes] = ItemStack.loadItemStackFromNBT(itemInSlot);
 			}
 		}
-		
-		super.readFromNBT(ntbCompound);
 	}
 	
 	@Override
 	public void writeToNBT(NBTTagCompound ntbCompound) {
+		super.writeToNBT(ntbCompound);
+		
 		NBTTagList items = new NBTTagList();
 		
 		for (int i = 0; i < refineryItemStacks.length; ++i) {
@@ -106,9 +108,6 @@ public class TileEntityRefinery extends TileEntityMachine {
 		}
 		
 		ntbCompound.setTag("Items", items);
-		
-		super.writeToNBT(ntbCompound);
-		
 	}
 
 	@Override
@@ -260,10 +259,6 @@ public class TileEntityRefinery extends TileEntityMachine {
 	@Override
 	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
 		this.isActive = isBurning;
-	}
-
-	@Override
-	protected void onInventoryHasChanged(World world, int x, int y, int z) {
 	}
 
 	@Override

@@ -41,23 +41,21 @@ public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer 
 			if ( tile.worldObj != null )
 				meta = ((TileEntityBase) tile).getRotation();
 			
-			boolean dir = true;
+			boolean dir = false;
 			switch (meta) {
-				case 2:
-					dir = false;
+				case 0:
 					break;
-				case 3:
-					GL11.glTranslatef(0.5f, 0.5f, 0.5f);
-					GL11.glRotatef(180, 0, 1, 0);
-					GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
-					dir = false;
-					break;
-				case 4:
+				case 1:
 					GL11.glTranslatef(0.5f, 0.5f, 0.5f);
 					GL11.glRotatef(270, 0, 1, 0);
 					GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
 					break;
-				case 5:
+				case 2:
+					GL11.glTranslatef(0.5f, 0.5f, 0.5f);
+					GL11.glRotatef(180, 0, 1, 0);
+					GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
+					break;
+				case 3:
 					GL11.glTranslatef(0.5f, 0.5f, 0.5f);
 					GL11.glRotatef(90, 0, 1, 0);
 					GL11.glTranslatef(-0.5f, -0.5f, -0.5f);

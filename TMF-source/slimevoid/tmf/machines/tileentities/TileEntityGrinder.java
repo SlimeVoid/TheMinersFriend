@@ -73,6 +73,7 @@ public class TileEntityGrinder extends TileEntityMachine {
 
 	@Override
 	public void readFromNBT(NBTTagCompound ntbCompound) {
+		super.readFromNBT(ntbCompound);
 		NBTTagList items = ntbCompound.getTagList("Items");
 		grinderItemStacks = new ItemStack[getSizeInventory()];
 		
@@ -84,12 +85,11 @@ public class TileEntityGrinder extends TileEntityMachine {
 				grinderItemStacks[itemBytes] = ItemStack.loadItemStackFromNBT(itemInSlot);
 			}
 		}
-		
-		super.readFromNBT(ntbCompound);
 	}
 	
 	@Override
 	public void writeToNBT(NBTTagCompound ntbCompound) {
+		super.writeToNBT(ntbCompound);
 		NBTTagList items = new NBTTagList();
 		
 		for (int i = 0; i < grinderItemStacks.length; ++i) {
@@ -102,9 +102,6 @@ public class TileEntityGrinder extends TileEntityMachine {
 		}
 		
 		ntbCompound.setTag("Items", items);
-		
-		super.writeToNBT(ntbCompound);
-		
 	}
 
 	@Override
@@ -209,10 +206,6 @@ public class TileEntityGrinder extends TileEntityMachine {
 	@Override
 	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
 		this.isActive = isBurning;
-	}
-
-	@Override
-	protected void onInventoryHasChanged(World world , int x, int y, int z) {
 	}
 
 	@Override

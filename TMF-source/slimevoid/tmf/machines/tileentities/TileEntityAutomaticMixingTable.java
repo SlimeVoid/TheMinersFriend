@@ -48,6 +48,7 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 	
 	@Override
 	public void updateEntity() {
+		super.updateEntity();
 		smeltItem();
 	}
 	
@@ -84,8 +85,10 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 
 	
 	@Override
-	public void readFromNBT(NBTTagCompound ntbCompound) {
-		NBTTagList items = ntbCompound.getTagList("Items");
+	public void readFromNBT(NBTTagCompound nbtCompound) {
+		super.readFromNBT(nbtCompound);
+		
+		NBTTagList items = nbtCompound.getTagList("Items");
 		stacks = new ItemStack[getSizeInventory()];
 		
 		for (int i = 0; i < items.tagCount(); ++i) {
@@ -96,12 +99,12 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 				stacks[itemBytes] = ItemStack.loadItemStackFromNBT(itemInSlot);
 			}
 		}
-		
-		super.readFromNBT(ntbCompound);
 	}
 	
 	@Override
-	public void writeToNBT(NBTTagCompound ntbCompound) {
+	public void writeToNBT(NBTTagCompound nbtCompound) {
+		super.writeToNBT(nbtCompound);
+		
 		NBTTagList items = new NBTTagList();
 		
 		for (int i = 0; i < stacks.length; ++i) {
@@ -113,10 +116,7 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 			}
 		}
 		
-		ntbCompound.setTag("Items", items);
-		
-		super.writeToNBT(ntbCompound);
-		
+		nbtCompound.setTag("Items", items);
 	}
 
 	@Override
@@ -283,9 +283,6 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 
 	@Override
 	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {}
-
-	@Override
-	protected void onInventoryHasChanged(World world, int x, int y, int z) {}
 
 	@Override
 	public int getExtendedBlockID() {

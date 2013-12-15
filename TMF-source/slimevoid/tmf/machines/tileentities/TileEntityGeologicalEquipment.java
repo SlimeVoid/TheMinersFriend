@@ -208,15 +208,17 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound ntbCompound) {
-		NBTTagList items = ntbCompound.getTagList("Items");
+	public void readFromNBT(NBTTagCompound nbtCompound) {
+		super.readFromNBT(nbtCompound);
+		
+		NBTTagList items = nbtCompound.getTagList("Items");
 		if ( items.tagCount() > 0 ) {
 			NBTTagCompound itemInSlot = (NBTTagCompound)items.tagAt(0);
 			fuelStack = ItemStack.loadItemStackFromNBT(itemInSlot);
 		}
 
 		surveyData = new HashMap<Integer, Block[]>();
-		NBTTagList survey = ntbCompound.getTagList("Survey");
+		NBTTagList survey = nbtCompound.getTagList("Survey");
 		for (int i = 0; i < survey.tagCount(); ++i) {
 			NBTTagList depthTag = (NBTTagList) survey.tagAt(i);
 
@@ -232,21 +234,21 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 			}
 		}
 		
-		currentLevel = ntbCompound.getInteger("CurrentLevel");
-		currentLevelIdx = ntbCompound.getInteger("CurrentLevelIdx");
-		
-		super.readFromNBT(ntbCompound);
+		currentLevel = nbtCompound.getInteger("CurrentLevel");
+		currentLevelIdx = nbtCompound.getInteger("CurrentLevelIdx");
 	}
 	
 	@Override
-	public void writeToNBT(NBTTagCompound ntbCompound) {
+	public void writeToNBT(NBTTagCompound nbtCompound) {
+		super.writeToNBT(nbtCompound);
+		
 		NBTTagList items = new NBTTagList();
 		if ( fuelStack != null ) {
 			NBTTagCompound itemInSlot = new NBTTagCompound();
 			fuelStack.writeToNBT(itemInSlot);
 			items.appendTag(itemInSlot);
 		}
-		ntbCompound.setTag("Items", items);
+		nbtCompound.setTag("Items", items);
 
 		NBTTagList survey = new NBTTagList();
 		for (int depth: surveyData.keySet() ) {
@@ -268,13 +270,10 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 				survey.appendTag(depthTag);
 			}
 		}
-		ntbCompound.setTag("Survey", survey);
+		nbtCompound.setTag("Survey", survey);
 
-		ntbCompound.setInteger("CurrentLevel", currentLevel);
-		ntbCompound.setInteger("CurrentLevelIdx", currentLevelIdx);
-		
-		super.writeToNBT(ntbCompound);
-		
+		nbtCompound.setInteger("CurrentLevel", currentLevel);
+		nbtCompound.setInteger("CurrentLevelIdx", currentLevelIdx);
 	}
 
 	@Override
