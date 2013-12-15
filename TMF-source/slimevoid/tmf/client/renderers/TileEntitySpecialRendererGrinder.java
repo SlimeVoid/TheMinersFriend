@@ -20,6 +20,7 @@ import org.lwjgl.opengl.GL12;
 
 import slimevoid.tmf.client.renderers.models.ModelGrinder;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
+import slimevoidlib.tileentity.TileEntityBase;
 
 public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer {	
 	
@@ -38,7 +39,7 @@ public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer 
 			
 			int meta = 0;
 			if ( tile.worldObj != null )
-				meta = tile.getBlockMetadata();
+				meta = ((TileEntityBase) tile).getRotation();
 			
 			boolean dir = true;
 			switch (meta) {
@@ -66,7 +67,7 @@ public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer 
 			grinder.renderAll(this, dir);
 			
 			if ( tile.getBlockType() != null ) {
-				grinder.updateBounds(tile.getBlockType());
+				//grinder.updateBounds(tile.getBlockType());
 			}
 			
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);

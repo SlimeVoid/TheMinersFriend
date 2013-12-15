@@ -15,7 +15,7 @@ import java.io.File;
 
 import net.minecraft.client.Minecraft;
 import slimevoid.tmf.client.renderers.ItemRendererToolBelt;
-import slimevoid.tmf.client.renderers.SimpleBlockRenderingHandlerGrinder;
+import slimevoid.tmf.client.renderers.BlockMachineRenderingHandler;
 import slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
 import slimevoid.tmf.client.tickhandlers.MiningHelmetRenderTickHandler;
 import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
@@ -111,6 +111,6 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void registerTESRenderers() {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGrinder.class, new TileEntitySpecialRendererGrinder());
-		RenderingRegistry.registerBlockHandler(new SimpleBlockRenderingHandlerGrinder());
+		RenderingRegistry.registerBlockHandler(new BlockMachineRenderingHandler());
 	}
 }

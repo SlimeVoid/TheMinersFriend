@@ -19,8 +19,10 @@ import slimevoid.tmf.blocks.ores.BlockTMFOre;
 public class BlockLib {
 
 	private static String BLOCK_PREFIX = 										"tmf.";
-	
-	private static String MACHINE_PREFIX =				BLOCK_PREFIX +			"machines.";
+
+	public static final int	MAX_MACHINES =				4;
+	private static String MACHINE_PREFIX =				BLOCK_PREFIX +			"machine.";
+	public static final String	BLOCK_MACHINE_BASE = 	MACHINE_PREFIX + 		"base";
 
 	public static final String BLOCK_REFINERY = 		MACHINE_PREFIX + 		"refinery";
 	public static final String BLOCK_GRINDER = 			MACHINE_PREFIX + 		"grinder";

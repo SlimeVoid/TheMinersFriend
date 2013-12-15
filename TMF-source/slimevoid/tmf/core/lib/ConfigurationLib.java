@@ -18,6 +18,7 @@ import slimevoidlib.data.Logger;
 import slimevoidlib.util.xml.XMLLoader;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.core.TMFCore;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -30,6 +31,7 @@ public class ConfigurationLib {
 	public static int motionSensorMaxGameTicks;
 	@SideOnly(Side.CLIENT)
 	public static boolean motionSensorDrawRight;
+	public static int	renderMachineId = RenderingRegistry.getNextAvailableRenderId();;
 
 	@SideOnly(Side.CLIENT)
 	public static void ClientConfig() {
@@ -176,44 +178,14 @@ public class ConfigurationLib {
 		XMLLoader.addXmlVariable("$egioclaseOre", 	TMFCore.egioclaseOreId);
 	}
 	private static void loadMachines() {
-		TMFCore.refineryIdleId = Integer.valueOf(TMFCore.configuration.get(
+		TMFCore.blockMachineBaseId = Integer.valueOf(TMFCore.configuration.get(
 				Configuration.CATEGORY_BLOCK,
-				"refineryIdle",
+				"blockMachine",
 				1100).getInt());
-		TMFCore.refineryActiveId = Integer.valueOf(TMFCore.configuration.get(
-				Configuration.CATEGORY_BLOCK,
-				"refineryActive",
-				1101).getInt());
-		XMLLoader.addXmlVariable("$refineryIdle", 		TMFCore.refineryIdleId);
-		XMLLoader.addXmlVariable("$refineryActive", 	TMFCore.refineryActiveId);
-		
-		TMFCore.grinderIdleId = Integer.valueOf(TMFCore.configuration.get(
-				Configuration.CATEGORY_BLOCK,
-				"grinderIdle",
-				1102).getInt());
-		TMFCore.grinderActiveId = Integer.valueOf(TMFCore.configuration.get(
-				Configuration.CATEGORY_BLOCK,
-				"grinderActive",
-				1103).getInt());
-		XMLLoader.addXmlVariable("$grinderIdle", 		TMFCore.grinderIdleId);
-		XMLLoader.addXmlVariable("$grinderActive", 		TMFCore.grinderActiveId);
-		
-		TMFCore.geoEquipIdleId = Integer.valueOf(TMFCore.configuration.get(
-				Configuration.CATEGORY_BLOCK,
-				"geoEquipIdle",
-				1104).getInt());
-		TMFCore.geoEquipActiveId = Integer.valueOf(TMFCore.configuration.get(
-				Configuration.CATEGORY_BLOCK,
-				"geoEquipActive",
-				1105).getInt());
-		XMLLoader.addXmlVariable("$geoEquipIdle", 		TMFCore.geoEquipIdleId);
-		XMLLoader.addXmlVariable("$geoEquipActive", 	TMFCore.geoEquipActiveId);
-		
-		TMFCore.autoMixTableId = Integer.valueOf(TMFCore.configuration.get(
-				Configuration.CATEGORY_BLOCK,
-				"autoMixTable",
-				1110).getInt());
-		XMLLoader.addXmlVariable("$autoMixTable", 		TMFCore.autoMixTableId);
+		XMLLoader.addXmlVariable("$refinery", 		EnumMachine.REFINERY.getId());
+		XMLLoader.addXmlVariable("$grinder", 		EnumMachine.GRINDER.getId());
+		XMLLoader.addXmlVariable("$geoEquip",		EnumMachine.GEOEQUIP.getId());
+		XMLLoader.addXmlVariable("$autoMixTable", 	EnumMachine.AUTOMIXTABLE.getId());
 		
 	}
 	private static void loadLogger() {

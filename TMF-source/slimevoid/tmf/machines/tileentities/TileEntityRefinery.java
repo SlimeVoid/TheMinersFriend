@@ -12,10 +12,14 @@
 package slimevoid.tmf.machines.tileentities;
 
 import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.EnumMachine;
+import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.machines.RefineryRecipes;
 import slimevoid.tmf.machines.RefineryRecipes.RefineryRecipe;
-import slimevoid.tmf.machines.blocks.BlockMachine;
+import slimevoid.tmf.machines.blocks.BlockMachineBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -31,8 +35,20 @@ public class TileEntityRefinery extends TileEntityMachine {
 	 * 4: Cydrine Mineral
 	 */
 	private ItemStack[] refineryItemStacks = new ItemStack[5];
-	
-	
+
+	@Override
+	public boolean onBlockActivated(EntityPlayer player) {
+		player.openGui(
+				TheMinersFriend.instance,
+				GuiLib.REFINERY_GUIID,
+				this.worldObj,
+				this.xCoord,
+				this.yCoord,
+				this.zCoord
+		);
+		
+		return true;
+	}
 	
 	@Override
 	public int getSizeInventory() {
@@ -243,10 +259,15 @@ public class TileEntityRefinery extends TileEntityMachine {
 
 	@Override
 	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
-		((BlockMachine)TMFCore.refineryIdle).updateMachineBlockState(isBurning, world, x, y, z);
+		this.isActive = isBurning;
 	}
 
 	@Override
 	protected void onInventoryHasChanged(World world, int x, int y, int z) {
+	}
+
+	@Override
+	public int getExtendedBlockID() {
+		return EnumMachine.REFINERY.getId();
 	}
 }

@@ -11,14 +11,18 @@
  */
 package slimevoid.tmf.machines.tileentities;
 
-import slimevoid.tmf.core.lib.BlockLib;
-import slimevoid.tmf.minerals.items.ItemMineralMixedDust;
-import slimevoid.tmf.minerals.items.ItemMineralDust;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import slimevoid.tmf.core.TheMinersFriend;
+import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.EnumMachine;
+import slimevoid.tmf.core.lib.GuiLib;
+import slimevoid.tmf.minerals.items.ItemMineralDust;
+import slimevoid.tmf.minerals.items.ItemMineralMixedDust;
 
 public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 
@@ -29,7 +33,18 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 	 */
 	private ItemStack[] stacks = new ItemStack[11];
 
-	
+	@Override
+	public boolean onBlockActivated(EntityPlayer player) {
+		player.openGui(
+						TheMinersFriend.instance,
+						GuiLib.MIXINGTABLE_GUIID,
+						this.worldObj,
+						this.xCoord,
+						this.yCoord,
+						this.zCoord
+				);
+		return true;
+	}
 	
 	@Override
 	public void updateEntity() {
@@ -271,5 +286,10 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 
 	@Override
 	protected void onInventoryHasChanged(World world, int x, int y, int z) {}
+
+	@Override
+	public int getExtendedBlockID() {
+		return EnumMachine.AUTOMIXTABLE.getId();
+	}
 
 }

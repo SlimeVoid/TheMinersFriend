@@ -12,9 +12,13 @@
 package slimevoid.tmf.machines.tileentities;
 
 import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.EnumMachine;
+import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.machines.GrinderRecipes;
 import slimevoid.tmf.machines.blocks.BlockGrinder;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -28,7 +32,20 @@ public class TileEntityGrinder extends TileEntityMachine {
 	 * 2: Dust
 	 */
 	private ItemStack[] grinderItemStacks = new ItemStack[3];
-	
+
+	@Override
+	public boolean onBlockActivated(EntityPlayer player) {
+		player.openGui(
+				TheMinersFriend.instance,
+				GuiLib.GRINDER_GUIID,
+				this.worldObj,
+				this.xCoord,
+				this.yCoord,
+				this.zCoord
+		);
+		
+		return true;
+	}	
 
 	@Override
 	public int getSizeInventory() {
@@ -191,11 +208,16 @@ public class TileEntityGrinder extends TileEntityMachine {
 
 	@Override
 	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
-		((BlockGrinder)TMFCore.grinderIdle).updateMachineBlockState(isBurning, world, x, y, z);
+		this.isActive = isBurning;
 	}
 
 	@Override
 	protected void onInventoryHasChanged(World world , int x, int y, int z) {
+	}
+
+	@Override
+	public int getExtendedBlockID() {
+		return EnumMachine.GRINDER.getId();
 	}
 
 }

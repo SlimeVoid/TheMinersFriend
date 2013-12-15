@@ -12,16 +12,16 @@
 package slimevoid.tmf.core;
 
 import java.io.File;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
-import slimevoidlib.util.FileReader;
-import slimevoidlib.util.xml.XMLRecipeLoader;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.EnumMachine;
 import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.LocalizationLib;
 import slimevoid.tmf.core.lib.ResourceLib;
@@ -30,10 +30,8 @@ import slimevoid.tmf.fuel.MineralFuelHandler;
 import slimevoid.tmf.fuel.MixedDustNameRegistry;
 import slimevoid.tmf.machines.JSONGrinderRecipesLoader;
 import slimevoid.tmf.machines.JSONRefineryRecipesLoader;
-import slimevoid.tmf.machines.blocks.BlockAutomaticMixingTable;
-import slimevoid.tmf.machines.blocks.BlockGeologicalEquipment;
 import slimevoid.tmf.machines.blocks.BlockGrinder;
-import slimevoid.tmf.machines.blocks.BlockRefinery;
+import slimevoid.tmf.machines.blocks.BlockMachineBase;
 import slimevoid.tmf.machines.tileentities.TileEntityAutomaticMixingTable;
 import slimevoid.tmf.machines.tileentities.TileEntityGeologicalEquipment;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
@@ -46,6 +44,10 @@ import slimevoid.tmf.tools.items.ItemMiningHelmet;
 import slimevoid.tmf.tools.items.ItemMiningLamp;
 import slimevoid.tmf.tools.items.ItemMiningToolBelt;
 import slimevoid.tmf.tools.items.ItemMotionSensor;
+import slimevoidlib.blocks.BlockBase;
+import slimevoidlib.items.ItemBlockBase;
+import slimevoidlib.util.FileReader;
+import slimevoidlib.util.xml.XMLRecipeLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class TMFCore {
@@ -166,21 +168,9 @@ public class TMFCore {
 	
 	// MACHINES
 	public static int
-		refineryIdleId,
-		refineryActiveId,
-		grinderIdleId,
-		grinderActiveId,
-		geoEquipIdleId,
-		geoEquipActiveId,
-		autoMixTableId;
-	public static Block
-		refineryIdle,
-		refineryActive,
-		grinderIdle,
-		grinderActive,
-		geoEquipIdle,
-		geoEquipActive,
-		autoMixTable;
+		blockMachineBaseId;
+	public static BlockBase
+		blockMachineBase;
 
 	// ======== BLOCK REGISTRATION ========
 	public static void registerBlocks() {
@@ -214,44 +204,28 @@ public class TMFCore {
         MinecraftForge.setBlockHarvestLevel(egioclaseOre,  "pickaxe", 2);
 	}
 	private static void registerMachines() {
-		// REFINERY
-		refineryIdle = new BlockRefinery(refineryIdleId, BlockLib.REFINERY_IDLE, false).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
-		refineryActive = new BlockRefinery(refineryActiveId, BlockLib.REFINERY_ACTIVE, true).setHardness(3.5F).setLightValue(0.875F);
+		// MACHINE BASE
+		blockMachineBase = new BlockMachineBase(blockMachineBaseId);
+		GameRegistry.registerBlock(	blockMachineBase,
+									ItemBlockBase.class,
+									BlockLib.BLOCK_MACHINE_BASE);
 		
-		GameRegistry.registerBlock(refineryIdle, BlockLib.REFINERY_IDLE);
-		GameRegistry.registerBlock(refineryActive, BlockLib.REFINERY_ACTIVE);
-		GameRegistry.registerTileEntity(TileEntityRefinery.class, BlockLib.BLOCK_REFINERY);
-
+		EnumMachine.registerMachines();
+		
+		// REFINERY
 		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource(ResourceLib.RECIPES_REFINERY).getFile()));
 
 		// GRINDER
-		grinderIdle = new BlockGrinder(grinderIdleId, BlockLib.GRINDER_IDLE, false).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
-		grinderActive = new BlockGrinder(grinderActiveId, BlockLib.GRINDER_ACTIVE, true).setHardness(3.5F).setLightValue(0.875F);
-		
-		GameRegistry.registerBlock(grinderIdle, BlockLib.GRINDER_IDLE);
-		GameRegistry.registerBlock(grinderActive, BlockLib.GRINDER_ACTIVE);
-		GameRegistry.registerTileEntity(TileEntityGrinder.class, BlockLib.BLOCK_GRINDER);
-		
 		JSONGrinderRecipesLoader.loadFile(new File(TMFCore.class.getResource(ResourceLib.RECIPES_GRINDER).getFile()));
 
 		// GEOLOGICAL EQUIPMENT
-		geoEquipIdle = new BlockGeologicalEquipment(geoEquipIdleId, BlockLib.GEOEQUIP_IDLE, false).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
-		geoEquipActive = new BlockGeologicalEquipment(geoEquipActiveId, BlockLib.GEOEQUIP_ACTIVE, true).setHardness(3.5F).setLightValue(0.875F);
-		
-		GameRegistry.registerBlock(geoEquipIdle, BlockLib.GEOEQUIP_IDLE);
-		GameRegistry.registerBlock(geoEquipActive, BlockLib.GEOEQUIP_ACTIVE);
-		GameRegistry.registerTileEntity(TileEntityGeologicalEquipment.class, BlockLib.BLOCK_GEOEQUIPMENT);
 
 		// AUTOMATIC MIXING TABLE
-		autoMixTable = new BlockAutomaticMixingTable(autoMixTableId, BlockLib.BLOCK_AUTOMIXTABLE, false).setHardness(3.5F).setCreativeTab(CreativeTabTMF.tabTMF);
-		
-		GameRegistry.registerBlock(autoMixTable, BlockLib.BLOCK_AUTOMIXTABLE);
-		GameRegistry.registerTileEntity(TileEntityAutomaticMixingTable.class, BlockLib.BLOCK_AUTOMIXTABLE);
 	}
 
 	// ======== NAME REGISTRATION ========
 	public static void registerNames() {		
-		LocalizationLib.registerLanguages();//LanguageRegistry.instance().addStringLocalization(CreativeTabTMF.tabTMF.getTranslatedTabLabel(), NamingLib.TMFNAME);
+		LocalizationLib.registerLanguages();
 	}
 	
 	// ======= RECIPE REGISTRATION =======

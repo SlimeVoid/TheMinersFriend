@@ -13,17 +13,18 @@ package slimevoid.tmf.machines.tileentities;
 
 import java.util.HashMap;
 
-import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.EnumMachine;
+import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
-import slimevoid.tmf.machines.blocks.BlockGeologicalEquipment;
 import slimevoid.tmf.minerals.items.ItemMineral;
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 
 public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	/**
@@ -66,6 +67,20 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 		this.surveyData = new HashMap<Integer, Block[]>();
 		this.hasOre = false;
 		currentLevelIdx = 9;
+	}
+	
+	@Override
+	public boolean onBlockActivated(EntityPlayer player) {
+		player.openGui(
+				TheMinersFriend.instance,
+				GuiLib.GEOEQUIP_GUIID,
+				this.worldObj,
+				this.xCoord,
+				this.yCoord,
+				this.zCoord
+		);
+		
+		return true;
 	}
 	
 	private void gotoNextLevel() {
@@ -347,7 +362,7 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 
 	@Override
 	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
-		((BlockGeologicalEquipment)TMFCore.geoEquipIdle).updateMachineBlockState(isBurning, world, x, y, z);
+		this.isActive = isBurning;
 	}
 	
 	@Override
@@ -357,5 +372,10 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 		 * Automatically updates the associated GUI should it be open
 		 */
 		world.markBlockForUpdate(x, y, z);
+	}
+
+	@Override
+	public int getExtendedBlockID() {
+		return EnumMachine.GEOEQUIP.getId();
 	}
 }

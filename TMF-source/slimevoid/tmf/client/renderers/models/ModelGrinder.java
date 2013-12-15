@@ -22,7 +22,6 @@ import slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.lib.ModelLib;
 import slimevoid.tmf.core.lib.ResourceLib;
-import slimevoid.tmf.machines.blocks.BlockMachine;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import slimevoidlib.render.ModelSlimevoidObject;
 import slimevoidlib.render.WavefrontOBJModelLoader;
@@ -112,7 +111,7 @@ public class ModelGrinder extends ModelBase {
 		staticModel.render(0.0625F);
 
 		GL11.glPushMatrix();
-		if ( tile != null && tile.getBlockType() != null && ((BlockMachine)(tile.getBlockType())).isActive ) {
+		if ( tile != null && tile.getBlockType() != null && tile.isActive ) {
 			GL11.glTranslatef(0, 0.5f, 0.5f);	
 			if ( dir ) 	GL11.glRotatef((System.currentTimeMillis()/rotationSpeedDivider)%360, 1, 0, 0);
 			else 		GL11.glRotatef((-System.currentTimeMillis()/rotationSpeedDivider)%360, 1, 0, 0);
@@ -125,7 +124,7 @@ public class ModelGrinder extends ModelBase {
 		GL11.glPopMatrix();
 		
 		GL11.glPushMatrix();
-		if ( tile != null && tile.getBlockType() != null && ((BlockMachine)(tile.getBlockType())).isActive ) {
+		if ( tile != null && tile.getBlockType() != null && tile.isActive ) {
 			GL11.glTranslatef(0, 0.21875f, 0.5f);	
 			if ( dir ) 	GL11.glRotatef((-System.currentTimeMillis()/rotationSpeedDivider)%360, 1, 0, 0);
 			else 		GL11.glRotatef((System.currentTimeMillis()/rotationSpeedDivider)%360, 1, 0, 0);

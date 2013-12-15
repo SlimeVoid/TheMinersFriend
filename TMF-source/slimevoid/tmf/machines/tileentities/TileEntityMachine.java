@@ -11,24 +11,32 @@
  */
 package slimevoid.tmf.machines.tileentities;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import slimevoid.tmf.fuel.IFuelHandlerTMF;
-import slimevoid.tmf.minerals.items.ItemMineral;
-import slimevoidlib.util.helpers.SlimevoidHelper;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
+import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.fuel.IFuelHandlerTMF;
+import slimevoid.tmf.minerals.items.ItemMineral;
+import slimevoidlib.tileentity.TileEntityBase;
+import slimevoidlib.util.helpers.SlimevoidHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class TileEntityMachine extends TileEntity implements IInventory, ISidedInventory {
+public abstract class TileEntityMachine extends TileEntityBase implements ISidedInventory {
+	
+	@Override
+	public int getBlockID() {
+		return TMFCore.blockMachineBase.blockID;
+	}
+	
 	/** The number of ticks that the machine will keep burning */
 	public int burnTime = 0;
 	/** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
@@ -41,6 +49,14 @@ public abstract class TileEntityMachine extends TileEntity implements IInventory
 	
 	/** The currently-burning item's width */
 	public int currentItemWidth = 0;
+	
+	public boolean isActive = false;
+
+	public Icon getBlockTexture(int x, int y, int z, int metadata, int side) {
+		side = this.getRotatedSide(side);
+		return Block.blocksList[this.getBlockID()].getIcon(	isActive ? side + 6 : side,
+															metadata);
+	}
 		
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
