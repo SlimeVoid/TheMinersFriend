@@ -31,27 +31,32 @@ public class MiningHelmetTickHandler implements ITickHandler {
 		if (type.equals(EnumSet.of(TickType.PLAYER))) {
 			EntityPlayer entityplayer = (EntityPlayer) tickData[0];
 			World world = entityplayer.worldObj;
-			checkForFallingBlocks(entityplayer, world);
+			checkForFallingBlocks(	entityplayer,
+									world);
 		}
 	}
 
 	private void checkForFallingBlocks(EntityPlayer entityplayer, World world) {
-		if (ArmorLib.getHelm(entityplayer, world) != null) {
-			AxisAlignedBB box = AxisAlignedBB.getBoundingBox(
-					entityplayer.posX,
-					entityplayer.posY,
-					entityplayer.posZ,
-					entityplayer.posX,
-					entityplayer.posY + 1,
-					entityplayer.posZ);
-			List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(entityplayer, box);
+		if (ArmorLib.getHelm(	entityplayer,
+								world) != null) {
+			AxisAlignedBB box = AxisAlignedBB.getBoundingBox(	entityplayer.posX,
+																entityplayer.posY,
+																entityplayer.posZ,
+																entityplayer.posX,
+																entityplayer.posY + 1,
+																entityplayer.posZ);
+			List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(	entityplayer,
+																				box);
 			if (entities.size() > 0) {
 				for (Entity entity : entities) {
 					if (entity instanceof EntityFallingSand) {
-						EntityFallingSand entityfalling = (EntityFallingSand)entity;
-						if (entityfalling.blockID == Block.sand.blockID || entityfalling.blockID == Block.gravel.blockID) {
-							if (!entityplayer.capabilities.isCreativeMode && !world.isRemote) {
-								entityplayer.dropItem(entityfalling.blockID, 1);
+						EntityFallingSand entityfalling = (EntityFallingSand) entity;
+						if (entityfalling.blockID == Block.sand.blockID
+							|| entityfalling.blockID == Block.gravel.blockID) {
+							if (!entityplayer.capabilities.isCreativeMode
+								&& !world.isRemote) {
+								entityplayer.dropItem(	entityfalling.blockID,
+														1);
 							}
 							entityfalling.setDead();
 						}
@@ -74,5 +79,5 @@ public class MiningHelmetTickHandler implements ITickHandler {
 	public String getLabel() {
 		return "MinersHelmetHandler";
 	}
-	
+
 }

@@ -21,8 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMiningHelmet extends ItemArmor {
 
-	public ItemMiningHelmet(int itemID, EnumArmorMaterial material,
-			int renderIndex, int armorType) {
+	public ItemMiningHelmet(int itemID, EnumArmorMaterial material, int renderIndex, int armorType) {
 		super(itemID - ConfigurationLib.ITEMID_OFFSET, material, renderIndex, armorType);
 		this.setCreativeTab(CreativeTabTMF.tabTMF);
 	}
@@ -30,8 +29,8 @@ public class ItemMiningHelmet extends ItemArmor {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Icon getIconFromDamageForRenderPass(int damage, int renderPass) {
-		return renderPass == 1 ? this.itemIcon : super
-				.getIconFromDamageForRenderPass(damage, renderPass);
+		return renderPass == 1 ? this.itemIcon : super.getIconFromDamageForRenderPass(	damage,
+																						renderPass);
 	}
 
 	@Override

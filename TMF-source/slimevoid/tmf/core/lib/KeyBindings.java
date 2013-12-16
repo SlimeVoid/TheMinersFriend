@@ -30,23 +30,25 @@ import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class KeyBindings {
-	
-	private static Minecraft mc;
-	private static KeyBinding TOOL_BELT_KEY = new KeyBinding(ItemLib.MINING_TOOLBELT, Keyboard.KEY_B);
-	private static KeyBinding MINING_MODE_KEY = new KeyBinding(ItemLib.MINING_MODE, Keyboard.KEY_M);
+
+	private static Minecraft	mc;
+	private static KeyBinding	TOOL_BELT_KEY	= new KeyBinding(ItemLib.MINING_TOOLBELT, Keyboard.KEY_B);
+	private static KeyBinding	MINING_MODE_KEY	= new KeyBinding(ItemLib.MINING_MODE, Keyboard.KEY_M);
 
 	public static void registerKeyBindings() {
 		mc = FMLClientHandler.instance().getClient();
-		KeyBindingRegistry.registerKeyBinding(
-				new ToolBeltKeyBindingHandler(
-						new KeyBinding[]{TOOL_BELT_KEY, MINING_MODE_KEY}, new boolean[]{false, false}));
+		KeyBindingRegistry.registerKeyBinding(new ToolBeltKeyBindingHandler(new KeyBinding[] {
+				TOOL_BELT_KEY,
+				MINING_MODE_KEY }, new boolean[] { false, false }));
 	}
-	
+
 	public static void doToolBeltKeyUp() {
 		World world = mc.theWorld;
 		EntityPlayer entityplayer = mc.thePlayer;
 		if (world.isRemote) {
-			ItemStack toolBelt = ItemHelper.getToolBelt(entityplayer, world, true);
+			ItemStack toolBelt = ItemHelper.getToolBelt(entityplayer,
+														world,
+														true);
 			if (toolBelt != null) {
 				PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.CYCLE_TOOL_BELT);
 				packet.setToolBeltId(toolBelt.getItemDamage());
@@ -54,12 +56,14 @@ public class KeyBindings {
 			}
 		}
 	}
-	
+
 	public static void doMiningModeKeyUp() {
 		World world = mc.theWorld;
 		EntityPlayer entityplayer = mc.thePlayer;
 		if (world.isRemote) {
-			ItemStack toolBelt = ItemHelper.getToolBelt(entityplayer, world, true);
+			ItemStack toolBelt = ItemHelper.getToolBelt(entityplayer,
+														world,
+														true);
 			if (toolBelt != null) {
 				PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.TOGGLE_MINING_MODE);
 				packet.setToolBeltId(toolBelt.getItemDamage());
@@ -71,7 +75,7 @@ public class KeyBindings {
 	public static void doKeyUp(EnumSet<TickType> types, KeyBinding kb) {
 		if (FMLClientHandler.instance().getClient().currentScreen == null) {
 			if (kb.equals(TOOL_BELT_KEY)) {
-				doToolBeltKeyUp(); 
+				doToolBeltKeyUp();
 			}
 			if (kb.equals(MINING_MODE_KEY)) {
 				doMiningModeKeyUp();

@@ -18,9 +18,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ItemMineral extends Item implements IFuelHandlerTMF {
-	private int burnTime = 1600;
-	private int burnSpeed = 200;
-	private int burnWidth = 1;
+	private int	burnTime	= 1600;
+	private int	burnSpeed	= 200;
+	private int	burnWidth	= 1;
 
 	public ItemMineral(int id) {
 		super(id - ConfigurationLib.ITEMID_OFFSET);
@@ -32,7 +32,7 @@ public class ItemMineral extends Item implements IFuelHandlerTMF {
 	public boolean isFull3D() {
 		return true;
 	}
-	
+
 	public Item setBurnSettings(int time, int speed, int width) {
 		setBurnTime(time);
 		setBurnSpeed(speed);
@@ -44,6 +44,7 @@ public class ItemMineral extends Item implements IFuelHandlerTMF {
 	public int getBurnTime(ItemStack stack) {
 		return burnTime;
 	}
+
 	public Item setBurnTime(int burnTime) {
 		this.burnTime = burnTime;
 		return this;
@@ -53,6 +54,7 @@ public class ItemMineral extends Item implements IFuelHandlerTMF {
 	public int getBurnSpeed(ItemStack stack) {
 		return burnSpeed;
 	}
+
 	public Item setBurnSpeed(int burnSpeed) {
 		this.burnSpeed = burnSpeed;
 		return this;
@@ -62,6 +64,7 @@ public class ItemMineral extends Item implements IFuelHandlerTMF {
 	public int getBurnWidth(ItemStack stack) {
 		return burnWidth;
 	}
+
 	public Item setBurnWidth(int burnWidth) {
 		this.burnWidth = burnWidth;
 		return this;

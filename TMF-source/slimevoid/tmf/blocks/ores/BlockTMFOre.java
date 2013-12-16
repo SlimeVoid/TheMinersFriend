@@ -18,15 +18,10 @@ import net.minecraft.block.BlockOre;
 
 public class BlockTMFOre extends BlockOre {
 
-	public int spawnLevel, spawnRate, spawnSize;
-	public float lightLevel;
+	public int		spawnLevel, spawnRate, spawnSize;
+	public float	lightLevel;
 
-	public BlockTMFOre(
-			int id,
-			int spawnLevel,
-			int spawnRate,
-			int spawnSize,
-			float lightLevel) {
+	public BlockTMFOre(int id, int spawnLevel, int spawnRate, int spawnSize, float lightLevel) {
 		super(id);
 		this.spawnLevel = spawnLevel;
 		this.spawnRate = spawnRate;
@@ -35,13 +30,13 @@ public class BlockTMFOre extends BlockOre {
 		this.setLightValue(lightLevel);
 		BlockLib.registerTMFOre(this);
 	}
-	
+
 	@Override
 	public Block setUnlocalizedName(String name) {
 		this.textureName = name;
 		return super.setUnlocalizedName(name);
 	}
-	
+
 	@Override
 	public String getTextureName() {
 		return CoreLib.MOD_RESOURCES + ":" + this.textureName;

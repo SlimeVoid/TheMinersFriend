@@ -18,22 +18,22 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public class MiningMode {
-	private static List<EntityPlayer> playersInMiningMode;
-	private static float strength;
-	
+	private static List<EntityPlayer>	playersInMiningMode;
+	private static float				strength;
+
 	public static void init(float strengthMultiplier) {
 		playersInMiningMode = new ArrayList<EntityPlayer>();
 		strength = strengthMultiplier;
 	}
-	
+
 	private static void activateMiningModeForPlayer(EntityPlayer entityplayer) {
 		playersInMiningMode.add(entityplayer);
 	}
-	
+
 	private static void deactivateMiningModeForPlayer(EntityPlayer entityplayer) {
 		playersInMiningMode.remove(entityplayer);
 	}
-	
+
 	public static void toggleMiningModeForPlayer(EntityPlayer entityplayer) {
 		if (playersInMiningMode.contains(entityplayer)) {
 			deactivateMiningModeForPlayer(entityplayer);
@@ -41,13 +41,12 @@ public class MiningMode {
 			activateMiningModeForPlayer(entityplayer);
 		}
 	}
-	
+
 	public static boolean isPlayerInMiningMode(EntityPlayer entityplayer) {
 		return playersInMiningMode.contains(entityplayer);
 	}
 
-	public static float getPlayerStrength(EntityPlayer entityplayer,
-			ItemStack toolBelt, MiningToolBelt data) {
+	public static float getPlayerStrength(EntityPlayer entityplayer, ItemStack toolBelt, MiningToolBelt data) {
 		if (isPlayerInMiningMode(entityplayer)) {
 			return strength;
 		}

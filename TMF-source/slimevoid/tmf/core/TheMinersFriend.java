@@ -45,10 +45,10 @@ public class TheMinersFriend {
 	@SidedProxy(
 			clientSide = CoreLib.PROXY_CLIENT,
 			serverSide = CoreLib.PROXY_COMMON)
-	public static ITMFCommonProxy proxy;
-	
+	public static ITMFCommonProxy	proxy;
+
 	@Instance(CoreLib.MOD_ID)
-	public static TheMinersFriend instance;
+	public static TheMinersFriend	instance;
 
 	@EventHandler
 	public void TheMinersFriendPreInit(FMLPreInitializationEvent event) {

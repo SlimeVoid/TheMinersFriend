@@ -10,6 +10,7 @@
  * <http://www.gnu.org/licenses/>
  */
 package slimevoid.tmf.core.data;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,36 +28,38 @@ import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class MiningToolBelt extends WorldSavedData implements IInventory {
-	private ItemStack[] miningTools;
-	private int toolBeltId;
-	private int selectedTool;
+	private ItemStack[]	miningTools;
+	private int			toolBeltId;
+	private int			selectedTool;
 
 	public MiningToolBelt(String dataString) {
 		super(dataString);
 		miningTools = new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
 		selectedTool = 0;
 	}
-	
+
 	/**
 	 * Set the Tool Belt ID
 	 * 
-	 * @param Id the ID to set
+	 * @param Id
+	 *            the ID to set
 	 */
 	public void setToolBeltId(int Id) {
 		this.toolBeltId = Id;
 	}
-	
+
 	/**
 	 * Set the selected tool and return for convenience
 	 * 
-	 * @param slot the Tool Slot to select
+	 * @param slot
+	 *            the Tool Slot to select
 	 * @return the Selected Tool
 	 */
 	public ItemStack selectTool(int slot) {
 		this.selectedTool = slot;
 		return this.getSelectedTool();
 	}
-	
+
 	/**
 	 * Cycles to the next available Tool
 	 * 
@@ -68,14 +71,13 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 			this.selectedTool = 0;
 		}
 		this.onInventoryChanged(true);
-		return this.getStackInSlot(this.selectedTool) != null ? 
-				this.getStackInSlot(this.selectedTool) : this.tryToSelectTool();
+		return this.getStackInSlot(this.selectedTool) != null ? this.getStackInSlot(this.selectedTool) : this.tryToSelectTool();
 	}
-	
+
 	/**
 	 * Rotate through the inventory until we select a Successful Tool
 	 * 
-	 * @return new Selected Tool or null if no Tool was successfully Selected 
+	 * @return new Selected Tool or null if no Tool was successfully Selected
 	 */
 	private ItemStack tryToSelectTool() {
 		if (this.getSelectedTool() == null) {
@@ -88,12 +90,15 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 		}
 		return null;
 	}
-	
+
 	/**
-	 * Selects the best tool for the job out of tools within TOOL_BELT_SELECTED_MAX slots 
+	 * Selects the best tool for the job out of tools within
+	 * TOOL_BELT_SELECTED_MAX slots
 	 * 
-	 * @param block the Block the player is attempting to mine
-	 * @param currentBreakSpeed the break speed with the current tool
+	 * @param block
+	 *            the Block the player is attempting to mine
+	 * @param currentBreakSpeed
+	 *            the break speed with the current tool
 	 * @return the new Selected Tool
 	 */
 	public ItemStack selectToolForBlock(Block block, float currentBreakSpeed) {
@@ -109,7 +114,7 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 		}
 		return this.getSelectedTool();
 	}
-	
+
 	/**
 	 * Retrieve the Tool Belt ID for the world save data
 	 * 
@@ -130,6 +135,7 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 
 	/**
 	 * Retrieve the Selected Tool Slot in this Tool Belt
+	 * 
 	 * @return
 	 */
 	public int getSelectedSlot() {
@@ -137,7 +143,7 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	}
 
 	@Override
-    public void readFromNBT(NBTTagCompound nbttagcompound) {
+	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		NBTTagList toolsTag = nbttagcompound.getTagList("Tools");
 		this.miningTools = new ItemStack[this.getSizeInventory()];
 		for (int i = 0; i < toolsTag.tagCount(); i++) {
@@ -151,21 +157,25 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 		this.selectedTool = nbttagcompound.getInteger("tool");
 	}
 
-    @Override
-    public void writeToNBT(NBTTagCompound nbttagcompound) {
-    	NBTTagList toolsTag = new NBTTagList();
-    	for (int i = 0; i < this.miningTools.length; i++) {
-    		if (miningTools[i] != null) {
-    			NBTTagCompound tagCompound = new NBTTagCompound();
-    			tagCompound.setByte("Slot", (byte) i);
-    			this.miningTools[i].writeToNBT(tagCompound);
-        		toolsTag.appendTag(tagCompound);
-    		}
-    	}
-		nbttagcompound.setTag("Tools", toolsTag);
-		nbttagcompound.setInteger("id", this.toolBeltId);
-		nbttagcompound.setInteger("tool", this.selectedTool);
-    }
+	@Override
+	public void writeToNBT(NBTTagCompound nbttagcompound) {
+		NBTTagList toolsTag = new NBTTagList();
+		for (int i = 0; i < this.miningTools.length; i++) {
+			if (miningTools[i] != null) {
+				NBTTagCompound tagCompound = new NBTTagCompound();
+				tagCompound.setByte("Slot",
+									(byte) i);
+				this.miningTools[i].writeToNBT(tagCompound);
+				toolsTag.appendTag(tagCompound);
+			}
+		}
+		nbttagcompound.setTag(	"Tools",
+								toolsTag);
+		nbttagcompound.setInteger(	"id",
+									this.toolBeltId);
+		nbttagcompound.setInteger(	"tool",
+									this.selectedTool);
+	}
 
 	@Override
 	public int getSizeInventory() {
@@ -181,7 +191,7 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	public ItemStack decrStackSize(int slot, int stacksize) {
 		if (this.miningTools[slot] != null) {
 			ItemStack stackInSlot;
-			
+
 			if (this.miningTools[slot].stackSize <= stacksize) {
 				stackInSlot = this.miningTools[slot];
 				this.miningTools[slot] = null;
@@ -189,11 +199,11 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 				return stackInSlot;
 			} else {
 				stackInSlot = this.miningTools[slot].splitStack(stacksize);
-				
+
 				if (this.miningTools[slot].stackSize <= 0) {
 					this.miningTools[slot] = null;
 				}
-				
+
 				this.onInventoryChanged(true);
 				return stackInSlot;
 			}
@@ -209,13 +219,14 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack itemstack) {
-        if (itemstack != null && itemstack.stackSize > this.getInventoryStackLimit()) {
-        	itemstack.stackSize = this.getInventoryStackLimit();
-        }
-        
-        this.miningTools[slot] = itemstack;
+		if (itemstack != null
+			&& itemstack.stackSize > this.getInventoryStackLimit()) {
+			itemstack.stackSize = this.getInventoryStackLimit();
+		}
 
-        this.onInventoryChanged();
+		this.miningTools[slot] = itemstack;
+
+		this.onInventoryChanged();
 	}
 
 	@Override
@@ -227,11 +238,12 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	public int getInventoryStackLimit() {
 		return 64;
 	}
-	
+
 	/**
 	 * Notify this Tool Belt that changes have happened
-	 *  
-	 * @param sendUpdate whether or not we should send updates to connected Players 
+	 * 
+	 * @param sendUpdate
+	 *            whether or not we should send updates to connected Players
 	 */
 	public void onInventoryChanged(boolean sendUpdate) {
 		this.onInventoryChanged();
@@ -239,8 +251,8 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	}
 
 	/**
-	 * Send the updated Tool Belt data to players connected
-	 * Kind of Hammer to the fly for the moment
+	 * Send the updated Tool Belt data to players connected Kind of Hammer to
+	 * the fly for the moment
 	 */
 	private void sendUpdate() {
 		PacketDispatcher.sendPacketToAllPlayers(this.createPacket().getPacket());
@@ -267,20 +279,32 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	/**
 	 * Retrieve Tool Belt data from an ItemStack (usually held by a player)
 	 * 
-	 * @param entityliving the Entity holding the Tool Belt (usually the player)
-	 * @param world the World to which the Tool Belt belongs (as above)
-	 * @param itemstack the (usually held) Tool Belt ItemStack
+	 * @param entityliving
+	 *            the Entity holding the Tool Belt (usually the player)
+	 * @param world
+	 *            the World to which the Tool Belt belongs (as above)
+	 * @param itemstack
+	 *            the (usually held) Tool Belt ItemStack
 	 * @return the Tool Belt data
 	 */
 	public static MiningToolBelt getToolBeltDataFromItemStack(EntityLivingBase entityliving, World world, ItemStack heldItem) {
-		MiningToolBelt data = (MiningToolBelt)world.loadItemData(MiningToolBelt.class, getWorldIndexFromItemStack(heldItem));// Check if the data is null
+		MiningToolBelt data = (MiningToolBelt) world.loadItemData(	MiningToolBelt.class,
+																	getWorldIndexFromItemStack(heldItem));// Check
+																											// if
+																											// the
+																											// data
+																											// is
+																											// null
 		if (data == null) {
 			// Retrieve a new data set for the current Tool Belt
-			data = MiningToolBelt.getNewToolBeltData(entityliving, world, heldItem);
+			data = MiningToolBelt.getNewToolBeltData(	entityliving,
+														world,
+														heldItem);
 			// Check if the data creation was successfull
 			if (data != null) {
 				// Save the item data first
-				world.setItemData(data.mapName, data);
+				world.setItemData(	data.mapName,
+									data);
 				// Set the tool belt ID for ease of use later
 				data.setToolBeltId(heldItem.getItemDamage());
 				// Mark the data for an update
@@ -291,23 +315,28 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	}
 
 	/**
-	 * Retrieves Tool Belt Data from the ID
-	 * Usually accessed from Packet Execution
+	 * Retrieves Tool Belt Data from the ID Usually accessed from Packet
+	 * Execution
 	 * 
-	 * @param entityliving the Entity with the Tool Belt
-	 * @param world the World in which the Tool Belt Resides
-	 * @param toolBeltId the Tool Belt ID
+	 * @param entityliving
+	 *            the Entity with the Tool Belt
+	 * @param world
+	 *            the World in which the Tool Belt Resides
+	 * @param toolBeltId
+	 *            the Tool Belt ID
 	 * @return Tool Belt data
 	 */
 	public static MiningToolBelt getToolBeltDataFromId(EntityLivingBase entityliving, World world, int toolBeltId) {
-		MiningToolBelt data = (MiningToolBelt)world.loadItemData(MiningToolBelt.class, getWorldIndexFromId(toolBeltId));
+		MiningToolBelt data = (MiningToolBelt) world.loadItemData(	MiningToolBelt.class,
+																	getWorldIndexFromId(toolBeltId));
 		return data;
 	}
 
 	/**
 	 * Generates the world data String from an ItemStack
 	 * 
-	 * @param heldItem the ItemStack (usually held)
+	 * @param heldItem
+	 *            the ItemStack (usually held)
 	 * @return the generated String from ItemStack damage
 	 */
 	public static String getWorldIndexFromItemStack(ItemStack heldItem) {
@@ -317,23 +346,27 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	/**
 	 * Generates the world data String from a unique value
 	 * 
-	 * @param Id the unique ID
+	 * @param Id
+	 *            the unique ID
 	 * @return the generated String
 	 */
 	public static String getWorldIndexFromId(int Id) {
-		return DataLib.TOOL_BELT_INDEX.replaceAll("#", Integer.toString(Id));
+		return DataLib.TOOL_BELT_INDEX.replaceAll(	"#",
+													Integer.toString(Id));
 	}
 
 	/**
 	 * Creates a new Instance of a Mining Tool Belt
 	 * 
-	 * @param entityliving the Entity holding the Tool Belt (usually the player)
-	 * @param world the World to which the Tool Belt belongs (as above)
-	 * @param itemstack the (usually held) Tool Belt ItemStack
+	 * @param entityliving
+	 *            the Entity holding the Tool Belt (usually the player)
+	 * @param world
+	 *            the World to which the Tool Belt belongs (as above)
+	 * @param itemstack
+	 *            the (usually held) Tool Belt ItemStack
 	 * @return the new instance
 	 */
-	public static MiningToolBelt getNewToolBeltData(
-			EntityLivingBase entityliving, World world, ItemStack itemstack) {
+	public static MiningToolBelt getNewToolBeltData(EntityLivingBase entityliving, World world, ItemStack itemstack) {
 		// Creates a new instance of MiningToolBelt
 		return new MiningToolBelt(getWorldIndexFromItemStack(itemstack));
 	}
@@ -351,10 +384,12 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 		this.onInventoryChanged();
 	}
 
-	public static void checkSelectedStack(ItemStack itemstack, World world,
-			EntityLiving entityliving) {
-		MiningToolBelt data = getToolBeltDataFromItemStack(entityliving, world, itemstack);
-		if (data != null && (data.getSelectedTool() == null || data.getSelectedTool().stackSize <= 0)) {
+	public static void checkSelectedStack(ItemStack itemstack, World world, EntityLiving entityliving) {
+		MiningToolBelt data = getToolBeltDataFromItemStack(	entityliving,
+															world,
+															itemstack);
+		if (data != null
+			&& (data.getSelectedTool() == null || data.getSelectedTool().stackSize <= 0)) {
 			data.clearSelectedStack();
 		}
 	}
@@ -363,13 +398,13 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 		MiningMode.toggleMiningModeForPlayer(entityplayer);
 	}
 
-    @Override
-    public boolean isInvNameLocalized() {
-        return false;
-    }
+	@Override
+	public boolean isInvNameLocalized() {
+		return false;
+	}
 
-    @Override
-    public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-        return true;
-    }
+	@Override
+	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+		return true;
+	}
 }

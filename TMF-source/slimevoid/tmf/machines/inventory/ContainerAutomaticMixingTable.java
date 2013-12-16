@@ -20,29 +20,29 @@ import slimevoid.tmf.machines.tileentities.TileEntityAutomaticMixingTable;
 import slimevoid.tmf.machines.tileentities.TileEntityMachine;
 
 public class ContainerAutomaticMixingTable extends ContainerMachine {
-	
+
 	public ContainerAutomaticMixingTable(InventoryPlayer playerInventory, TileEntityAutomaticMixingTable autoMixTable) {
 		super(playerInventory, autoMixTable, autoMixTable.worldObj, 0, 84);
 	}
-	
+
 	@Override
 	protected void bindLocalInventory() {
 		TileEntityMachine autoMixTable = this.getMachineData();
-		
-        // Min level > 2 => only mixed dust.
-        this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 0, 2, 10, 44, 32, true)); // blueprint
-        this.addSlotToContainer(new SlotMachineOutput(autoMixTable, 1, 116, 32)); // output
-        
-        // Min level = max level = 1 => only clean dust.
-        this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 2, 1, 1, 62, 68, true));
-        this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 3, 1, 1, 80, 68, true));
-        this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 4, 1, 1, 98, 68, true));
-        this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 5, 1, 1, 62, 86, true));
-        this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 6, 1, 1, 80, 86, true));
-        this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 7, 1, 1, 98, 86, true));
-        this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 8, 1, 1, 62, 104, true));
-        this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 9, 1, 1, 80, 104, true));
-        this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 10, 1, 1, 98, 104, true));
+
+		// Min level > 2 => only mixed dust.
+		this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 0, 2, 10, 44, 32, true)); // blueprint
+		this.addSlotToContainer(new SlotMachineOutput(autoMixTable, 1, 116, 32)); // output
+
+		// Min level = max level = 1 => only clean dust.
+		this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 2, 1, 1, 62, 68, true));
+		this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 3, 1, 1, 80, 68, true));
+		this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 4, 1, 1, 98, 68, true));
+		this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 5, 1, 1, 62, 86, true));
+		this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 6, 1, 1, 80, 86, true));
+		this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 7, 1, 1, 98, 86, true));
+		this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 8, 1, 1, 62, 104, true));
+		this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 9, 1, 1, 80, 104, true));
+		this.addSlotToContainer(new SlotTMFFuel(autoMixTable, 10, 1, 1, 98, 104, true));
 	}
 
 	@Override
@@ -50,36 +50,57 @@ public class ContainerAutomaticMixingTable extends ContainerMachine {
 		ItemStack stack = null;
 		Slot slotObject = (Slot) inventorySlots.get(slot);
 
-		//null checks and checks if the item can be stacked (maxStackSize > 1)
+		// null checks and checks if the item can be stacked (maxStackSize > 1)
 		if (slotObject != null && slotObject.getHasStack()) {
 			ItemStack stackInSlot = slotObject.getStack();
 			stack = stackInSlot.copy();
 
-			//merges the item into player inventory since its in the inventory
-			if (slot >= 2 && slot < 11 ) {
-				if (!mergeItemStack(stackInSlot, 1, inventorySlots.size(), true)) {
+			// merges the item into player inventory since its in the inventory
+			if (slot >= 2 && slot < 11) {
+				if (!mergeItemStack(stackInSlot,
+									1,
+									inventorySlots.size(),
+									true)) {
 					return null;
 				}
-				slotObject.onSlotChange(stackInSlot,stack);
-				//places it into the inventory is possible since its in the player inventory
+				slotObject.onSlotChange(stackInSlot,
+										stack);
+				// places it into the inventory is possible since its in the
+				// player inventory
 			} else if (slot != 1 && slot != 0) {
 				ItemStack[] results = RefineryRecipes.refining().getRefiningResults(stackInSlot.itemID);
 				if (results != null && results.length > 0) {
-					if (!this.mergeItemStack(stackInSlot, 0, 1, false)) {
+					if (!this.mergeItemStack(	stackInSlot,
+												0,
+												1,
+												false)) {
 						return null;
 					}
-				} else if ( this.getMachineData().isItemFuel(stackInSlot) ) {
-					if (!this.mergeItemStack(stackInSlot, 1, 2, false)) {
+				} else if (this.getMachineData().isItemFuel(stackInSlot)) {
+					if (!this.mergeItemStack(	stackInSlot,
+												1,
+												2,
+												false)) {
 						return null;
 					}
 				} else if (slot >= 11 && slot < 32) {
-					if (!this.mergeItemStack(stackInSlot, 32, 41, false)) {
+					if (!this.mergeItemStack(	stackInSlot,
+												32,
+												41,
+												false)) {
 						return null;
 					}
-				} else if (slot >= 32 && slot < 41 && !this.mergeItemStack(stackInSlot, 5, 32, false)) {
+				} else if (slot >= 32 && slot < 41
+							&& !this.mergeItemStack(stackInSlot,
+													5,
+													32,
+													false)) {
 					return null;
 				}
-			} else if (!mergeItemStack(stackInSlot, 5, 41, false)) {
+			} else if (!mergeItemStack(	stackInSlot,
+										5,
+										41,
+										false)) {
 				return null;
 			}
 
@@ -88,17 +109,18 @@ public class ContainerAutomaticMixingTable extends ContainerMachine {
 			} else {
 				slotObject.onSlotChanged();
 			}
-			
+
 			if (stack.stackSize == stack.stackSize) {
 				return null;
 			}
 
-			slotObject.onPickupFromSlot(entityplayer, stack);
+			slotObject.onPickupFromSlot(entityplayer,
+										stack);
 		}
 
 		return stack;
 	}
-	
+
 	@Override
 	protected boolean hasProgressBar() {
 		return false;

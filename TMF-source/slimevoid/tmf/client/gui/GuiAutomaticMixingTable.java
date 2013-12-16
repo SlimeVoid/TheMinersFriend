@@ -20,7 +20,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class GuiAutomaticMixingTable extends GuiContainer {
-	private TileEntityAutomaticMixingTable autoMixTable;
+	private TileEntityAutomaticMixingTable	autoMixTable;
 
 	public GuiAutomaticMixingTable(EntityPlayer entityplayer, TileEntityAutomaticMixingTable autoMixTable) {
 		super(new ContainerAutomaticMixingTable(entityplayer.inventory, autoMixTable));
@@ -30,13 +30,21 @@ public class GuiAutomaticMixingTable extends GuiContainer {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float var1, int var2,int var3) {
-		///int tex = mc.renderEngine.getTexture(ResourceLib.GUI_AUTOMIXTABLE);
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
+		// /int tex = mc.renderEngine.getTexture(ResourceLib.GUI_AUTOMIXTABLE);
+		GL11.glColor4f(	1.0F,
+						1.0F,
+						1.0F,
+						1.0F);
 		mc.renderEngine.bindTexture(ResourceLib.GUI_AUTOMIXTABLE);
 		int sizeX = (width - xSize) / 2;
 		int sizeY = (height - ySize) / 2;
-		drawTexturedModalRect(sizeX, sizeY, 0, 0, xSize, ySize);
+		drawTexturedModalRect(	sizeX,
+								sizeY,
+								0,
+								0,
+								xSize,
+								ySize);
 
 	}
 }

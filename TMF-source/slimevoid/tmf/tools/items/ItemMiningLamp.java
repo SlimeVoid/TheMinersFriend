@@ -14,7 +14,6 @@ package slimevoid.tmf.tools.items;
 import net.minecraft.item.Item;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.ConfigurationLib;
-import slimevoid.tmf.core.lib.ResourceLib;
 
 public class ItemMiningLamp extends Item {
 

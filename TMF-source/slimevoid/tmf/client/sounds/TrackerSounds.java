@@ -19,27 +19,26 @@ import slimevoid.tmf.core.lib.SoundLib;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TrackerSounds {
-	
+
 	@ForgeSubscribe
 	public void onSound(SoundLoadEvent event) {
-        // For each custom sound file we have defined in Sounds
+		// For each custom sound file we have defined in Sounds
 		int i = 0;
 		for (String file : SoundLib.trackerFiles) {
-            // Try to add the custom sound file to the pool of sounds
+			// Try to add the custom sound file to the pool of sounds
 			try {
 				event.manager.soundPoolSounds.addSound(file);
 				i++;
 			}
-            // If we cannot add the custom sound file to the pool, log the exception 
+			// If we cannot add the custom sound file to the pool, log the
+			// exception
 			catch (Exception e) {
 				System.err.print(e);
-				LoggerTMF.getInstance(
-						Logger.filterClassName(this.getClass().toString())
-						).write(
-								false,
-								"Failed to register sound [" + file + "]",
-								Logger.LogLevel.DEBUG
-						);
+				LoggerTMF.getInstance(Logger.filterClassName(this.getClass().toString())).write(false,
+																								"Failed to register sound ["
+																										+ file
+																										+ "]",
+																								Logger.LogLevel.DEBUG);
 			}
 		}
 		FMLCommonHandler.instance().getFMLLogger().fine("Tracker Sounds Registered");

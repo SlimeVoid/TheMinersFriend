@@ -58,141 +58,134 @@ import cpw.mods.fml.relauncher.Side;
 public class CommonProxy implements ITMFCommonProxy {
 
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
-			int x, int y, int z) {
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {
-			case GuiLib.TOOL_BELT_GUIID :
-				MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(
-						player,
-						world,
-						player.getHeldItem()
-				);
-				return new ContainerMiningToolBelt(
-						player.inventory,
-						data
-				);
-			case GuiLib.REFINERY_GUIID :
-				TileEntity tileRef = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
-				if ( tileRef instanceof TileEntityRefinery ) {
-					TileEntityRefinery tileRefinery = (TileEntityRefinery) tileRef;
-					return new ContainerRefinery(
-							player.inventory,
-							tileRefinery
-					);
-				}
-				return null;
-			case GuiLib.GRINDER_GUIID :
-				TileEntity tileGrind = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
-				if ( tileGrind instanceof TileEntityGrinder ) {
-					TileEntityGrinder tileGrinder = (TileEntityGrinder) tileGrind;
-					return new ContainerGrinder(
-							player.inventory,
-							tileGrinder
-					);
-				}
-				return null;
-			case GuiLib.GEOEQUIP_GUIID :
-				TileEntity tileGeo = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
-				if ( tileGeo instanceof TileEntityGeologicalEquipment ) {
-					TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) tileGeo;
-					return new ContainerGeologicalEquipment(
-							player.inventory,
-							tileGeoEquip
-					);
-				}
-				return null;
-			case GuiLib.MIXINGTABLE_GUIID :
-				TileEntity tileMix = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
-				if ( tileMix instanceof TileEntityAutomaticMixingTable ) {
-					TileEntityAutomaticMixingTable tileMixTable = (TileEntityAutomaticMixingTable) tileMix;
-					return new ContainerAutomaticMixingTable(
-							player.inventory,
-							tileMixTable
-					);
-				}
-				return null;
-			default : return null;
+		case GuiLib.TOOL_BELT_GUIID:
+			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(	player,
+																				world,
+																				player.getHeldItem());
+			return new ContainerMiningToolBelt(player.inventory, data);
+		case GuiLib.REFINERY_GUIID:
+			TileEntity tileRef = SlimevoidHelper.getBlockTileEntity(world,
+																	x,
+																	y,
+																	z);
+			if (tileRef instanceof TileEntityRefinery) {
+				TileEntityRefinery tileRefinery = (TileEntityRefinery) tileRef;
+				return new ContainerRefinery(player.inventory, tileRefinery);
+			}
+			return null;
+		case GuiLib.GRINDER_GUIID:
+			TileEntity tileGrind = SlimevoidHelper.getBlockTileEntity(	world,
+																		x,
+																		y,
+																		z);
+			if (tileGrind instanceof TileEntityGrinder) {
+				TileEntityGrinder tileGrinder = (TileEntityGrinder) tileGrind;
+				return new ContainerGrinder(player.inventory, tileGrinder);
+			}
+			return null;
+		case GuiLib.GEOEQUIP_GUIID:
+			TileEntity tileGeo = SlimevoidHelper.getBlockTileEntity(world,
+																	x,
+																	y,
+																	z);
+			if (tileGeo instanceof TileEntityGeologicalEquipment) {
+				TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) tileGeo;
+				return new ContainerGeologicalEquipment(player.inventory, tileGeoEquip);
+			}
+			return null;
+		case GuiLib.MIXINGTABLE_GUIID:
+			TileEntity tileMix = SlimevoidHelper.getBlockTileEntity(world,
+																	x,
+																	y,
+																	z);
+			if (tileMix instanceof TileEntityAutomaticMixingTable) {
+				TileEntityAutomaticMixingTable tileMixTable = (TileEntityAutomaticMixingTable) tileMix;
+				return new ContainerAutomaticMixingTable(player.inventory, tileMixTable);
+			}
+			return null;
+		default:
+			return null;
 		}
 	}
 
 	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
-			int x, int y, int z) {
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {
-			case GuiLib.TOOL_BELT_GUIID :
-				MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(
-						player,
-						world,
-						player.getHeldItem()
-				);
-				return new GuiMiningToolBelt(
-						player,
-						data
-				);
-			case GuiLib.REFINERY_GUIID :
-				TileEntity tile1 = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
-				if ( tile1 instanceof TileEntityRefinery ) {
-					TileEntityRefinery tileRefinery = (TileEntityRefinery) tile1;
-					return new GuiRefinery(
-							player,
-							tileRefinery
-					);
-				}
-				return null;
-			case GuiLib.GRINDER_GUIID :
-				TileEntity tile2 = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
-				if ( tile2 instanceof TileEntityGrinder ) {
-					TileEntityGrinder tileGrinder = (TileEntityGrinder) tile2;
-					return new GuiGrinder(
-							player,
-							tileGrinder
-					);
-				}
-				return null;
-			case GuiLib.GEOEQUIP_GUIID :
-				TileEntity tileGeo = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
-				if ( tileGeo instanceof TileEntityGeologicalEquipment ) {
-					TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) tileGeo;
-					return new GuiGeologicalEquipment(
-							player,
-							tileGeoEquip
-					);
-				}
-				return null;
-			case GuiLib.MIXINGTABLE_GUIID :
-				TileEntity tileMix = SlimevoidHelper.getBlockTileEntity(world, x, y, z);
-				if ( tileMix instanceof TileEntityAutomaticMixingTable ) {
-					TileEntityAutomaticMixingTable tileMixTable = (TileEntityAutomaticMixingTable) tileMix;
-					return new GuiAutomaticMixingTable(
-							player,
-							tileMixTable
-					);
-				}
-				return null;
-			default : return null;
+		case GuiLib.TOOL_BELT_GUIID:
+			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(	player,
+																				world,
+																				player.getHeldItem());
+			return new GuiMiningToolBelt(player, data);
+		case GuiLib.REFINERY_GUIID:
+			TileEntity tile1 = SlimevoidHelper.getBlockTileEntity(	world,
+																	x,
+																	y,
+																	z);
+			if (tile1 instanceof TileEntityRefinery) {
+				TileEntityRefinery tileRefinery = (TileEntityRefinery) tile1;
+				return new GuiRefinery(player, tileRefinery);
+			}
+			return null;
+		case GuiLib.GRINDER_GUIID:
+			TileEntity tile2 = SlimevoidHelper.getBlockTileEntity(	world,
+																	x,
+																	y,
+																	z);
+			if (tile2 instanceof TileEntityGrinder) {
+				TileEntityGrinder tileGrinder = (TileEntityGrinder) tile2;
+				return new GuiGrinder(player, tileGrinder);
+			}
+			return null;
+		case GuiLib.GEOEQUIP_GUIID:
+			TileEntity tileGeo = SlimevoidHelper.getBlockTileEntity(world,
+																	x,
+																	y,
+																	z);
+			if (tileGeo instanceof TileEntityGeologicalEquipment) {
+				TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) tileGeo;
+				return new GuiGeologicalEquipment(player, tileGeoEquip);
+			}
+			return null;
+		case GuiLib.MIXINGTABLE_GUIID:
+			TileEntity tileMix = SlimevoidHelper.getBlockTileEntity(world,
+																	x,
+																	y,
+																	z);
+			if (tileMix instanceof TileEntityAutomaticMixingTable) {
+				TileEntityAutomaticMixingTable tileMixTable = (TileEntityAutomaticMixingTable) tileMix;
+				return new GuiAutomaticMixingTable(player, tileMixTable);
+			}
+			return null;
+		default:
+			return null;
 		}
 	}
 
 	@Override
-	public void preInit() {		
-        NetworkRegistry.instance().registerGuiHandler(TheMinersFriend.instance, this);
-        
-        PacketLib.registerPacketExecutors();
-		
+	public void preInit() {
+		NetworkRegistry.instance().registerGuiHandler(	TheMinersFriend.instance,
+														this);
+
+		PacketLib.registerPacketExecutors();
+
 		EventLib.registerCommonEvents();
-		
+
 		MiningMode.init(DataLib.MINING_MODE_STRENGTH);
 	}
 
 	@Override
 	public void registerConfigurationProperties(File configFile) {
-		SlimevoidCore.console(CoreLib.MOD_ID, "Loading properties...");
+		SlimevoidCore.console(	CoreLib.MOD_ID,
+								"Loading properties...");
 		ConfigurationLib.CommonConfig(configFile);
 	}
 
 	@Override
 	public void registerTickHandlers() {
-		TickRegistry.registerTickHandler(new MiningHelmetTickHandler(), Side.SERVER);
+		TickRegistry.registerTickHandler(	new MiningHelmetTickHandler(),
+											Side.SERVER);
 	}
 
 	@Override
@@ -203,10 +196,9 @@ public class CommonProxy implements ITMFCommonProxy {
 	public String getMinecraftDir() {
 		return "./";
 	}
-	
+
 	@Override
-	public void onPacketData(INetworkManager manager,
-			Packet250CustomPayload packet, Player player) {
+	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
 	}
 
 	@Override
@@ -215,8 +207,7 @@ public class CommonProxy implements ITMFCommonProxy {
 	}
 
 	@Override
-	public void registerTileEntitySpecialRenderer(
-			Class<? extends TileEntity> clazz) {
+	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
 	}
 
 	@Override
@@ -226,7 +217,7 @@ public class CommonProxy implements ITMFCommonProxy {
 	@Override
 	public void registerEventHandlers() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -238,7 +229,7 @@ public class CommonProxy implements ITMFCommonProxy {
 	@Override
 	public void playerLoggedIn(Player player, NetHandler netHandler, INetworkManager manager) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -250,24 +241,24 @@ public class CommonProxy implements ITMFCommonProxy {
 	@Override
 	public void connectionOpened(NetHandler netClientHandler, String server, int port, INetworkManager manager) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void connectionOpened(NetHandler netClientHandler, MinecraftServer server, INetworkManager manager) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void connectionClosed(INetworkManager manager) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void clientLoggedIn(NetHandler clientHandler, INetworkManager manager, Packet1Login login) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

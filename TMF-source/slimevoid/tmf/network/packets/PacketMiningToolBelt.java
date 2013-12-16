@@ -25,31 +25,34 @@ import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.PacketLib;
 
 public class PacketMiningToolBelt extends PacketMining {
-	
-	ItemStack[] miningTools;
+
+	ItemStack[]	miningTools;
 
 	@Override
 	public void writeData(DataOutputStream data) throws IOException {
 		super.writeData(data);
 		this.writeToolBeltData(data);
 	}
-	
+
 	private void writeToolBeltData(DataOutputStream data) throws IOException {
 		NBTTagCompound nbttagcompound = null;
 		if (this.miningTools != null) {
 			nbttagcompound = new NBTTagCompound();
-	    	NBTTagList toolsTag = new NBTTagList();
-	    	for (int i = 0; i < this.miningTools.length; i++) {
-	    		if (miningTools[i] != null) {
-	    			NBTTagCompound tagCompound = new NBTTagCompound();
-	    			tagCompound.setByte("Slot", (byte) i);
-	    			this.miningTools[i].writeToNBT(tagCompound);
-	        		toolsTag.appendTag(tagCompound);
-	    		}
-	    	}
-	    	nbttagcompound.setTag("Tools", toolsTag);
+			NBTTagList toolsTag = new NBTTagList();
+			for (int i = 0; i < this.miningTools.length; i++) {
+				if (miningTools[i] != null) {
+					NBTTagCompound tagCompound = new NBTTagCompound();
+					tagCompound.setByte("Slot",
+										(byte) i);
+					this.miningTools[i].writeToNBT(tagCompound);
+					toolsTag.appendTag(tagCompound);
+				}
+			}
+			nbttagcompound.setTag(	"Tools",
+									toolsTag);
 		}
-		NBTHelper.writeNBTTagCompound(nbttagcompound, data);
+		NBTHelper.writeNBTTagCompound(	nbttagcompound,
+										data);
 	}
 
 	@Override
@@ -76,43 +79,45 @@ public class PacketMiningToolBelt extends PacketMining {
 	public PacketMiningToolBelt() {
 		super(PacketLib.MINING_TOOL_BELT);
 	}
-	
+
 	public PacketMiningToolBelt(String command) {
 		this();
 		this.setCommand(command);
 		this.payload = new PacketPayload(2, 0, 0, 0);
 	}
-	
+
 	public void setToolBeltId(int toolBeltId) {
-		this.payload.setIntPayload(0, toolBeltId);
+		this.payload.setIntPayload(	0,
+									toolBeltId);
 	}
 
 	public void setSelectedTool(int selectedTool) {
-		this.payload.setIntPayload(1, selectedTool);
+		this.payload.setIntPayload(	1,
+									selectedTool);
 	}
-	
+
 	public void setToolSlots(ItemStack[] tools) {
 		this.miningTools = tools;
 	}
-	
+
 	public void setToolInSlot(ItemStack tool, int slot) {
 		if (slot >= 0 && slot < DataLib.TOOL_BELT_MAX_SIZE && tool != null) {
 			miningTools[slot] = tool;
 		}
 	}
-	
+
 	public int getToolBeltId() {
 		return this.payload.getIntPayload(0);
 	}
-	
+
 	public int getSelectedTool() {
 		return this.payload.getIntPayload(1);
 	}
-	
+
 	public ItemStack[] getToolSlots() {
 		return this.miningTools;
 	}
-	
+
 	public ItemStack getToolInSlot(int slot) {
 		if (slot >= 0 && slot < DataLib.TOOL_BELT_MAX_SIZE) {
 			return this.miningTools[slot];

@@ -27,13 +27,12 @@ public class SlotMiningToolBelt extends Slot {
 
 	@Override
 	public boolean isItemValid(ItemStack itemstack) {
-		return ( 
-				(getSlotIndex() == 0 && itemstack != null && itemstack.getItem() instanceof ItemPickaxe) ||
-				(getSlotIndex() == 1 && itemstack != null && itemstack.getItem() instanceof ItemSpade) ||
-				(getSlotIndex() == 2 && itemstack != null && itemstack.getItem() instanceof Item) ||
-				(getSlotIndex() == 3 && itemstack != null && itemstack.getItem() instanceof ItemMotionSensor)
-			
+		return ((getSlotIndex() == 0 && itemstack != null && itemstack.getItem() instanceof ItemPickaxe)
+				|| (getSlotIndex() == 1 && itemstack != null && itemstack.getItem() instanceof ItemSpade)
+				|| (getSlotIndex() == 2 && itemstack != null && itemstack.getItem() instanceof Item) || (getSlotIndex() == 3
+																											&& itemstack != null && itemstack.getItem() instanceof ItemMotionSensor)
+
 		);
 	}
-	
+
 }

@@ -20,12 +20,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class EventLib {
-	
+
 	@SideOnly(Side.CLIENT)
 	public static void registerClientEvents() {
 		MinecraftForge.EVENT_BUS.register(new TrackerSounds());
 	}
-	
+
 	public static void registerCommonEvents() {
 		MinecraftForge.EVENT_BUS.register(new MiningToolBeltEntityInteract());
 		MinecraftForge.EVENT_BUS.register(new MiningToolBeltHarvestCheck());

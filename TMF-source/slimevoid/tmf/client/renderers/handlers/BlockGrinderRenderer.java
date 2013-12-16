@@ -16,7 +16,11 @@ public class BlockGrinderRenderer implements ISimpleBlockRenderingHandler {
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
 		TileEntityGrinder tile = new TileEntityGrinder();
 		tile.blockType = block;
-		TileEntityRenderer.instance.renderTileEntityAt(tile, 0.0D, 0.0D, 0.0D, 0.0F);
+		TileEntityRenderer.instance.renderTileEntityAt(	tile,
+														0.0D,
+														0.0D,
+														0.0D,
+														0.0F);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 	}
 

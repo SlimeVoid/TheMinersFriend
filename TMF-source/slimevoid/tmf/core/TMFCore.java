@@ -30,12 +30,7 @@ import slimevoid.tmf.fuel.MineralFuelHandler;
 import slimevoid.tmf.fuel.MixedDustNameRegistry;
 import slimevoid.tmf.machines.JSONGrinderRecipesLoader;
 import slimevoid.tmf.machines.JSONRefineryRecipesLoader;
-import slimevoid.tmf.machines.blocks.BlockGrinder;
 import slimevoid.tmf.machines.blocks.BlockMachineBase;
-import slimevoid.tmf.machines.tileentities.TileEntityAutomaticMixingTable;
-import slimevoid.tmf.machines.tileentities.TileEntityGeologicalEquipment;
-import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
-import slimevoid.tmf.machines.tileentities.TileEntityRefinery;
 import slimevoid.tmf.minerals.items.ItemMineral;
 import slimevoid.tmf.minerals.items.ItemMineralDust;
 import slimevoid.tmf.minerals.items.ItemMineralMixedDust;
@@ -51,167 +46,182 @@ import slimevoidlib.util.xml.XMLRecipeLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class TMFCore {
-	
+
 	// CONFIG
-	public static Configuration configuration;
-	
-	public static String loggerLevel = "INFO";
-	
+	public static Configuration	configuration;
+
+	public static String		loggerLevel	= "INFO";
+
 	// TOOLS
-	public static int 
-		miningHelmetLampId,
-		miningHelmetIronId, 
-		miningHelmetGoldId, 
-		miningHelmetDiamondId;
-	public static Item 
-		miningHelmetLamp,
-		miningHelmetIron,
-		miningHelmetGold,
-		miningHelmetDiamond;
-	
-	public static Item 
-		motionSensor;
-	public static int 
-		motionSensorId;
-	
-	public static Item 
-		miningToolBelt;
-	public static int 
-		miningToolBeltId;
-	
+	public static int			miningHelmetLampId, miningHelmetIronId,
+			miningHelmetGoldId, miningHelmetDiamondId;
+	public static Item			miningHelmetLamp, miningHelmetIron,
+			miningHelmetGold, miningHelmetDiamond;
+
+	public static Item			motionSensor;
+	public static int			motionSensorId;
+
+	public static Item			miningToolBelt;
+	public static int			miningToolBeltId;
+
 	// MINERALS
-	public static Item 
-		mineralAcxium,
-		mineralBisogen,
-		mineralCydrine;
-	public static int 
-		mineralAcxiumId,
-		mineralBisogenId,
-		mineralCydrineId;
-	
+	public static Item			mineralAcxium, mineralBisogen, mineralCydrine;
+	public static int			mineralAcxiumId, mineralBisogenId,
+			mineralCydrineId;
+
 	// MINERAL DUSTS
-	public static Item 
-		dustAcxium,
-		dustBisogen,
-		dustCydrine,
-		dustMixed;
-	public static int 
-		dustAcxiumId,
-		dustBisogenId,
-		dustCydrineId,
-		dustMixedId;
-	
+	public static Item			dustAcxium, dustBisogen, dustCydrine,
+			dustMixed;
+	public static int			dustAcxiumId, dustBisogenId, dustCydrineId,
+			dustMixedId;
+
 	// ======== ITEM REGISTRATION ========
 	public static void registerItems() {
 		registerTools();
 		registerMinerals();
 		registerDusts();
 	}
+
 	private static void registerTools() {
 		registerMiningHelmets();
 		registerMotionSensor();
 		registerToolBelt();
 	}
+
 	private static void registerMiningHelmets() {
-		miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setUnlocalizedName(ItemLib.MINING_HELMET_LAMP);//.setIconCoord(4, 0);
-		miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setUnlocalizedName(ItemLib.MINING_HELMET_IRON);//.setIconCoord(2, 0);
-		miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setUnlocalizedName(ItemLib.MINING_HELMET_GOLD);//.setIconCoord(1, 0);
-		miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setUnlocalizedName(ItemLib.MINING_HELMET_DIAMOND);//.setIconCoord(0, 0);
+		miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setUnlocalizedName(ItemLib.MINING_HELMET_LAMP);// .setIconCoord(4,
+																													// 0);
+		miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setUnlocalizedName(ItemLib.MINING_HELMET_IRON);// .setIconCoord(2,
+																																					// 0);
+		miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setUnlocalizedName(ItemLib.MINING_HELMET_GOLD);// .setIconCoord(1,
+																																					// 0);
+		miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setUnlocalizedName(ItemLib.MINING_HELMET_DIAMOND);// .setIconCoord(0,
+																																								// 0);
 	}
+
 	private static void registerMotionSensor() {
-		motionSensor = new ItemMotionSensor(motionSensorId).setUnlocalizedName(ItemLib.MOTION_SENSOR);//.setIconCoord(0, 1);
+		motionSensor = new ItemMotionSensor(motionSensorId).setUnlocalizedName(ItemLib.MOTION_SENSOR);// .setIconCoord(0,
+																										// 1);
 	}
+
 	private static void registerToolBelt() {
-		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setUnlocalizedName(ItemLib.MINING_TOOLBELT);//.setIconCoord(0, 2);
+		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setUnlocalizedName(ItemLib.MINING_TOOLBELT);// .setIconCoord(0,
+																												// 2);
 	}
+
 	private static void registerMinerals() {
-		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(2400).setUnlocalizedName(ItemLib.MINERAL_AXCIUM);//.setIconCoord(0, 1);
-		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(150).setUnlocalizedName(ItemLib.MINERAL_BISOGEN);//.setIconCoord(1, 1);
-		mineralCydrine = new ItemMineral(mineralCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.MINERAL_CYDRINE);//.setIconCoord(2, 1);
+		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(2400).setUnlocalizedName(ItemLib.MINERAL_AXCIUM);// .setIconCoord(0,
+																														// 1);
+		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(150).setUnlocalizedName(ItemLib.MINERAL_BISOGEN);// .setIconCoord(1,
+																															// 1);
+		mineralCydrine = new ItemMineral(mineralCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.MINERAL_CYDRINE);// .setIconCoord(2,
+																														// 1);
 	}
+
 	private static void registerDusts() {
-		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setUnlocalizedName(ItemLib.DUST_AXCIUM);//.setIconCoord(0, 2);
-		dustBisogen = new ItemMineralDust(dustBisogenId).setBurnSpeed(100).setUnlocalizedName(ItemLib.DUST_BISOGEN);//.setIconCoord(1, 2);
-		dustCydrine = new ItemMineralDust(dustCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.DUST_CYDRINE);//.setIconCoord(2, 2);
-		
-		dustMixed = new ItemMineralMixedDust(dustMixedId).setUnlocalizedName(ItemLib.DUST_MIXED);//.setIconCoord(3, 2);
-		
+		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setUnlocalizedName(ItemLib.DUST_AXCIUM);// .setIconCoord(0,
+																													// 2);
+		dustBisogen = new ItemMineralDust(dustBisogenId).setBurnSpeed(100).setUnlocalizedName(ItemLib.DUST_BISOGEN);// .setIconCoord(1,
+																													// 2);
+		dustCydrine = new ItemMineralDust(dustCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.DUST_CYDRINE);// .setIconCoord(2,
+																													// 2);
+
+		dustMixed = new ItemMineralMixedDust(dustMixedId).setUnlocalizedName(ItemLib.DUST_MIXED);// .setIconCoord(3,
+																									// 2);
+
 		ItemMineralMixedDust.script = FileReader.readFile(new File(TMFCore.class.getResource(ResourceLib.DUST_LIB).getFile()));
 		ItemMineralMixedDust.script_burnTime = "getBurnTime()";
 		ItemMineralMixedDust.script_burnSpeed = "getBurnSpeed()";
 		ItemMineralMixedDust.script_burnWidth = "getBurnWidth()";
-		
+
 		// TODO :: MixedDustNameRegistry : Move to or something
-		MixedDustNameRegistry.addName(1, 1, 0, "Monoaxogen");
-		MixedDustNameRegistry.addName(1, 0, 1, "Monoaxicyde");
-		MixedDustNameRegistry.addName(0, 1, 1, "Monogencyde");
+		MixedDustNameRegistry.addName(	1,
+										1,
+										0,
+										"Monoaxogen");
+		MixedDustNameRegistry.addName(	1,
+										0,
+										1,
+										"Monoaxicyde");
+		MixedDustNameRegistry.addName(	0,
+										1,
+										1,
+										"Monogencyde");
 	}
 
 	// ======== FUEL REGISTRATION ========
 	public static void registerFuels() {
 		GameRegistry.registerFuelHandler(new MineralFuelHandler());
 	}
-	
+
 	// ORES
-	public static int
-		arkiteOreId,
-		bistiteOreId,
-		crokereOreId,
-		derniteOreId,
-		egioclaseOreId;
-	public static Block
-		arkiteOre,
-		bistiteOre,
-		crokereOre,
-		derniteOre,
-		egioclaseOre;
-	
+	public static int		arkiteOreId, bistiteOreId, crokereOreId,
+			derniteOreId, egioclaseOreId;
+	public static Block		arkiteOre, bistiteOre, crokereOre, derniteOre,
+			egioclaseOre;
+
 	// MACHINES
-	public static int
-		blockMachineBaseId;
-	public static BlockBase
-		blockMachineBase;
+	public static int		blockMachineBaseId;
+	public static BlockBase	blockMachineBase;
 
 	// ======== BLOCK REGISTRATION ========
 	public static void registerBlocks() {
-		
+
 		BlockLib.init();
-		
+
 		registerOres();
-        
-        GameRegistry.registerWorldGenerator(new WorldGeneration());
-        
-        registerMachines();
+
+		GameRegistry.registerWorldGenerator(new WorldGeneration());
+
+		registerMachines();
 	}
+
 	private static void registerOres() {
-		// BlockTMFOre(int id, int texture, int spawnLevel, int spawnRate, int spawnSize, int veinSize, int lightLevel)
-		arkiteOre = new BlockTMFOre(arkiteOreId,  60, 100, 5, 0.2F).setUnlocalizedName(BlockLib.ORE_ARKITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		// BlockTMFOre(int id, int texture, int spawnLevel, int spawnRate, int
+		// spawnSize, int veinSize, int lightLevel)
+		arkiteOre = new BlockTMFOre(arkiteOreId, 60, 100, 5, 0.2F).setUnlocalizedName(BlockLib.ORE_ARKITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
 		bistiteOre = new BlockTMFOre(bistiteOreId, 36, 100, 5, 0.3F).setUnlocalizedName(BlockLib.ORE_BISTITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
 		crokereOre = new BlockTMFOre(crokereOreId, 30, 100, 5, 0.4F).setUnlocalizedName(BlockLib.ORE_CROKERE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
 		derniteOre = new BlockTMFOre(derniteOreId, 26, 100, 5, 0.5F).setUnlocalizedName(BlockLib.ORE_DERNITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
 		egioclaseOre = new BlockTMFOre(egioclaseOreId, 20, 100, 5, 0.6F).setUnlocalizedName(BlockLib.ORE_EGIOCLASE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
 
-		GameRegistry.registerBlock(arkiteOre, BlockLib.ORE_ARKITE);
-		GameRegistry.registerBlock(bistiteOre, BlockLib.ORE_BISTITE);
-		GameRegistry.registerBlock(crokereOre, BlockLib.ORE_CROKERE);
-		GameRegistry.registerBlock(derniteOre, BlockLib.ORE_DERNITE);
-		GameRegistry.registerBlock(egioclaseOre, BlockLib.ORE_EGIOCLASE);
+		GameRegistry.registerBlock(	arkiteOre,
+									BlockLib.ORE_ARKITE);
+		GameRegistry.registerBlock(	bistiteOre,
+									BlockLib.ORE_BISTITE);
+		GameRegistry.registerBlock(	crokereOre,
+									BlockLib.ORE_CROKERE);
+		GameRegistry.registerBlock(	derniteOre,
+									BlockLib.ORE_DERNITE);
+		GameRegistry.registerBlock(	egioclaseOre,
+									BlockLib.ORE_EGIOCLASE);
 
-        MinecraftForge.setBlockHarvestLevel(arkiteOre,  "pickaxe", 2);
-        MinecraftForge.setBlockHarvestLevel(bistiteOre,  "pickaxe", 2);
-        MinecraftForge.setBlockHarvestLevel(crokereOre,  "pickaxe", 2);
-        MinecraftForge.setBlockHarvestLevel(derniteOre,  "pickaxe", 2);
-        MinecraftForge.setBlockHarvestLevel(egioclaseOre,  "pickaxe", 2);
+		MinecraftForge.setBlockHarvestLevel(arkiteOre,
+											"pickaxe",
+											2);
+		MinecraftForge.setBlockHarvestLevel(bistiteOre,
+											"pickaxe",
+											2);
+		MinecraftForge.setBlockHarvestLevel(crokereOre,
+											"pickaxe",
+											2);
+		MinecraftForge.setBlockHarvestLevel(derniteOre,
+											"pickaxe",
+											2);
+		MinecraftForge.setBlockHarvestLevel(egioclaseOre,
+											"pickaxe",
+											2);
 	}
+
 	private static void registerMachines() {
 		// MACHINE BASE
 		blockMachineBase = new BlockMachineBase(blockMachineBaseId);
 		GameRegistry.registerBlock(	blockMachineBase,
 									ItemBlockBase.class,
 									BlockLib.BLOCK_MACHINE_BASE);
-		
+
 		EnumMachine.registerMachines();
-		
+
 		// REFINERY
 		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource(ResourceLib.RECIPES_REFINERY).getFile()));
 
@@ -224,15 +234,16 @@ public class TMFCore {
 	}
 
 	// ======== NAME REGISTRATION ========
-	public static void registerNames() {		
+	public static void registerNames() {
 		LocalizationLib.registerLanguages();
 	}
-	
+
 	// ======= RECIPE REGISTRATION =======
-	public static void registerRecipes() {	
+	public static void registerRecipes() {
 		XMLRecipeLoader.loadDefaults(new File(TMFCore.class.getResource(ResourceLib.RECIPE_PATH).getFile()));
-		XMLRecipeLoader.loadFolder(new File(TheMinersFriend.proxy.getMinecraftDir()+"/config/TMFRecipes"));	
-		
+		XMLRecipeLoader.loadFolder(new File(TheMinersFriend.proxy.getMinecraftDir()
+											+ "/config/TMFRecipes"));
+
 		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
 	}
 }

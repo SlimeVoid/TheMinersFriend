@@ -22,21 +22,24 @@ import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 public class ClientMiningToolBeltUpdateExecutor implements IPacketExecutor {
 
 	@Override
-	public void execute(PacketMining packet, World world,
-			EntityPlayer entityplayer) {
+	public void execute(PacketMining packet, World world, EntityPlayer entityplayer) {
 		if (packet instanceof PacketMiningToolBelt) {
 			PacketMiningToolBelt packetMT = (PacketMiningToolBelt) packet;
-			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromId(entityplayer, world, packetMT.getToolBeltId());
+			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromId(	entityplayer,
+																		world,
+																		packetMT.getToolBeltId());
 			if (data == null) {
 				String worldIndex = MiningToolBelt.getWorldIndexFromId(packetMT.getToolBeltId());
 				data = new MiningToolBelt(worldIndex);
 				if (data != null) {
-					world.setItemData(worldIndex, data);
+					world.setItemData(	worldIndex,
+										data);
 					data.setToolBeltId(packetMT.getToolBeltId());
 				}
 			}
 			for (int slot = 0; slot < DataLib.TOOL_BELT_MAX_SIZE; slot++) {
-				data.setInventorySlotContents(slot, packetMT.getToolInSlot(slot));
+				data.setInventorySlotContents(	slot,
+												packetMT.getToolInSlot(slot));
 			}
 			data.selectTool(packetMT.getSelectedTool());
 			data.onInventoryChanged();

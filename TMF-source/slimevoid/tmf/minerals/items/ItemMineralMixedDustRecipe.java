@@ -24,12 +24,12 @@ public class ItemMineralMixedDustRecipe implements IRecipe {
 		ItemStack a = null;
 		ItemStack b = null;
 		// Fetch the two dusts
-		for ( int i = 0; i < craftMatrix.getInventoryStackLimit(); i++ ) {
-			if ( craftMatrix.getStackInSlot(i) != null ) {
-				if ( craftMatrix.getStackInSlot(i).getItem() instanceof ItemMineralDust ) {
-					if ( a == null ) {
+		for (int i = 0; i < craftMatrix.getInventoryStackLimit(); i++) {
+			if (craftMatrix.getStackInSlot(i) != null) {
+				if (craftMatrix.getStackInSlot(i).getItem() instanceof ItemMineralDust) {
+					if (a == null) {
 						a = craftMatrix.getStackInSlot(i);
-					} else if ( b == null  ) {
+					} else if (b == null) {
 						b = craftMatrix.getStackInSlot(i);
 					} else {
 						return false;
@@ -40,15 +40,8 @@ public class ItemMineralMixedDustRecipe implements IRecipe {
 
 		// Check if there are two dusts and
 		// make sure the total dust level does not go over 9
-		return ( 
-				a != null && b != null  &&
-				ItemMineralMixedDust.getTotalLevel(
-						ItemMineralMixedDust.mixDustMeta(
-								ItemMineralMixedDust.getDustMeta(a),
-								ItemMineralMixedDust.getDustMeta(b)
-						)
-				) < 10
-		);
+		return (a != null && b != null && ItemMineralMixedDust.getTotalLevel(ItemMineralMixedDust.mixDustMeta(	ItemMineralMixedDust.getDustMeta(a),
+																												ItemMineralMixedDust.getDustMeta(b))) < 10);
 	}
 
 	@Override
@@ -57,35 +50,30 @@ public class ItemMineralMixedDustRecipe implements IRecipe {
 		ItemStack a = null;
 		ItemStack b = null;
 		// Fetch the two dusts
-		for ( int i = 0; i < craftMatrix.getInventoryStackLimit(); i++ ) {
-			if ( craftMatrix.getStackInSlot(i) != null ) {
-				if ( craftMatrix.getStackInSlot(i).getItem() instanceof ItemMineralDust ) {
-					if ( a == null ) {
+		for (int i = 0; i < craftMatrix.getInventoryStackLimit(); i++) {
+			if (craftMatrix.getStackInSlot(i) != null) {
+				if (craftMatrix.getStackInSlot(i).getItem() instanceof ItemMineralDust) {
+					if (a == null) {
 						a = craftMatrix.getStackInSlot(i);
-					} else if ( b == null ) {
+					} else if (b == null) {
 						b = craftMatrix.getStackInSlot(i);
 					}
 				}
 			}
 		}
-		
+
 		// Check if there are two dusts
-		if ( a != null && b != null ) {
+		if (a != null && b != null) {
 			// Mix the dusts
 			int size = 1;
-			if ( a.itemID == TMFCore.dustMixedId && b.itemID == TMFCore.dustMixedId )
-				size = 2;
-			
-			item = new ItemStack(TMFCore.dustMixed,size);
-			item.setItemDamage(
-					ItemMineralMixedDust.mixDustMeta(
-							ItemMineralMixedDust.getDustMeta(a),
-							ItemMineralMixedDust.getDustMeta(b)
-					)
-			);
+			if (a.itemID == TMFCore.dustMixedId
+				&& b.itemID == TMFCore.dustMixedId) size = 2;
+
+			item = new ItemStack(TMFCore.dustMixed, size);
+			item.setItemDamage(ItemMineralMixedDust.mixDustMeta(ItemMineralMixedDust.getDustMeta(a),
+																ItemMineralMixedDust.getDustMeta(b)));
 		}
-		
-		
+
 		return item;
 	}
 
@@ -96,6 +84,6 @@ public class ItemMineralMixedDustRecipe implements IRecipe {
 
 	@Override
 	public ItemStack getRecipeOutput() {
-		return new ItemStack(TMFCore.dustMixed,0xfff);
+		return new ItemStack(TMFCore.dustMixed, 0xfff);
 	}
 }

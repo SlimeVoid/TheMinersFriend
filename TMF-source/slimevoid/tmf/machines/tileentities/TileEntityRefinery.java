@@ -11,14 +11,12 @@
  */
 package slimevoid.tmf.machines.tileentities;
 
-import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.lib.BlockLib;
 import slimevoid.tmf.core.lib.EnumMachine;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.machines.RefineryRecipes;
 import slimevoid.tmf.machines.RefineryRecipes.RefineryRecipe;
-import slimevoid.tmf.machines.blocks.BlockMachineBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,28 +26,22 @@ import net.minecraftforge.common.ForgeDirection;
 
 public class TileEntityRefinery extends TileEntityMachine {
 	/**
-	 * 0: Ore
-	 * 1: Fuel
-	 * 2: Acxium Mineral
-	 * 3: Bisogen Mineral
-	 * 4: Cydrine Mineral
+	 * 0: Ore 1: Fuel 2: Acxium Mineral 3: Bisogen Mineral 4: Cydrine Mineral
 	 */
-	private ItemStack[] refineryItemStacks = new ItemStack[5];
+	private ItemStack[]	refineryItemStacks	= new ItemStack[5];
 
 	@Override
 	public boolean onBlockActivated(EntityPlayer player) {
-		player.openGui(
-				TheMinersFriend.instance,
-				GuiLib.REFINERY_GUIID,
-				this.worldObj,
-				this.xCoord,
-				this.yCoord,
-				this.zCoord
-		);
-		
+		player.openGui(	TheMinersFriend.instance,
+						GuiLib.REFINERY_GUIID,
+						this.worldObj,
+						this.xCoord,
+						this.yCoord,
+						this.zCoord);
+
 		return true;
 	}
-	
+
 	@Override
 	public int getSizeInventory() {
 		return refineryItemStacks.length;
@@ -60,11 +52,10 @@ public class TileEntityRefinery extends TileEntityMachine {
 		return refineryItemStacks[index];
 	}
 
-
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
 		refineryItemStacks[index] = stack;
-		
+
 		if (stack != null && stack.stackSize > getInventoryStackLimit()) {
 			stack.stackSize = getInventoryStackLimit();
 		}
@@ -74,40 +65,42 @@ public class TileEntityRefinery extends TileEntityMachine {
 	public String getInvName() {
 		return BlockLib.BLOCK_REFINERY;
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound ntbCompound) {
 		super.readFromNBT(ntbCompound);
-		
+
 		NBTTagList items = ntbCompound.getTagList("Items");
 		refineryItemStacks = new ItemStack[getSizeInventory()];
-		
+
 		for (int i = 0; i < items.tagCount(); ++i) {
-			NBTTagCompound itemInSlot = (NBTTagCompound)items.tagAt(i);
+			NBTTagCompound itemInSlot = (NBTTagCompound) items.tagAt(i);
 			byte itemBytes = itemInSlot.getByte("Slot");
-			
+
 			if (itemBytes >= 0 && itemBytes < refineryItemStacks.length) {
 				refineryItemStacks[itemBytes] = ItemStack.loadItemStackFromNBT(itemInSlot);
 			}
 		}
 	}
-	
+
 	@Override
 	public void writeToNBT(NBTTagCompound ntbCompound) {
 		super.writeToNBT(ntbCompound);
-		
+
 		NBTTagList items = new NBTTagList();
-		
+
 		for (int i = 0; i < refineryItemStacks.length; ++i) {
 			if (refineryItemStacks[i] != null) {
 				NBTTagCompound itemInSlot = new NBTTagCompound();
-				itemInSlot.setByte("Slot", (byte)i);
+				itemInSlot.setByte(	"Slot",
+									(byte) i);
 				refineryItemStacks[i].writeToNBT(itemInSlot);
 				items.appendTag(itemInSlot);
 			}
 		}
-		
-		ntbCompound.setTag("Items", items);
+
+		ntbCompound.setTag(	"Items",
+							items);
 	}
 
 	@Override
@@ -124,29 +117,29 @@ public class TileEntityRefinery extends TileEntityMachine {
 	public int[] getAccessibleSlotsFromSide(int side) {
 		if (ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) return new int[] { 1 };
 		if (ForgeDirection.getOrientation(side) == ForgeDirection.UP) return new int[] { 0 };
-		
+
 		int maxSize = 0;
 		int maxSizeSlot = 2;
-		if ( getStackInSlot(2) != null  ) {
-			if ( maxSize < getStackInSlot(2).stackSize ) {
+		if (getStackInSlot(2) != null) {
+			if (maxSize < getStackInSlot(2).stackSize) {
 				maxSize = getStackInSlot(2).stackSize;
 				maxSizeSlot = 2;
 			}
 		}
-		if ( getStackInSlot(3) != null  ) {
-			if ( maxSize < getStackInSlot(3).stackSize ) {
+		if (getStackInSlot(3) != null) {
+			if (maxSize < getStackInSlot(3).stackSize) {
 				maxSize = getStackInSlot(3).stackSize;
 				maxSizeSlot = 3;
 			}
 		}
-		if ( getStackInSlot(4) != null  ) {
-			if ( maxSize < getStackInSlot(4).stackSize ) {
+		if (getStackInSlot(4) != null) {
+			if (maxSize < getStackInSlot(4).stackSize) {
 				maxSize = getStackInSlot(4).stackSize;
 				maxSizeSlot = 4;
 			}
 		}
-		
-		return new int [] { maxSizeSlot };
+
+		return new int[] { maxSizeSlot };
 	}
 
 	@Override
@@ -161,36 +154,36 @@ public class TileEntityRefinery extends TileEntityMachine {
 
 	@Override
 	public void smeltItem() {
-		if ( canSmelt() ) {
+		if (canSmelt()) {
 			ItemStack oreItem = refineryItemStacks[0];
-			if ( RefineryRecipes.refining().isOreAllowed(oreItem) ) {
+			if (RefineryRecipes.refining().isOreAllowed(oreItem)) {
 				ItemStack[] smelted = RefineryRecipes.refining().getRefiningResults(oreItem.itemID);
 
-				if ( smelted != null && smelted.length == 3 ) {
-					if ( smelted[0] != null && smelted[0].stackSize > 0 ) {
-						if (refineryItemStacks[2] == null ) {
+				if (smelted != null && smelted.length == 3) {
+					if (smelted[0] != null && smelted[0].stackSize > 0) {
+						if (refineryItemStacks[2] == null) {
 							refineryItemStacks[2] = smelted[0].copy();
-						} else if (refineryItemStacks[2].isItemEqual(smelted[0]) ) {
+						} else if (refineryItemStacks[2].isItemEqual(smelted[0])) {
 							refineryItemStacks[2].stackSize += smelted[0].stackSize;
 						}
 					}
-					
-					if ( smelted[1] != null && smelted[1].stackSize > 0 ) {
-						if (refineryItemStacks[3] == null  ) {
+
+					if (smelted[1] != null && smelted[1].stackSize > 0) {
+						if (refineryItemStacks[3] == null) {
 							refineryItemStacks[3] = smelted[1].copy();
-						} else if (refineryItemStacks[3].isItemEqual(smelted[1]) ) {
+						} else if (refineryItemStacks[3].isItemEqual(smelted[1])) {
 							refineryItemStacks[3].stackSize += smelted[1].stackSize;
 						}
 					}
 
-					if ( smelted[2] != null && smelted[2].stackSize > 0 ) {
-						if (refineryItemStacks[4] == null ) {
+					if (smelted[2] != null && smelted[2].stackSize > 0) {
+						if (refineryItemStacks[4] == null) {
 							refineryItemStacks[4] = smelted[2].copy();
-						} else if (refineryItemStacks[4].isItemEqual(smelted[2]) ) {
+						} else if (refineryItemStacks[4].isItemEqual(smelted[2])) {
 							refineryItemStacks[4].stackSize += smelted[2].stackSize;
 						}
 					}
-					
+
 					--refineryItemStacks[0].stackSize;
 					if (refineryItemStacks[0].stackSize <= 0) {
 						refineryItemStacks[0] = null;
@@ -202,32 +195,29 @@ public class TileEntityRefinery extends TileEntityMachine {
 
 	@Override
 	protected boolean canSmelt() {
-		if ( refineryItemStacks[0] == null )
-			return false;
-		
+		if (refineryItemStacks[0] == null) return false;
+
 		ItemStack oreItem = refineryItemStacks[0];
-		if ( RefineryRecipes.refining().isOreAllowed(oreItem) ) {
+		if (RefineryRecipes.refining().isOreAllowed(oreItem)) {
 			RefineryRecipe[] recipes = RefineryRecipes.refining().getRefineryRecipes(oreItem.itemID);
 
-			if ( recipes != null && recipes.length == 3 ) {
+			if (recipes != null && recipes.length == 3) {
 				boolean ok = true;
-				for ( int i = 0; i < recipes.length; i++) {
-					if ( refineryItemStacks[2+recipes[i].slotId] != null )
-						ok = false;
+				for (int i = 0; i < recipes.length; i++) {
+					if (refineryItemStacks[2 + recipes[i].slotId] != null) ok = false;
 				}
-				if ( ok ) return true;
-				
+				if (ok) return true;
+
 				ok = true;
-				for ( int i = 0; i < recipes.length; i++) {
-					if ( 
-							refineryItemStacks[2+recipes[i].slotId] != null &&
-							refineryItemStacks[2+recipes[i].slotId].stackSize + recipes[i].max > getInventoryStackLimit()
-					) ok = false;
+				for (int i = 0; i < recipes.length; i++) {
+					if (refineryItemStacks[2 + recipes[i].slotId] != null
+						&& refineryItemStacks[2 + recipes[i].slotId].stackSize
+							+ recipes[i].max > getInventoryStackLimit()) ok = false;
 				}
-				if ( ok ) return true;
+				if (ok) return true;
 			}
 		}
-		
+
 		return false;
 	}
 

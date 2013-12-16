@@ -12,24 +12,31 @@ import slimevoidlib.tileentity.TileEntityBase;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public enum EnumMachine {
-	
-	REFINERY(BlockLib.BLOCK_REFINERY, TileEntityRefinery.class, true),
-	GRINDER(BlockLib.BLOCK_GRINDER, TileEntityGrinder.class, new BlockGrinderRenderer(), true),
-	GEOEQUIP(BlockLib.BLOCK_GEOEQUIPMENT, TileEntityGeologicalEquipment.class, true),
-	AUTOMIXTABLE(BlockLib.BLOCK_AUTOMIXTABLE, TileEntityAutomaticMixingTable.class, false);
-	
-	private int machineId = this.ordinal();
-	private String machineName;
-	private boolean hasState;
-	private ISimpleBlockRenderingHandler renderHandler;
-	private Class <? extends TileEntityBase> _class;
-	private Icon[] iconList;
-	
-	EnumMachine(String name, Class <? extends TileEntityBase> tileClass, boolean hasState) {
+
+	REFINERY(BlockLib.BLOCK_REFINERY, TileEntityRefinery.class, true), GRINDER(
+			BlockLib.BLOCK_GRINDER,
+			TileEntityGrinder.class,
+			new BlockGrinderRenderer(),
+			true), GEOEQUIP(
+			BlockLib.BLOCK_GEOEQUIPMENT,
+			TileEntityGeologicalEquipment.class,
+			true), AUTOMIXTABLE(
+			BlockLib.BLOCK_AUTOMIXTABLE,
+			TileEntityAutomaticMixingTable.class,
+			false);
+
+	private int								machineId	= this.ordinal();
+	private String							machineName;
+	private boolean							hasState;
+	private ISimpleBlockRenderingHandler	renderHandler;
+	private Class<? extends TileEntityBase>	_class;
+	private Icon[]							iconList;
+
+	EnumMachine(String name, Class<? extends TileEntityBase> tileClass, boolean hasState) {
 		this(name, tileClass, null, hasState);
 	}
-	
-	EnumMachine(String name, Class <? extends TileEntityBase> tileClass, ISimpleBlockRenderingHandler renderHandler, boolean hasState) {
+
+	EnumMachine(String name, Class<? extends TileEntityBase> tileClass, ISimpleBlockRenderingHandler renderHandler, boolean hasState) {
 		this.machineName = name;
 		this._class = tileClass;
 		this.renderHandler = renderHandler;
@@ -41,11 +48,11 @@ public enum EnumMachine {
 	public int getId() {
 		return this.machineId;
 	}
-	
+
 	public String getTextureName() {
 		return CoreLib.MOD_RESOURCES + ":" + this.machineName;
 	}
-	
+
 	public String getUnlocalizedName() {
 		return this.machineName;
 	}
@@ -57,7 +64,7 @@ public enum EnumMachine {
 	public ISimpleBlockRenderingHandler getRenderHandler() {
 		return this.renderHandler;
 	}
-	
+
 	public boolean hasState() {
 		return this.hasState;
 	}
@@ -68,36 +75,58 @@ public enum EnumMachine {
 		}
 		return null;
 	}
-	
+
 	public void registerIcons(IconRegister iconRegister) {
 		String stateString = "";
 		if (this.hasState) {
 			stateString = "_idle";
 		}
-		this.iconList[0] = iconRegister.registerIcon(this.getTextureName() + stateString + "_bottom");
-		this.iconList[1] = iconRegister.registerIcon(this.getTextureName() + stateString + "_top");
-		this.iconList[2] = iconRegister.registerIcon(this.getTextureName() + stateString + "_front");
-		this.iconList[3] = iconRegister.registerIcon(this.getTextureName() + stateString + "_side");
-		this.iconList[4] = iconRegister.registerIcon(this.getTextureName() + stateString + "_side");
-		this.iconList[5] = iconRegister.registerIcon(this.getTextureName() + stateString + "_side");
+		this.iconList[0] = iconRegister.registerIcon(this.getTextureName()
+														+ stateString
+														+ "_bottom");
+		this.iconList[1] = iconRegister.registerIcon(this.getTextureName()
+														+ stateString + "_top");
+		this.iconList[2] = iconRegister.registerIcon(this.getTextureName()
+														+ stateString
+														+ "_front");
+		this.iconList[3] = iconRegister.registerIcon(this.getTextureName()
+														+ stateString + "_side");
+		this.iconList[4] = iconRegister.registerIcon(this.getTextureName()
+														+ stateString + "_side");
+		this.iconList[5] = iconRegister.registerIcon(this.getTextureName()
+														+ stateString + "_side");
 		if (this.hasState) {
 			stateString = "_active";
-			this.iconList[6] = iconRegister.registerIcon(this.getTextureName() + stateString + "_bottom");
-			this.iconList[7] = iconRegister.registerIcon(this.getTextureName() + stateString + "_top");
-			this.iconList[8] = iconRegister.registerIcon(this.getTextureName() + stateString + "_front");
-			this.iconList[9] = iconRegister.registerIcon(this.getTextureName() + stateString + "_side");
-			this.iconList[10] = iconRegister.registerIcon(this.getTextureName() + stateString + "_side");
-			this.iconList[11] = iconRegister.registerIcon(this.getTextureName() + stateString + "_side");
+			this.iconList[6] = iconRegister.registerIcon(this.getTextureName()
+															+ stateString
+															+ "_bottom");
+			this.iconList[7] = iconRegister.registerIcon(this.getTextureName()
+															+ stateString
+															+ "_top");
+			this.iconList[8] = iconRegister.registerIcon(this.getTextureName()
+															+ stateString
+															+ "_front");
+			this.iconList[9] = iconRegister.registerIcon(this.getTextureName()
+															+ stateString
+															+ "_side");
+			this.iconList[10] = iconRegister.registerIcon(this.getTextureName()
+															+ stateString
+															+ "_side");
+			this.iconList[11] = iconRegister.registerIcon(this.getTextureName()
+															+ stateString
+															+ "_side");
 		}
 	}
-	
+
 	public static EnumMachine getMachine(int tileId) {
 		return tileId >= 0 && tileId < EnumMachine.values().length ? EnumMachine.values()[tileId] : null;
 	}
 
 	public static void registerMachines() {
 		for (EnumMachine machine : EnumMachine.values()) {
-			TMFCore.blockMachineBase.addMapping(machine.machineId, machine._class, machine.machineName);
+			TMFCore.blockMachineBase.addMapping(machine.machineId,
+												machine._class,
+												machine.machineName);
 		}
 	}
 

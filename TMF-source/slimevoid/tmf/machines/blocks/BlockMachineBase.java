@@ -21,7 +21,7 @@ import slimevoid.tmf.core.lib.EnumMachine;
 import slimevoidlib.blocks.BlockBase;
 
 public class BlockMachineBase extends BlockBase {
-	
+
 	@Override
 	public void registerIcons(IconRegister iconRegister) {
 		for (int i = 0; i < this.tileEntityMap.length; i++) {
@@ -31,11 +31,11 @@ public class BlockMachineBase extends BlockBase {
 			}
 		}
 	}
-	
+
 	public BlockMachineBase(int id) {
 		super(id, Material.rock, EnumMachine.values().length);
 	}
-	
+
 	@Override
 	public Icon getIcon(int side, int metadata) {
 		Icon icon = null;
@@ -50,7 +50,7 @@ public class BlockMachineBase extends BlockBase {
 	public CreativeTabs getCreativeTab() {
 		return CreativeTabTMF.tabTMF;
 	}
-	
+
 	@Override
 	public int getRenderType() {
 		return ConfigurationLib.renderMachineId;

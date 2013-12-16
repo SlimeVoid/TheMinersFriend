@@ -41,16 +41,15 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
-	
-	
+
 	@Override
 	public void preInit() {
 		super.preInit();
-		
+
 		PacketLib.registerClientPacketExecutors();
-		
+
 		EventLib.registerClientEvents();
-		
+
 		KeyBindings.registerKeyBindings();
 	}
 
@@ -62,55 +61,54 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerRenderInformation() {
-		SlimevoidCore.console(CoreLib.MOD_ID, "Registering Renderers...");
-//		MinecraftForgeClient.preloadTexture(
-				ArmorLib.registerArmorTexture(
-						TMFCore.miningHelmetIron,
-						ResourceLib.IRON_MINING_HELMET);
-//		);
-//		MinecraftForgeClient.preloadTexture(
-				ArmorLib.registerArmorTexture(
-						TMFCore.miningHelmetGold,
-						ResourceLib.GOLD_MINING_HELMET);
-//		);
-//		MinecraftForgeClient.preloadTexture(
-				ArmorLib.registerArmorTexture(
-						TMFCore.miningHelmetDiamond,
-						ResourceLib.DIAMOND_MINING_HELMET);
-//		);
-//		MinecraftForgeClient.preloadTexture(ResourceLib.ITEM_SPRITE_PATH);
-//		MinecraftForgeClient.preloadTexture(ResourceLib.RESOURCE_SPRITE_PATH);
-//		MinecraftForgeClient.preloadTexture(ResourceLib.MACHINE_TEXTURE_PATH);
-		
+		SlimevoidCore.console(	CoreLib.MOD_ID,
+								"Registering Renderers...");
+		// MinecraftForgeClient.preloadTexture(
+		ArmorLib.registerArmorTexture(	TMFCore.miningHelmetIron,
+										ResourceLib.IRON_MINING_HELMET);
+		// );
+		// MinecraftForgeClient.preloadTexture(
+		ArmorLib.registerArmorTexture(	TMFCore.miningHelmetGold,
+										ResourceLib.GOLD_MINING_HELMET);
+		// );
+		// MinecraftForgeClient.preloadTexture(
+		ArmorLib.registerArmorTexture(	TMFCore.miningHelmetDiamond,
+										ResourceLib.DIAMOND_MINING_HELMET);
+		// );
+		// MinecraftForgeClient.preloadTexture(ResourceLib.ITEM_SPRITE_PATH);
+		// MinecraftForgeClient.preloadTexture(ResourceLib.RESOURCE_SPRITE_PATH);
+		// MinecraftForgeClient.preloadTexture(ResourceLib.MACHINE_TEXTURE_PATH);
+
 		ItemRendererToolBelt.init();
 	}
-	
+
 	@Override
 	public void registerTickHandlers() {
 		super.registerTickHandlers();
-		SlimevoidCore.console(CoreLib.MOD_ID, "Registering Client tick handlers...");
-		
-		MotionSensorTickHandler motionSensor = new MotionSensorTickHandler(
-				ConfigurationLib.motionSensorMaxEntityDistance, 
-				ConfigurationLib.motionSensorMaxGameTicks, 
-				ConfigurationLib.motionSensorDrawRight
-		);
+		SlimevoidCore.console(	CoreLib.MOD_ID,
+								"Registering Client tick handlers...");
+
+		MotionSensorTickHandler motionSensor = new MotionSensorTickHandler(ConfigurationLib.motionSensorMaxEntityDistance, ConfigurationLib.motionSensorMaxGameTicks, ConfigurationLib.motionSensorDrawRight);
 		motionSensor.addRule(new MotionSensorRuleOnHotbar());
 		motionSensor.addRule(new MotionSensorRuleInToolbelt());
-		TickRegistry.registerTickHandler(motionSensor, Side.CLIENT);
+		TickRegistry.registerTickHandler(	motionSensor,
+											Side.CLIENT);
 
-		TickRegistry.registerTickHandler(new MiningHelmetTickHandler(), Side.CLIENT);
-		TickRegistry.registerTickHandler(new MiningHelmetRenderTickHandler(), Side.CLIENT);
+		TickRegistry.registerTickHandler(	new MiningHelmetTickHandler(),
+											Side.CLIENT);
+		TickRegistry.registerTickHandler(	new MiningHelmetRenderTickHandler(),
+											Side.CLIENT);
 	}
-	
+
 	@Override
 	public String getMinecraftDir() {
 		return Minecraft.getMinecraft().mcDataDir.getPath();
 	}
-	
+
 	@Override
 	public void registerTESRenderers() {
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGrinder.class, new TileEntitySpecialRendererGrinder());
+		ClientRegistry.bindTileEntitySpecialRenderer(	TileEntityGrinder.class,
+														new TileEntitySpecialRendererGrinder());
 		RenderingRegistry.registerBlockHandler(new BlockMachineRenderingHandler());
 	}
 }

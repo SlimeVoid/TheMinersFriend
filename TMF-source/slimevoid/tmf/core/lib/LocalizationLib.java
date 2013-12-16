@@ -15,19 +15,19 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class LocalizationLib {
 
-	private static final String LANGUAGE_PATH = "/assets/tmf/locale/";
+	private static final String	LANGUAGE_PATH	= "/assets/tmf/locale/";
 
-	public static String[] localeFiles = {
-		LANGUAGE_PATH + "en_US.xml",
-		LANGUAGE_PATH + "nb_NO.xml"
-	};
+	public static String[]		localeFiles		= {
+			LANGUAGE_PATH + "en_US.xml",
+			LANGUAGE_PATH + "nb_NO.xml"		};
 
 	public static void registerLanguages() {
-		// For every file specified in the localeFiles class, load them into the Language Registry
+		// For every file specified in the localeFiles class, load them into the
+		// Language Registry
 		for (String localizationFile : localeFiles) {
-			LanguageRegistry.instance().loadLocalization(localizationFile,
-					getLocaleFromFileName(localizationFile),
-					isXMLLanguageFile(localizationFile));
+			LanguageRegistry.instance().loadLocalization(	localizationFile,
+															getLocaleFromFileName(localizationFile),
+															isXMLLanguageFile(localizationFile));
 		}
 	}
 
@@ -51,8 +51,8 @@ public class LocalizationLib {
 	 * @return String representation of the locale snipped from the file name
 	 */
 	public static String getLocaleFromFileName(String fileName) {
-		return fileName.substring(fileName.lastIndexOf('/') + 1,
-				fileName.lastIndexOf('.'));
+		return fileName.substring(	fileName.lastIndexOf('/') + 1,
+									fileName.lastIndexOf('.'));
 	}
 
 	public static String getLocalizedString(String key) {

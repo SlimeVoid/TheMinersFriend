@@ -28,42 +28,38 @@ import slimevoidlib.render.WavefrontOBJModelLoader;
 import slimevoidlib.render.WavefrontOBJModelLoader.FaceMissingTextureException;
 
 public class ModelGrinder extends ModelBase {
-	public ModelSlimevoidObject staticModel;
-	public ModelSlimevoidObject rollerModel;
-	public ModelSlimevoidObject axlesModel;
-	public ModelSlimevoidObject gearsModel;
-	
-	public TileEntityGrinder tile;
-	
-	public int rotationSpeedDivider = 20;
-	
+	public ModelSlimevoidObject	staticModel;
+	public ModelSlimevoidObject	rollerModel;
+	public ModelSlimevoidObject	axlesModel;
+	public ModelSlimevoidObject	gearsModel;
+
+	public TileEntityGrinder	tile;
+
+	public int					rotationSpeedDivider	= 20;
+
 	public ModelGrinder(TileEntityGrinder tile) {
 		this.tile = tile;
 		try {
-			staticModel = (new WavefrontOBJModelLoader()).loadObjFile(
-					this, 
-					256, 256, 
-					new File(TMFCore.class.getResource(
-							ResourceLib.getModelPath(true)+"grinderStatic.obj").getFile())
-			);
-			rollerModel = (new WavefrontOBJModelLoader()).loadObjFile(
-					this, 
-					256, 256, 
-					new File(TMFCore.class.getResource(
-							ResourceLib.getModelPath(true)+"grinderRoller.obj").getFile())
-			);
-			gearsModel = (new WavefrontOBJModelLoader()).loadObjFile(
-					this, 
-					256, 256, 
-					new File(TMFCore.class.getResource(
-							ResourceLib.getModelPath(true)+"grinderGears.obj").getFile())
-			);
-			axlesModel = (new WavefrontOBJModelLoader()).loadObjFile(
-					this, 
-					256, 256, 
-					new File(TMFCore.class.getResource(
-							ResourceLib.getModelPath(false)+"grinderAxles.obj").getFile())
-			);
+			staticModel = (new WavefrontOBJModelLoader()).loadObjFile(	this,
+																		256,
+																		256,
+																		new File(TMFCore.class.getResource(ResourceLib.getModelPath(true)
+																											+ "grinderStatic.obj").getFile()));
+			rollerModel = (new WavefrontOBJModelLoader()).loadObjFile(	this,
+																		256,
+																		256,
+																		new File(TMFCore.class.getResource(ResourceLib.getModelPath(true)
+																											+ "grinderRoller.obj").getFile()));
+			gearsModel = (new WavefrontOBJModelLoader()).loadObjFile(	this,
+																		256,
+																		256,
+																		new File(TMFCore.class.getResource(ResourceLib.getModelPath(true)
+																											+ "grinderGears.obj").getFile()));
+			axlesModel = (new WavefrontOBJModelLoader()).loadObjFile(	this,
+																		256,
+																		256,
+																		new File(TMFCore.class.getResource(ResourceLib.getModelPath(false)
+																											+ "grinderAxles.obj").getFile()));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (ArithmeticException e) {
@@ -72,7 +68,7 @@ public class ModelGrinder extends ModelBase {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void updateBounds(Block block) {
 		ModelSlimevoidObject.ModelSlimevoidObjectBounds[] bounds = new ModelSlimevoidObject.ModelSlimevoidObjectBounds[4];
 		bounds[0] = staticModel.getBounds();
@@ -86,49 +82,68 @@ public class ModelGrinder extends ModelBase {
 		int maxX = 0;
 		int maxY = 0;
 		int maxZ = 0;
-		
-		for ( ModelSlimevoidObject.ModelSlimevoidObjectBounds bound: bounds ) {
-			if ( bound.minX < minX || (minX == 0 && bound.minX != 0) )
-				minX = (int) bound.minX;
-			if ( bound.minY < minY )
-				minY = (int) bound.minY;
-			if ( bound.minZ < minZ || (minZ == 0 && bound.minZ != 0) )
-				minZ = (int) bound.minZ;
-			
-			if ( bound.maxX > maxX )
-				maxX = (int) bound.maxX;
-			if ( bound.maxY > maxY )
-				maxY = (int) bound.maxY;
-			if ( bound.maxZ > maxZ )
-				maxZ = (int) bound.maxZ;
+
+		for (ModelSlimevoidObject.ModelSlimevoidObjectBounds bound : bounds) {
+			if (bound.minX < minX || (minX == 0 && bound.minX != 0)) minX = bound.minX;
+			if (bound.minY < minY) minY = bound.minY;
+			if (bound.minZ < minZ || (minZ == 0 && bound.minZ != 0)) minZ = bound.minZ;
+
+			if (bound.maxX > maxX) maxX = bound.maxX;
+			if (bound.maxY > maxY) maxY = bound.maxY;
+			if (bound.maxZ > maxZ) maxZ = bound.maxZ;
 		}
-				
-		block.setBlockBounds((float)minX/16f, (float)minY/16f, (float)minZ/16f, (float)maxX/16f, (float)maxY/16f, (float)maxZ/16f);
+
+		block.setBlockBounds(	minX / 16f,
+								minY / 16f,
+								minZ / 16f,
+								maxX / 16f,
+								maxY / 16f,
+								maxZ / 16f);
 	}
-	
+
 	public void renderAll(TileEntitySpecialRendererGrinder renderer, boolean dir) {
 		renderer.bindResource(ModelLib.GRINDER_STATIC);
 		staticModel.render(0.0625F);
 
 		GL11.glPushMatrix();
-		if ( tile != null && tile.getBlockType() != null && tile.isActive ) {
-			GL11.glTranslatef(0, 0.5f, 0.5f);	
-			if ( dir ) 	GL11.glRotatef((System.currentTimeMillis()/rotationSpeedDivider)%360, 1, 0, 0);
-			else 		GL11.glRotatef((-System.currentTimeMillis()/rotationSpeedDivider)%360, 1, 0, 0);
-			GL11.glTranslatef(0, -0.5f, -0.5f);
+		if (tile != null && tile.getBlockType() != null && tile.isActive) {
+			GL11.glTranslatef(	0,
+								0.5f,
+								0.5f);
+			if (dir) GL11.glRotatef((System.currentTimeMillis() / rotationSpeedDivider) % 360,
+									1,
+									0,
+									0);
+			else GL11.glRotatef((-System.currentTimeMillis() / rotationSpeedDivider) % 360,
+								1,
+								0,
+								0);
+			GL11.glTranslatef(	0,
+								-0.5f,
+								-0.5f);
 		}
 		renderer.bindResource(ModelLib.GRINDER_ROLLERS);
 		rollerModel.render(0.0625F);
 		renderer.bindResource(ModelLib.GRINDER_GEARS);
 		gearsModel.render(0.0625F);
 		GL11.glPopMatrix();
-		
+
 		GL11.glPushMatrix();
-		if ( tile != null && tile.getBlockType() != null && tile.isActive ) {
-			GL11.glTranslatef(0, 0.21875f, 0.5f);	
-			if ( dir ) 	GL11.glRotatef((-System.currentTimeMillis()/rotationSpeedDivider)%360, 1, 0, 0);
-			else 		GL11.glRotatef((System.currentTimeMillis()/rotationSpeedDivider)%360, 1, 0, 0);
-			GL11.glTranslatef(0, -0.21875f, -0.5f);
+		if (tile != null && tile.getBlockType() != null && tile.isActive) {
+			GL11.glTranslatef(	0,
+								0.21875f,
+								0.5f);
+			if (dir) GL11.glRotatef((-System.currentTimeMillis() / rotationSpeedDivider) % 360,
+									1,
+									0,
+									0);
+			else GL11.glRotatef((System.currentTimeMillis() / rotationSpeedDivider) % 360,
+								1,
+								0,
+								0);
+			GL11.glTranslatef(	0,
+								-0.21875f,
+								-0.5f);
 		}
 		renderer.bindResource(ModelLib.GRINDER_AXELS);
 		axlesModel.render(0.0625F);

@@ -11,41 +11,56 @@
  */
 package slimevoid.tmf.machines.tileentities;
 
-import slimevoid.tmf.core.TMFCore;
-import slimevoid.tmf.core.TheMinersFriend;
-import slimevoid.tmf.core.lib.BlockLib;
-import slimevoid.tmf.core.lib.EnumMachine;
-import slimevoid.tmf.core.lib.GuiLib;
-import slimevoid.tmf.machines.GrinderRecipes;
-import slimevoid.tmf.machines.blocks.BlockGrinder;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import slimevoid.tmf.core.TheMinersFriend;
+import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.EnumMachine;
+import slimevoid.tmf.core.lib.GuiLib;
+import slimevoid.tmf.machines.GrinderRecipes;
+import slimevoidlib.blocks.BlockBase;
 
 public class TileEntityGrinder extends TileEntityMachine {
 	/**
-	 * 0: Mineral
-	 * 1: Fuel
-	 * 2: Dust
+	 * 0: Mineral 1: Fuel 2: Dust
 	 */
-	private ItemStack[] grinderItemStacks = new ItemStack[3];
+	private ItemStack[]	grinderItemStacks	= new ItemStack[3];
+
+	@Override
+	public void setBlockBoundsBasedOnState(BlockBase block) {
+		block.setBlockBounds(	0.1875f,
+								0f,
+								0.1875f,
+								0.8125f,
+								0.9f,
+								0.8125f);
+	}
+
+	@Override
+	public void setBlockBoundsForItemRender(BlockBase block) {
+		block.setBlockBounds(	0.1875f,
+								0f,
+								0.1875f,
+								0.8125f,
+								0.9f,
+								0.8125f);
+	}
 
 	@Override
 	public boolean onBlockActivated(EntityPlayer player) {
-		player.openGui(
-				TheMinersFriend.instance,
-				GuiLib.GRINDER_GUIID,
-				this.worldObj,
-				this.xCoord,
-				this.yCoord,
-				this.zCoord
-		);
-		
+		player.openGui(	TheMinersFriend.instance,
+						GuiLib.GRINDER_GUIID,
+						this.worldObj,
+						this.xCoord,
+						this.yCoord,
+						this.zCoord);
+
 		return true;
-	}	
+	}
 
 	@Override
 	public int getSizeInventory() {
@@ -60,7 +75,7 @@ public class TileEntityGrinder extends TileEntityMachine {
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
 		grinderItemStacks[index] = stack;
-		
+
 		if (stack != null && stack.stackSize > getInventoryStackLimit()) {
 			stack.stackSize = getInventoryStackLimit();
 		}
@@ -76,32 +91,34 @@ public class TileEntityGrinder extends TileEntityMachine {
 		super.readFromNBT(ntbCompound);
 		NBTTagList items = ntbCompound.getTagList("Items");
 		grinderItemStacks = new ItemStack[getSizeInventory()];
-		
+
 		for (int i = 0; i < items.tagCount(); ++i) {
-			NBTTagCompound itemInSlot = (NBTTagCompound)items.tagAt(i);
+			NBTTagCompound itemInSlot = (NBTTagCompound) items.tagAt(i);
 			byte itemBytes = itemInSlot.getByte("Slot");
-			
+
 			if (itemBytes >= 0 && itemBytes < grinderItemStacks.length) {
 				grinderItemStacks[itemBytes] = ItemStack.loadItemStackFromNBT(itemInSlot);
 			}
 		}
 	}
-	
+
 	@Override
 	public void writeToNBT(NBTTagCompound ntbCompound) {
 		super.writeToNBT(ntbCompound);
 		NBTTagList items = new NBTTagList();
-		
+
 		for (int i = 0; i < grinderItemStacks.length; ++i) {
 			if (grinderItemStacks[i] != null) {
 				NBTTagCompound itemInSlot = new NBTTagCompound();
-				itemInSlot.setByte("Slot", (byte)i);
+				itemInSlot.setByte(	"Slot",
+									(byte) i);
 				grinderItemStacks[i].writeToNBT(itemInSlot);
 				items.appendTag(itemInSlot);
 			}
 		}
-		
-		ntbCompound.setTag("Items", items);
+
+		ntbCompound.setTag(	"Items",
+							items);
 	}
 
 	@Override
@@ -133,18 +150,18 @@ public class TileEntityGrinder extends TileEntityMachine {
 
 	@Override
 	public void smeltItem() {
-		if ( canSmelt() ) {
+		if (canSmelt()) {
 			ItemStack mineralItem = grinderItemStacks[0];
-			
-			if ( GrinderRecipes.grinding().isMineralAllowed(mineralItem) ) {
+
+			if (GrinderRecipes.grinding().isMineralAllowed(mineralItem)) {
 				ItemStack smelted = GrinderRecipes.grinding().getRefiningResult(mineralItem.itemID);
-				if ( smelted != null && smelted.stackSize > 0) {
-					if (grinderItemStacks[2] == null ) {
+				if (smelted != null && smelted.stackSize > 0) {
+					if (grinderItemStacks[2] == null) {
 						grinderItemStacks[2] = smelted.copy();
-					} else if (grinderItemStacks[2].isItemEqual(smelted) ) {
+					} else if (grinderItemStacks[2].isItemEqual(smelted)) {
 						grinderItemStacks[2].stackSize += smelted.stackSize;
 					}
-					
+
 					--grinderItemStacks[0].stackSize;
 					if (grinderItemStacks[0].stackSize <= 0) {
 						grinderItemStacks[0] = null;
@@ -156,22 +173,16 @@ public class TileEntityGrinder extends TileEntityMachine {
 
 	@Override
 	protected boolean canSmelt() {
-		if ( grinderItemStacks[0] == null )
-			return false;
-		
-		ItemStack mineralItem = grinderItemStacks[0];
-		
+		if (grinderItemStacks[0] == null) return false;
 
-		if ( GrinderRecipes.grinding().isMineralAllowed(mineralItem) ) {
+		ItemStack mineralItem = grinderItemStacks[0];
+
+		if (GrinderRecipes.grinding().isMineralAllowed(mineralItem)) {
 			ItemStack smelted = GrinderRecipes.grinding().getRefiningResult(mineralItem.itemID);
-			if ( smelted != null  ) {
-				if ( grinderItemStacks[2] == null )
-					return true;
-				if ( 
-						grinderItemStacks[2] != null && 
-						grinderItemStacks[2].stackSize + smelted.stackSize <= getInventoryStackLimit()
-				)
-					return true;
+			if (smelted != null) {
+				if (grinderItemStacks[2] == null) return true;
+				if (grinderItemStacks[2] != null
+					&& grinderItemStacks[2].stackSize + smelted.stackSize <= getInventoryStackLimit()) return true;
 			}
 		}
 

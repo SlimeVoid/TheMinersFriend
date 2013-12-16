@@ -23,13 +23,15 @@ import slimevoid.tmf.network.packets.PacketMotionSensor;
 public class MotionSensorSweepExecutor implements IPacketExecutor {
 
 	@Override
-	public void execute(PacketMining packet, World world,
-			EntityPlayer entityplayer) {
+	public void execute(PacketMining packet, World world, EntityPlayer entityplayer) {
 		if (packet instanceof PacketMotionSensor) {
 			PacketMotionSensor packetMS = (PacketMotionSensor) packet;
 			Entity entity = packetMS.getEntity(world);
 			if (entity != null) {
-				world.playSoundAtEntity(entity, SoundLib.TRACKER_SWEEP, 0.5F, ((IMotionSensor)packetMS).getDist2sq());
+				world.playSoundAtEntity(entity,
+										SoundLib.TRACKER_SWEEP,
+										0.5F,
+										((IMotionSensor) packetMS).getDist2sq());
 			}
 		}
 	}

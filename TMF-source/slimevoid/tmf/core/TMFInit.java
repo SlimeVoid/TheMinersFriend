@@ -11,48 +11,48 @@
  */
 package slimevoid.tmf.core;
 
-import java.io.File;
-
-import net.minecraftforge.common.Configuration;
 import slimevoidlib.ICommonProxy;
 import slimevoidlib.core.SlimevoidCore;
-import slimevoid.tmf.api.ITMFCommonProxy;
 import slimevoid.tmf.core.lib.CoreLib;
 
 public class TMFInit {
-	private static boolean initialized = false;
+	private static boolean	initialized	= false;
 
 	public static void initialize(ICommonProxy proxy) {
-		if (initialized)
-			return;
+		if (initialized) return;
 		initialized = true;
-		//TMFCore.configFile = new File(
-		//		TheMinersFriend.proxy.getMinecraftDir(),
-		//			"config/TheMinersFriend.cfg");
-		//TMFCore.configuration = new Configuration(TMFCore.configFile);
+		// TMFCore.configFile = new File(
+		// TheMinersFriend.proxy.getMinecraftDir(),
+		// "config/TheMinersFriend.cfg");
+		// TMFCore.configuration = new Configuration(TMFCore.configFile);
 		load();
 	}
 
-	public static void load() {		
-		SlimevoidCore.console(CoreLib.MOD_ID, "Registering items...");
+	public static void load() {
+		SlimevoidCore.console(	CoreLib.MOD_ID,
+								"Registering items...");
 		TMFCore.registerItems();
 
-		SlimevoidCore.console(CoreLib.MOD_ID, "Registering blocks...");
+		SlimevoidCore.console(	CoreLib.MOD_ID,
+								"Registering blocks...");
 		TMFCore.registerBlocks();
-		
+
 		TheMinersFriend.proxy.registerRenderInformation();
-		
+
 		TheMinersFriend.proxy.registerTickHandlers();
-		
-		SlimevoidCore.console(CoreLib.MOD_ID, "Registering names...");
+
+		SlimevoidCore.console(	CoreLib.MOD_ID,
+								"Registering names...");
 		TMFCore.registerNames();
-		
-		SlimevoidCore.console(CoreLib.MOD_ID, "Registering recipes...");
+
+		SlimevoidCore.console(	CoreLib.MOD_ID,
+								"Registering recipes...");
 		TMFCore.registerRecipes();
 
-		SlimevoidCore.console(CoreLib.MOD_ID, "Registering fuels...");
+		SlimevoidCore.console(	CoreLib.MOD_ID,
+								"Registering fuels...");
 		TMFCore.registerFuels();
-		
+
 		TheMinersFriend.proxy.registerTESRenderers();
 	}
 }

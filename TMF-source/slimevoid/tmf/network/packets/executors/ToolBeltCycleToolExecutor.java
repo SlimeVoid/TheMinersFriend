@@ -21,11 +21,12 @@ import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 public class ToolBeltCycleToolExecutor implements IPacketExecutor {
 
 	@Override
-	public void execute(PacketMining packet, World world,
-			EntityPlayer entityplayer) {
+	public void execute(PacketMining packet, World world, EntityPlayer entityplayer) {
 		if (packet instanceof PacketMiningToolBelt) {
 			PacketMiningToolBelt packetTB = (PacketMiningToolBelt) packet;
-			MiningToolBelt toolBelt = MiningToolBelt.getToolBeltDataFromId(entityplayer, world, packetTB.getToolBeltId());
+			MiningToolBelt toolBelt = MiningToolBelt.getToolBeltDataFromId(	entityplayer,
+																			world,
+																			packetTB.getToolBeltId());
 			if (toolBelt != null) {
 				toolBelt.cycleTool();
 			}

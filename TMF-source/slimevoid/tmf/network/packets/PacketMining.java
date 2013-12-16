@@ -27,7 +27,7 @@ import slimevoid.tmf.core.lib.CoreLib;
  */
 public abstract class PacketMining extends PacketUpdate {
 
-	private String command;
+	private String	command;
 
 	@Override
 	public void writeData(DataOutputStream data) throws IOException {
@@ -44,8 +44,9 @@ public abstract class PacketMining extends PacketUpdate {
 	/**
 	 * Constructor for Default Mining Packets
 	 * 
-	 * @param packetId the packet ID used to identify the type of packet data
-	 *            being sent or received
+	 * @param packetId
+	 *            the packet ID used to identify the type of packet data being
+	 *            sent or received
 	 */
 	public PacketMining(int packetId) {
 		super(packetId);
@@ -56,9 +57,11 @@ public abstract class PacketMining extends PacketUpdate {
 	 * Constructor for Default Mining Packets Used to add payload data to the
 	 * packet
 	 * 
-	 * @param packetId the packet ID used to identify the type of packet data
-	 *            being sent or received
-	 * @param payload the new payload to be associated with the packet
+	 * @param packetId
+	 *            the packet ID used to identify the type of packet data being
+	 *            sent or received
+	 * @param payload
+	 *            the new payload to be associated with the packet
 	 */
 	public PacketMining(int packetId, PacketPayload payload) {
 		super(packetId, payload);
@@ -67,7 +70,8 @@ public abstract class PacketMining extends PacketUpdate {
 
 	@Override
 	public String toString() {
-		return this.getCommand() + "(" + xPosition + "," + yPosition + "," + zPosition + ")";
+		return this.getCommand() + "(" + xPosition + "," + yPosition + ","
+				+ zPosition + ")";
 	}
 
 	/**
@@ -75,6 +79,7 @@ public abstract class PacketMining extends PacketUpdate {
 	 * 
 	 * @return Returns command
 	 */
+	@Override
 	public String getCommand() {
 		return this.command;
 	}
@@ -82,8 +87,10 @@ public abstract class PacketMining extends PacketUpdate {
 	/**
 	 * Sets the command in the packet
 	 * 
-	 * @param command The command to be added
+	 * @param command
+	 *            The command to be added
 	 */
+	@Override
 	public void setCommand(String command) {
 		this.command = command;
 	}
