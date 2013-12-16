@@ -14,8 +14,8 @@ package slimevoid.tmf.client.proxy;
 import java.io.File;
 
 import net.minecraft.client.Minecraft;
-import slimevoid.tmf.client.renderers.ItemRendererToolBelt;
 import slimevoid.tmf.client.renderers.BlockMachineRenderingHandler;
+import slimevoid.tmf.client.renderers.ItemRendererToolBelt;
 import slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
 import slimevoid.tmf.client.tickhandlers.MiningHelmetRenderTickHandler;
 import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
@@ -24,10 +24,10 @@ import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleOnHotbar;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.lib.ArmorLib;
 import slimevoid.tmf.core.lib.ConfigurationLib;
+import slimevoid.tmf.core.lib.CoreLib;
 import slimevoid.tmf.core.lib.EventLib;
 import slimevoid.tmf.core.lib.KeyBindings;
 import slimevoid.tmf.core.lib.PacketLib;
-import slimevoid.tmf.core.lib.CoreLib;
 import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.proxy.CommonProxy;
@@ -63,21 +63,12 @@ public class ClientProxy extends CommonProxy {
 	public void registerRenderInformation() {
 		SlimevoidCore.console(	CoreLib.MOD_ID,
 								"Registering Renderers...");
-		// MinecraftForgeClient.preloadTexture(
 		ArmorLib.registerArmorTexture(	TMFCore.miningHelmetIron,
 										ResourceLib.IRON_MINING_HELMET);
-		// );
-		// MinecraftForgeClient.preloadTexture(
 		ArmorLib.registerArmorTexture(	TMFCore.miningHelmetGold,
 										ResourceLib.GOLD_MINING_HELMET);
-		// );
-		// MinecraftForgeClient.preloadTexture(
 		ArmorLib.registerArmorTexture(	TMFCore.miningHelmetDiamond,
 										ResourceLib.DIAMOND_MINING_HELMET);
-		// );
-		// MinecraftForgeClient.preloadTexture(ResourceLib.ITEM_SPRITE_PATH);
-		// MinecraftForgeClient.preloadTexture(ResourceLib.RESOURCE_SPRITE_PATH);
-		// MinecraftForgeClient.preloadTexture(ResourceLib.MACHINE_TEXTURE_PATH);
 
 		ItemRendererToolBelt.init();
 	}

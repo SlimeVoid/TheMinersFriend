@@ -16,7 +16,7 @@ public class ItemLib {
 	private static final String	ITEM_PREFIX				= "tmf.";
 
 	private static final String	MINING_HELMET			= ITEM_PREFIX
-															+ "miningHelmet.";
+															+ "armor.helm.";
 
 	public static final String	MINING_HELMET_LAMP		= MINING_HELMET
 															+ "lamp";

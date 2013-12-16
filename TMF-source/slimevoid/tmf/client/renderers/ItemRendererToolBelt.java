@@ -15,7 +15,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
@@ -31,6 +34,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 public class ItemRendererToolBelt implements IItemRenderer {
 
 	private Minecraft	mc;
+	private int			zLevel	= 0;
 
 	public ItemRendererToolBelt(Minecraft client) {
 		this.mc = client;
@@ -64,15 +68,79 @@ public class ItemRendererToolBelt implements IItemRenderer {
 			// if (type.equals(ItemRenderType.EQUIPPED)) {
 			doRenderEquippedItem(	itemstack,
 									(RenderBlocks) data[0],
-									(EntityLiving) data[1]);
+									(EntityLivingBase) data[1]);
 			// }
 		}
 	}
 
 	private void doRenderInventoryItem(ItemStack toolBelt, RenderBlocks renderBlocks) {
+
+		TextureManager textureManager = this.mc.getTextureManager();
+		int k = toolBelt.itemID;
+		int l = toolBelt.getItemDamage();
+		Object object = toolBelt.getIconIndex();
+		float f;
+		int i1;
+		float f1;
+		float f2;
+
+		GL11.glDisable(GL11.GL_LIGHTING);
+		ResourceLocation resourcelocation = textureManager.getResourceLocation(toolBelt.getItemSpriteNumber());
+		textureManager.bindTexture(resourcelocation);
+
+		if (object == null) {
+			object = ((TextureMap) textureManager.getTexture(resourcelocation)).getAtlasSprite("missingno");
+		}
+
+		i1 = Item.itemsList[k].getColorFromItemStack(	toolBelt,
+														0);
+		f = (float) (i1 >> 16 & 255) / 255.0F;
+		f1 = (float) (i1 >> 8 & 255) / 255.0F;
+		f2 = (float) (i1 & 255) / 255.0F;
+
+		// if (this.renderWithColor) {
+		GL11.glColor4f(	f,
+						f1,
+						f2,
+						1.0F);
+		// }
+
+		this.renderIcon(0,
+						0,
+						(Icon) object,
+						16,
+						16);
+		GL11.glEnable(GL11.GL_LIGHTING);
+
 	}
 
-	private void doRenderEquippedItem(ItemStack toolBelt, RenderBlocks renderBlocks, EntityLiving entityliving) {
+	public void renderIcon(int par1, int par2, Icon par3Icon, int par4, int par5) {
+		Tessellator tessellator = Tessellator.instance;
+		tessellator.startDrawingQuads();
+		tessellator.addVertexWithUV((double) (par1 + 0),
+									(double) (par2 + par5),
+									(double) this.zLevel,
+									(double) par3Icon.getMinU(),
+									(double) par3Icon.getMaxV());
+		tessellator.addVertexWithUV((double) (par1 + par4),
+									(double) (par2 + par5),
+									(double) this.zLevel,
+									(double) par3Icon.getMaxU(),
+									(double) par3Icon.getMaxV());
+		tessellator.addVertexWithUV((double) (par1 + par4),
+									(double) (par2 + 0),
+									(double) this.zLevel,
+									(double) par3Icon.getMaxU(),
+									(double) par3Icon.getMinV());
+		tessellator.addVertexWithUV((double) (par1 + 0),
+									(double) (par2 + 0),
+									(double) this.zLevel,
+									(double) par3Icon.getMinU(),
+									(double) par3Icon.getMinV());
+		tessellator.draw();
+	}
+
+	private void doRenderEquippedItem(ItemStack toolBelt, RenderBlocks renderBlocks, EntityLivingBase entityliving) {
 		GL11.glPushMatrix();
 		int index = 0;
 		ItemStack itemstack = toolBelt;
@@ -101,7 +169,7 @@ public class ItemRendererToolBelt implements IItemRenderer {
 									icon.getIconWidth(),
 									0.0625F);
 
-		if (itemstack != null && itemstack.hasEffect() && index == 0) {
+		if (itemstack != null && itemstack.hasEffect(0) && index == 0) {
 			GL11.glDepthFunc(GL11.GL_EQUAL);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			this.mc.renderEngine.bindTexture(new ResourceLocation("%blur%/misc/glint.png"));
