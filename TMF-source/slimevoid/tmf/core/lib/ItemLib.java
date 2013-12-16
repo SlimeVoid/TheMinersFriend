@@ -27,14 +27,6 @@ public class ItemLib {
 	public static final String	MINING_HELMET_DIAMOND	= MINING_HELMET
 															+ "diamond";
 
-	private static final String	SENSOR_PREFIX			= ITEM_PREFIX
-															+ "sensor.";
-
-	public static final String	MOTION_SENSOR			= SENSOR_PREFIX
-															+ "motion";
-	public static final String	HEAT_SENSOR				= SENSOR_PREFIX
-															+ "heat";
-
 	private static final String	DUST_PREFIX				= ITEM_PREFIX + "dust.";
 
 	public static final String	DUST_AXCIUM				= DUST_PREFIX
@@ -55,8 +47,17 @@ public class ItemLib {
 	public static final String	MINERAL_CYDRINE			= MINERAL_PREFIX
 															+ "cydrine";
 
-	public static final String	MINING_TOOLBELT			= ITEM_PREFIX
-															+ "miningToolBelt";
+	private static final String	TOOL_PREFIX				= ITEM_PREFIX + "tool.";
+
+	private static final String	SENSOR_PREFIX			= TOOL_PREFIX
+															+ "sensor.";
+
+	public static final String	MOTION_SENSOR			= SENSOR_PREFIX
+															+ "motion";
+	public static final String	HEAT_SENSOR				= SENSOR_PREFIX
+															+ "heat";
+
+	public static final String	MINING_TOOLBELT			= TOOL_PREFIX + "belt";
 
 	public static final String	MINING_MODE				= ITEM_PREFIX
 															+ "miningMode";

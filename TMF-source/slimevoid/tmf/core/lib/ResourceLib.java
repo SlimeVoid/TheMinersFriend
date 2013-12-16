@@ -19,6 +19,9 @@ public class ResourceLib {
 	private static final String				ASSET_PREFIX			= "/assets/"
 																		+ CoreLib.MOD_RESOURCES
 																		+ "/";
+
+	private static final String				TEXTURE_PREFIX			= CoreLib.MOD_RESOURCES
+																		+ ":";
 	private static final String				PATH_PREFIX				= "textures/";
 
 	// public static final String BLOCK_TEXTURE_PATH = PATH_PREFIX +
@@ -95,6 +98,26 @@ public class ResourceLib {
 
 	public static final String				RECIPE_PATH				= ASSET_PREFIX
 																		+ "recipes";
+
+	public static final String				MINERAL_AXCIUM			= TEXTURE_PREFIX
+																		+ ItemLib.MINERAL_AXCIUM;
+	public static final String				MINERAL_BISOGEN			= TEXTURE_PREFIX
+																		+ ItemLib.MINERAL_BISOGEN;
+	public static final String				MINERAL_CYDRINE			= TEXTURE_PREFIX
+																		+ ItemLib.MINERAL_CYDRINE;
+
+	public static final String				DUST_AXCIUM				= TEXTURE_PREFIX
+																		+ ItemLib.DUST_AXCIUM;
+	public static final String				DUST_BISOGEN			= TEXTURE_PREFIX
+																		+ ItemLib.DUST_BISOGEN;
+	public static final String				DUST_CYDRINE			= TEXTURE_PREFIX
+																		+ ItemLib.DUST_CYDRINE;
+	public static final String				DUST_MIXED				= TEXTURE_PREFIX
+																		+ ItemLib.DUST_MIXED;
+	public static final String				MOTION_SENSOR			= TEXTURE_PREFIX
+																		+ ItemLib.MOTION_SENSOR;
+	public static final String				MINING_TOOLBELT			= TEXTURE_PREFIX
+																		+ ItemLib.MINING_TOOLBELT;
 
 	public static String getModelPath(boolean hasHDModel) {
 		if (hasHDModel

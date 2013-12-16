@@ -89,45 +89,31 @@ public class TMFCore {
 	}
 
 	private static void registerMiningHelmets() {
-		miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setUnlocalizedName(ItemLib.MINING_HELMET_LAMP);// .setIconCoord(4,
-																													// 0);
-		miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setUnlocalizedName(ItemLib.MINING_HELMET_IRON);// .setIconCoord(2,
-																																					// 0);
-		miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setUnlocalizedName(ItemLib.MINING_HELMET_GOLD);// .setIconCoord(1,
-																																					// 0);
-		miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setUnlocalizedName(ItemLib.MINING_HELMET_DIAMOND);// .setIconCoord(0,
-																																								// 0);
+		miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setUnlocalizedName(ItemLib.MINING_HELMET_LAMP);
+		miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setUnlocalizedName(ItemLib.MINING_HELMET_IRON);
+		miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setUnlocalizedName(ItemLib.MINING_HELMET_GOLD);
+		miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setUnlocalizedName(ItemLib.MINING_HELMET_DIAMOND);
 	}
 
 	private static void registerMotionSensor() {
-		motionSensor = new ItemMotionSensor(motionSensorId).setUnlocalizedName(ItemLib.MOTION_SENSOR);// .setIconCoord(0,
-																										// 1);
+		motionSensor = new ItemMotionSensor(motionSensorId).setUnlocalizedName(ItemLib.MOTION_SENSOR).setTextureName(ResourceLib.MOTION_SENSOR);
 	}
 
 	private static void registerToolBelt() {
-		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setUnlocalizedName(ItemLib.MINING_TOOLBELT);// .setIconCoord(0,
-																												// 2);
+		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setUnlocalizedName(ItemLib.MINING_TOOLBELT).setTextureName(ResourceLib.MINING_TOOLBELT);
 	}
 
 	private static void registerMinerals() {
-		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(2400).setUnlocalizedName(ItemLib.MINERAL_AXCIUM);// .setIconCoord(0,
-																														// 1);
-		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(150).setUnlocalizedName(ItemLib.MINERAL_BISOGEN);// .setIconCoord(1,
-																															// 1);
-		mineralCydrine = new ItemMineral(mineralCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.MINERAL_CYDRINE);// .setIconCoord(2,
-																														// 1);
+		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(2400).setUnlocalizedName(ItemLib.MINERAL_AXCIUM).setTextureName(ResourceLib.MINERAL_AXCIUM);
+		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(150).setUnlocalizedName(ItemLib.MINERAL_BISOGEN).setTextureName(ResourceLib.MINERAL_BISOGEN);
+		mineralCydrine = new ItemMineral(mineralCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.MINERAL_CYDRINE).setTextureName(ResourceLib.MINERAL_CYDRINE);
 	}
 
 	private static void registerDusts() {
-		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setUnlocalizedName(ItemLib.DUST_AXCIUM);// .setIconCoord(0,
-																													// 2);
-		dustBisogen = new ItemMineralDust(dustBisogenId).setBurnSpeed(100).setUnlocalizedName(ItemLib.DUST_BISOGEN);// .setIconCoord(1,
-																													// 2);
-		dustCydrine = new ItemMineralDust(dustCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.DUST_CYDRINE);// .setIconCoord(2,
-																													// 2);
-
-		dustMixed = new ItemMineralMixedDust(dustMixedId).setUnlocalizedName(ItemLib.DUST_MIXED);// .setIconCoord(3,
-																									// 2);
+		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setUnlocalizedName(ItemLib.DUST_AXCIUM).setTextureName(ResourceLib.DUST_AXCIUM);
+		dustBisogen = new ItemMineralDust(dustBisogenId).setBurnSpeed(100).setUnlocalizedName(ItemLib.DUST_BISOGEN).setTextureName(ResourceLib.DUST_BISOGEN);
+		dustCydrine = new ItemMineralDust(dustCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.DUST_CYDRINE).setTextureName(ResourceLib.DUST_CYDRINE);
+		dustMixed = new ItemMineralMixedDust(dustMixedId).setUnlocalizedName(ItemLib.DUST_MIXED).setTextureName(ResourceLib.DUST_MIXED);
 
 		ItemMineralMixedDust.script = FileReader.readFile(new File(TMFCore.class.getResource(ResourceLib.DUST_LIB).getFile()));
 		ItemMineralMixedDust.script_burnTime = "getBurnTime()";
