@@ -36,8 +36,14 @@ public class ItemMiningToolBelt extends Item {
 
 	public ItemMiningToolBelt(int itemID) {
 		super(itemID - ConfigurationLib.ITEMID_OFFSET);
+		this.setFull3D();
 		this.setNoRepair();
 		this.setCreativeTab(CreativeTabTMF.tabTMF);
+	}
+
+	@Override
+	public boolean requiresMultipleRenderPasses() {
+		return true;
 	}
 
 	@Override
