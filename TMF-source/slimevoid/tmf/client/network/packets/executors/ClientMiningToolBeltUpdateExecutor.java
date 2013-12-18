@@ -12,6 +12,7 @@
 package slimevoid.tmf.client.network.packets.executors;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.tmf.api.IPacketExecutor;
 import slimevoid.tmf.core.data.MiningToolBelt;
@@ -41,7 +42,9 @@ public class ClientMiningToolBeltUpdateExecutor implements IPacketExecutor {
 				data.setInventorySlotContents(	slot,
 												packetMT.getToolInSlot(slot));
 			}
-			data.selectTool(packetMT.getSelectedTool());
+			ItemStack tool = data.selectTool(	world,
+												entityplayer,
+												packetMT.getSelectedTool());
 			data.onInventoryChanged();
 		}
 	}

@@ -305,7 +305,9 @@ public class ItemMiningToolBelt extends Item {
 			// Checks if the player is in Mining Mode
 			// If true then auto select tool for the best STR vs Block
 			// Otherwise return our selected tool
-			MiningMode.isPlayerInMiningMode(event.entityPlayer) ? data.selectToolForBlock(	event.block,
+			MiningMode.isPlayerInMiningMode(event.entityPlayer) ? data.selectToolForBlock(	event.entityPlayer.worldObj,
+																							event.entityLiving,
+																							event.block,
 																							event.originalSpeed) : data.getSelectedTool();
 			// If an item exists in the selected slot of the Tool Belt
 			if (selectedStack != null) {

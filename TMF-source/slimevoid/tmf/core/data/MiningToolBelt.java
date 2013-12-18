@@ -51,12 +51,21 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	/**
 	 * Set the selected tool and return for convenience
 	 * 
+	 * @param entityliving
+	 * 
 	 * @param slot
 	 *            the Tool Slot to select
 	 * @return the Selected Tool
 	 */
-	public ItemStack selectTool(int slot) {
-		this.selectedTool = slot;
+	public ItemStack selectTool(World world, EntityLivingBase entityliving, int slot) {
+		if (slot != this.selectedTool) {
+			this.selectedTool = slot;
+			if (world.isRemote && entityliving instanceof EntityPlayer) {
+				((EntityPlayer) entityliving).addChatMessage(this.getSelectedTool() != null ? this.getSelectedTool().getDisplayName()
+																								+ " has been selected" : "No tool is in selected slot "
+																															+ slot);
+			}
+		}
 		return this.getSelectedTool();
 	}
 
@@ -101,14 +110,17 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	 *            the break speed with the current tool
 	 * @return the new Selected Tool
 	 */
-	public ItemStack selectToolForBlock(Block block, float currentBreakSpeed) {
+	public ItemStack selectToolForBlock(World world, EntityLivingBase entityliving, Block block, float currentBreakSpeed) {
 		float fastestSpeed = currentBreakSpeed;
 		for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
 			ItemStack itemstack = this.getStackInSlot(i);
 			if (itemstack != null) {
 				float breakSpeed = itemstack.getStrVsBlock(block);
 				if (breakSpeed > fastestSpeed) {
-					this.selectedTool = i;
+					this.selectTool(world,
+									entityliving,
+									i);
+					this.sendUpdate();
 				}
 			}
 		}

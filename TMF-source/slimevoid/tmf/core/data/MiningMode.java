@@ -35,11 +35,15 @@ public class MiningMode {
 	}
 
 	public static void toggleMiningModeForPlayer(EntityPlayer entityplayer) {
+		String mode = "";
 		if (playersInMiningMode.contains(entityplayer)) {
 			deactivateMiningModeForPlayer(entityplayer);
+			mode = "deactivated.";
 		} else {
 			activateMiningModeForPlayer(entityplayer);
+			mode = "activated.";
 		}
+		entityplayer.addChatMessage("Mining Mode: " + mode);
 	}
 
 	public static boolean isPlayerInMiningMode(EntityPlayer entityplayer) {

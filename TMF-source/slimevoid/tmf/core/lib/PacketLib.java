@@ -14,7 +14,6 @@ package slimevoid.tmf.core.lib;
 import slimevoid.tmf.client.network.ClientPacketHandler;
 import slimevoid.tmf.client.network.handlers.ClientPacketMiningToolBeltHandler;
 import slimevoid.tmf.client.network.packets.executors.ClientMiningToolBeltUpdateExecutor;
-import slimevoid.tmf.client.network.packets.executors.ClientMiningToolBeltUpdateToolExecutor;
 import slimevoid.tmf.network.CommonPacketHandler;
 import slimevoid.tmf.network.handlers.PacketMiningToolBeltHandler;
 import slimevoid.tmf.network.handlers.PacketMotionSensorHandler;
@@ -60,8 +59,6 @@ public class PacketLib {
 		ClientPacketMiningToolBeltHandler clientToolBeltHandler = new ClientPacketMiningToolBeltHandler();
 		clientToolBeltHandler.registerPacketHandler(CommandLib.UPDATE_TOOL_BELT_CONTENTS,
 													new ClientMiningToolBeltUpdateExecutor());
-		clientToolBeltHandler.registerPacketHandler(CommandLib.UPDATE_TOOL_BELT_TOOL,
-													new ClientMiningToolBeltUpdateToolExecutor());
 		ClientPacketHandler.registerPacketHandler(	PacketLib.MINING_TOOL_BELT,
 													clientToolBeltHandler);
 	}
