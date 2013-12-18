@@ -40,6 +40,15 @@ public class ResourceLib {
 	public static final String				DIAMOND_MINING_HELMET	= ARMOR_PREFIX
 																		+ "tmfdiamond.png";
 
+	public static final String				MINING_HELMET_LAMP		= TEXTURE_PREFIX
+																		+ ItemLib.MINING_HELMET_LAMP;
+	public static final String				MINING_HELMET_IRON		= TEXTURE_PREFIX
+																		+ ItemLib.MINING_HELMET_IRON;
+	public static final String				MINING_HELMET_GOLD		= TEXTURE_PREFIX
+																		+ ItemLib.MINING_HELMET_GOLD;
+	public static final String				MINING_HELMET_DIAMOND	= TEXTURE_PREFIX
+																		+ ItemLib.MINING_HELMET_DIAMOND;
+
 	private static final String				GUI_PREFIX				= PATH_PREFIX
 																		+ "gui/";
 
