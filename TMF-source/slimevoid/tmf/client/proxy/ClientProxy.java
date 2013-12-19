@@ -14,6 +14,8 @@ package slimevoid.tmf.client.proxy;
 import java.io.File;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 import slimevoid.tmf.client.renderers.BlockMachineRenderingHandler;
 import slimevoid.tmf.client.renderers.ItemRendererToolBelt;
 import slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
@@ -33,6 +35,7 @@ import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import slimevoidlib.core.SlimevoidCore;
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
@@ -101,5 +104,15 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(	TileEntityGrinder.class,
 														new TileEntitySpecialRendererGrinder());
 		RenderingRegistry.registerBlockHandler(new BlockMachineRenderingHandler());
+	}
+
+	@Override
+	public EntityPlayer getPlayer() {
+		return FMLClientHandler.instance().getClient().thePlayer;
+	}
+
+	@Override
+	public World getWorld() {
+		return FMLClientHandler.instance().getClient().theWorld;
 	}
 }

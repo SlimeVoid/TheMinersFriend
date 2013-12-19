@@ -31,6 +31,8 @@ import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoidlib.data.Logger;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 
 public class ItemMiningToolBelt extends Item {
 
@@ -44,6 +46,69 @@ public class ItemMiningToolBelt extends Item {
 	@Override
 	public boolean requiresMultipleRenderPasses() {
 		return true;
+	}
+
+	@Override
+	public boolean isDamaged(ItemStack itemstack) {
+		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			return this.isToolDamaged(	TheMinersFriend.proxy.getPlayer(),
+										TheMinersFriend.proxy.getWorld(),
+										itemstack);
+		}
+		return super.isDamaged(itemstack);
+	}
+
+	private boolean isToolDamaged(EntityPlayer entityplayer, World world, ItemStack itemstack) {
+		// Retrieves the Selected Tool within the held Tool Belt
+		ItemStack tool = ItemHelper.getSelectedTool(entityplayer,
+													world,
+													itemstack);
+		if (tool != null) {
+			return tool.isItemDamaged();
+		}
+		return false;
+	}
+
+	@Override
+	public int getMaxDamage(ItemStack itemstack) {
+		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			return this.getMaxDamage(	TheMinersFriend.proxy.getPlayer(),
+										TheMinersFriend.proxy.getWorld(),
+										itemstack);
+		}
+		return super.getMaxDamage(itemstack);
+	}
+
+	private int getMaxDamage(EntityPlayer entityplayer, World world, ItemStack itemstack) {
+		// Retrieves the Selected Tool within the held Tool Belt
+		ItemStack tool = ItemHelper.getSelectedTool(entityplayer,
+													world,
+													itemstack);
+		if (tool != null) {
+			return tool.getMaxDamage();
+		}
+		return 0;
+	}
+
+	@Override
+	public int getDisplayDamage(ItemStack itemstack) {
+		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			return this.getDisplayDamage(	TheMinersFriend.proxy.getPlayer(),
+											TheMinersFriend.proxy.getWorld(),
+											itemstack);
+		}
+		return super.getDisplayDamage(itemstack);
+	}
+
+	private int getDisplayDamage(EntityPlayer entityplayer, World world, ItemStack itemstack) {
+		// Retrieves the Selected Tool within the held Tool Belt
+		ItemStack tool = ItemHelper.getSelectedTool(entityplayer,
+													world,
+													itemstack);
+		if (tool != null) {
+			return tool.getItemDamage();
+		}
+		return 0;
 	}
 
 	@Override

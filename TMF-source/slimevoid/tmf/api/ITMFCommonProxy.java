@@ -11,9 +11,25 @@
  */
 package slimevoid.tmf.api;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 import slimevoidlib.ICommonProxy;
 
 public interface ITMFCommonProxy extends ICommonProxy {
 
 	public void registerTESRenderers();
+
+	/**
+	 * Used to facade client only methods
+	 * 
+	 * @return
+	 */
+	public EntityPlayer getPlayer();
+
+	/**
+	 * Used to facade client only methods
+	 * 
+	 * @return
+	 */
+	public World getWorld();
 }

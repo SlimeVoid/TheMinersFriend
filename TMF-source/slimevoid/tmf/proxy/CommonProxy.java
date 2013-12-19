@@ -32,11 +32,11 @@ import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.data.MiningMode;
 import slimevoid.tmf.core.data.MiningToolBelt;
 import slimevoid.tmf.core.lib.ConfigurationLib;
+import slimevoid.tmf.core.lib.CoreLib;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.EventLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.PacketLib;
-import slimevoid.tmf.core.lib.CoreLib;
 import slimevoid.tmf.machines.inventory.ContainerAutomaticMixingTable;
 import slimevoid.tmf.machines.inventory.ContainerGeologicalEquipment;
 import slimevoid.tmf.machines.inventory.ContainerGrinder;
@@ -260,5 +260,17 @@ public class CommonProxy implements ITMFCommonProxy {
 	public void clientLoggedIn(NetHandler clientHandler, INetworkManager manager, Packet1Login login) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public EntityPlayer getPlayer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public World getWorld() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
