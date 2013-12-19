@@ -14,24 +14,27 @@ package slimevoid.tmf.core.lib;
 import java.io.File;
 
 import net.minecraftforge.common.Configuration;
-import slimevoidlib.data.Logger;
-import slimevoidlib.util.xml.XMLLoader;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.core.TMFCore;
+import slimevoidlib.data.Logger;
+import slimevoidlib.util.xml.XMLLoader;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ConfigurationLib {
 
-	public static final int	ITEMID_OFFSET	= 256;
+	public static final int		ITEMID_OFFSET						= 256;
 	@SideOnly(Side.CLIENT)
-	public static int		motionSensorMaxEntityDistance;
+	public static int			motionSensorMaxEntityDistance;
 	@SideOnly(Side.CLIENT)
-	public static int		motionSensorMaxGameTicks;
+	public static int			motionSensorMaxGameTicks;
 	@SideOnly(Side.CLIENT)
-	public static boolean	motionSensorDrawRight;
-	public static int		renderMachineId	= RenderingRegistry.getNextAvailableRenderId();	;
+	public static boolean		motionSensorDrawRight;
+	public static int			renderMachineId						= RenderingRegistry.getNextAvailableRenderId();
+	public static boolean		motionSensorPlaySounds;
+	public static final String	CATEGORY_MOTION_SENSOR				= "motion sensor";
+	public static final String	COMMENT_MOTION_SENSOR_DRAW_RIGHT	= "Set this to false to draw the motion sensor on the left.";
 
 	@SideOnly(Side.CLIENT)
 	public static void ClientConfig() {
@@ -60,13 +63,17 @@ public class ConfigurationLib {
 	}
 
 	private static void loadMotionSensorClient() {
-		motionSensorDrawRight = Boolean.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_GENERAL,
-																			"motionSensorDrawRight",
-																			motionSensorDrawRight).getBoolean(motionSensorDrawRight));
+		motionSensorDrawRight = TMFCore.configuration.get(	CATEGORY_MOTION_SENSOR,
+															"drawonright",
+															motionSensorDrawRight,
+															COMMENT_MOTION_SENSOR_DRAW_RIGHT).getBoolean(motionSensorDrawRight);
 
 		motionSensorMaxEntityDistance = 20;
 		motionSensorMaxGameTicks = 40;
 		motionSensorDrawRight = true;
+		motionSensorPlaySounds = TMFCore.configuration.get(	CATEGORY_MOTION_SENSOR,
+															"playsound",
+															true).getBoolean(true);
 	}
 
 	private static void loadMotionSensorCommon() {
