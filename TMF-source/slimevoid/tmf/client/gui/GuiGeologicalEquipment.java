@@ -14,12 +14,6 @@ package slimevoid.tmf.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-
-import slimevoid.tmf.core.lib.ResourceLib;
-import slimevoid.tmf.machines.inventory.ContainerGeologicalEquipment;
-import slimevoid.tmf.machines.tileentities.TileEntityGeologicalEquipment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -27,6 +21,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+
+import slimevoid.tmf.core.lib.ResourceLib;
+import slimevoid.tmf.machines.inventory.ContainerGeologicalEquipment;
+import slimevoid.tmf.machines.tileentities.TileEntityGeologicalEquipment;
 
 public class GuiGeologicalEquipment extends GuiContainer {
 	private TileEntityGeologicalEquipment	geoEquip;
@@ -110,11 +111,9 @@ public class GuiGeologicalEquipment extends GuiContainer {
 			int length = geoEquip.yCoord;
 			float levelHeight = (float) (listY2 - listY1) / (float) length;
 			for (int depth = length - 1; depth >= 0; depth--) {
-				if (mouseY >= listY1
-								+ (int) (levelHeight * (length - depth))
+				if (mouseY >= listY1 + (int) (levelHeight * (length - depth))
 					&& mouseY <= listY1
-									+ ((int) (levelHeight * (length
-																		- depth + 1)))) return depth;
+									+ ((int) (levelHeight * (length - depth + 1)))) return depth;
 			}
 		}
 
@@ -124,7 +123,7 @@ public class GuiGeologicalEquipment extends GuiContainer {
 	private void drawResultList(int x1, int y1, int x2, int y2) {
 		int length = geoEquip.yCoord;
 		float levelHeight = (float) (y2 - y1) / (float) length;
-		for (int depth = length - 1; depth >= 0; depth--) {
+		for (int depth = length - 1; depth > 0; depth--) {
 			// Assemble colors
 			List<Integer> colorMap = new ArrayList<Integer>();
 			Block[] blocks = geoEquip.getSurveyResult(depth);
@@ -148,8 +147,7 @@ public class GuiGeologicalEquipment extends GuiContainer {
 			drawRect(	x1,
 						y1 + (int) (levelHeight * (length - depth)),
 						x2,
-						y1
-								+ ((int) (levelHeight * (length - depth + 1))),
+						y1 + ((int) (levelHeight * (length - depth + 1))),
 						color);
 		}
 	}
