@@ -1,0 +1,17 @@
+[
+{
+  "modid": "TheMinersFriend",
+  "name": "The Miners Friend",
+  "description": "Assisting your Mining since 2013",
+  "version": "0.0.0.1",
+  "mcversion": "1.6.4",
+  "url": "https://github.com/SlimeVoid/TheMinersFriend",
+  "updateUrl": "",
+  "credits": "ali4z, Slimevoid",
+  "authors": ["Eurymachus"],
+  "logoFile": "",
+  "screenshots": [],
+  "parent":"",
+  "dependencies": ["SlimevoidLibrary"]
+}
+]
