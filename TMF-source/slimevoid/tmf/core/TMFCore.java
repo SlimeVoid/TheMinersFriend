@@ -16,6 +16,7 @@ import java.io.File;
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
@@ -163,13 +164,11 @@ public class TMFCore {
 	}
 
 	private static void registerOres() {
-		// BlockTMFOre(int id, int texture, int spawnLevel, int spawnRate, int
-		// spawnSize, int veinSize, int lightLevel)
-		arkiteOre = new BlockTMFOre(arkiteOreId, 60, 100, 5, 0.2F).setUnlocalizedName(BlockLib.ORE_ARKITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		bistiteOre = new BlockTMFOre(bistiteOreId, 36, 100, 5, 0.3F).setUnlocalizedName(BlockLib.ORE_BISTITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		crokereOre = new BlockTMFOre(crokereOreId, 30, 100, 5, 0.4F).setUnlocalizedName(BlockLib.ORE_CROKERE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		derniteOre = new BlockTMFOre(derniteOreId, 26, 100, 5, 0.5F).setUnlocalizedName(BlockLib.ORE_DERNITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		egioclaseOre = new BlockTMFOre(egioclaseOreId, 20, 100, 5, 0.6F).setUnlocalizedName(BlockLib.ORE_EGIOCLASE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		arkiteOre = new BlockTMFOre(arkiteOreId, 128, 20, 5, 0.2F).setUnlocalizedName(BlockLib.ORE_ARKITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		bistiteOre = new BlockTMFOre(bistiteOreId, 64, 15, 5, 0.3F).setUnlocalizedName(BlockLib.ORE_BISTITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		crokereOre = new BlockTMFOre(crokereOreId, 48, 15, 5, 0.4F).setUnlocalizedName(BlockLib.ORE_CROKERE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		derniteOre = new BlockTMFOre(derniteOreId, 26, 10, 5, 0.5F).setUnlocalizedName(BlockLib.ORE_DERNITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		egioclaseOre = new BlockTMFOre(egioclaseOreId, 5, 5, 5, 0.6F).setUnlocalizedName(BlockLib.ORE_EGIOCLASE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
 
 		GameRegistry.registerBlock(	arkiteOre,
 									BlockLib.ORE_ARKITE);
@@ -231,5 +230,14 @@ public class TMFCore {
 											+ "/config/TMFRecipes"));
 
 		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
+		GameRegistry.addRecipe(	new ItemStack(miningToolBelt),
+								new Object[] {
+										"LIL",
+										"ILI",
+										"LLL",
+										Character.valueOf('L'),
+										new ItemStack(Item.leather),
+										Character.valueOf('I'),
+										new ItemStack(Item.ingotIron) });
 	}
 }
