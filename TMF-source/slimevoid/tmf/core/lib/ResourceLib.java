@@ -12,6 +12,7 @@
 package slimevoid.tmf.core.lib;
 
 import net.minecraft.util.ResourceLocation;
+import slimevoid.tmf.core.TheMinersFriend;
 import cpw.mods.fml.client.FMLClientHandler;
 
 public class ResourceLib {
@@ -127,6 +128,9 @@ public class ResourceLib {
 																		+ ItemLib.MOTION_SENSOR;
 	public static final String				MINING_TOOLBELT			= TEXTURE_PREFIX
 																		+ ItemLib.MINING_TOOLBELT;
+
+	public static final String				RECIPE_STORE			= TheMinersFriend.proxy.getMinecraftDir()
+																		+ "/config/TMFRecipes";
 
 	public static String getModelPath(boolean hasHDModel) {
 		if (hasHDModel

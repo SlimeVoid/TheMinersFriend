@@ -226,8 +226,7 @@ public class TMFCore {
 	// ======= RECIPE REGISTRATION =======
 	public static void registerRecipes() {
 		XMLRecipeLoader.loadDefaults(new File(TMFCore.class.getResource(ResourceLib.RECIPE_PATH).getFile()));
-		XMLRecipeLoader.loadFolder(new File(TheMinersFriend.proxy.getMinecraftDir()
-											+ "/config/TMFRecipes"));
+		XMLRecipeLoader.loadFolder(new File(ResourceLib.RECIPE_STORE));
 
 		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
 		GameRegistry.addRecipe(	new ItemStack(miningToolBelt),
