@@ -11,23 +11,20 @@
  */
 package slimevoid.tmf.blocks.ores;
 
-import slimevoid.tmf.core.lib.BlockLib;
-import slimevoid.tmf.core.lib.CoreLib;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
+import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.CoreLib;
 
 public class BlockTMFOre extends BlockOre {
 
-	public int		spawnLevel, spawnRate, spawnSize;
-	public float	lightLevel;
+	public int	spawnLevel, spawnRate, spawnSize;
 
-	public BlockTMFOre(int id, int spawnLevel, int spawnRate, int spawnSize, float lightLevel) {
+	public BlockTMFOre(int id, int spawnLevel, int spawnRate, int spawnSize) {
 		super(id);
 		this.spawnLevel = spawnLevel;
 		this.spawnRate = spawnRate;
 		this.spawnSize = spawnSize;
-		this.lightLevel = lightLevel;
-		this.setLightValue(lightLevel);
 		BlockLib.registerTMFOre(this);
 	}
 
