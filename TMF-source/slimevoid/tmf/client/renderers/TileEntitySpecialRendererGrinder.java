@@ -18,8 +18,8 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.client.renderers.models.ModelGrinder;
-import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import slimevoidlib.tileentity.TileEntityBase;
 
 public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer {

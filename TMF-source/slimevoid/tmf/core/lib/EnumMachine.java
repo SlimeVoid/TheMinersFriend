@@ -2,12 +2,12 @@ package slimevoid.tmf.core.lib;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.util.Icon;
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 import slimevoid.tmf.client.renderers.handlers.BlockGrinderRenderer;
 import slimevoid.tmf.core.TMFCore;
-import slimevoid.tmf.machines.tileentities.TileEntityAutomaticMixingTable;
-import slimevoid.tmf.machines.tileentities.TileEntityGeologicalEquipment;
-import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
-import slimevoid.tmf.machines.tileentities.TileEntityRefinery;
 import slimevoidlib.tileentity.TileEntityBase;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 

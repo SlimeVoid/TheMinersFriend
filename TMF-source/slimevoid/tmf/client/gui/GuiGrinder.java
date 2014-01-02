@@ -13,9 +13,9 @@ package slimevoid.tmf.client.gui;
 
 import org.lwjgl.opengl.GL11;
 
+import slimevoid.tmf.blocks.machines.inventory.ContainerGrinder;
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.core.lib.ResourceLib;
-import slimevoid.tmf.machines.inventory.ContainerGrinder;
-import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 

@@ -9,32 +9,20 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package slimevoid.tmf.fuel;
+package slimevoid.tmf.blocks.machines.inventory;
 
-import slimevoid.tmf.items.minerals.ItemMineral;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class MineralFuelHandler implements IFuelHandlerTMF {
+public class SlotMachineOutput extends Slot {
 
-	@Override
-	public int getBurnTime(ItemStack fuel) {
-		if (!(fuel.getItem() instanceof ItemMineral)) return 0;
-
-		return ((ItemMineral) fuel.getItem()).getBurnTime(fuel);
+	public SlotMachineOutput(IInventory inventory, int index, int x, int y) {
+		super(inventory, index, x, y);
 	}
 
 	@Override
-	public int getBurnSpeed(ItemStack fuel) {
-		if (!(fuel.getItem() instanceof ItemMineral)) return 0;
-
-		return ((ItemMineral) fuel.getItem()).getBurnSpeed(fuel);
+	public boolean isItemValid(ItemStack par1ItemStack) {
+		return false;
 	}
-
-	@Override
-	public int getBurnWidth(ItemStack fuel) {
-		if (!(fuel.getItem() instanceof ItemMineral)) return 0;
-
-		return ((ItemMineral) fuel.getItem()).getBurnWidth(fuel);
-	}
-
 }

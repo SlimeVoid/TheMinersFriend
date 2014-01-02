@@ -15,8 +15,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.tmf.core.data.MiningToolBelt;
-import slimevoid.tmf.tools.items.ItemMiningToolBelt;
-import slimevoid.tmf.tools.items.ItemMotionSensor;
+import slimevoid.tmf.items.tools.ItemMiningToolBelt;
+import slimevoid.tmf.items.tools.ItemMotionSensor;
 
 public class MotionSensorRuleInToolbelt implements IMotionSensorRule {
 

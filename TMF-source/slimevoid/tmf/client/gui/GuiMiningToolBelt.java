@@ -20,7 +20,7 @@ import org.lwjgl.opengl.GL11;
 
 import slimevoid.tmf.core.data.MiningToolBelt;
 import slimevoid.tmf.core.lib.ResourceLib;
-import slimevoid.tmf.tools.inventory.ContainerMiningToolBelt;
+import slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
 
 public class GuiMiningToolBelt extends GuiContainer {
 	MiningToolBelt	data;

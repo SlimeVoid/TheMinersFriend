@@ -9,18 +9,17 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package slimevoid.tmf.core.events;
+package slimevoid.tmf.items.tools;
 
-import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import slimevoid.tmf.items.tools.ItemMiningToolBelt;
+import net.minecraft.item.Item;
+import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
+import slimevoid.tmf.core.lib.ConfigurationLib;
 
-public class MiningToolBeltBreakSpeed {
+public class ItemMiningLamp extends Item {
 
-	@ForgeSubscribe
-	public void onBreakSpeed(BreakSpeed event) {
-		// if (!event.entityPlayer.worldObj.isRemote) {
-		ItemMiningToolBelt.doBreakSpeed(event);
-		// }
+	public ItemMiningLamp(int itemID) {
+		super(itemID - ConfigurationLib.ITEMID_OFFSET);
+		this.setCreativeTab(CreativeTabTMF.tabTMF);
 	}
+
 }

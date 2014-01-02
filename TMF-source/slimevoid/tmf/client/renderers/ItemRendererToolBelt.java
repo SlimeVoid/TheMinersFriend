@@ -113,9 +113,9 @@ public class ItemRendererToolBelt implements IItemRenderer {
 
 		i1 = Item.itemsList[k].getColorFromItemStack(	toolBelt,
 														0);
-		f = (float) (i1 >> 16 & 255) / 255.0F;
-		f1 = (float) (i1 >> 8 & 255) / 255.0F;
-		f2 = (float) (i1 & 255) / 255.0F;
+		f = (i1 >> 16 & 255) / 255.0F;
+		f1 = (i1 >> 8 & 255) / 255.0F;
+		f2 = (i1 & 255) / 255.0F;
 
 		// if (this.renderWithColor) {
 		GL11.glColor4f(	f,
@@ -136,26 +136,26 @@ public class ItemRendererToolBelt implements IItemRenderer {
 	public void renderIcon(int par1, int par2, Icon par3Icon, int par4, int par5) {
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV((double) (par1 + 0),
-									(double) (par2 + par5),
-									(double) this.zLevel,
-									(double) par3Icon.getMinU(),
-									(double) par3Icon.getMaxV());
-		tessellator.addVertexWithUV((double) (par1 + par4),
-									(double) (par2 + par5),
-									(double) this.zLevel,
-									(double) par3Icon.getMaxU(),
-									(double) par3Icon.getMaxV());
-		tessellator.addVertexWithUV((double) (par1 + par4),
-									(double) (par2 + 0),
-									(double) this.zLevel,
-									(double) par3Icon.getMaxU(),
-									(double) par3Icon.getMinV());
-		tessellator.addVertexWithUV((double) (par1 + 0),
-									(double) (par2 + 0),
-									(double) this.zLevel,
-									(double) par3Icon.getMinU(),
-									(double) par3Icon.getMinV());
+		tessellator.addVertexWithUV(par1 + 0,
+									par2 + par5,
+									this.zLevel,
+									par3Icon.getMinU(),
+									par3Icon.getMaxV());
+		tessellator.addVertexWithUV(par1 + par4,
+									par2 + par5,
+									this.zLevel,
+									par3Icon.getMaxU(),
+									par3Icon.getMaxV());
+		tessellator.addVertexWithUV(par1 + par4,
+									par2 + 0,
+									this.zLevel,
+									par3Icon.getMaxU(),
+									par3Icon.getMinV());
+		tessellator.addVertexWithUV(par1 + 0,
+									par2 + 0,
+									this.zLevel,
+									par3Icon.getMinU(),
+									par3Icon.getMinV());
 		tessellator.draw();
 	}
 
@@ -241,7 +241,7 @@ public class ItemRendererToolBelt implements IItemRenderer {
 			GL11.glScalef(	f8,
 							f8,
 							f8);
-			float f9 = (float) (Minecraft.getSystemTime() % 3000L) / 3000.0F * 8.0F;
+			float f9 = Minecraft.getSystemTime() % 3000L / 3000.0F * 8.0F;
 			GL11.glTranslatef(	f9,
 								0.0F,
 								0.0F);
@@ -262,7 +262,7 @@ public class ItemRendererToolBelt implements IItemRenderer {
 			GL11.glScalef(	f8,
 							f8,
 							f8);
-			f9 = (float) (Minecraft.getSystemTime() % 4873L) / 4873.0F * 8.0F;
+			f9 = Minecraft.getSystemTime() % 4873L / 4873.0F * 8.0F;
 			GL11.glTranslatef(	-f9,
 								0.0F,
 								0.0F);

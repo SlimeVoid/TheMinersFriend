@@ -25,9 +25,9 @@ import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import slimevoid.tmf.blocks.machines.inventory.ContainerGeologicalEquipment;
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import slimevoid.tmf.core.lib.ResourceLib;
-import slimevoid.tmf.machines.inventory.ContainerGeologicalEquipment;
-import slimevoid.tmf.machines.tileentities.TileEntityGeologicalEquipment;
 
 public class GuiGeologicalEquipment extends GuiContainer {
 	private TileEntityGeologicalEquipment	geoEquip;

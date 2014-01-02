@@ -14,7 +14,7 @@ package slimevoid.tmf.fuel;
 import java.util.HashMap;
 import java.util.Map;
 
-import slimevoid.tmf.minerals.items.ItemMineralMixedDust;
+import slimevoid.tmf.items.minerals.ItemMineralMixedDust;
 
 public class MixedDustNameRegistry {
 	private static Map<String, String>	nameMapping	= new HashMap<String, String>();

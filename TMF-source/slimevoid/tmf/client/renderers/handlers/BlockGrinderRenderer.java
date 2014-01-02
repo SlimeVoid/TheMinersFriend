@@ -3,7 +3,7 @@ package slimevoid.tmf.client.renderers.handlers;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import slimevoid.tmf.machines.tileentities.TileEntityGrinder;
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
