@@ -13,19 +13,16 @@ package slimevoid.tmf.core;
 
 import java.io.File;
 
-import net.minecraft.block.Block;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
-import slimevoid.tmf.blocks.machines.BlockMachineBase;
+import slimevoid.tmf.blocks.BlockTMFBase;
 import slimevoid.tmf.blocks.machines.recipes.JSONGrinderRecipesLoader;
 import slimevoid.tmf.blocks.machines.recipes.JSONRefineryRecipesLoader;
-import slimevoid.tmf.blocks.ores.BlockTMFOre;
-import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.BlockLib;
-import slimevoid.tmf.core.lib.EnumMachine;
+import slimevoid.tmf.core.lib.EnumBlocks;
 import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.LocalizationLib;
 import slimevoid.tmf.core.lib.ResourceLib;
@@ -141,71 +138,83 @@ public class TMFCore {
 		GameRegistry.registerFuelHandler(new MineralFuelHandler());
 	}
 
-	// ORES
-	public static int		arkiteOreId, bistiteOreId, crokereOreId,
-			derniteOreId, egioclaseOreId;
-	public static Block		arkiteOre, bistiteOre, crokereOre, derniteOre,
-			egioclaseOre;
-
 	// MACHINES
-	public static int		blockMachineBaseId;
-	public static BlockBase	blockMachineBase;
+	public static int		blockBaseId;
+	public static BlockBase	blockBase;
 
 	// ======== BLOCK REGISTRATION ========
 	public static void registerBlocks() {
-
-		BlockLib.init();
+		registerMachines();
 
 		registerOres();
 
 		GameRegistry.registerWorldGenerator(new WorldGeneration());
-
-		registerMachines();
 	}
 
 	private static void registerOres() {
-		arkiteOre = new BlockTMFOre(arkiteOreId, 128, 20, 5).setUnlocalizedName(BlockLib.ORE_ARKITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		bistiteOre = new BlockTMFOre(bistiteOreId, 64, 15, 5).setUnlocalizedName(BlockLib.ORE_BISTITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		crokereOre = new BlockTMFOre(crokereOreId, 48, 15, 5).setUnlocalizedName(BlockLib.ORE_CROKERE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		derniteOre = new BlockTMFOre(derniteOreId, 26, 10, 5).setUnlocalizedName(BlockLib.ORE_DERNITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-		egioclaseOre = new BlockTMFOre(egioclaseOreId, 5, 5, 5).setUnlocalizedName(BlockLib.ORE_EGIOCLASE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		/*
+		 * arkiteOre = new BlockTMFOre(arkiteOreId, 128, 20,
+		 * 5).setUnlocalizedName
+		 * (BlockLib.ORE_ARKITE).setHardness(3.0F).setResistance
+		 * (5.0F).setStepSound
+		 * (Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		 * bistiteOre = new BlockTMFOre(bistiteOreId, 64, 15,
+		 * 5).setUnlocalizedName
+		 * (BlockLib.ORE_BISTITE).setHardness(3.0F).setResistance
+		 * (5.0F).setStepSound
+		 * (Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		 * crokereOre = new BlockTMFOre(crokereOreId, 48, 15,
+		 * 5).setUnlocalizedName
+		 * (BlockLib.ORE_CROKERE).setHardness(3.0F).setResistance
+		 * (5.0F).setStepSound
+		 * (Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		 * derniteOre = new BlockTMFOre(derniteOreId, 26, 10,
+		 * 5).setUnlocalizedName
+		 * (BlockLib.ORE_DERNITE).setHardness(3.0F).setResistance
+		 * (5.0F).setStepSound
+		 * (Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		 * egioclaseOre = new BlockTMFOre(egioclaseOreId, 5, 5,
+		 * 5).setUnlocalizedName
+		 * (BlockLib.ORE_EGIOCLASE).setHardness(3.0F).setResistance
+		 * (5.0F).setStepSound
+		 * (Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+		 * GameRegistry.registerBlock( arkiteOre, BlockLib.ORE_ARKITE);
+		 * GameRegistry.registerBlock( bistiteOre, BlockLib.ORE_BISTITE);
+		 * GameRegistry.registerBlock( crokereOre, BlockLib.ORE_CROKERE);
+		 * GameRegistry.registerBlock( derniteOre, BlockLib.ORE_DERNITE);
+		 * GameRegistry.registerBlock( egioclaseOre, BlockLib.ORE_EGIOCLASE);
+		 */
 
-		GameRegistry.registerBlock(	arkiteOre,
-									BlockLib.ORE_ARKITE);
-		GameRegistry.registerBlock(	bistiteOre,
-									BlockLib.ORE_BISTITE);
-		GameRegistry.registerBlock(	crokereOre,
-									BlockLib.ORE_CROKERE);
-		GameRegistry.registerBlock(	derniteOre,
-									BlockLib.ORE_DERNITE);
-		GameRegistry.registerBlock(	egioclaseOre,
-									BlockLib.ORE_EGIOCLASE);
-
-		MinecraftForge.setBlockHarvestLevel(arkiteOre,
+		MinecraftForge.setBlockHarvestLevel(blockBase,// arkiteOre,
+											EnumBlocks.ORE_ARKITE.getId(),
 											"pickaxe",
 											2);
-		MinecraftForge.setBlockHarvestLevel(bistiteOre,
+		MinecraftForge.setBlockHarvestLevel(blockBase,// bistiteOre,
+											EnumBlocks.ORE_BISTITE.getId(),
 											"pickaxe",
 											2);
-		MinecraftForge.setBlockHarvestLevel(crokereOre,
+		MinecraftForge.setBlockHarvestLevel(blockBase,// crokereOre,
+											EnumBlocks.ORE_CROKERE.getId(),
 											"pickaxe",
 											2);
-		MinecraftForge.setBlockHarvestLevel(derniteOre,
+		MinecraftForge.setBlockHarvestLevel(blockBase,// derniteOre,
+											EnumBlocks.ORE_DERNITE.getId(),
 											"pickaxe",
 											2);
-		MinecraftForge.setBlockHarvestLevel(egioclaseOre,
+		MinecraftForge.setBlockHarvestLevel(blockBase,// egioclaseOre,
+											EnumBlocks.ORE_EGIOCLASE.getId(),
 											"pickaxe",
 											2);
 	}
 
 	private static void registerMachines() {
 		// MACHINE BASE
-		blockMachineBase = new BlockMachineBase(blockMachineBaseId);
-		GameRegistry.registerBlock(	blockMachineBase,
+		blockBase = new BlockTMFBase(blockBaseId);
+		GameRegistry.registerBlock(	blockBase,
 									ItemBlockBase.class,
 									BlockLib.BLOCK_MACHINE_BASE);
 
-		EnumMachine.registerMachines();
+		EnumBlocks.registerBlocks();
 
 		// REFINERY
 		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource(ResourceLib.RECIPES_REFINERY).getFile()));

@@ -35,7 +35,7 @@ public abstract class TileEntityMachine extends TileEntityBase implements
 
 	@Override
 	public int getBlockID() {
-		return TMFCore.blockMachineBase.blockID;
+		return TMFCore.blockBase.blockID;
 	}
 
 	/** The number of ticks that the machine will keep burning */

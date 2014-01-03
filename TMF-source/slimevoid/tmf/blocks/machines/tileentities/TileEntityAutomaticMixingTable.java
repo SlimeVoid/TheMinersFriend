@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.lib.BlockLib;
-import slimevoid.tmf.core.lib.EnumMachine;
+import slimevoid.tmf.core.lib.EnumBlocks;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.items.minerals.ItemMineralDust;
 import slimevoid.tmf.items.minerals.ItemMineralMixedDust;
@@ -273,7 +273,7 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 
 	@Override
 	public int getExtendedBlockID() {
-		return EnumMachine.AUTOMIXTABLE.getId();
+		return EnumBlocks.MACHINE_AUTOMIXTABLE.getId();
 	}
 
 }

@@ -13,12 +13,13 @@ package slimevoid.tmf.core.world;
 
 import java.util.Random;
 
-import slimevoid.tmf.blocks.ores.BlockTMFOre;
-import slimevoid.tmf.core.lib.BlockLib;
-
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.EnumBlocks;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IWorldGenerator;
 
 public class WorldGeneration implements IWorldGenerator {
@@ -50,17 +51,27 @@ public class WorldGeneration implements IWorldGenerator {
 	}
 
 	private void generateSurface(World world, Random random, int chunkX, int chunkZ) {
-		for (BlockTMFOre ore : BlockLib.getRegisteredOres()) {
-			for (int i = 0; i < ore.spawnRate; i++) {
-				int xCoord = chunkX + random.nextInt(16);
-				int yCoord = random.nextInt(ore.spawnLevel);
-				int zCoord = chunkZ + random.nextInt(16);
-				WorldGenMinable minable = new WorldGenMinable(ore.blockID, ore.spawnSize);
-				minable.generate(	world,
-									random,
-									xCoord,
-									yCoord,
-									zCoord);
+		for (EnumBlocks ore : EnumBlocks.values()) {
+			if (ore.getUnlocalizedName().startsWith(BlockLib.ORE_PREFIX)) {
+				int[] oreData = EnumBlocks.getOreData(ore.getId());
+				if (oreData != null) {
+					int spawnLevel = oreData[0];
+					int spawnRate = oreData[1];
+					int spawnSize = oreData[2];
+					for (int i = 0; i < spawnRate; i++) {
+						int xCoord = chunkX + random.nextInt(16);
+						int yCoord = random.nextInt(spawnLevel);
+						int zCoord = chunkZ + random.nextInt(16);
+						WorldGenMinable minable = new WorldGenMinable(TMFCore.blockBaseId, ore.getId(), spawnSize);
+						minable.generate(	world,
+											random,
+											xCoord,
+											yCoord,
+											zCoord);
+					}
+				} else {
+					FMLCommonHandler.instance().getFMLLogger().warning("Tried to generate an ore without any data and failed!");
+				}
 			}
 		}
 	}

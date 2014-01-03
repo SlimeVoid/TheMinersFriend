@@ -11,18 +11,18 @@
  */
 package slimevoid.tmf.blocks.machines.tileentities;
 
-import slimevoid.tmf.blocks.machines.recipes.RefineryRecipes;
-import slimevoid.tmf.blocks.machines.recipes.RefineryRecipes.RefineryRecipe;
-import slimevoid.tmf.core.TheMinersFriend;
-import slimevoid.tmf.core.lib.BlockLib;
-import slimevoid.tmf.core.lib.EnumMachine;
-import slimevoid.tmf.core.lib.GuiLib;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import slimevoid.tmf.blocks.machines.recipes.RefineryRecipes;
+import slimevoid.tmf.blocks.machines.recipes.RefineryRecipes.RefineryRecipe;
+import slimevoid.tmf.core.TheMinersFriend;
+import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.EnumBlocks;
+import slimevoid.tmf.core.lib.GuiLib;
 
 public class TileEntityRefinery extends TileEntityMachine {
 	/**
@@ -156,37 +156,40 @@ public class TileEntityRefinery extends TileEntityMachine {
 	public void smeltItem() {
 		if (canSmelt()) {
 			ItemStack oreItem = refineryItemStacks[0];
-			if (RefineryRecipes.refining().isOreAllowed(oreItem)) {
-				ItemStack[] smelted = RefineryRecipes.refining().getRefiningResults(oreItem.itemID);
+			if (BlockLib.isOre(oreItem)) {
+				int oreId = oreItem.getItemDamage();
+				if (RefineryRecipes.refining().isOreAllowed(oreId)) {
+					ItemStack[] smelted = RefineryRecipes.refining().getRefiningResults(oreId);
 
-				if (smelted != null && smelted.length == 3) {
-					if (smelted[0] != null && smelted[0].stackSize > 0) {
-						if (refineryItemStacks[2] == null) {
-							refineryItemStacks[2] = smelted[0].copy();
-						} else if (refineryItemStacks[2].isItemEqual(smelted[0])) {
-							refineryItemStacks[2].stackSize += smelted[0].stackSize;
+					if (smelted != null && smelted.length == 3) {
+						if (smelted[0] != null && smelted[0].stackSize > 0) {
+							if (refineryItemStacks[2] == null) {
+								refineryItemStacks[2] = smelted[0].copy();
+							} else if (refineryItemStacks[2].isItemEqual(smelted[0])) {
+								refineryItemStacks[2].stackSize += smelted[0].stackSize;
+							}
 						}
-					}
 
-					if (smelted[1] != null && smelted[1].stackSize > 0) {
-						if (refineryItemStacks[3] == null) {
-							refineryItemStacks[3] = smelted[1].copy();
-						} else if (refineryItemStacks[3].isItemEqual(smelted[1])) {
-							refineryItemStacks[3].stackSize += smelted[1].stackSize;
+						if (smelted[1] != null && smelted[1].stackSize > 0) {
+							if (refineryItemStacks[3] == null) {
+								refineryItemStacks[3] = smelted[1].copy();
+							} else if (refineryItemStacks[3].isItemEqual(smelted[1])) {
+								refineryItemStacks[3].stackSize += smelted[1].stackSize;
+							}
 						}
-					}
 
-					if (smelted[2] != null && smelted[2].stackSize > 0) {
-						if (refineryItemStacks[4] == null) {
-							refineryItemStacks[4] = smelted[2].copy();
-						} else if (refineryItemStacks[4].isItemEqual(smelted[2])) {
-							refineryItemStacks[4].stackSize += smelted[2].stackSize;
+						if (smelted[2] != null && smelted[2].stackSize > 0) {
+							if (refineryItemStacks[4] == null) {
+								refineryItemStacks[4] = smelted[2].copy();
+							} else if (refineryItemStacks[4].isItemEqual(smelted[2])) {
+								refineryItemStacks[4].stackSize += smelted[2].stackSize;
+							}
 						}
-					}
 
-					--refineryItemStacks[0].stackSize;
-					if (refineryItemStacks[0].stackSize <= 0) {
-						refineryItemStacks[0] = null;
+						--refineryItemStacks[0].stackSize;
+						if (refineryItemStacks[0].stackSize <= 0) {
+							refineryItemStacks[0] = null;
+						}
 					}
 				}
 			}
@@ -198,23 +201,26 @@ public class TileEntityRefinery extends TileEntityMachine {
 		if (refineryItemStacks[0] == null) return false;
 
 		ItemStack oreItem = refineryItemStacks[0];
-		if (RefineryRecipes.refining().isOreAllowed(oreItem)) {
-			RefineryRecipe[] recipes = RefineryRecipes.refining().getRefineryRecipes(oreItem.itemID);
+		if (BlockLib.isOre(oreItem)) {
+			int oreId = oreItem.getItemDamage();
+			if (RefineryRecipes.refining().isOreAllowed(oreId)) {
+				RefineryRecipe[] recipes = RefineryRecipes.refining().getRefineryRecipes(oreId);
 
-			if (recipes != null && recipes.length == 3) {
-				boolean ok = true;
-				for (int i = 0; i < recipes.length; i++) {
-					if (refineryItemStacks[2 + recipes[i].slotId] != null) ok = false;
-				}
-				if (ok) return true;
+				if (recipes != null && recipes.length == 3) {
+					boolean ok = true;
+					for (int i = 0; i < recipes.length; i++) {
+						if (refineryItemStacks[2 + recipes[i].slotId] != null) ok = false;
+					}
+					if (ok) return true;
 
-				ok = true;
-				for (int i = 0; i < recipes.length; i++) {
-					if (refineryItemStacks[2 + recipes[i].slotId] != null
-						&& refineryItemStacks[2 + recipes[i].slotId].stackSize
-							+ recipes[i].max > getInventoryStackLimit()) ok = false;
+					ok = true;
+					for (int i = 0; i < recipes.length; i++) {
+						if (refineryItemStacks[2 + recipes[i].slotId] != null
+							&& refineryItemStacks[2 + recipes[i].slotId].stackSize
+								+ recipes[i].max > getInventoryStackLimit()) ok = false;
+					}
+					if (ok) return true;
 				}
-				if (ok) return true;
 			}
 		}
 
@@ -253,6 +259,6 @@ public class TileEntityRefinery extends TileEntityMachine {
 
 	@Override
 	public int getExtendedBlockID() {
-		return EnumMachine.REFINERY.getId();
+		return EnumBlocks.MACHINE_REFINERY.getId();
 	}
 }

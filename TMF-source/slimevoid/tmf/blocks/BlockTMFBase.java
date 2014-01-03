@@ -9,7 +9,7 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package slimevoid.tmf.blocks.machines;
+package slimevoid.tmf.blocks;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -17,29 +17,29 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.Icon;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.ConfigurationLib;
-import slimevoid.tmf.core.lib.EnumMachine;
+import slimevoid.tmf.core.lib.EnumBlocks;
 import slimevoidlib.blocks.BlockBase;
 
-public class BlockMachineBase extends BlockBase {
+public class BlockTMFBase extends BlockBase {
 
 	@Override
 	public void registerIcons(IconRegister iconRegister) {
 		for (int i = 0; i < this.tileEntityMap.length; i++) {
-			EnumMachine machine = EnumMachine.getMachine(i);
-			if (machine != null) {
-				machine.registerIcons(iconRegister);
+			EnumBlocks block = EnumBlocks.getBlock(i);
+			if (block != null) {
+				block.registerIcons(iconRegister);
 			}
 		}
 	}
 
-	public BlockMachineBase(int id) {
-		super(id, Material.rock, EnumMachine.values().length);
+	public BlockTMFBase(int id) {
+		super(id, Material.rock, EnumBlocks.values().length);
 	}
 
 	@Override
 	public Icon getIcon(int side, int metadata) {
 		Icon icon = null;
-		EnumMachine machine = EnumMachine.getMachine(metadata);
+		EnumBlocks machine = EnumBlocks.getBlock(metadata);
 		if (machine != null) {
 			icon = machine.getIcon(side);
 		}

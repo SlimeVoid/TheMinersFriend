@@ -17,10 +17,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import slimevoid.tmf.blocks.ores.BlockTMFOre;
-import slimevoid.tmf.core.TMFCore;
-import slimevoid.tmf.items.minerals.ItemMineral;
 
+import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.lib.EnumBlocks;
+import slimevoid.tmf.items.minerals.ItemMineral;
 import argo.jdom.JdomParser;
 import argo.jdom.JsonNode;
 import argo.jdom.JsonRootNode;
@@ -29,20 +29,20 @@ import argo.saj.InvalidSyntaxException;
 
 public class JSONRefineryRecipesLoader {
 	private static final JdomParser			parser		= new JdomParser();
-	private static Map<String, BlockTMFOre>	oreMap		= new HashMap<String, BlockTMFOre>();
+	private static Map<String, Integer>		oreMap		= new HashMap<String, Integer>();
 	private static Map<String, ItemMineral>	mineralMap	= new HashMap<String, ItemMineral>();
 
 	static {
 		oreMap.put(	"arkite",
-					(BlockTMFOre) TMFCore.arkiteOre);
+					EnumBlocks.ORE_ARKITE.getId());
 		oreMap.put(	"bistite",
-					(BlockTMFOre) TMFCore.bistiteOre);
+					EnumBlocks.ORE_BISTITE.getId());
 		oreMap.put(	"crokere",
-					(BlockTMFOre) TMFCore.crokereOre);
+					EnumBlocks.ORE_CROKERE.getId());
 		oreMap.put(	"dernite",
-					(BlockTMFOre) TMFCore.derniteOre);
+					EnumBlocks.ORE_DERNITE.getId());
 		oreMap.put(	"egioclase",
-					(BlockTMFOre) TMFCore.egioclaseOre);
+					EnumBlocks.ORE_EGIOCLASE.getId());
 
 		mineralMap.put(	"acxium",
 						(ItemMineral) TMFCore.mineralAcxium);
@@ -114,7 +114,7 @@ public class JSONRefineryRecipesLoader {
 													strToMineral(mineral));
 	}
 
-	private static BlockTMFOre strToOre(String ore) {
+	private static int strToOre(String ore) {
 		return oreMap.get(ore);
 	}
 

@@ -56,7 +56,6 @@ public class ConfigurationLib {
 		loadToolBelt();
 		loadMinerals();
 		loadDusts();
-		loadOres();
 		loadMachines();
 
 		TMFCore.configuration.save();
@@ -161,47 +160,18 @@ public class ConfigurationLib {
 									TMFCore.dustMixedId);
 	}
 
-	private static void loadOres() {
-		TMFCore.arkiteOreId = Integer.valueOf(TMFCore.configuration.get(Configuration.CATEGORY_BLOCK,
-																		"arkiteOre",
-																		1025).getInt());
-		TMFCore.bistiteOreId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_BLOCK,
-																			"bistiteOre",
-																			1026).getInt());
-		TMFCore.crokereOreId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_BLOCK,
-																			"crokereOre",
-																			1027).getInt());
-		TMFCore.derniteOreId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_BLOCK,
-																			"derniteOre",
-																			1028).getInt());
-		TMFCore.egioclaseOreId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_BLOCK,
-																			"egioclaseOre",
-																			1029).getInt());
-
-		XMLLoader.addXmlVariable(	"$arkiteOre",
-									TMFCore.arkiteOreId);
-		XMLLoader.addXmlVariable(	"$bistiteOre",
-									TMFCore.bistiteOreId);
-		XMLLoader.addXmlVariable(	"$crokereOre",
-									TMFCore.crokereOreId);
-		XMLLoader.addXmlVariable(	"$derniteOre",
-									TMFCore.derniteOreId);
-		XMLLoader.addXmlVariable(	"$egioclaseOre",
-									TMFCore.egioclaseOreId);
-	}
-
 	private static void loadMachines() {
-		TMFCore.blockMachineBaseId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_BLOCK,
-																				"blockMachine",
-																				1100).getInt());
+		TMFCore.blockBaseId = Integer.valueOf(TMFCore.configuration.get(Configuration.CATEGORY_BLOCK,
+																		"blockMachine",
+																		1100).getInt());
 		XMLLoader.addXmlVariable(	"$refinery",
-									EnumMachine.REFINERY.getId());
+									EnumBlocks.MACHINE_REFINERY.getId());
 		XMLLoader.addXmlVariable(	"$grinder",
-									EnumMachine.GRINDER.getId());
+									EnumBlocks.MACHINE_GRINDER.getId());
 		XMLLoader.addXmlVariable(	"$geoEquip",
-									EnumMachine.GEOEQUIP.getId());
+									EnumBlocks.MACHINE_GEOEQUIP.getId());
 		XMLLoader.addXmlVariable(	"$autoMixTable",
-									EnumMachine.AUTOMIXTABLE.getId());
+									EnumBlocks.MACHINE_AUTOMIXTABLE.getId());
 
 	}
 

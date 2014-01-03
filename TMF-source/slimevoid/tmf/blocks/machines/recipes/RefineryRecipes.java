@@ -18,8 +18,6 @@ import java.util.Map;
 import java.util.Random;
 
 import net.minecraft.item.ItemStack;
-
-import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.items.minerals.ItemMineral;
 
@@ -33,11 +31,11 @@ public class RefineryRecipes {
 		return refiningBase;
 	}
 
-	public boolean isOreAllowed(ItemStack ore) {
-		return ore != null && refiningMap.containsKey(ore.itemID);
+	public boolean isOreAllowed(int ore) {
+		return refiningMap.containsKey(ore);
 	}
 
-	public void addRefinement(BlockTMFOre ore, int min, int max, ItemMineral mineral) {
+	public void addRefinement(int ore, int min, int max, ItemMineral mineral) {
 		if (mineral.itemID == TMFCore.mineralAcxiumId) {
 			addRefinement(	ore,
 							min,
@@ -59,21 +57,17 @@ public class RefineryRecipes {
 		}
 	}
 
-	private void addRefinement(BlockTMFOre ore, int min, int max, ItemMineral mineral, int slotId) {
+	private void addRefinement(int ore, int min, int max, ItemMineral mineral, int slotId) {
 		RefineryRecipe recipe = new RefineryRecipe();
 		recipe.max = max;
 		recipe.min = min;
 		recipe.mineral = mineral;
 		recipe.slotId = slotId;
 
-		if (!refiningMap.containsKey(ore.blockID)) refiningMap.put(	ore.blockID,
-																	new ArrayList<RefineryRecipe>());
+		if (!refiningMap.containsKey(ore)) refiningMap.put(	ore,
+															new ArrayList<RefineryRecipe>());
 
-		refiningMap.get(ore.blockID).add(recipe);
-	}
-
-	public ItemStack[] getRefiningResults(BlockTMFOre ore) {
-		return getRefiningResults(ore.blockID);
+		refiningMap.get(ore).add(recipe);
 	}
 
 	public ItemStack[] getRefiningResults(int oreId) {
@@ -87,10 +81,6 @@ public class RefineryRecipes {
 		}
 
 		return out;
-	}
-
-	public RefineryRecipe[] getRefineryRecipes(BlockTMFOre ore) {
-		return getRefineryRecipes(ore.blockID);
 	}
 
 	public RefineryRecipe[] getRefineryRecipes(int oreId) {

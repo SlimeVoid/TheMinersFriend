@@ -20,7 +20,7 @@ import net.minecraftforge.common.ForgeDirection;
 import slimevoid.tmf.blocks.machines.recipes.GrinderRecipes;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.lib.BlockLib;
-import slimevoid.tmf.core.lib.EnumMachine;
+import slimevoid.tmf.core.lib.EnumBlocks;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoidlib.blocks.BlockBase;
 
@@ -221,7 +221,7 @@ public class TileEntityGrinder extends TileEntityMachine {
 
 	@Override
 	public int getExtendedBlockID() {
-		return EnumMachine.GRINDER.getId();
+		return EnumBlocks.MACHINE_GRINDER.getId();
 	}
 
 }

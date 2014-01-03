@@ -19,7 +19,7 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
 import slimevoid.tmf.core.lib.ConfigurationLib;
-import slimevoid.tmf.core.lib.EnumMachine;
+import slimevoid.tmf.core.lib.EnumBlocks;
 import slimevoidlib.blocks.BlockBase;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
@@ -140,7 +140,7 @@ public class BlockMachineRenderingHandler implements
 		if (modelID == ConfigurationLib.renderMachineId) {
 			if (block instanceof BlockBase) {
 				BlockBase blockBase = (BlockBase) block;
-				EnumMachine machine = EnumMachine.getMachine(metadata);
+				EnumBlocks machine = EnumBlocks.getBlock(metadata);
 				if (machine != null) {
 					if (machine.hasRenderHandler()) {
 						machine.getRenderHandler().renderInventoryBlock(blockBase,
@@ -160,7 +160,7 @@ public class BlockMachineRenderingHandler implements
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-		EnumMachine machine = EnumMachine.getMachine(world.getBlockMetadata(x,
+		EnumBlocks machine = EnumBlocks.getBlock(world.getBlockMetadata(x,
 																			y,
 																			z));
 		if (machine != null) {

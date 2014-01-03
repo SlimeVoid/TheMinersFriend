@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.lib.BlockLib;
-import slimevoid.tmf.core.lib.EnumMachine;
+import slimevoid.tmf.core.lib.EnumBlocks;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
 import slimevoid.tmf.items.minerals.ItemMineral;
@@ -384,6 +384,6 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 
 	@Override
 	public int getExtendedBlockID() {
-		return EnumMachine.GEOEQUIP.getId();
+		return EnumBlocks.MACHINE_GEOEQUIP.getId();
 	}
 }
