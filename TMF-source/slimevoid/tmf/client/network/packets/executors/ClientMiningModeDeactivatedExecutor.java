@@ -9,27 +9,32 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package slimevoid.tmf.network.packets.executors;
+package slimevoid.tmf.client.network.packets.executors;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import slimevoid.tmf.api.IPacketExecutor;
 import slimevoid.tmf.core.data.MiningToolBelt;
+import slimevoid.tmf.core.lib.MessageLib;
 import slimevoid.tmf.network.packets.PacketMining;
 import slimevoid.tmf.network.packets.PacketMiningToolBelt;
+import cpw.mods.fml.common.FMLCommonHandler;
 
-public class MiningModeExecutor implements IPacketExecutor {
+public class ClientMiningModeDeactivatedExecutor implements IPacketExecutor {
 
 	@Override
 	public void execute(PacketMining packet, World world, EntityPlayer entityplayer) {
 		if (packet instanceof PacketMiningToolBelt) {
-			PacketMiningToolBelt packetTB = (PacketMiningToolBelt) packet;
-			MiningToolBelt toolBelt = MiningToolBelt.getToolBeltDataFromId(	entityplayer,
-																			world,
-																			packetTB.getToolBeltId());
-			if (toolBelt != null) {
-				toolBelt.toggleMiningMode(	world,
-											entityplayer);
+			PacketMiningToolBelt packetMT = (PacketMiningToolBelt) packet;
+			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromId(	entityplayer,
+																		world,
+																		packetMT.getToolBeltId());
+			if (data != null) {
+				String message = StatCollector.translateToLocal(MessageLib.MINING_MODE_DEACTIVATED);
+				entityplayer.addChatMessage(message);
+			} else {
+				FMLCommonHandler.instance().getFMLLogger().warning("Unknown toolbelt was updated, client out of sync!");
 			}
 		}
 	}

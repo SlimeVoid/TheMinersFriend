@@ -3,6 +3,10 @@
 <properties version="1.0">
 	<comment>English (US) Localization File</comment>
 	<entry key="itemGroup.TheMinersFriend">The Miner's Friend</entry>
+	<entry key="message.tmf.miningmode.activated">Mining Mode Activated!</entry>
+	<entry key="message.tmf.miningmode.deactivated">Mining Mode Deactivated</entry>
+	<entry key="message.tmf.toolbelt.selected">has been selected!</entry>
+	<entry key="message.tmf.toolbelt.noneselected">No tool in slot!</entry>
 	<entry key="tile.tmf.machine.grinder.name">Mineral Grinder</entry>
 	<entry key="tile.tmf.machine.refinery.name">Ore Refinery</entry>
 	<entry key="tile.tmf.machine.geoEquip.name">Geological Equipment</entry>

@@ -247,5 +247,14 @@ public class TMFCore {
 										new ItemStack(Item.leather),
 										Character.valueOf('I'),
 										new ItemStack(Item.ingotIron) });
+		GameRegistry.addRecipe(	new ItemStack(miningHelmetLamp),
+								new Object[] {
+										" L ",
+										"LTL",
+										" L ",
+										Character.valueOf('L'),
+										new ItemStack(Item.leather),
+										Character.valueOf('T'),
+										new ItemStack(Block.torchWood) });
 	}
 }

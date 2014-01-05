@@ -12,9 +12,11 @@
 package slimevoid.tmf.network.packets.executors;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.tmf.api.IPacketExecutor;
 import slimevoid.tmf.core.data.MiningToolBelt;
+import slimevoid.tmf.core.lib.PacketLib;
 import slimevoid.tmf.network.packets.PacketMining;
 import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
@@ -28,7 +30,15 @@ public class ToolBeltCycleToolExecutor implements IPacketExecutor {
 																			world,
 																			packetTB.getToolBeltId());
 			if (toolBelt != null) {
-				toolBelt.cycleTool();
+				ItemStack currentTool = toolBelt.getSelectedTool();
+				ItemStack newTool = toolBelt.cycleTool(	world,
+														entityplayer);
+				if (!ItemStack.areItemStacksEqual(	currentTool,
+													newTool)) {
+					PacketLib.sendToolBeltSelectMessage(world,
+														entityplayer,
+														toolBelt.getToolBeltId());
+				}
 			}
 		}
 	}
