@@ -16,6 +16,8 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import slimevoid.tmf.core.lib.PacketLib;
 
 public class MiningMode {
 	private static List<EntityPlayer>	playersInMiningMode;
@@ -26,24 +28,28 @@ public class MiningMode {
 		strength = strengthMultiplier;
 	}
 
-	private static void activateMiningModeForPlayer(EntityPlayer entityplayer) {
+	private static void activateMiningModeForPlayer(World world, EntityPlayer entityplayer) {
 		playersInMiningMode.add(entityplayer);
 	}
 
-	private static void deactivateMiningModeForPlayer(EntityPlayer entityplayer) {
+	private static void deactivateMiningModeForPlayer(World world, EntityPlayer entityplayer) {
 		playersInMiningMode.remove(entityplayer);
 	}
 
-	public static void toggleMiningModeForPlayer(EntityPlayer entityplayer) {
-		String mode = "";
+	public static void toggleMiningModeForPlayer(World world, EntityPlayer entityplayer, MiningToolBelt miningToolBelt) {
 		if (playersInMiningMode.contains(entityplayer)) {
-			deactivateMiningModeForPlayer(entityplayer);
-			mode = "deactivated.";
+			deactivateMiningModeForPlayer(	world,
+											entityplayer);
+			PacketLib.sendDeactivateMessage(world,
+											entityplayer,
+											miningToolBelt.getToolBeltId());
 		} else {
-			activateMiningModeForPlayer(entityplayer);
-			mode = "activated.";
+			activateMiningModeForPlayer(world,
+										entityplayer);
+			PacketLib.sendActivateMessage(	world,
+											entityplayer,
+											miningToolBelt.getToolBeltId());
 		}
-		entityplayer.addChatMessage("Mining Mode: " + mode);
 	}
 
 	public static boolean isPlayerInMiningMode(EntityPlayer entityplayer) {

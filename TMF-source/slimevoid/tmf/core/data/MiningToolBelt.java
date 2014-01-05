@@ -60,11 +60,6 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	public ItemStack selectTool(World world, EntityLivingBase entityliving, int slot) {
 		if (slot != this.selectedTool) {
 			this.selectedTool = slot;
-			if (world.isRemote && entityliving instanceof EntityPlayer) {
-				((EntityPlayer) entityliving).addChatMessage(this.getSelectedTool() != null ? this.getSelectedTool().getDisplayName()
-																								+ " has been selected" : "No tool is in selected slot "
-																															+ slot);
-			}
 		}
 		return this.getSelectedTool();
 	}
@@ -72,9 +67,12 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 	/**
 	 * Cycles to the next available Tool
 	 * 
+	 * @param entityplayer
+	 * @param world
+	 * 
 	 * @return the new Selected Tool
 	 */
-	public ItemStack cycleTool() {
+	public ItemStack cycleTool(World world, EntityPlayer entityplayer) {
 		this.selectedTool++;
 		if (this.selectedTool >= DataLib.TOOL_BELT_SELECTED_MAX) {
 			this.selectedTool = 0;
@@ -406,8 +404,10 @@ public class MiningToolBelt extends WorldSavedData implements IInventory {
 		}
 	}
 
-	public void toggleMiningMode(EntityPlayer entityplayer) {
-		MiningMode.toggleMiningModeForPlayer(entityplayer);
+	public void toggleMiningMode(World world, EntityPlayer entityplayer) {
+		MiningMode.toggleMiningModeForPlayer(	world,
+												entityplayer,
+												this);
 	}
 
 	@Override

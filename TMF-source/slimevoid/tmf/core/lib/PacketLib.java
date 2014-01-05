@@ -11,16 +11,24 @@
  */
 package slimevoid.tmf.core.lib;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 import slimevoid.tmf.client.network.ClientPacketHandler;
 import slimevoid.tmf.client.network.handlers.ClientPacketMiningToolBeltHandler;
+import slimevoid.tmf.client.network.packets.executors.ClientMiningModeActivatedExecutor;
+import slimevoid.tmf.client.network.packets.executors.ClientMiningModeDeactivatedExecutor;
 import slimevoid.tmf.client.network.packets.executors.ClientMiningToolBeltUpdateExecutor;
+import slimevoid.tmf.client.network.packets.executors.ClientMiningToolSelectedExecutor;
 import slimevoid.tmf.network.CommonPacketHandler;
 import slimevoid.tmf.network.handlers.PacketMiningToolBeltHandler;
 import slimevoid.tmf.network.handlers.PacketMotionSensorHandler;
+import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 import slimevoid.tmf.network.packets.executors.MiningModeExecutor;
 import slimevoid.tmf.network.packets.executors.MotionSensorPingExecutor;
 import slimevoid.tmf.network.packets.executors.MotionSensorSweepExecutor;
 import slimevoid.tmf.network.packets.executors.ToolBeltCycleToolExecutor;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -59,8 +67,42 @@ public class PacketLib {
 		ClientPacketMiningToolBeltHandler clientToolBeltHandler = new ClientPacketMiningToolBeltHandler();
 		clientToolBeltHandler.registerPacketHandler(CommandLib.UPDATE_TOOL_BELT_CONTENTS,
 													new ClientMiningToolBeltUpdateExecutor());
+		clientToolBeltHandler.registerPacketHandler(CommandLib.MESSAGE_TOOL_SELECT,
+													new ClientMiningToolSelectedExecutor());
+		clientToolBeltHandler.registerPacketHandler(CommandLib.MINING_MODE_ACTIVATED,
+													new ClientMiningModeActivatedExecutor());
+		clientToolBeltHandler.registerPacketHandler(CommandLib.MINING_MODE_DEACTIVATED,
+													new ClientMiningModeDeactivatedExecutor());
 		ClientPacketHandler.registerPacketHandler(	PacketLib.MINING_TOOL_BELT,
 													clientToolBeltHandler);
+	}
+
+	public static void sendToolBeltMessage(World world, EntityPlayer entityplayer, int toolBeltId, String command) {
+		PacketMiningToolBelt packet = new PacketMiningToolBelt(command);
+		packet.setToolBeltId(toolBeltId);
+		PacketDispatcher.sendPacketToPlayer(packet.getPacket(),
+											(Player) entityplayer);
+	}
+
+	public static void sendActivateMessage(World world, EntityPlayer entityplayer, int toolBeltId) {
+		sendToolBeltMessage(world,
+							entityplayer,
+							toolBeltId,
+							CommandLib.MINING_MODE_ACTIVATED);
+	}
+
+	public static void sendDeactivateMessage(World world, EntityPlayer entityplayer, int toolBeltId) {
+		sendToolBeltMessage(world,
+							entityplayer,
+							toolBeltId,
+							CommandLib.MINING_MODE_DEACTIVATED);
+	}
+
+	public static void sendToolBeltSelectMessage(World world, EntityPlayer entityplayer, int toolBeltId) {
+		PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.MESSAGE_TOOL_SELECT);
+		packet.setToolBeltId(toolBeltId);
+		PacketDispatcher.sendPacketToPlayer(packet.getPacket(),
+											(Player) entityplayer);
 	}
 
 }
