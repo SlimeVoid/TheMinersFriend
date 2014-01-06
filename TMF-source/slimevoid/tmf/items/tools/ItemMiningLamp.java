@@ -13,12 +13,11 @@ package slimevoid.tmf.items.tools;
 
 import net.minecraft.item.Item;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
-import slimevoid.tmf.core.lib.ConfigurationLib;
 
 public class ItemMiningLamp extends Item {
 
 	public ItemMiningLamp(int itemID) {
-		super(itemID - ConfigurationLib.ITEMID_OFFSET);
+		super(itemID);
 		this.setCreativeTab(CreativeTabTMF.tabTMF);
 	}
 

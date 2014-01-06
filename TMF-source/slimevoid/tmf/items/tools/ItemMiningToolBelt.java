@@ -28,7 +28,6 @@ import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.data.MiningMode;
 import slimevoid.tmf.core.data.MiningToolBelt;
 import slimevoid.tmf.core.helpers.ItemHelper;
-import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoidlib.data.Logger;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -37,7 +36,7 @@ import cpw.mods.fml.relauncher.Side;
 public class ItemMiningToolBelt extends Item {
 
 	public ItemMiningToolBelt(int itemID) {
-		super(itemID - ConfigurationLib.ITEMID_OFFSET);
+		super(itemID);
 		this.setFull3D();
 		this.setNoRepair();
 		this.setCreativeTab(CreativeTabTMF.tabTMF);

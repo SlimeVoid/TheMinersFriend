@@ -16,12 +16,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
-import slimevoid.tmf.core.lib.ConfigurationLib;
 
 public class ItemMotionSensor extends Item {
 
 	public ItemMotionSensor(int itemID) {
-		super(itemID - ConfigurationLib.ITEMID_OFFSET);
+		super(itemID);
 		this.setCreativeTab(CreativeTabTMF.tabTMF);
 		this.setMaxStackSize(1);
 	}
