@@ -13,6 +13,8 @@ package slimevoid.tmf.core.lib;
 
 import java.io.File;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.core.TMFCore;
@@ -23,7 +25,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ConfigurationLib {
-	// 256;
+
 	@SideOnly(Side.CLIENT)
 	public static int			motionSensorMaxEntityDistance;
 	@SideOnly(Side.CLIENT)
@@ -79,9 +81,6 @@ public class ConfigurationLib {
 		TMFCore.motionSensorId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_ITEM,
 																			"motionSensor",
 																			15003).getInt());
-
-		XMLLoader.addXmlVariable(	"$motionSensor",
-									TMFCore.motionSensorId);
 	}
 
 	private static void loadMiningHelmet() {
@@ -97,24 +96,12 @@ public class ConfigurationLib {
 		TMFCore.miningHelmetLampId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_ITEM,
 																				"helmetLamp",
 																				15004).getInt());
-
-		XMLLoader.addXmlVariable(	"$ironMinersHelmet",
-									TMFCore.miningHelmetIronId);
-		XMLLoader.addXmlVariable(	"$goldMinersHelmet",
-									TMFCore.miningHelmetGoldId);
-		XMLLoader.addXmlVariable(	"$diamondMinersHelmet",
-									TMFCore.miningHelmetDiamondId);
-		XMLLoader.addXmlVariable(	"$helmetLamp",
-									TMFCore.miningHelmetLampId);
 	}
 
 	private static void loadToolBelt() {
 		TMFCore.miningToolBeltId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_ITEM,
 																				"toolBelt",
 																				15005).getInt());
-
-		XMLLoader.addXmlVariable(	"$toolBelt",
-									TMFCore.miningToolBeltId);
 	}
 
 	private static void loadMinerals() {
@@ -127,13 +114,6 @@ public class ConfigurationLib {
 		TMFCore.mineralCydrineId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_ITEM,
 																				"mineralCydrine",
 																				15012).getInt());
-
-		XMLLoader.addXmlVariable(	"$mineralAcxium",
-									TMFCore.mineralAcxiumId);
-		XMLLoader.addXmlVariable(	"$mineralBisogen",
-									TMFCore.mineralBisogenId);
-		XMLLoader.addXmlVariable(	"$mineralCydrine",
-									TMFCore.mineralCydrineId);
 	}
 
 	private static void loadDusts() {
@@ -149,15 +129,6 @@ public class ConfigurationLib {
 		TMFCore.dustMixedId = Integer.valueOf(TMFCore.configuration.get(Configuration.CATEGORY_ITEM,
 																		"dustMixed",
 																		15023).getInt());
-
-		XMLLoader.addXmlVariable(	"$dustAcxium",
-									TMFCore.dustAcxiumId);
-		XMLLoader.addXmlVariable(	"$dustBisogen",
-									TMFCore.dustBisogenId);
-		XMLLoader.addXmlVariable(	"$dustCydrine",
-									TMFCore.dustCydrineId);
-		XMLLoader.addXmlVariable(	"$dustMixed",
-									TMFCore.dustMixedId);
 	}
 
 	private static void loadOres() {
@@ -176,33 +147,12 @@ public class ConfigurationLib {
 		TMFCore.egioclaseOreId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_BLOCK,
 																			"egioclaseOre",
 																			1029).getInt());
-
-		XMLLoader.addXmlVariable(	"$arkiteOre",
-									TMFCore.arkiteOreId);
-		XMLLoader.addXmlVariable(	"$bistiteOre",
-									TMFCore.bistiteOreId);
-		XMLLoader.addXmlVariable(	"$crokereOre",
-									TMFCore.crokereOreId);
-		XMLLoader.addXmlVariable(	"$derniteOre",
-									TMFCore.derniteOreId);
-		XMLLoader.addXmlVariable(	"$egioclaseOre",
-									TMFCore.egioclaseOreId);
 	}
 
 	private static void loadMachines() {
 		TMFCore.blockMachineBaseId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_BLOCK,
 																				"blockMachine",
 																				1100).getInt());
-		XMLLoader.addXmlVariable(	"$machine",
-									TMFCore.blockMachineBaseId);
-		XMLLoader.addXmlVariable(	"$refinery",
-									EnumMachine.REFINERY.getId());
-		XMLLoader.addXmlVariable(	"$grinder",
-									EnumMachine.GRINDER.getId());
-		XMLLoader.addXmlVariable(	"$geoEquip",
-									EnumMachine.GEOEQUIP.getId());
-		XMLLoader.addXmlVariable(	"$autoMixTable",
-									EnumMachine.AUTOMIXTABLE.getId());
 
 	}
 
@@ -212,5 +162,85 @@ public class ConfigurationLib {
 																		TMFCore.loggerLevel).getString());
 
 		LoggerTMF.getInstance(Logger.filterClassName(TMFCore.class.toString())).setFilterLevel(TMFCore.loggerLevel);
+	}
+
+	public static void loadXMLVariables() {
+		/* MACHINES */
+
+		XMLLoader.addXmlVariable(	"$machine",
+									TMFCore.blockMachineBase.blockID);
+		XMLLoader.addXmlVariable(	"$refinery",
+									EnumMachine.REFINERY.getId());
+		XMLLoader.addXmlVariable(	"$grinder",
+									EnumMachine.GRINDER.getId());
+		XMLLoader.addXmlVariable(	"$geoEquip",
+									EnumMachine.GEOEQUIP.getId());
+		XMLLoader.addXmlVariable(	"$autoMixTable",
+									EnumMachine.AUTOMIXTABLE.getId());
+
+		/* ORES */
+
+		XMLLoader.addXmlVariable(	"$arkiteOre",
+									TMFCore.arkiteOre.blockID);
+		XMLLoader.addXmlVariable(	"$bistiteOre",
+									TMFCore.bistiteOre.blockID);
+		XMLLoader.addXmlVariable(	"$crokereOre",
+									TMFCore.crokereOre.blockID);
+		XMLLoader.addXmlVariable(	"$derniteOre",
+									TMFCore.derniteOre.blockID);
+		XMLLoader.addXmlVariable(	"$egioclaseOre",
+									TMFCore.egioclaseOre.blockID);
+
+		/* MINERALS */
+
+		XMLLoader.addXmlVariable(	"$mineralAcxium",
+									TMFCore.mineralAcxium.itemID);
+		XMLLoader.addXmlVariable(	"$mineralBisogen",
+									TMFCore.mineralBisogen.itemID);
+		XMLLoader.addXmlVariable(	"$mineralCydrine",
+									TMFCore.mineralCydrine.itemID);
+
+		/* DUSTS */
+
+		XMLLoader.addXmlVariable(	"$dustAcxium",
+									TMFCore.dustAcxium.itemID);
+		XMLLoader.addXmlVariable(	"$dustBisogen",
+									TMFCore.dustBisogen.itemID);
+		XMLLoader.addXmlVariable(	"$dustCydrine",
+									TMFCore.dustCydrine.itemID);
+		XMLLoader.addXmlVariable(	"$dustMixed",
+									TMFCore.dustMixed.itemID);
+
+		/* TOOLS */
+
+		XMLLoader.addXmlVariable(	"$ironMinersHelmet",
+									TMFCore.miningHelmetIron.itemID);
+		XMLLoader.addXmlVariable(	"$goldMinersHelmet",
+									TMFCore.miningHelmetGold.itemID);
+		XMLLoader.addXmlVariable(	"$diamondMinersHelmet",
+									TMFCore.miningHelmetDiamond.itemID);
+		XMLLoader.addXmlVariable(	"$helmetLamp",
+									TMFCore.miningHelmetLamp.itemID);
+		XMLLoader.addXmlVariable(	"$helmetLamp",
+									TMFCore.miningHelmetLamp.itemID);
+
+		XMLLoader.addXmlVariable(	"$motionSensor",
+									TMFCore.motionSensor.itemID);
+
+		XMLLoader.addXmlVariable(	"$miningToolBelt",
+									TMFCore.miningToolBelt.itemID);
+
+		/* VANILLA PARTS */
+
+		XMLLoader.addXmlVariable(	"$cobbleStone",
+									Block.cobblestone.blockID);
+		XMLLoader.addXmlVariable(	"$ingotIron",
+									Item.ingotIron.itemID);
+		XMLLoader.addXmlVariable(	"$redstoneDust",
+									Item.redstone.itemID);
+		XMLLoader.addXmlVariable(	"$leather",
+									Item.leather.itemID);
+		XMLLoader.addXmlVariable(	"$torchWood",
+									Block.torchWood.blockID);
 	}
 }

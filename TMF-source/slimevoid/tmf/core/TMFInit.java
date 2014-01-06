@@ -11,9 +11,10 @@
  */
 package slimevoid.tmf.core;
 
+import slimevoid.tmf.core.lib.ConfigurationLib;
+import slimevoid.tmf.core.lib.CoreLib;
 import slimevoidlib.ICommonProxy;
 import slimevoidlib.core.SlimevoidCore;
-import slimevoid.tmf.core.lib.CoreLib;
 
 public class TMFInit {
 	private static boolean	initialized	= false;
@@ -44,6 +45,11 @@ public class TMFInit {
 		SlimevoidCore.console(	CoreLib.MOD_ID,
 								"Registering names...");
 		TMFCore.registerNames();
+
+		SlimevoidCore.console(	CoreLib.MOD_ID,
+								"Registering XML variables...");
+
+		ConfigurationLib.loadXMLVariables();
 
 		SlimevoidCore.console(	CoreLib.MOD_ID,
 								"Registering recipes...");

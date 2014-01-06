@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recipes>
+	<recipe outId="$miningToolBelt" stackSize="1">
+	    <layout>
+	        LIL
+	        ILI
+	        LLL
+	    </layout>
+	    <mapping id="$leather">L</mapping>
+	    <mapping id="$ingotIron">I</mapping>
+	</recipe>
+</recipes>

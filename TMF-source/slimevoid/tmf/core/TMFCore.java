@@ -16,7 +16,6 @@ import java.io.File;
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.tmf.blocks.machines.BlockMachineBase;
@@ -229,23 +228,5 @@ public class TMFCore {
 		XMLRecipeLoader.loadFolder(new File(ResourceLib.RECIPE_STORE));
 
 		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
-		GameRegistry.addRecipe(	new ItemStack(miningToolBelt),
-								new Object[] {
-										"LIL",
-										"ILI",
-										"LLL",
-										Character.valueOf('L'),
-										new ItemStack(Item.leather),
-										Character.valueOf('I'),
-										new ItemStack(Item.ingotIron) });
-		GameRegistry.addRecipe(	new ItemStack(miningHelmetLamp),
-								new Object[] {
-										" L ",
-										"LTL",
-										" L ",
-										Character.valueOf('L'),
-										new ItemStack(Item.leather),
-										Character.valueOf('T'),
-										new ItemStack(Block.torchWood) });
 	}
 }
