@@ -23,8 +23,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ConfigurationLib {
-
-	public static final int		ITEMID_OFFSET						= 0;															// 256;
+	// 256;
 	@SideOnly(Side.CLIENT)
 	public static int			motionSensorMaxEntityDistance;
 	@SideOnly(Side.CLIENT)
@@ -194,6 +193,8 @@ public class ConfigurationLib {
 		TMFCore.blockMachineBaseId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_BLOCK,
 																				"blockMachine",
 																				1100).getInt());
+		XMLLoader.addXmlVariable(	"$machine",
+									TMFCore.blockMachineBaseId);
 		XMLLoader.addXmlVariable(	"$refinery",
 									EnumMachine.REFINERY.getId());
 		XMLLoader.addXmlVariable(	"$grinder",
