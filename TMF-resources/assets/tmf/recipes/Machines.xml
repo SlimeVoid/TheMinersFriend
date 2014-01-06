@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <recipes>
-    <recipe outId="$refineryIdle" meta="0" stackSize="1">
+    <recipe outId="$machine" meta="$refinery" stackSize="1">
         <layout>
-            X
-            Y
-            Z
+            III
+            CFC
+            ICI
         </layout>
-        <mapping id="61">X</mapping>
-        <mapping id="5" meta="3">Z</mapping>
-        <mapping id="265">Y</mapping>
+        <mapping id="265">I</mapping>
+        <mapping id="61">F</mapping>
+        <mapping id="4">C</mapping>
     </recipe>
 </recipes>
