@@ -31,6 +31,6 @@ public class CreativeTabTMF extends CreativeTabs {
 	 * the itemID for the item to be displayed on the tab
 	 */
 	public int getTabIconItemIndex() {
-		return TMFCore.mineralAcxiumId;
+		return TMFCore.mineralAcxium.itemID;
 	}
 }

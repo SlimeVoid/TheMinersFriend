@@ -18,7 +18,6 @@ import java.util.Map;
 import java.util.Random;
 
 import net.minecraft.item.ItemStack;
-
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.items.minerals.ItemMineral;
@@ -38,19 +37,19 @@ public class RefineryRecipes {
 	}
 
 	public void addRefinement(BlockTMFOre ore, int min, int max, ItemMineral mineral) {
-		if (mineral.itemID == TMFCore.mineralAcxiumId) {
+		if (mineral.itemID == TMFCore.mineralAcxium.itemID) {
 			addRefinement(	ore,
 							min,
 							max,
 							mineral,
 							0);
-		} else if (mineral.itemID == TMFCore.mineralBisogenId) {
+		} else if (mineral.itemID == TMFCore.mineralBisogen.itemID) {
 			addRefinement(	ore,
 							min,
 							max,
 							mineral,
 							1);
-		} else if (mineral.itemID == TMFCore.mineralCydrineId) {
+		} else if (mineral.itemID == TMFCore.mineralCydrine.itemID) {
 			addRefinement(	ore,
 							min,
 							max,
