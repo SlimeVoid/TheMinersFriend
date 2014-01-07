@@ -24,7 +24,6 @@ import slimevoid.tmf.blocks.machines.recipes.JSONRefineryRecipesLoader;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.BlockLib;
-import slimevoid.tmf.core.lib.CoreLib;
 import slimevoid.tmf.core.lib.EnumMachine;
 import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.LocalizationLib;
@@ -41,7 +40,6 @@ import slimevoid.tmf.items.tools.ItemMiningLamp;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import slimevoid.tmf.items.tools.ItemMotionSensor;
 import slimevoidlib.blocks.BlockBase;
-import slimevoidlib.core.SlimevoidCore;
 import slimevoidlib.items.ItemBlockBase;
 import slimevoidlib.util.FileReader;
 import slimevoidlib.util.xml.XMLRecipeLoader;
@@ -226,12 +224,15 @@ public class TMFCore {
 
 	// ======= RECIPE REGISTRATION =======
 	public static void registerRecipes() {
-		String location = TMFCore.class.getResource(ResourceLib.RECIPE_XML.getResourcePath()).getFile();
-		File file = new File(location);
-		SlimevoidCore.console(	CoreLib.MOD_ID,
-								"Recipe XML Path @[" + file.getAbsolutePath()
-										+ "]");
-		XMLRecipeLoader.loadDefaults(file);
+		XMLRecipeLoader.registerDefault(TMFCore.class,
+										ResourceLib.RECIPE_XML_PATH,
+										"Machines.xml");
+		XMLRecipeLoader.registerDefault(TMFCore.class,
+										ResourceLib.RECIPE_XML_PATH,
+										"MiningHelmets.xml");
+		XMLRecipeLoader.registerDefault(TMFCore.class,
+										ResourceLib.RECIPE_XML_PATH,
+										"MiningTools.xml");
 		XMLRecipeLoader.loadFolder(new File(ResourceLib.RECIPE_STORE));
 
 		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
