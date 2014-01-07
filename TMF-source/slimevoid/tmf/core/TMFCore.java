@@ -224,16 +224,11 @@ public class TMFCore {
 
 	// ======= RECIPE REGISTRATION =======
 	public static void registerRecipes() {
-		XMLRecipeLoader.registerDefault(TMFCore.class,
-										ResourceLib.RECIPE_XML_PATH,
-										"Machines.xml");
-		XMLRecipeLoader.registerDefault(TMFCore.class,
-										ResourceLib.RECIPE_XML_PATH,
-										"MiningHelmets.xml");
-		XMLRecipeLoader.registerDefault(TMFCore.class,
-										ResourceLib.RECIPE_XML_PATH,
-										"MiningTools.xml");
-		XMLRecipeLoader.loadFolder(new File(ResourceLib.RECIPE_STORE));
+		XMLRecipeLoader.registerDefaultsFromLocation(	TMFCore.class,
+														ResourceLib.RECIPE_XML_PATH,
+														ResourceLib.RECIPE_LIST);
+		XMLRecipeLoader.loadFolder(	ResourceLib.RECIPE_XML_PATH,
+									new File(ResourceLib.RECIPE_STORE));
 
 		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
 	}

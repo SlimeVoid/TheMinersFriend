@@ -111,6 +111,11 @@ public class ResourceLib {
 	public static final String				RECIPE_XML_PATH			= ASSET_PREFIX
 																		+ "recipes";
 
+	public static final String[]			RECIPE_LIST				= {
+			"Machines.xml",
+			"MiningHelmets.xml",
+			"MiningTools.xml"										};
+
 	public static final ResourceLocation	RECIPE_XML				= new ResourceLocation(CoreLib.MOD_ID, RECIPE_XML_PATH);
 
 	public static final String				MINERAL_AXCIUM			= TEXTURE_PREFIX
