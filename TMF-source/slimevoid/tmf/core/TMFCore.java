@@ -24,6 +24,7 @@ import slimevoid.tmf.blocks.machines.recipes.JSONRefineryRecipesLoader;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.CoreLib;
 import slimevoid.tmf.core.lib.EnumMachine;
 import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.LocalizationLib;
@@ -40,6 +41,7 @@ import slimevoid.tmf.items.tools.ItemMiningLamp;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import slimevoid.tmf.items.tools.ItemMotionSensor;
 import slimevoidlib.blocks.BlockBase;
+import slimevoidlib.core.SlimevoidCore;
 import slimevoidlib.items.ItemBlockBase;
 import slimevoidlib.util.FileReader;
 import slimevoidlib.util.xml.XMLRecipeLoader;
@@ -115,7 +117,7 @@ public class TMFCore {
 		dustCydrine = new ItemMineralDust(dustCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.DUST_CYDRINE).setTextureName(ResourceLib.DUST_CYDRINE);
 		dustMixed = new ItemMineralMixedDust(dustMixedId).setUnlocalizedName(ItemLib.DUST_MIXED).setTextureName(ResourceLib.DUST_MIXED);
 
-		ItemMineralMixedDust.script = FileReader.readFile(new File(TMFCore.class.getResource(ResourceLib.DUST_LIB).getFile()));
+		ItemMineralMixedDust.script = FileReader.readFile(ResourceLib.DUST_LIB_PATH);
 		ItemMineralMixedDust.script_burnTime = "getBurnTime()";
 		ItemMineralMixedDust.script_burnSpeed = "getBurnSpeed()";
 		ItemMineralMixedDust.script_burnWidth = "getBurnWidth()";
@@ -224,7 +226,12 @@ public class TMFCore {
 
 	// ======= RECIPE REGISTRATION =======
 	public static void registerRecipes() {
-		XMLRecipeLoader.loadDefaults(new File(TMFCore.class.getResource(ResourceLib.RECIPE_PATH).getFile()));
+		String location = TMFCore.class.getResource(ResourceLib.RECIPE_XML.getResourcePath()).getFile();
+		File file = new File(location);
+		SlimevoidCore.console(	CoreLib.MOD_ID,
+								"Recipe XML Path @[" + file.getAbsolutePath()
+										+ "]");
+		XMLRecipeLoader.loadDefaults(file);
 		XMLRecipeLoader.loadFolder(new File(ResourceLib.RECIPE_STORE));
 
 		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());

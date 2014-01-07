@@ -103,11 +103,15 @@ public class ResourceLib {
 	private static final String				RESOURCE_PREFIX			= ASSET_PREFIX
 																		+ "resources/";
 
-	public static final String				DUST_LIB				= RESOURCE_PREFIX
+	public static final String				DUST_LIB_PATH			= RESOURCE_PREFIX
 																		+ "mixedDust.js";
 
-	public static final String				RECIPE_PATH				= ASSET_PREFIX
+	public static final ResourceLocation	DUST_LIB				= new ResourceLocation(CoreLib.MOD_ID, DUST_LIB_PATH);
+
+	public static final String				RECIPE_XML_PATH			= ASSET_PREFIX
 																		+ "recipes";
+
+	public static final ResourceLocation	RECIPE_XML				= new ResourceLocation(CoreLib.MOD_ID, RECIPE_XML_PATH);
 
 	public static final String				MINERAL_AXCIUM			= TEXTURE_PREFIX
 																		+ ItemLib.MINERAL_AXCIUM;

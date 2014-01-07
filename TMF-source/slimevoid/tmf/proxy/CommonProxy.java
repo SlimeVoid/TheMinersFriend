@@ -194,7 +194,7 @@ public class CommonProxy implements ITMFCommonProxy {
 
 	@Override
 	public String getMinecraftDir() {
-		return "./";
+		return ".";
 	}
 
 	@Override

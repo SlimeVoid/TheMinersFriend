@@ -11,8 +11,6 @@
  */
 package slimevoid.tmf.client.renderers.models;
 
-import java.io.File;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBase;
 
@@ -20,7 +18,6 @@ import org.lwjgl.opengl.GL11;
 
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
-import slimevoid.tmf.core.TMFCore;
 import slimevoid.tmf.core.lib.ModelLib;
 import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoidlib.render.ModelSlimevoidObject;
@@ -43,23 +40,23 @@ public class ModelGrinder extends ModelBase {
 			staticModel = (new WavefrontOBJModelLoader()).loadObjFile(	this,
 																		256,
 																		256,
-																		new File(TMFCore.class.getResource(ResourceLib.getModelPath(true)
-																											+ "grinderStatic.obj").getFile()));
+																		ResourceLib.getModelPath(true)
+																				+ "grinderStatic.obj");
 			rollerModel = (new WavefrontOBJModelLoader()).loadObjFile(	this,
 																		256,
 																		256,
-																		new File(TMFCore.class.getResource(ResourceLib.getModelPath(true)
-																											+ "grinderRoller.obj").getFile()));
+																		ResourceLib.getModelPath(true)
+																				+ "grinderRoller.obj");
 			gearsModel = (new WavefrontOBJModelLoader()).loadObjFile(	this,
 																		256,
 																		256,
-																		new File(TMFCore.class.getResource(ResourceLib.getModelPath(true)
-																											+ "grinderGears.obj").getFile()));
+																		ResourceLib.getModelPath(true)
+																				+ "grinderGears.obj");
 			axlesModel = (new WavefrontOBJModelLoader()).loadObjFile(	this,
 																		256,
 																		256,
-																		new File(TMFCore.class.getResource(ResourceLib.getModelPath(false)
-																											+ "grinderAxles.obj").getFile()));
+																		ResourceLib.getModelPath(false)
+																				+ "grinderAxles.obj");
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (ArithmeticException e) {
