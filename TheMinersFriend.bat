@@ -60,7 +60,7 @@ echo Folder structure reset
 GOTO :ECCOMPLETE
 
 :ECFAIL
-echo Could not compile More Signs
+echo Could not compile The Miners Friend
 pause
 GOTO :EOF
 
