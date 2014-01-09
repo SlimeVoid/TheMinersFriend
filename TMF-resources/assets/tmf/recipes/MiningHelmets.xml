@@ -6,8 +6,8 @@
 	        LTL
 	        OLO
 	    </layout>
-	    <mapping id="$leather">L</mapping>
-	    <mapping id="$torchWood">T</mapping>
+	    <mapping id="$item.leather">L</mapping>
+	    <mapping id="$tile.torch">T</mapping>
 	</recipe>
 	
 	<recipe outId="$ironMinersHelmet" stackSize="1">
@@ -16,7 +16,7 @@
 	        Y
 	    </layout>
 	    <mapping id="$helmetLamp">X</mapping>
-	    <mapping id="306">Y</mapping>
+	    <mapping id="$item.helmetIron">Y</mapping>
 	</recipe>
 	
 	<recipe outId="$goldMinersHelmet" stackSize="1">
@@ -25,7 +25,7 @@
 	        Y
 	    </layout>
 	    <mapping id="$helmetLamp">X</mapping>
-	    <mapping id="314">Y</mapping>
+	    <mapping id="$item.helmetGold">Y</mapping>
 	</recipe>
 	
 	<recipe outId="$diamondMinersHelmet" stackSize="1">
@@ -34,6 +34,6 @@
 	        Y
 	    </layout>
 	    <mapping id="$helmetLamp">X</mapping>
-	    <mapping id="310">Y</mapping>
+	    <mapping id="$item.helmetDiamond">Y</mapping>
 	</recipe>
 </recipes>

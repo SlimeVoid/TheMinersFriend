@@ -6,7 +6,7 @@
 	        ILI
 	        LLL
 	    </layout>
-	    <mapping id="$leather">L</mapping>
-	    <mapping id="$ingotIron">I</mapping>
+	    <mapping id="$item.leather">L</mapping>
+	    <mapping id="$item.ingotIron">I</mapping>
 	</recipe>
 </recipes>

@@ -13,8 +13,6 @@ package slimevoid.tmf.core.lib;
 
 import java.io.File;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.core.TMFCore;
@@ -231,16 +229,6 @@ public class ConfigurationLib {
 									TMFCore.miningToolBelt.itemID);
 
 		/* VANILLA PARTS */
-
-		XMLLoader.addXmlVariable(	"$cobbleStone",
-									Block.cobblestone.blockID);
-		XMLLoader.addXmlVariable(	"$ingotIron",
-									Item.ingotIron.itemID);
-		XMLLoader.addXmlVariable(	"$redstoneDust",
-									Item.redstone.itemID);
-		XMLLoader.addXmlVariable(	"$leather",
-									Item.leather.itemID);
-		XMLLoader.addXmlVariable(	"$torchWood",
-									Block.torchWood.blockID);
+		/* Loaded via Slimevoid Library */
 	}
 }

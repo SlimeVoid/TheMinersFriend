@@ -7,8 +7,8 @@
             CFC
             ICI
         </layout>
-        <mapping id="265">I</mapping>
-        <mapping id="61">F</mapping>
-        <mapping id="4">C</mapping>
+        <mapping id="$item.ingotIron">I</mapping>
+        <mapping id="$tile.furnace">F</mapping>
+        <mapping id=""tile.stonebrick">C</mapping>
     </recipe>
 </recipes>

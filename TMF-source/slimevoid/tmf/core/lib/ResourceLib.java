@@ -17,7 +17,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 
 public class ResourceLib {
 
-	private static final String				ASSET_PREFIX			= "/assets/"
+	private static final String				ASSET_PREFIX			= "assets/"
 																		+ CoreLib.MOD_RESOURCES
 																		+ "/";
 
@@ -106,17 +106,8 @@ public class ResourceLib {
 	public static final String				DUST_LIB_PATH			= RESOURCE_PREFIX
 																		+ "mixedDust.js";
 
-	public static final ResourceLocation	DUST_LIB				= new ResourceLocation(CoreLib.MOD_ID, DUST_LIB_PATH);
-
 	public static final String				RECIPE_XML_PATH			= ASSET_PREFIX
 																		+ "recipes/";
-
-	public static final String[]			RECIPE_LIST				= {
-			"Machines.xml",
-			"MiningHelmets.xml",
-			"MiningTools.xml"										};
-
-	public static final ResourceLocation	RECIPE_XML				= new ResourceLocation(CoreLib.MOD_ID, RECIPE_XML_PATH);
 
 	public static final String				MINERAL_AXCIUM			= TEXTURE_PREFIX
 																		+ ItemLib.MINERAL_AXCIUM;

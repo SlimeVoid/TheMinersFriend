@@ -207,10 +207,10 @@ public class TMFCore {
 		EnumMachine.registerMachines();
 
 		// REFINERY
-		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getResource(ResourceLib.RECIPES_REFINERY).getFile()));
+		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getClassLoader().getResource(ResourceLib.RECIPES_REFINERY).getFile()));
 
 		// GRINDER
-		JSONGrinderRecipesLoader.loadFile(new File(TMFCore.class.getResource(ResourceLib.RECIPES_GRINDER).getFile()));
+		JSONGrinderRecipesLoader.loadFile(new File(TMFCore.class.getClassLoader().getResource(ResourceLib.RECIPES_GRINDER).getFile()));
 
 		// GEOLOGICAL EQUIPMENT
 
@@ -225,8 +225,7 @@ public class TMFCore {
 	// ======= RECIPE REGISTRATION =======
 	public static void registerRecipes() {
 		XMLRecipeLoader.registerDefaultsFromLocation(	TMFCore.class,
-														ResourceLib.RECIPE_XML_PATH,
-														ResourceLib.RECIPE_LIST);
+														ResourceLib.RECIPE_XML_PATH);
 		XMLRecipeLoader.loadFolder(	ResourceLib.RECIPE_XML_PATH,
 									new File(ResourceLib.RECIPE_STORE));
 
