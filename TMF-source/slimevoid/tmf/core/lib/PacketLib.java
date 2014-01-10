@@ -79,7 +79,7 @@ public class PacketLib {
 
 	public static void sendToolBeltMessage(World world, EntityPlayer entityplayer, int toolBeltId, String command) {
 		PacketMiningToolBelt packet = new PacketMiningToolBelt(command);
-		packet.setToolBeltId(toolBeltId);
+		// packet.setToolBeltId(toolBeltId);
 		PacketDispatcher.sendPacketToPlayer(packet.getPacket(),
 											(Player) entityplayer);
 	}
@@ -100,7 +100,7 @@ public class PacketLib {
 
 	public static void sendToolBeltSelectMessage(World world, EntityPlayer entityplayer, int toolBeltId) {
 		PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.MESSAGE_TOOL_SELECT);
-		packet.setToolBeltId(toolBeltId);
+		// packet.setToolBeltId(toolBeltId);
 		PacketDispatcher.sendPacketToPlayer(packet.getPacket(),
 											(Player) entityplayer);
 	}

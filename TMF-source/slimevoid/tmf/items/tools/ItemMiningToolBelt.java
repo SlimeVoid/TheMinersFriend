@@ -11,27 +11,28 @@
  */
 package slimevoid.tmf.items.tools;
 
+import java.util.List;
+
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.data.MiningMode;
-import slimevoid.tmf.core.data.MiningToolBelt;
 import slimevoid.tmf.core.helpers.ItemHelper;
+import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.GuiLib;
-import slimevoidlib.data.Logger;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
+import slimevoid.tmf.core.lib.NBTLib;
+import slimevoidlib.nbt.NBTHelper;
 
 public class ItemMiningToolBelt extends Item {
 
@@ -49,19 +50,12 @@ public class ItemMiningToolBelt extends Item {
 
 	@Override
 	public boolean isDamaged(ItemStack itemstack) {
-		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			return this.isToolDamaged(	TheMinersFriend.proxy.getPlayer(),
-										TheMinersFriend.proxy.getWorld(),
-										itemstack);
-		}
-		return super.isDamaged(itemstack);
+		return this.isToolDamaged(itemstack);
 	}
 
-	private boolean isToolDamaged(EntityPlayer entityplayer, World world, ItemStack itemstack) {
+	private boolean isToolDamaged(ItemStack itemstack) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(entityplayer,
-													world,
-													itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
 			return tool.isItemDamaged();
 		}
@@ -70,19 +64,12 @@ public class ItemMiningToolBelt extends Item {
 
 	@Override
 	public int getMaxDamage(ItemStack itemstack) {
-		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			return this.getMaxDamage(	TheMinersFriend.proxy.getPlayer(),
-										TheMinersFriend.proxy.getWorld(),
-										itemstack);
-		}
-		return super.getMaxDamage(itemstack);
+		return this.getMaxToolDamage(itemstack);
 	}
 
-	private int getMaxDamage(EntityPlayer entityplayer, World world, ItemStack itemstack) {
+	private int getMaxToolDamage(ItemStack itemstack) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(entityplayer,
-													world,
-													itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
 			return tool.getMaxDamage();
 		}
@@ -91,19 +78,12 @@ public class ItemMiningToolBelt extends Item {
 
 	@Override
 	public int getDisplayDamage(ItemStack itemstack) {
-		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			return this.getDisplayDamage(	TheMinersFriend.proxy.getPlayer(),
-											TheMinersFriend.proxy.getWorld(),
-											itemstack);
-		}
-		return super.getDisplayDamage(itemstack);
+		return this.getToolDisplayDamage(itemstack);
 	}
 
-	private int getDisplayDamage(EntityPlayer entityplayer, World world, ItemStack itemstack) {
+	private int getToolDisplayDamage(ItemStack itemstack) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(entityplayer,
-													world,
-													itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
 			return tool.getItemDamage();
 		}
@@ -112,10 +92,16 @@ public class ItemMiningToolBelt extends Item {
 
 	@Override
 	public void onUpdate(ItemStack itemstack, World world, Entity entity, int tick, boolean isHeld) {
-		if (!world.isRemote && isHeld && entity instanceof EntityLiving) {
-			MiningToolBelt.checkSelectedStack(	itemstack,
-												world,
-												(EntityLiving) entity);
+		if (!world.isRemote && isHeld && entity instanceof EntityLivingBase) {
+			if (!itemstack.hasTagCompound()) {
+				NBTTagCompound nbttagcompound = new NBTTagCompound();
+				nbttagcompound.setInteger(	NBTLib.SELECTED_TOOL,
+											0);
+				itemstack.setTagCompound(nbttagcompound);
+			} else {
+				NBTTagCompound nbttagcompound = itemstack.getTagCompound();
+				// System.out.println(nbttagcompound);
+			}
 		}
 	}
 
@@ -182,9 +168,7 @@ public class ItemMiningToolBelt extends Item {
 
 	public static void doItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(entityplayer,
-													entityplayer.worldObj,
-													itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
 			tool.getItem().onItemRightClick(tool,
 											world,
@@ -194,9 +178,7 @@ public class ItemMiningToolBelt extends Item {
 
 	public static boolean doItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(entityplayer,
-													entityplayer.worldObj,
-													itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
 			return tool.getItem().onItemUse(tool,
 											entityplayer,
@@ -214,9 +196,7 @@ public class ItemMiningToolBelt extends Item {
 
 	public static boolean doItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(entityplayer,
-													entityplayer.worldObj,
-													itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
 			return tool.getItem().onItemUseFirst(	tool,
 													entityplayer,
@@ -234,9 +214,7 @@ public class ItemMiningToolBelt extends Item {
 
 	public static void doFoodEaten(ItemStack itemstack, World world, EntityPlayer entityplayer) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(entityplayer,
-													entityplayer.worldObj,
-													itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
 			tool.getItem().onEaten(	tool,
 									world,
@@ -278,9 +256,7 @@ public class ItemMiningToolBelt extends Item {
 
 	private boolean doStartBreakBlock(ItemStack itemstack, int x, int y, int z, EntityPlayer entityplayer, boolean onBlockStartBreak) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(entityplayer,
-													entityplayer.worldObj,
-													itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
 			// Perform the onBlockStartBreak method for the itemstack
 			return tool.getItem().onBlockStartBreak(tool,
@@ -312,9 +288,7 @@ public class ItemMiningToolBelt extends Item {
 	 */
 	public static boolean doDestroyBlock(ItemStack itemstack, World world, int x, int y, int z, int side, EntityLivingBase entityliving, boolean onBlockDestroyed) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(entityliving,
-													world,
-													itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
 			// Perform the onBlockDestroyed method for the itemstack
 			return tool.getItem().onBlockDestroyed(	tool,
@@ -334,16 +308,6 @@ public class ItemMiningToolBelt extends Item {
 		// Retrieves a unique data ID from the world and sets the ItemStack to
 		// that ID
 		// This Unique ID is used to store world data for a Tool Belt
-		itemstack.setItemDamage(world.getUniqueDataId(this.getUnlocalizedName()));
-		// Attempt to get existing data (this should theoretically not exist
-		if (MiningToolBelt.getToolBeltDataFromItemStack(entityplayer,
-														world,
-														itemstack) == null) {
-			// If we end with no data then Log an error
-			LoggerTMF.getInstance("ItemMiningToolBelt").write(	world.isRemote,
-																"Tool Belt Data Creation Failed",
-																Logger.LogLevel.DEBUG);
-		}
 	}
 
 	/**
@@ -362,28 +326,50 @@ public class ItemMiningToolBelt extends Item {
 		// If the player is still holding the tool belt
 		if (toolBelt != null) {
 			// Retrieves the Tool Belt data
-			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(	event.entityPlayer,
-																				event.entityPlayer.worldObj,
-																				toolBelt);
 			ItemStack selectedStack =
 			// Checks if the player is in Mining Mode
 			// If true then auto select tool for the best STR vs Block
 			// Otherwise return our selected tool
-			MiningMode.isPlayerInMiningMode(event.entityPlayer) ? data.selectToolForBlock(	event.entityPlayer.worldObj,
-																							event.entityLiving,
-																							event.block,
-																							event.originalSpeed) : data.getSelectedTool();
+			MiningMode.isPlayerInMiningMode(event.entityPlayer) ? selectToolForBlock(	event.entityPlayer.worldObj,
+																						event.entityLiving,
+																						event.block,
+																						event.originalSpeed) : getSelectedTool(event.entityLiving.getHeldItem());
 			// If an item exists in the selected slot of the Tool Belt
 			if (selectedStack != null) {
 				// Generate break speed for that Tool vs. Block
 				float newSpeed = (selectedStack.getStrVsBlock(event.block))
 									* MiningMode.getPlayerStrength(	event.entityPlayer,
-																	toolBelt,
-																	data);
+																	toolBelt);
 				// If the new speed is greater than the speed being parsed in
 				// the event then set the new speed
 				event.newSpeed = newSpeed > event.originalSpeed ? newSpeed : event.originalSpeed;
 			}
+		}
+	}
+
+	public static ItemStack selectToolForBlock(World world, EntityLivingBase entityliving, Block block, float currentBreakSpeed) {
+		float fastestSpeed = currentBreakSpeed;
+		for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
+			ItemStack itemstack = getToolInSlot(entityliving.getHeldItem(),
+												i);
+			if (itemstack != null) {
+				float breakSpeed = itemstack.getStrVsBlock(block);
+				if (breakSpeed > fastestSpeed) {
+					selectTool(	world,
+								entityliving,
+								i);
+				}
+			}
+		}
+		return getSelectedTool(entityliving.getHeldItem());
+	}
+
+	private static void selectTool(World world, EntityLivingBase entityliving, int i) {
+		ItemStack toolBelt = entityliving.getHeldItem();
+		if (toolBelt.hasTagCompound()) {
+			NBTTagCompound nbttagcompound = toolBelt.getTagCompound();
+			nbttagcompound.setInteger(	NBTLib.SELECTED_TOOL,
+										i);
 		}
 	}
 
@@ -397,9 +383,7 @@ public class ItemMiningToolBelt extends Item {
 	 */
 	public static void doHarvestCheck(HarvestCheck event) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(event.entityPlayer,
-													event.entityPlayer.worldObj,
-													event.entityPlayer.getHeldItem());
+		ItemStack tool = ItemHelper.getSelectedTool(event.entityPlayer.getHeldItem());
 		if (tool != null) {
 			// Run a harvest check on that Tool and set the result
 			event.success = tool.canHarvestBlock(event.block);
@@ -422,9 +406,7 @@ public class ItemMiningToolBelt extends Item {
 		// First checks if the player is sneaking
 		if (event.entityPlayer.isSneaking()) {
 			// Retrieves the Selected Tool within the held Tool Belt
-			ItemStack tool = ItemHelper.getSelectedTool(event.entityPlayer,
-														event.entityPlayer.worldObj,
-														event.entityPlayer.getHeldItem());
+			ItemStack tool = ItemHelper.getSelectedTool(event.entityPlayer.getHeldItem());
 			if (tool != null) {
 				return tool.func_111282_a(	event.entityPlayer,
 											(EntityLivingBase) event.target);// .interactWith(event.target);
@@ -455,5 +437,132 @@ public class ItemMiningToolBelt extends Item {
 			return true;
 		}
 		return false;
+	}
+
+	public static ItemStack getToolInSlot(ItemStack toolBelt, int selectedTool) {
+		if (toolBelt.hasTagCompound()) {
+			NBTTagCompound nbttagcompound = toolBelt.getTagCompound();
+			if (selectedTool >= 0 && selectedTool < DataLib.TOOL_BELT_MAX_SIZE) {
+				String toolKey = NBTLib.getToolKey(selectedTool);
+				if (nbttagcompound.hasKey(toolKey)) {
+					NBTTagCompound tagCompound = nbttagcompound.getCompoundTag(toolKey);
+					return ItemStack.loadItemStackFromNBT(tagCompound);
+				}
+			}
+		}
+		return null;
+	}
+
+	public static ItemStack setToolInSlot(ItemStack toolBelt, ItemStack itemstack, int slot) {
+		if (itemstack != null) {
+			if (toolBelt.hasTagCompound()) {
+				NBTTagCompound nbttagcompound = toolBelt.getTagCompound();
+				if (slot >= 0 && slot < DataLib.TOOL_BELT_MAX_SIZE) {
+					String toolKey = NBTLib.getToolKey(slot);
+					System.out.println("setToolInSlot");
+					System.out.println(nbttagcompound);
+					if (nbttagcompound.hasKey(toolKey)) {
+						nbttagcompound.removeTag(toolKey);
+						System.out.println("removeTag(" + toolKey + ")");
+					}
+					NBTTagCompound tagCompound = new NBTTagCompound();
+					itemstack.writeToNBT(tagCompound);
+					nbttagcompound.setCompoundTag(	toolKey,
+													tagCompound);
+				}
+			}
+		}
+		return toolBelt;
+	}
+
+	public static int getSelectedSlot(ItemStack itemstack) {
+		if (itemstack.hasTagCompound()) {
+			NBTTagCompound nbttagcompound = itemstack.getTagCompound();
+			int selectedTool = NBTHelper.getTagInteger(	itemstack,
+														NBTLib.SELECTED_TOOL,
+														0);
+			return selectedTool;
+		}
+		return 0;
+	}
+
+	public static ItemStack getSelectedTool(ItemStack itemstack) {
+		return getToolInSlot(	itemstack,
+								getSelectedSlot(itemstack));
+	}
+
+	public static ItemStack[] getTools(ItemStack itemstack) {
+		ItemStack[] tools = new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
+		if (itemstack.hasTagCompound()) {
+			NBTTagCompound nbttagcompound = itemstack.getTagCompound();
+			for (int i = 0; i < DataLib.TOOL_BELT_MAX_SIZE; i++) {
+				String toolKey = NBTLib.getToolKey(i);
+				if (nbttagcompound.hasKey(toolKey)) {
+					NBTTagCompound tagCompound = nbttagcompound.getCompoundTag(toolKey);
+					tools[i] = ItemStack.loadItemStackFromNBT(tagCompound);
+				} else {
+					tools[i] = null;
+				}
+			}
+		}
+		return tools;
+	}
+
+	private static void setSelectedTool(ItemStack toolBelt, int selectedTool) {
+		if (toolBelt.hasTagCompound()) {
+			toolBelt.stackTagCompound.setInteger(	NBTLib.SELECTED_TOOL,
+													selectedTool);
+		}
+	}
+
+	public static ItemStack cycleTool(ItemStack itemstack) {
+		if (itemstack.hasTagCompound()) {
+			int selectedTool = getSelectedSlot(itemstack);
+			selectedTool++;
+			if (selectedTool >= DataLib.TOOL_BELT_SELECTED_MAX) {
+				selectedTool = 0;
+			}
+			setSelectedTool(itemstack,
+							selectedTool);
+			return getToolInSlot(	itemstack,
+									selectedTool) != null ? getToolInSlot(	itemstack,
+																			selectedTool) : tryToSelectTool(itemstack);
+		}
+		return null;
+	}
+
+	private static ItemStack tryToSelectTool(ItemStack itemstack) {
+		if (getSelectedTool(itemstack) == null) {
+			for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
+				ItemStack tool = getToolInSlot(	itemstack,
+												i);
+				if (tool != null) {
+					setSelectedTool(itemstack,
+									i);
+					return getToolInSlot(	itemstack,
+											i);
+				}
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public String getItemDisplayName(ItemStack itemstack) {
+		return this.getToolDisplayName(itemstack);
+	}
+
+	private String getToolDisplayName(ItemStack itemstack) {
+		return super.getItemDisplayName(itemstack);
+	}
+
+	@Override
+	public void addInformation(ItemStack itemstack, EntityPlayer entityplayer, List lines, boolean par4) {
+
+	}
+
+	@Override
+	public boolean getShareTag() {
+		return true;
 	}
 }

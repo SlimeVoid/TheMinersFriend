@@ -51,7 +51,7 @@ public class KeyBindings {
 														true);
 			if (toolBelt != null) {
 				PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.CYCLE_TOOL_BELT);
-				packet.setToolBeltId(toolBelt.getItemDamage());
+				// packet.setToolBeltId(toolBelt.getItemDamage());
 				PacketDispatcher.sendPacketToServer(packet.getPacket());
 			}
 		}
@@ -66,7 +66,7 @@ public class KeyBindings {
 														true);
 			if (toolBelt != null) {
 				PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.TOGGLE_MINING_MODE);
-				packet.setToolBeltId(toolBelt.getItemDamage());
+				// packet.setToolBeltId(toolBelt.getItemDamage());
 				PacketDispatcher.sendPacketToServer(packet.getPacket());
 			}
 		}

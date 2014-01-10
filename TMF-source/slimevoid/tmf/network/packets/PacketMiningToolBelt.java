@@ -18,14 +18,15 @@ import java.io.IOException;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.world.World;
-import slimevoidlib.nbt.NBTHelper;
-import slimevoidlib.network.PacketPayload;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.PacketLib;
+import slimevoidlib.nbt.NBTHelper;
 
 public class PacketMiningToolBelt extends PacketMining {
 
+	ItemStack	toolBelt;
 	ItemStack[]	miningTools;
 
 	@Override
@@ -35,6 +36,11 @@ public class PacketMiningToolBelt extends PacketMining {
 	}
 
 	private void writeToolBeltData(DataOutputStream data) throws IOException {
+		Packet.writeItemStack(	this.toolBelt,
+								data);
+	}
+
+	private void writeOldData(DataOutputStream data) throws IOException {
 		NBTTagCompound nbttagcompound = null;
 		if (this.miningTools != null) {
 			nbttagcompound = new NBTTagCompound();
@@ -62,6 +68,10 @@ public class PacketMiningToolBelt extends PacketMining {
 	}
 
 	private void readToolBeltData(DataInputStream data) throws IOException {
+		this.toolBelt = Packet.readItemStack(data);
+	}
+
+	private void readOldData(DataInputStream data) throws IOException {
 		NBTTagCompound nbttagcompound = NBTHelper.readNBTTagCompound(data);
 		if (nbttagcompound != null) {
 			NBTTagList toolsTag = nbttagcompound.getTagList("Tools");
@@ -83,7 +93,15 @@ public class PacketMiningToolBelt extends PacketMining {
 	public PacketMiningToolBelt(String command) {
 		this();
 		this.setCommand(command);
-		this.payload = new PacketPayload(2, 0, 0, 0);
+		// this.payload = new PacketPayload(2, 0, 0, 0);
+	}
+
+	public void setToolBelt(ItemStack itemstack) {
+		this.toolBelt = itemstack;
+	}
+
+	public ItemStack getToolBelt() {
+		return this.toolBelt;
 	}
 
 	public void setToolBeltId(int toolBeltId) {

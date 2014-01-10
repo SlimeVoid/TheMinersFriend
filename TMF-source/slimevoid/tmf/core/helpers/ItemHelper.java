@@ -14,15 +14,12 @@ package slimevoid.tmf.core.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import slimevoid.tmf.core.data.MiningToolBelt;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
-import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
 public class ItemHelper {
@@ -117,15 +114,12 @@ public class ItemHelper {
 		for (ItemStack toolBelt : getToolBelts(	entityplayer,
 												entityplayer.worldObj)) {
 			// Retrieve the Tool Belt Data
-			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(	entityplayer,
-																				entityplayer.worldObj,
-																				toolBelt);
-			if (data != null) {
-				// If Data Exists Send the Data to the Player to Update their
-				// inventory
-				PacketDispatcher.sendPacketToPlayer(data.createPacket().getPacket(),
-													player);
-			}
+			// if (data != null) {
+			// If Data Exists Send the Data to the Player to Update their
+			// inventory
+			// PacketDispatcher.sendPacketToPlayer(data.createPacket().getPacket(),
+			// player);
+			// }
 		}
 	}
 
@@ -140,15 +134,11 @@ public class ItemHelper {
 		return (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMiningToolBelt);
 	}
 
-	public static ItemStack getSelectedTool(EntityLivingBase entityliving, World worldObj, ItemStack itemstack) {
+	public static ItemStack getSelectedTool(ItemStack itemstack) {
 		// Check that the current itemstack is a Tool Belt
 		if (isToolBelt(itemstack)) {
-			// Retrieve the data for the itemstack
-			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(	entityliving,
-																				entityliving.worldObj,
-																				itemstack);
 			// Retrieve the selected tool
-			ItemStack selectedTool = data.getSelectedTool();
+			ItemStack selectedTool = ItemMiningToolBelt.getSelectedTool(itemstack);
 			// If there is a tool in the selected slot
 			if (selectedTool != null) {
 				// Perform the onBlockDestroyed using that Tool

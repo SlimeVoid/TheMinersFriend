@@ -14,7 +14,7 @@ package slimevoid.tmf.client.tickhandlers.rules;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import slimevoid.tmf.core.data.MiningToolBelt;
+import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import slimevoid.tmf.items.tools.ItemMotionSensor;
 
@@ -27,17 +27,12 @@ public class MotionSensorRuleInToolbelt implements IMotionSensorRule {
 				ItemStack itemstack = entityplayer.inventory.mainInventory[i];
 				if (itemstack != null && itemstack.getItem() != null
 					&& itemstack.getItem() instanceof ItemMiningToolBelt) {
-					MiningToolBelt data = MiningToolBelt.getToolBeltDataFromItemStack(	entityplayer,
-																						world,
-																						itemstack);
-					if (data != null) {
-						for (int j = 0; j < data.getSizeInventory(); j++) {
-							ItemStack itemstack2 = data.getStackInSlot(j);
-							if (itemstack2 != null
-								&& itemstack2.getItem() != null
-								&& itemstack2.getItem() instanceof ItemMotionSensor) {
-								return true;
-							}
+					ItemStack[] tools = ItemMiningToolBelt.getTools(itemstack);
+					for (int j = 0; j < DataLib.TOOL_BELT_MAX_SIZE; j++) {
+						ItemStack itemstack2 = tools[j];
+						if (itemstack2 != null && itemstack2.getItem() != null
+							&& itemstack2.getItem() instanceof ItemMotionSensor) {
+							return true;
 						}
 					}
 				}

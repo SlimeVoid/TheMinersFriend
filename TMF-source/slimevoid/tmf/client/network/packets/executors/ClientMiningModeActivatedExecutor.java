@@ -15,8 +15,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import slimevoid.tmf.api.IPacketExecutor;
-import slimevoid.tmf.core.data.MiningToolBelt;
 import slimevoid.tmf.core.lib.MessageLib;
+import slimevoid.tmf.items.tools.data.MiningToolBelt;
 import slimevoid.tmf.network.packets.PacketMining;
 import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -27,9 +27,7 @@ public class ClientMiningModeActivatedExecutor implements IPacketExecutor {
 	public void execute(PacketMining packet, World world, EntityPlayer entityplayer) {
 		if (packet instanceof PacketMiningToolBelt) {
 			PacketMiningToolBelt packetMT = (PacketMiningToolBelt) packet;
-			MiningToolBelt data = MiningToolBelt.getToolBeltDataFromId(	entityplayer,
-																		world,
-																		packetMT.getToolBeltId());
+			MiningToolBelt data = null;
 			if (data != null) {
 				String message = StatCollector.translateToLocal(MessageLib.MINING_MODE_ACTIVATED);
 				entityplayer.addChatMessage(message);
@@ -38,5 +36,4 @@ public class ClientMiningModeActivatedExecutor implements IPacketExecutor {
 			}
 		}
 	}
-
 }

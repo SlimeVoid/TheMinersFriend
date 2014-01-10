@@ -82,9 +82,7 @@ public class ItemRendererToolBelt implements IItemRenderer {
 
 	private void doRenderInventoryItem(ItemStack toolBelt, RenderBlocks renderBlocks) {
 		ItemStack itemstack = toolBelt;
-		ItemStack tool = ItemHelper.getSelectedTool(this.mc.thePlayer,
-													this.mc.theWorld,
-													toolBelt);
+		ItemStack tool = ItemHelper.getSelectedTool(toolBelt);
 		if (tool != null) {
 			itemstack = tool;
 		}
@@ -169,9 +167,7 @@ public class ItemRendererToolBelt implements IItemRenderer {
 		int index = 0;
 		TextureManager texturemanager = this.mc.getTextureManager();
 		ItemStack itemstack = toolBelt;
-		ItemStack tool = ItemHelper.getSelectedTool(entityliving,
-													entityliving.worldObj,
-													toolBelt);
+		ItemStack tool = ItemHelper.getSelectedTool(toolBelt);
 		if (tool != null) {
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 			GL11.glPopMatrix();

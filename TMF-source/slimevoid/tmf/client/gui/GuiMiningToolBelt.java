@@ -18,8 +18,9 @@ import net.minecraft.inventory.Slot;
 
 import org.lwjgl.opengl.GL11;
 
-import slimevoid.tmf.core.data.MiningToolBelt;
 import slimevoid.tmf.core.lib.ResourceLib;
+import slimevoid.tmf.items.tools.ItemMiningToolBelt;
+import slimevoid.tmf.items.tools.data.MiningToolBelt;
 import slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
 
 public class GuiMiningToolBelt extends GuiContainer {
@@ -59,7 +60,7 @@ public class GuiMiningToolBelt extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		int slot = data.getSelectedSlot();
+		int slot = ItemMiningToolBelt.getSelectedSlot(data.getToolBelt());
 		this.drawHighLightedSlot(	slot,
 									par1,
 									par2);
