@@ -109,7 +109,7 @@ public class ResourceLib {
 	public static final ResourceLocation	DUST_LIB				= new ResourceLocation(CoreLib.MOD_ID, DUST_LIB_PATH);
 
 	public static final String				RECIPE_XML_PATH			= ASSET_PREFIX
-																		+ "recipes";
+																		+ "recipes/";
 
 	public static final String[]			RECIPE_LIST				= {
 			"Machines.xml",
