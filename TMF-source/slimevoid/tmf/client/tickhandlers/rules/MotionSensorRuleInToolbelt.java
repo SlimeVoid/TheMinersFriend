@@ -25,16 +25,23 @@ public class MotionSensorRuleInToolbelt implements IMotionSensorRule {
 		if (entityplayer != null && entityplayer.inventory != null) {
 			for (int i = 0; i < 9; i++) {
 				ItemStack itemstack = entityplayer.inventory.mainInventory[i];
-				if (itemstack != null && itemstack.getItem() != null
-					&& itemstack.getItem() instanceof ItemMiningToolBelt) {
-					ItemStack[] tools = ItemMiningToolBelt.getTools(itemstack);
-					for (int j = 0; j < DataLib.TOOL_BELT_MAX_SIZE; j++) {
-						ItemStack itemstack2 = tools[j];
-						if (itemstack2 != null && itemstack2.getItem() != null
-							&& itemstack2.getItem() instanceof ItemMotionSensor) {
-							return true;
-						}
-					}
+				// return hasMotionSensor( entityplayer,
+				// world,
+				// itemstack);
+			}
+		}
+		return false;
+	}
+
+	private boolean hasMotionSensor(EntityPlayer entityplayer, World world, ItemStack itemstack) {
+		if (itemstack != null && itemstack.getItem() != null
+			&& itemstack.getItem() instanceof ItemMiningToolBelt) {
+			ItemStack[] tools = ItemMiningToolBelt.getTools(itemstack);
+			for (int j = 0; j < DataLib.TOOL_BELT_MAX_SIZE; j++) {
+				ItemStack itemstack2 = tools[j];
+				if (itemstack2 != null && itemstack2.getItem() != null
+					&& itemstack2.getItem() instanceof ItemMotionSensor) {
+					return true;
 				}
 			}
 		}

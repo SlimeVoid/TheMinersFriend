@@ -38,6 +38,7 @@ public class ItemMiningToolBelt extends Item {
 
 	public ItemMiningToolBelt(int itemID) {
 		super(itemID);
+		this.setMaxStackSize(1);
 		this.setFull3D();
 		this.setNoRepair();
 		this.setCreativeTab(CreativeTabTMF.tabTMF);
@@ -454,23 +455,24 @@ public class ItemMiningToolBelt extends Item {
 	}
 
 	public static ItemStack setToolInSlot(ItemStack toolBelt, ItemStack itemstack, int slot) {
-		if (itemstack != null) {
-			if (toolBelt.hasTagCompound()) {
-				NBTTagCompound nbttagcompound = toolBelt.getTagCompound();
-				if (slot >= 0 && slot < DataLib.TOOL_BELT_MAX_SIZE) {
-					String toolKey = NBTLib.getToolKey(slot);
-					System.out.println("setToolInSlot");
-					System.out.println(nbttagcompound);
-					if (nbttagcompound.hasKey(toolKey)) {
-						nbttagcompound.removeTag(toolKey);
-						System.out.println("removeTag(" + toolKey + ")");
-					}
+		if (toolBelt.hasTagCompound()) {
+			NBTTagCompound nbttagcompound = toolBelt.getTagCompound();
+			if (slot >= 0 && slot < DataLib.TOOL_BELT_MAX_SIZE) {
+				String toolKey = NBTLib.getToolKey(slot);
+				System.out.println("setToolInSlot");
+				System.out.println(nbttagcompound);
+				if (nbttagcompound.hasKey(toolKey)) {
+					nbttagcompound.removeTag(toolKey);
+					System.out.println("removeTag(" + toolKey + ")");
+				}
+				if (itemstack != null) {
 					NBTTagCompound tagCompound = new NBTTagCompound();
 					itemstack.writeToNBT(tagCompound);
 					nbttagcompound.setCompoundTag(	toolKey,
 													tagCompound);
 				}
 			}
+			toolBelt.stackTagCompound = nbttagcompound;
 		}
 		return toolBelt;
 	}
