@@ -54,6 +54,7 @@ public class ConfigurationLib {
 		loadMiningHelmet();
 		loadToolBelt();
 		loadMinerals();
+		loadIngots();
 		loadDusts();
 		loadOres();
 		loadMachines();
@@ -112,6 +113,18 @@ public class ConfigurationLib {
 		TMFCore.mineralCydrineId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_ITEM,
 																				"mineralCydrine",
 																				15012).getInt());
+	}
+
+	private static void loadIngots() {
+		TMFCore.ingotAcxiumId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_ITEM,
+																			"ingotAcxium",
+																			15015).getInt());
+		TMFCore.ingotBisogenId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_ITEM,
+																			"ingotBisogen",
+																			15016).getInt());
+		TMFCore.ingotCydrineId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_ITEM,
+																			"ingotCydrine",
+																			15017).getInt());
 	}
 
 	private static void loadDusts() {
@@ -197,6 +210,15 @@ public class ConfigurationLib {
 									TMFCore.mineralBisogen.itemID);
 		XMLLoader.addXmlVariable(	"$mineralCydrine",
 									TMFCore.mineralCydrine.itemID);
+
+		/* INGOTS */
+
+		XMLLoader.addXmlVariable(	"$ingotAcxium",
+									TMFCore.ingotAcxium.itemID);
+		XMLLoader.addXmlVariable(	"$ingotBisogen",
+									TMFCore.ingotBisogen.itemID);
+		XMLLoader.addXmlVariable(	"$ingotCydrine",
+									TMFCore.ingotCydrine.itemID);
 
 		/* DUSTS */
 

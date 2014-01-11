@@ -27,11 +27,6 @@ public class ItemMineral extends Item implements IFuelHandlerTMF {
 		this.setCreativeTab(CreativeTabTMF.tabTMF);
 	}
 
-	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
 	public Item setBurnSettings(int time, int speed, int width) {
 		setBurnTime(time);
 		setBurnSpeed(speed);

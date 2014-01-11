@@ -33,6 +33,7 @@ import slimevoid.tmf.fuel.MineralFuelHandler;
 import slimevoid.tmf.fuel.MixedDustNameRegistry;
 import slimevoid.tmf.items.minerals.ItemMineral;
 import slimevoid.tmf.items.minerals.ItemMineralDust;
+import slimevoid.tmf.items.minerals.ItemMineralIngot;
 import slimevoid.tmf.items.minerals.ItemMineralMixedDust;
 import slimevoid.tmf.items.minerals.ItemMineralMixedDustRecipe;
 import slimevoid.tmf.items.tools.ItemMiningHelmet;
@@ -69,6 +70,10 @@ public class TMFCore {
 	public static int			mineralAcxiumId, mineralBisogenId,
 			mineralCydrineId;
 
+	// INGOTS
+	public static Item			ingotAcxium, ingotBisogen, ingotCydrine;
+	public static int			ingotAcxiumId, ingotBisogenId, ingotCydrineId;
+
 	// MINERAL DUSTS
 	public static Item			dustAcxium, dustBisogen, dustCydrine,
 			dustMixed;
@@ -79,6 +84,7 @@ public class TMFCore {
 	public static void registerItems() {
 		registerTools();
 		registerMinerals();
+		registerIngots();
 		registerDusts();
 	}
 
@@ -103,14 +109,20 @@ public class TMFCore {
 		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setUnlocalizedName(ItemLib.MINING_TOOLBELT).setTextureName(ResourceLib.MINING_TOOLBELT);
 	}
 
+	private static void registerIngots() {
+		ingotAcxium = new ItemMineralIngot(ingotAcxiumId).setUnlocalizedName(ItemLib.INGOT_ACXIUM).setTextureName(ResourceLib.INGOT_ACXIUM);
+		ingotBisogen = new ItemMineralIngot(ingotBisogenId).setUnlocalizedName(ItemLib.INGOT_BISOGEN).setTextureName(ResourceLib.INGOT_BISOGEN);
+		ingotCydrine = new ItemMineralIngot(ingotCydrineId).setUnlocalizedName(ItemLib.INGOT_CYDRINE).setTextureName(ResourceLib.INGOT_CYDRINE);
+	}
+
 	private static void registerMinerals() {
-		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(2400).setUnlocalizedName(ItemLib.MINERAL_AXCIUM).setTextureName(ResourceLib.MINERAL_AXCIUM);
+		mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(2400).setUnlocalizedName(ItemLib.MINERAL_ACXIUM).setTextureName(ResourceLib.MINERAL_ACXIUM);
 		mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(150).setUnlocalizedName(ItemLib.MINERAL_BISOGEN).setTextureName(ResourceLib.MINERAL_BISOGEN);
 		mineralCydrine = new ItemMineral(mineralCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.MINERAL_CYDRINE).setTextureName(ResourceLib.MINERAL_CYDRINE);
 	}
 
 	private static void registerDusts() {
-		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setUnlocalizedName(ItemLib.DUST_AXCIUM).setTextureName(ResourceLib.DUST_AXCIUM);
+		dustAcxium = new ItemMineralDust(dustAcxiumId).setBurnTime(3200).setUnlocalizedName(ItemLib.DUST_ACXIUM).setTextureName(ResourceLib.DUST_AXCIUM);
 		dustBisogen = new ItemMineralDust(dustBisogenId).setBurnSpeed(100).setUnlocalizedName(ItemLib.DUST_BISOGEN).setTextureName(ResourceLib.DUST_BISOGEN);
 		dustCydrine = new ItemMineralDust(dustCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.DUST_CYDRINE).setTextureName(ResourceLib.DUST_CYDRINE);
 		dustMixed = new ItemMineralMixedDust(dustMixedId).setUnlocalizedName(ItemLib.DUST_MIXED).setTextureName(ResourceLib.DUST_MIXED);

@@ -19,10 +19,13 @@
 	<entry key="item.tmf.armor.helm.diamond.name">Diamant Gruvehjelm</entry>
 	<entry key="item.tmf.tool.sensor.motion.name">Bevegelsessensor</entry>
 	<entry key="item.tmf.tool.sensor.heat.name"></entry>
-	<entry key="item.tmf.mineral.axcium.name">Axcium</entry>
+	<entry key="item.tmf.mineral.acxium.name">Acxium</entry>
 	<entry key="item.tmf.mineral.bisogen.name">Bisogen</entry>
 	<entry key="item.tmf.mineral.cydrine.name">Cydrine</entry>
-	<entry key="item.tmf.dust.axcium.name">Acxiumstøv</entry>
+	<entry key="item.tmf.ingot.acxium.name">Acxium Ingot</entry>
+	<entry key="item.tmf.ingot.bisogen.name">Bisogen Ingot</entry>
+	<entry key="item.tmf.ingot.cydrine.name">Cydrine Ingot</entry>
+	<entry key="item.tmf.dust.acxium.name">Acxiumstøv</entry>
 	<entry key="item.tmf.dust.bisogen.name">Bisogenstøv</entry>
 	<entry key="item.tmf.dust.cydrine.name">Cydrinestøv</entry>
 	<entry key="item.tmf.dust.mixed.name">Blandet Støv</entry>

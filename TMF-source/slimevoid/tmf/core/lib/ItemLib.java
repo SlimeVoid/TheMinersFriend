@@ -29,8 +29,8 @@ public class ItemLib {
 
 	private static final String	DUST_PREFIX				= ITEM_PREFIX + "dust.";
 
-	public static final String	DUST_AXCIUM				= DUST_PREFIX
-															+ "axcium";
+	public static final String	DUST_ACXIUM				= DUST_PREFIX
+															+ "acxium";
 	public static final String	DUST_BISOGEN			= DUST_PREFIX
 															+ "bisogen";
 	public static final String	DUST_CYDRINE			= DUST_PREFIX
@@ -40,11 +40,21 @@ public class ItemLib {
 	private static final String	MINERAL_PREFIX			= ITEM_PREFIX
 															+ "mineral.";
 
-	public static final String	MINERAL_AXCIUM			= MINERAL_PREFIX
-															+ "axcium";
+	public static final String	MINERAL_ACXIUM			= MINERAL_PREFIX
+															+ "acxium";
 	public static final String	MINERAL_BISOGEN			= MINERAL_PREFIX
 															+ "bisogen";
 	public static final String	MINERAL_CYDRINE			= MINERAL_PREFIX
+															+ "cydrine";
+
+	private static final String	INGOT_PREFIX			= ITEM_PREFIX
+															+ "ingot.";
+
+	public static final String	INGOT_ACXIUM			= INGOT_PREFIX
+															+ "acxium";
+	public static final String	INGOT_BISOGEN			= INGOT_PREFIX
+															+ "bisogen";
+	public static final String	INGOT_CYDRINE			= INGOT_PREFIX
 															+ "cydrine";
 
 	private static final String	TOOL_PREFIX				= ITEM_PREFIX + "tool.";

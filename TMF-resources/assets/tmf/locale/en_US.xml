@@ -23,10 +23,13 @@
 	<entry key="item.tmf.armor.helm.diamond.name">Diamond Mining Helmet</entry>
 	<entry key="item.tmf.tool.sensor.motion.name">Motion Sensor</entry>
 	<entry key="item.tmf.tool.sensor.heat.name">Heat Sensor</entry>
-	<entry key="item.tmf.mineral.axcium.name">Axcium</entry>
+	<entry key="item.tmf.mineral.acxium.name">Acxium</entry>
 	<entry key="item.tmf.mineral.bisogen.name">Bisogen</entry>
 	<entry key="item.tmf.mineral.cydrine.name">Cydrine</entry>
-	<entry key="item.tmf.dust.axcium.name">Axcium Dust</entry>
+	<entry key="item.tmf.ingot.acxium.name">Acxium Ingot</entry>
+	<entry key="item.tmf.ingot.bisogen.name">Bisogen Ingot</entry>
+	<entry key="item.tmf.ingot.cydrine.name">Cydrine Ingot</entry>
+	<entry key="item.tmf.dust.acxium.name">Axcium Dust</entry>
 	<entry key="item.tmf.dust.bisogen.name">Bisogen Dust</entry>
 	<entry key="item.tmf.dust.cydrine.name">Cydrine Dust</entry>
 	<entry key="item.tmf.dust.mixed.name">Mixed Dust</entry>

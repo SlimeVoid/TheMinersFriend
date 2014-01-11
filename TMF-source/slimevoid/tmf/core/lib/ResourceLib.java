@@ -109,15 +109,22 @@ public class ResourceLib {
 	public static final String				RECIPE_XML_PATH			= ASSET_PREFIX
 																		+ "recipes/";
 
-	public static final String				MINERAL_AXCIUM			= TEXTURE_PREFIX
-																		+ ItemLib.MINERAL_AXCIUM;
+	public static final String				MINERAL_ACXIUM			= TEXTURE_PREFIX
+																		+ ItemLib.MINERAL_ACXIUM;
 	public static final String				MINERAL_BISOGEN			= TEXTURE_PREFIX
 																		+ ItemLib.MINERAL_BISOGEN;
 	public static final String				MINERAL_CYDRINE			= TEXTURE_PREFIX
 																		+ ItemLib.MINERAL_CYDRINE;
 
+	public static final String				INGOT_ACXIUM			= TEXTURE_PREFIX
+																		+ ItemLib.INGOT_ACXIUM;
+	public static final String				INGOT_BISOGEN			= TEXTURE_PREFIX
+																		+ ItemLib.INGOT_BISOGEN;
+	public static final String				INGOT_CYDRINE			= TEXTURE_PREFIX
+																		+ ItemLib.INGOT_CYDRINE;
+
 	public static final String				DUST_AXCIUM				= TEXTURE_PREFIX
-																		+ ItemLib.DUST_AXCIUM;
+																		+ ItemLib.DUST_ACXIUM;
 	public static final String				DUST_BISOGEN			= TEXTURE_PREFIX
 																		+ ItemLib.DUST_BISOGEN;
 	public static final String				DUST_CYDRINE			= TEXTURE_PREFIX
