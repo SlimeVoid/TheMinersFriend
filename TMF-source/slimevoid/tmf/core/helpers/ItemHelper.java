@@ -18,7 +18,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
+import slimevoid.tmf.core.lib.DataLib;
+import slimevoid.tmf.core.lib.NBTLib;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import cpw.mods.fml.common.network.Player;
 
@@ -146,5 +150,18 @@ public class ItemHelper {
 			}
 		}
 		return null;
+	}
+
+	public static ItemStack[] getTools(NBTTagCompound nbttagcompound) {
+		NBTTagList toolsTag = nbttagcompound.getTagList(NBTLib.TOOLS);
+		ItemStack[] miningTools = new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
+		for (int i = 0; i < toolsTag.tagCount(); i++) {
+			NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.tagAt(i);
+			byte slot = tagCompound.getByte("Slot");
+			if (slot >= 0 && slot < miningTools.length) {
+				miningTools[slot] = ItemStack.loadItemStackFromNBT(tagCompound);
+			}
+		}
+		return miningTools;
 	}
 }

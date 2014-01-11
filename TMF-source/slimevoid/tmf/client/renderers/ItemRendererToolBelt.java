@@ -42,7 +42,7 @@ public class ItemRendererToolBelt implements IItemRenderer {
 	}
 
 	public static void init() {
-		MinecraftForgeClient.registerItemRenderer(	TMFCore.miningToolBeltId,
+		MinecraftForgeClient.registerItemRenderer(	TMFCore.miningToolBelt.itemID,
 													new ItemRendererToolBelt(FMLClientHandler.instance().getClient()));
 	}
 
@@ -63,7 +63,6 @@ public class ItemRendererToolBelt implements IItemRenderer {
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack itemstack, Object... data) {
-		// System.out.println(type);
 		if (type.equals(ItemRenderType.INVENTORY)) {
 			doRenderInventoryItem(	itemstack,
 									(RenderBlocks) data[0]);
@@ -90,26 +89,26 @@ public class ItemRendererToolBelt implements IItemRenderer {
 									renderBlocks);
 	}
 
-	private void renderInventoryItem(ItemStack toolBelt, RenderBlocks renderBlocks) {
+	private void renderInventoryItem(ItemStack itemstack, RenderBlocks renderBlocks) {
 
 		TextureManager textureManager = this.mc.getTextureManager();
-		int k = toolBelt.itemID;
-		int l = toolBelt.getItemDamage();
-		Object object = toolBelt.getIconIndex();
+		int k = itemstack.itemID;
+		int l = itemstack.getItemDamage();
+		Object object = itemstack.getIconIndex();
 		float f;
 		int i1;
 		float f1;
 		float f2;
 
 		GL11.glDisable(GL11.GL_LIGHTING);
-		ResourceLocation resourcelocation = textureManager.getResourceLocation(toolBelt.getItemSpriteNumber());
+		ResourceLocation resourcelocation = textureManager.getResourceLocation(itemstack.getItemSpriteNumber());
 		textureManager.bindTexture(resourcelocation);
 
 		if (object == null) {
 			object = ((TextureMap) textureManager.getTexture(resourcelocation)).getAtlasSprite("missingno");
 		}
 
-		i1 = Item.itemsList[k].getColorFromItemStack(	toolBelt,
+		i1 = Item.itemsList[k].getColorFromItemStack(	itemstack,
 														0);
 		f = (i1 >> 16 & 255) / 255.0F;
 		f1 = (i1 >> 8 & 255) / 255.0F;

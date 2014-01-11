@@ -32,6 +32,7 @@ import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.NBTLib;
+import slimevoid.tmf.items.tools.data.MiningToolBelt;
 import slimevoidlib.nbt.NBTHelper;
 
 public class ItemMiningToolBelt extends Item {
@@ -260,11 +261,15 @@ public class ItemMiningToolBelt extends Item {
 		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
 			// Perform the onBlockStartBreak method for the itemstack
-			return tool.getItem().onBlockStartBreak(tool,
-													x,
-													y,
-													z,
-													entityplayer);
+			onBlockStartBreak = tool.getItem().onBlockStartBreak(	tool,
+																	x,
+																	y,
+																	z,
+																	entityplayer);
+			updateToolBelt(	entityplayer.worldObj,
+							entityplayer,
+							itemstack,
+							tool);
 		}
 		// Otherwise return the original value
 		return onBlockStartBreak;
@@ -292,16 +297,27 @@ public class ItemMiningToolBelt extends Item {
 		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
 			// Perform the onBlockDestroyed method for the itemstack
-			return tool.getItem().onBlockDestroyed(	tool,
-													world,
-													x,
-													y,
-													z,
-													side,
-													entityliving);
+			onBlockDestroyed = tool.getItem().onBlockDestroyed(	tool,
+																world,
+																x,
+																y,
+																z,
+																side,
+																entityliving);
+			updateToolBelt(	world,
+							entityliving,
+							itemstack,
+							tool);
 		}
 		// Otherwise return the original value
 		return onBlockDestroyed;
+	}
+
+	private static void updateToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt, ItemStack tool) {
+		MiningToolBelt data = new MiningToolBelt(world, entityliving, toolBelt);
+		data.setInventorySlotContents(	data.selectedTool,
+										tool);
+		toolBelt.stackTagCompound = data.writeToNBT(new NBTTagCompound());
 	}
 
 	@Override
@@ -367,11 +383,8 @@ public class ItemMiningToolBelt extends Item {
 
 	private static void selectTool(World world, EntityLivingBase entityliving, int i) {
 		ItemStack toolBelt = entityliving.getHeldItem();
-		if (toolBelt.hasTagCompound()) {
-			NBTTagCompound nbttagcompound = toolBelt.getTagCompound();
-			nbttagcompound.setInteger(	NBTLib.SELECTED_TOOL,
-										i);
-		}
+		setSelectedTool(toolBelt,
+						i);
 	}
 
 	/**
@@ -404,13 +417,19 @@ public class ItemMiningToolBelt extends Item {
 	 *         to continue processing the 'normal' interaction
 	 */
 	public static boolean doEntityInteract(EntityInteractEvent event) {
+		boolean flag = false;
 		// First checks if the player is sneaking
 		if (event.entityPlayer.isSneaking()) {
+			ItemStack toolBelt = event.entityPlayer.getHeldItem();
 			// Retrieves the Selected Tool within the held Tool Belt
-			ItemStack tool = ItemHelper.getSelectedTool(event.entityPlayer.getHeldItem());
+			ItemStack tool = ItemHelper.getSelectedTool(toolBelt);
 			if (tool != null) {
-				return tool.func_111282_a(	event.entityPlayer,
+				flag = tool.func_111282_a(	event.entityPlayer,
 											(EntityLivingBase) event.target);// .interactWith(event.target);
+				updateToolBelt(	event.entityPlayer.worldObj,
+								event.entityPlayer,
+								toolBelt,
+								tool);
 			}
 		}
 		return false;
@@ -444,42 +463,15 @@ public class ItemMiningToolBelt extends Item {
 		if (toolBelt.hasTagCompound()) {
 			NBTTagCompound nbttagcompound = toolBelt.getTagCompound();
 			if (selectedTool >= 0 && selectedTool < DataLib.TOOL_BELT_MAX_SIZE) {
-				String toolKey = NBTLib.getToolKey(selectedTool);
-				if (nbttagcompound.hasKey(toolKey)) {
-					NBTTagCompound tagCompound = nbttagcompound.getCompoundTag(toolKey);
-					return ItemStack.loadItemStackFromNBT(tagCompound);
-				}
+				ItemStack[] miningTools = ItemHelper.getTools(nbttagcompound);
+				return miningTools[selectedTool];
 			}
 		}
 		return null;
 	}
 
-	public static ItemStack setToolInSlot(ItemStack toolBelt, ItemStack itemstack, int slot) {
-		if (toolBelt.hasTagCompound()) {
-			NBTTagCompound nbttagcompound = toolBelt.getTagCompound();
-			if (slot >= 0 && slot < DataLib.TOOL_BELT_MAX_SIZE) {
-				String toolKey = NBTLib.getToolKey(slot);
-				System.out.println("setToolInSlot");
-				System.out.println(nbttagcompound);
-				if (nbttagcompound.hasKey(toolKey)) {
-					nbttagcompound.removeTag(toolKey);
-					System.out.println("removeTag(" + toolKey + ")");
-				}
-				if (itemstack != null) {
-					NBTTagCompound tagCompound = new NBTTagCompound();
-					itemstack.writeToNBT(tagCompound);
-					nbttagcompound.setCompoundTag(	toolKey,
-													tagCompound);
-				}
-			}
-			toolBelt.stackTagCompound = nbttagcompound;
-		}
-		return toolBelt;
-	}
-
-	public static int getSelectedSlot(ItemStack itemstack) {
+	private static int getSelectedSlot(ItemStack itemstack) {
 		if (itemstack.hasTagCompound()) {
-			NBTTagCompound nbttagcompound = itemstack.getTagCompound();
 			int selectedTool = NBTHelper.getTagInteger(	itemstack,
 														NBTLib.SELECTED_TOOL,
 														0);
@@ -491,23 +483,6 @@ public class ItemMiningToolBelt extends Item {
 	public static ItemStack getSelectedTool(ItemStack itemstack) {
 		return getToolInSlot(	itemstack,
 								getSelectedSlot(itemstack));
-	}
-
-	public static ItemStack[] getTools(ItemStack itemstack) {
-		ItemStack[] tools = new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
-		if (itemstack.hasTagCompound()) {
-			NBTTagCompound nbttagcompound = itemstack.getTagCompound();
-			for (int i = 0; i < DataLib.TOOL_BELT_MAX_SIZE; i++) {
-				String toolKey = NBTLib.getToolKey(i);
-				if (nbttagcompound.hasKey(toolKey)) {
-					NBTTagCompound tagCompound = nbttagcompound.getCompoundTag(toolKey);
-					tools[i] = ItemStack.loadItemStackFromNBT(tagCompound);
-				} else {
-					tools[i] = null;
-				}
-			}
-		}
-		return tools;
 	}
 
 	private static void setSelectedTool(ItemStack toolBelt, int selectedTool) {
@@ -555,12 +530,25 @@ public class ItemMiningToolBelt extends Item {
 	}
 
 	private String getToolDisplayName(ItemStack itemstack) {
-		return super.getItemDisplayName(itemstack);
+		ItemStack tool = getSelectedTool(itemstack);
+		return tool != null ? "Tool : " + tool.getDisplayName() : super.getItemDisplayName(itemstack);
 	}
 
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer entityplayer, List lines, boolean par4) {
-
+		if (itemstack.hasTagCompound()) {
+			ItemStack[] tools = ItemHelper.getTools(itemstack.getTagCompound());
+			for (int i = 0; i < DataLib.TOOL_BELT_MAX_SIZE; i++) {
+				ItemStack tool = tools[i];
+				String toolString;
+				if (tool == null) {
+					toolString = "None Equipped";
+				} else {
+					toolString = tool.getDisplayName() + " x" + tool.stackSize;
+				}
+				lines.add("Slot [" + i + "]: " + toolString);
+			}
+		}
 	}
 
 	@Override

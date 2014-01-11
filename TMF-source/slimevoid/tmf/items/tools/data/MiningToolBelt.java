@@ -11,13 +11,13 @@
  */
 package slimevoid.tmf.items.tools.data;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
-import slimevoid.tmf.core.data.MiningMode;
 import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.ItemLib;
@@ -25,14 +25,14 @@ import slimevoid.tmf.core.lib.NBTLib;
 
 public class MiningToolBelt implements IInventory {
 
-	World			world;
-	EntityPlayer	entityplayer;
-	public int		selectedTool	= 0;
-	ItemStack[]		miningTools		= new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
+	World				world;
+	EntityLivingBase	entityliving;
+	public int			selectedTool	= 0;
+	ItemStack[]			miningTools		= new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
 
-	public MiningToolBelt(World world, EntityPlayer entityplayer, ItemStack itemstack) {
+	public MiningToolBelt(World world, EntityLivingBase entityliving, ItemStack itemstack) {
 		this.world = world;
-		this.entityplayer = entityplayer;
+		this.entityliving = entityliving;
 		if (itemstack.hasTagCompound()) {
 			this.readFromNBT(itemstack.stackTagCompound);
 		}
@@ -116,7 +116,7 @@ public class MiningToolBelt implements IInventory {
 
 	@Override
 	public void onInventoryChanged() {
-		ItemStack heldItem = entityplayer.getHeldItem();
+		ItemStack heldItem = entityliving.getHeldItem();
 		if (ItemHelper.isToolBelt(heldItem)) {
 			heldItem.stackTagCompound = this.writeToNBT(new NBTTagCompound());
 		}
@@ -137,9 +137,6 @@ public class MiningToolBelt implements IInventory {
 	}
 
 	public void toggleMiningMode(World world, EntityPlayer entityplayer) {
-		MiningMode.toggleMiningModeForPlayer(	world,
-												entityplayer,
-												this);
 	}
 
 	@Override
