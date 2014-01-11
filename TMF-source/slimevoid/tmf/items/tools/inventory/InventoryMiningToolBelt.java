@@ -146,7 +146,8 @@ public class InventoryMiningToolBelt implements IInventory {
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return !ItemHelper.isToolBelt(itemstack);
+		return !ItemHelper.isItemBlock(itemstack)
+				&& !ItemHelper.isToolBelt(itemstack);
 	}
 
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
@@ -154,7 +155,7 @@ public class InventoryMiningToolBelt implements IInventory {
 		this.miningTools = new ItemStack[this.getSizeInventory()];
 		for (int i = 0; i < toolsTag.tagCount(); i++) {
 			NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.tagAt(i);
-			byte slot = tagCompound.getByte("Slot");
+			byte slot = tagCompound.getByte(NBTLib.SLOT);
 			if (slot >= 0 && slot < this.miningTools.length) {
 				this.miningTools[slot] = ItemStack.loadItemStackFromNBT(tagCompound);
 			}

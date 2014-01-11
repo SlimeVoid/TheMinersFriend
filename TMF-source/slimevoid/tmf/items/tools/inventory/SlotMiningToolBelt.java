@@ -13,11 +13,8 @@ package slimevoid.tmf.items.tools.inventory;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemPickaxe;
-import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
-import slimevoid.tmf.items.tools.ItemMotionSensor;
+import slimevoid.tmf.core.helpers.ItemHelper;
 
 public class SlotMiningToolBelt extends Slot {
 
@@ -27,12 +24,13 @@ public class SlotMiningToolBelt extends Slot {
 
 	@Override
 	public boolean isItemValid(ItemStack itemstack) {
-		return ((getSlotIndex() == 0 && itemstack != null && itemstack.getItem() instanceof ItemPickaxe)
-				|| (getSlotIndex() == 1 && itemstack != null && itemstack.getItem() instanceof ItemSpade)
-				|| (getSlotIndex() == 2 && itemstack != null && itemstack.getItem() instanceof Item) || (getSlotIndex() == 3
-																											&& itemstack != null && itemstack.getItem() instanceof ItemMotionSensor)
+		return !ItemHelper.isItemBlock(itemstack)
+				&& !ItemHelper.isToolBelt(itemstack)
+				&& ((getSlotIndex() == 0 && ItemHelper.isItemPickaxe(itemstack))
+					|| (getSlotIndex() == 1 && ItemHelper.isItemSpade(itemstack))
+					|| (getSlotIndex() == 2) || (getSlotIndex() == 3 && ItemHelper.isItemMotionSensor(itemstack))
 
-		);
+				);
 	}
 
 }

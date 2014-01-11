@@ -17,6 +17,9 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -24,6 +27,7 @@ import net.minecraft.world.World;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.NBTLib;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
+import slimevoid.tmf.items.tools.ItemMotionSensor;
 import cpw.mods.fml.common.network.Player;
 
 public class ItemHelper {
@@ -136,6 +140,46 @@ public class ItemHelper {
 	 */
 	public static boolean isToolBelt(ItemStack itemstack) {
 		return (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMiningToolBelt);
+	}
+
+	/**
+	 * Checks it the given ItemStack is an instance of ItemBlock
+	 * 
+	 * @param itemstack
+	 * @return ItemBlock or not
+	 */
+	public static boolean isItemBlock(ItemStack itemstack) {
+		return (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemBlock);
+	}
+
+	/**
+	 * Checks it the given ItemStack is an instance of ItemPickaxe
+	 * 
+	 * @param itemstack
+	 * @return ItemPickaxe or not
+	 */
+	public static boolean isItemPickaxe(ItemStack itemstack) {
+		return (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemPickaxe);
+	}
+
+	/**
+	 * Checks it the given ItemStack is an instance of ItemSpade
+	 * 
+	 * @param itemstack
+	 * @return ItemSpade or not
+	 */
+	public static boolean isItemSpade(ItemStack itemstack) {
+		return (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemSpade);
+	}
+
+	/**
+	 * Checks it the given ItemStack is an instance of ItemMotionSensor
+	 * 
+	 * @param itemstack
+	 * @return ItemMotionSensor or not
+	 */
+	public static boolean isItemMotionSensor(ItemStack itemstack) {
+		return (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMotionSensor);
 	}
 
 	public static ItemStack getSelectedTool(ItemStack itemstack) {
