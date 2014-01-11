@@ -25,10 +25,14 @@ import slimevoid.tmf.core.lib.NBTLib;
 
 public class MiningToolBelt implements IInventory {
 
-	public int	selectedTool	= 0;
-	ItemStack[]	miningTools		= new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
+	World			world;
+	EntityPlayer	entityplayer;
+	public int		selectedTool	= 0;
+	ItemStack[]		miningTools		= new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
 
-	public MiningToolBelt(ItemStack itemstack) {
+	public MiningToolBelt(World world, EntityPlayer entityplayer, ItemStack itemstack) {
+		this.world = world;
+		this.entityplayer = entityplayer;
 		if (itemstack.hasTagCompound()) {
 			this.readFromNBT(itemstack.stackTagCompound);
 		}
@@ -112,6 +116,11 @@ public class MiningToolBelt implements IInventory {
 
 	@Override
 	public void onInventoryChanged() {
+		ItemStack heldItem = entityplayer.getHeldItem();
+		if (ItemHelper.isToolBelt(heldItem)) {
+			heldItem.stackTagCompound = this.writeToNBT(new NBTTagCompound());
+		}
+
 	}
 
 	@Override

@@ -17,19 +17,14 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import slimevoid.tmf.core.helpers.ItemHelper;
-import slimevoid.tmf.items.tools.data.MiningToolBelt;
 
 public class ContainerMiningToolBelt extends Container {
 
 	// The toolbelt to which this Container Belongs
-	private IInventory		toolbelt;
-	private InventoryPlayer	playerInventory;
+	private IInventory	toolbelt;
 
 	public ContainerMiningToolBelt(InventoryPlayer playerInventory, IInventory toolBelt) {
 		this.toolbelt = toolBelt;
-		this.playerInventory = playerInventory;
 
 		this.addSlotToContainer(new SlotMiningToolBelt(toolBelt, 0, 69, 37)); // Pick
 
@@ -52,15 +47,6 @@ public class ContainerMiningToolBelt extends Container {
 		 */
 
 		bindPlayerInventory(playerInventory);
-	}
-
-	@Override
-	public void onContainerClosed(EntityPlayer entityplayer) {
-		super.onContainerClosed(entityplayer);
-		ItemStack heldItem = entityplayer.getHeldItem();
-		if (ItemHelper.isToolBelt(heldItem)) {
-			heldItem.stackTagCompound = ((MiningToolBelt) this.toolbelt).writeToNBT(new NBTTagCompound());
-		}
 	}
 
 	protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {

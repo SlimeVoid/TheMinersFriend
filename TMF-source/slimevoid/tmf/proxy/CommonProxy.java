@@ -56,7 +56,7 @@ public class CommonProxy implements ITMFCommonProxy {
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {
 		case GuiLib.TOOL_BELT_GUIID:
-			MiningToolBelt data = new MiningToolBelt(player.getHeldItem());
+			MiningToolBelt data = new MiningToolBelt(world, player, player.getHeldItem());
 			return new ContainerMiningToolBelt(player.inventory, data);
 		case GuiLib.REFINERY_GUIID:
 			TileEntity tileRef = SlimevoidHelper.getBlockTileEntity(world,

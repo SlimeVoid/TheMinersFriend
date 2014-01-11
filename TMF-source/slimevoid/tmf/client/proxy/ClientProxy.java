@@ -122,7 +122,7 @@ public class ClientProxy extends CommonProxy {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {
 		case GuiLib.TOOL_BELT_GUIID:
-			MiningToolBelt data = new MiningToolBelt(player.getHeldItem());
+			MiningToolBelt data = new MiningToolBelt(world, player, player.getHeldItem());
 			return new GuiMiningToolBelt(player, data);
 		case GuiLib.REFINERY_GUIID:
 			TileEntity tile1 = SlimevoidHelper.getBlockTileEntity(	world,
