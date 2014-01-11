@@ -26,11 +26,9 @@ public class SlotMiningToolBelt extends Slot {
 	public boolean isItemValid(ItemStack itemstack) {
 		return !ItemHelper.isItemBlock(itemstack)
 				&& !ItemHelper.isToolBelt(itemstack)
-				&& ((getSlotIndex() == 0 && ItemHelper.isItemPickaxe(itemstack))
-					|| (getSlotIndex() == 1 && ItemHelper.isItemSpade(itemstack))
-					|| (getSlotIndex() == 2) || (getSlotIndex() == 3 && ItemHelper.isItemMotionSensor(itemstack))
+				&& ItemHelper.isValidItemForSlot(	this.getSlotIndex(),
+													itemstack)
 
-				);
+		;
 	}
-
 }
