@@ -398,6 +398,7 @@ public class ItemMiningToolBelt extends Item {
 			if (itemstack != null) {
 				float breakSpeed = itemstack.getStrVsBlock(block);
 				if (breakSpeed > fastestSpeed) {
+					fastestSpeed = breakSpeed;
 					data.selectedTool = i;
 					updateToolBeltData(	entityliving.getHeldItem(),
 										data);
