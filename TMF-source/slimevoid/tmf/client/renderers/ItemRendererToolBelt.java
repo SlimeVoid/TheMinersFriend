@@ -71,22 +71,30 @@ public class ItemRendererToolBelt implements IItemRenderer {
 												(RenderBlocks) data[0],
 												(EntityLivingBase) data[1]);
 		} else {
-			// if (type.equals(ItemRenderType.EQUIPPED)) {
 			doRenderEquippedItem(	itemstack,
 									(RenderBlocks) data[0],
-									(EntityLivingBase) data[1]);
-			// }
+									(EntityLivingBase) data[1],
+									type);
 		}
 	}
 
 	private void doRenderInventoryItem(ItemStack toolBelt, RenderBlocks renderBlocks) {
 		ItemStack itemstack = toolBelt;
 		ItemStack tool = ItemHelper.getSelectedTool(toolBelt);
+		IItemRenderer customRenderer = null;
 		if (tool != null) {
 			itemstack = tool;
+			customRenderer = MinecraftForgeClient.getItemRenderer(	itemstack,
+																	ItemRenderType.INVENTORY);
 		}
-		this.renderInventoryItem(	itemstack,
-									renderBlocks);
+		if (customRenderer != null) {
+			customRenderer.renderItem(	ItemRenderType.INVENTORY,
+										itemstack,
+										new Object[] { renderBlocks });
+		} else {
+			this.renderInventoryItem(	itemstack,
+										renderBlocks);
+		}
 	}
 
 	private void renderInventoryItem(ItemStack itemstack, RenderBlocks renderBlocks) {
@@ -156,22 +164,58 @@ public class ItemRendererToolBelt implements IItemRenderer {
 		tessellator.draw();
 	}
 
-	private void doRenderEquippedFirstPerson(ItemStack itemstack, RenderBlocks renderBlocks, EntityLivingBase entityLivingBase) {
-		this.doRenderEquippedItem(	itemstack,
-									renderBlocks,
-									entityLivingBase);
-	}
-
-	private void doRenderEquippedItem(ItemStack toolBelt, RenderBlocks renderBlocks, EntityLivingBase entityliving) {
-		int index = 0;
-		TextureManager texturemanager = this.mc.getTextureManager();
+	private void doRenderEquippedFirstPerson(ItemStack toolBelt, RenderBlocks renderBlocks, EntityLivingBase entityLivingBase) {
 		ItemStack itemstack = toolBelt;
 		ItemStack tool = ItemHelper.getSelectedTool(toolBelt);
+		IItemRenderer customRenderer = null;
 		if (tool != null) {
+			itemstack = tool;
+			customRenderer = MinecraftForgeClient.getItemRenderer(	itemstack,
+																	ItemRenderType.EQUIPPED_FIRST_PERSON);
+		}
+		if (customRenderer != null) {
+			customRenderer.renderItem(	ItemRenderType.EQUIPPED_FIRST_PERSON,
+										itemstack,
+										new Object[] {
+												renderBlocks,
+												entityLivingBase });
+		} else {
+			this.doRenderEquippedItem(	itemstack,
+										renderBlocks,
+										entityLivingBase);
+		}
+	}
+
+	private void doRenderEquippedItem(ItemStack toolBelt, RenderBlocks renderBlocks, EntityLivingBase entityliving, ItemRenderType type) {
+		ItemStack itemstack = toolBelt;
+		ItemStack tool = ItemHelper.getSelectedTool(toolBelt);
+		IItemRenderer customRenderer = null;
+		if (tool != null) {
+			itemstack = tool;
+			customRenderer = MinecraftForgeClient.getItemRenderer(	itemstack,
+																	type);
+		}
+		if (customRenderer != null) {
+			customRenderer.renderItem(	type,
+										itemstack,
+										new Object[] {
+												renderBlocks,
+												entityliving });
+		} else {
+			this.doRenderEquippedItem(	itemstack,
+										renderBlocks,
+										entityliving);
+		}
+	}
+
+	private void doRenderEquippedItem(ItemStack itemstack, RenderBlocks renderBlocks, EntityLivingBase entityliving) {
+		int index = 0;
+		TextureManager texturemanager = this.mc.getTextureManager();
+		if (itemstack != null) {
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 			GL11.glPopMatrix();
 			this.mc.entityRenderer.itemRenderer.renderItem(	entityliving,
-															tool,
+															itemstack,
 															index);
 			GL11.glPushMatrix();
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
