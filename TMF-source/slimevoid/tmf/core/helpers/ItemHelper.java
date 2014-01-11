@@ -208,11 +208,4 @@ public class ItemHelper {
 		}
 		return miningTools;
 	}
-
-	public static boolean isValidItemForSlot(int slotIndex, ItemStack itemstack) {
-		return (slotIndex == 0 && ItemHelper.isItemPickaxe(itemstack))
-				|| (slotIndex == 1 && ItemHelper.isItemSpade(itemstack))
-				|| (slotIndex == 2)
-				|| (slotIndex == 3 && ItemHelper.isItemMotionSensor(itemstack));
-	}
 }
