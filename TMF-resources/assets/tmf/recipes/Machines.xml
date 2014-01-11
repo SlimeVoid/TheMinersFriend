@@ -9,6 +9,6 @@
         </layout>
         <mapping id="$item.ingotIron">I</mapping>
         <mapping id="$tile.furnace">F</mapping>
-        <mapping id=""tile.stonebrick">C</mapping>
+        <mapping id="$tile.stonebrick">C</mapping>
     </recipe>
 </recipes>
