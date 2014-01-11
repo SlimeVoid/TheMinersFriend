@@ -23,16 +23,17 @@ public class MotionSensorRuleInToolbelt implements IMotionSensorRule {
 
 	@Override
 	public boolean doShowMotionSensor(EntityPlayer entityplayer, World world) {
-		boolean flag = false;
 		if (entityplayer != null && entityplayer.inventory != null) {
 			for (int i = 0; i < 9; i++) {
 				ItemStack itemstack = entityplayer.inventory.mainInventory[i];
-				flag = hasMotionSensor(	entityplayer,
-										world,
-										itemstack);
+				if (hasMotionSensor(entityplayer,
+									world,
+									itemstack)) {
+					return true;
+				}
 			}
 		}
-		return flag;
+		return false;
 	}
 
 	private boolean hasMotionSensor(EntityPlayer entityplayer, World world, ItemStack itemstack) {
