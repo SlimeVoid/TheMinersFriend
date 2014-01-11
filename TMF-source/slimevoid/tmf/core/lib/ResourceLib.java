@@ -74,13 +74,6 @@ public class ResourceLib {
 																		+ PATH_PREFIX
 																		+ "machines/";
 
-	// public static final String MACHINE_TEXTURE_PATH = MACHINE_PREFIX +
-	// "machines.png";
-	public static final String				RECIPES_REFINERY		= MACHINE_PREFIX
-																		+ "refinery.json";
-	public static final String				RECIPES_GRINDER			= MACHINE_PREFIX
-																		+ "grinder.json";
-
 	private static final String				MODEL_PREFIX			= MACHINE_PREFIX
 																		+ "models/";
 	private static final String				HD_PREFIX				= "hd/";
@@ -106,8 +99,17 @@ public class ResourceLib {
 	public static final String				DUST_LIB_PATH			= RESOURCE_PREFIX
 																		+ "mixedDust.js";
 
-	public static final String				RECIPE_XML_PATH			= ASSET_PREFIX
+	private static final String				RECIPE_PATH				= ASSET_PREFIX
 																		+ "recipes/";
+	public static final String				RECIPE_PATH_XML			= RECIPE_PATH
+																		+ "xml/";
+	public static final String				RECIPE_PATH_JSON		= RECIPE_PATH
+																		+ "json/";
+
+	public static final String				RECIPES_REFINERY		= RECIPE_PATH_JSON
+																		+ "refinery.json";
+	public static final String				RECIPES_GRINDER			= RECIPE_PATH_JSON
+																		+ "grinder.json";
 
 	public static final String				MINERAL_ACXIUM			= TEXTURE_PREFIX
 																		+ ItemLib.MINERAL_ACXIUM;

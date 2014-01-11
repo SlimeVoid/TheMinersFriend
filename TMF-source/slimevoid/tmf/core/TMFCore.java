@@ -238,8 +238,8 @@ public class TMFCore {
 	// ======= RECIPE REGISTRATION =======
 	public static void registerRecipes() {
 		XMLRecipeLoader.registerDefaultsFromLocation(	TMFCore.class,
-														ResourceLib.RECIPE_XML_PATH);
-		XMLRecipeLoader.loadFolder(	ResourceLib.RECIPE_XML_PATH,
+														ResourceLib.RECIPE_PATH_XML);
+		XMLRecipeLoader.loadFolder(	ResourceLib.RECIPE_PATH_XML,
 									new File(ResourceLib.RECIPE_STORE));
 
 		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
