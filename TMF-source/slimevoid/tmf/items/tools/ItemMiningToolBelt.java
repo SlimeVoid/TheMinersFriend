@@ -317,6 +317,17 @@ public class ItemMiningToolBelt extends Item {
 		MiningToolBelt data = new MiningToolBelt(world, entityliving, toolBelt);
 		data.setInventorySlotContents(	data.selectedTool,
 										tool);
+		updateToolBeltData(	toolBelt,
+							data);
+	}
+
+	private static void updateToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt) {
+		MiningToolBelt data = new MiningToolBelt(world, entityliving, toolBelt);
+		updateToolBeltData(	toolBelt,
+							data);
+	}
+
+	private static void updateToolBeltData(ItemStack toolBelt, MiningToolBelt data) {
 		toolBelt.stackTagCompound = data.writeToNBT(new NBTTagCompound());
 	}
 
@@ -366,15 +377,15 @@ public class ItemMiningToolBelt extends Item {
 
 	public static ItemStack selectToolForBlock(World world, EntityLivingBase entityliving, Block block, float currentBreakSpeed) {
 		float fastestSpeed = currentBreakSpeed;
+		MiningToolBelt data = new MiningToolBelt(world, entityliving, entityliving.getHeldItem());
 		for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
-			ItemStack itemstack = getToolInSlot(entityliving.getHeldItem(),
-												i);
+			ItemStack itemstack = data.getStackInSlot(i);
 			if (itemstack != null) {
 				float breakSpeed = itemstack.getStrVsBlock(block);
 				if (breakSpeed > fastestSpeed) {
-					selectTool(	world,
-								entityliving,
-								i);
+					data.selectedTool = i;
+					updateToolBeltData(	entityliving.getHeldItem(),
+										data);
 				}
 			}
 		}
@@ -485,11 +496,12 @@ public class ItemMiningToolBelt extends Item {
 								getSelectedSlot(itemstack));
 	}
 
-	private static void setSelectedTool(ItemStack toolBelt, int selectedTool) {
+	private static ItemStack setSelectedTool(ItemStack toolBelt, int selectedTool) {
 		if (toolBelt.hasTagCompound()) {
 			toolBelt.stackTagCompound.setInteger(	NBTLib.SELECTED_TOOL,
 													selectedTool);
 		}
+		return toolBelt;
 	}
 
 	public static ItemStack cycleTool(ItemStack itemstack) {
@@ -502,15 +514,14 @@ public class ItemMiningToolBelt extends Item {
 			setSelectedTool(itemstack,
 							selectedTool);
 			return getToolInSlot(	itemstack,
-									selectedTool) != null ? getToolInSlot(	itemstack,
-																			selectedTool) : tryToSelectTool(itemstack);
+									selectedTool);
 		}
 		return null;
 	}
 
-	private static ItemStack tryToSelectTool(ItemStack itemstack) {
-		if (getSelectedTool(itemstack) == null) {
-			for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
+	private static ItemStack tryToSelectTool(ItemStack itemstack, int skipSlot) {
+		for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
+			if (i != skipSlot) {
 				ItemStack tool = getToolInSlot(	itemstack,
 												i);
 				if (tool != null) {
@@ -530,8 +541,12 @@ public class ItemMiningToolBelt extends Item {
 	}
 
 	private String getToolDisplayName(ItemStack itemstack) {
+		int selectedSlot = getSelectedSlot(itemstack);
 		ItemStack tool = getSelectedTool(itemstack);
-		return tool != null ? "Tool : " + tool.getDisplayName() : super.getItemDisplayName(itemstack);
+		String name = tool != null ? tool.getDisplayName() : "Slot "
+																+ selectedSlot
+																+ " - Empty";
+		return "ToolBelt : " + name;
 	}
 
 	@Override
