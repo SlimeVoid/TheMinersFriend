@@ -16,6 +16,7 @@ import java.io.File;
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.tmf.blocks.machines.BlockMachineBase;
@@ -242,5 +243,15 @@ public class TMFCore {
 									new File(ResourceLib.RECIPE_STORE));
 
 		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
+
+		GameRegistry.addSmelting(	mineralAcxium.itemID,
+									new ItemStack(ingotAcxium, 1),
+									1);
+		GameRegistry.addSmelting(	mineralBisogen.itemID,
+									new ItemStack(ingotBisogen, 1),
+									2);
+		GameRegistry.addSmelting(	mineralCydrine.itemID,
+									new ItemStack(ingotCydrine, 1),
+									3);
 	}
 }
