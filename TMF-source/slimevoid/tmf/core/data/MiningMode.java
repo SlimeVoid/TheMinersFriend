@@ -17,7 +17,7 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import slimevoid.tmf.items.tools.data.MiningToolBelt;
+import slimevoid.tmf.core.lib.PacketLib;
 
 public class MiningMode {
 	private static List<EntityPlayer>	playersInMiningMode;
@@ -36,21 +36,21 @@ public class MiningMode {
 		playersInMiningMode.remove(entityplayer);
 	}
 
-	public static void toggleMiningModeForPlayer(World world, EntityPlayer entityplayer, MiningToolBelt miningToolBelt) {
+	public static void toggleMiningModeForPlayer(World world, EntityPlayer entityplayer) {
 		if (playersInMiningMode.contains(entityplayer)) {
 			deactivateMiningModeForPlayer(	world,
 											entityplayer);
-			/*
-			 * PacketLib.sendDeactivateMessage(world, entityplayer,
-			 * miningToolBelt.getToolBeltId());
-			 */
+
+			PacketLib.sendDeactivateMessage(world,
+											entityplayer);
+
 		} else {
 			activateMiningModeForPlayer(world,
 										entityplayer);
-			/*
-			 * PacketLib.sendActivateMessage( world, entityplayer,
-			 * miningToolBelt.getToolBeltId());
-			 */
+
+			PacketLib.sendActivateMessage(	world,
+											entityplayer);
+
 		}
 	}
 

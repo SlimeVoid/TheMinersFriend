@@ -77,24 +77,21 @@ public class PacketLib {
 													clientToolBeltHandler);
 	}
 
-	public static void sendToolBeltMessage(World world, EntityPlayer entityplayer, int toolBeltId, String command) {
+	public static void sendToolBeltMessage(World world, EntityPlayer entityplayer, String command) {
 		PacketMiningToolBelt packet = new PacketMiningToolBelt(command);
-		// packet.setToolBeltId(toolBeltId);
 		PacketDispatcher.sendPacketToPlayer(packet.getPacket(),
 											(Player) entityplayer);
 	}
 
-	public static void sendActivateMessage(World world, EntityPlayer entityplayer, int toolBeltId) {
+	public static void sendActivateMessage(World world, EntityPlayer entityplayer) {
 		sendToolBeltMessage(world,
 							entityplayer,
-							toolBeltId,
 							CommandLib.MINING_MODE_ACTIVATED);
 	}
 
-	public static void sendDeactivateMessage(World world, EntityPlayer entityplayer, int toolBeltId) {
+	public static void sendDeactivateMessage(World world, EntityPlayer entityplayer) {
 		sendToolBeltMessage(world,
 							entityplayer,
-							toolBeltId,
 							CommandLib.MINING_MODE_DEACTIVATED);
 	}
 
