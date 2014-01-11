@@ -32,7 +32,7 @@ import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.NBTLib;
-import slimevoid.tmf.items.tools.data.MiningToolBelt;
+import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import slimevoidlib.nbt.NBTHelper;
 
 public class ItemMiningToolBelt extends Item {
@@ -181,8 +181,9 @@ public class ItemMiningToolBelt extends Item {
 	public static boolean doItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		// Retrieves the Selected Tool within the held Tool Belt
 		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+		boolean flag = false;
 		if (tool != null) {
-			return tool.getItem().onItemUse(tool,
+			flag = tool.getItem().onItemUse(tool,
 											entityplayer,
 											world,
 											x,
@@ -192,15 +193,20 @@ public class ItemMiningToolBelt extends Item {
 											hitX,
 											hitY,
 											hitZ);
+			updateToolBelt(	world,
+							entityplayer,
+							itemstack,
+							tool);
 		}
-		return false;
+		return flag;
 	}
 
 	public static boolean doItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		// Retrieves the Selected Tool within the held Tool Belt
 		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+		boolean flag = false;
 		if (tool != null) {
-			return tool.getItem().onItemUseFirst(	tool,
+			flag = tool.getItem().onItemUseFirst(	tool,
 													entityplayer,
 													world,
 													x,
@@ -210,6 +216,10 @@ public class ItemMiningToolBelt extends Item {
 													hitX,
 													hitY,
 													hitZ);
+			updateToolBelt(	world,
+							entityplayer,
+							itemstack,
+							tool);
 		}
 		return false;
 	}
@@ -218,9 +228,14 @@ public class ItemMiningToolBelt extends Item {
 		// Retrieves the Selected Tool within the held Tool Belt
 		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
-			tool.getItem().onEaten(	tool,
-									world,
-									entityplayer);
+			tool = tool.getItem().onEaten(	tool,
+											world,
+											entityplayer);
+
+			updateToolBelt(	world,
+							entityplayer,
+							itemstack,
+							tool);
 		}
 	}
 
@@ -314,7 +329,7 @@ public class ItemMiningToolBelt extends Item {
 	}
 
 	private static void updateToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt, ItemStack tool) {
-		MiningToolBelt data = new MiningToolBelt(world, entityliving, toolBelt);
+		InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, entityliving, toolBelt);
 		data.setInventorySlotContents(	data.selectedTool,
 										tool);
 		updateToolBeltData(	toolBelt,
@@ -322,12 +337,12 @@ public class ItemMiningToolBelt extends Item {
 	}
 
 	private static void updateToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt) {
-		MiningToolBelt data = new MiningToolBelt(world, entityliving, toolBelt);
+		InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, entityliving, toolBelt);
 		updateToolBeltData(	toolBelt,
 							data);
 	}
 
-	private static void updateToolBeltData(ItemStack toolBelt, MiningToolBelt data) {
+	private static void updateToolBeltData(ItemStack toolBelt, InventoryMiningToolBelt data) {
 		toolBelt.stackTagCompound = data.writeToNBT(new NBTTagCompound());
 	}
 
@@ -377,7 +392,7 @@ public class ItemMiningToolBelt extends Item {
 
 	public static ItemStack selectToolForBlock(World world, EntityLivingBase entityliving, Block block, float currentBreakSpeed) {
 		float fastestSpeed = currentBreakSpeed;
-		MiningToolBelt data = new MiningToolBelt(world, entityliving, entityliving.getHeldItem());
+		InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, entityliving, entityliving.getHeldItem());
 		for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
 			ItemStack itemstack = data.getStackInSlot(i);
 			if (itemstack != null) {
@@ -515,22 +530,6 @@ public class ItemMiningToolBelt extends Item {
 							selectedTool);
 			return getToolInSlot(	itemstack,
 									selectedTool);
-		}
-		return null;
-	}
-
-	private static ItemStack tryToSelectTool(ItemStack itemstack, int skipSlot) {
-		for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
-			if (i != skipSlot) {
-				ItemStack tool = getToolInSlot(	itemstack,
-												i);
-				if (tool != null) {
-					setSelectedTool(itemstack,
-									i);
-					return getToolInSlot(	itemstack,
-											i);
-				}
-			}
 		}
 		return null;
 	}

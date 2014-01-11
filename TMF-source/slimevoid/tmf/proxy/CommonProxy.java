@@ -39,8 +39,8 @@ import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.EventLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.PacketLib;
-import slimevoid.tmf.items.tools.data.MiningToolBelt;
 import slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
+import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import slimevoidlib.IPacketHandling;
 import slimevoidlib.core.SlimevoidCore;
@@ -56,7 +56,7 @@ public class CommonProxy implements ITMFCommonProxy {
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {
 		case GuiLib.TOOL_BELT_GUIID:
-			MiningToolBelt data = new MiningToolBelt(world, player, player.getHeldItem());
+			InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, player, player.getHeldItem());
 			return new ContainerMiningToolBelt(player.inventory, data);
 		case GuiLib.REFINERY_GUIID:
 			TileEntity tileRef = SlimevoidHelper.getBlockTileEntity(world,

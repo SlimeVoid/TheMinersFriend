@@ -19,14 +19,14 @@ import net.minecraft.inventory.Slot;
 import org.lwjgl.opengl.GL11;
 
 import slimevoid.tmf.core.lib.ResourceLib;
-import slimevoid.tmf.items.tools.data.MiningToolBelt;
 import slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
+import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 
 public class GuiMiningToolBelt extends GuiContainer {
 
-	MiningToolBelt	data;
+	InventoryMiningToolBelt	data;
 
-	public GuiMiningToolBelt(EntityPlayer entityplayer, MiningToolBelt toolBelt) {
+	public GuiMiningToolBelt(EntityPlayer entityplayer, InventoryMiningToolBelt toolBelt) {
 		super(new ContainerMiningToolBelt(entityplayer.inventory, toolBelt));
 		this.xSize = 177;
 		this.ySize = 221;

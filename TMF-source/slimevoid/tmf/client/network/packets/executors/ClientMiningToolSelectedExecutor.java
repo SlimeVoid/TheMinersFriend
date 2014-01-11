@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import slimevoid.tmf.api.IPacketExecutor;
 import slimevoid.tmf.core.lib.MessageLib;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
-import slimevoid.tmf.items.tools.data.MiningToolBelt;
+import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import slimevoid.tmf.network.packets.PacketMining;
 import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -29,7 +29,7 @@ public class ClientMiningToolSelectedExecutor implements IPacketExecutor {
 	public void execute(PacketMining packet, World world, EntityPlayer entityplayer) {
 		if (packet instanceof PacketMiningToolBelt) {
 			PacketMiningToolBelt packetMT = (PacketMiningToolBelt) packet;
-			MiningToolBelt data = null;
+			InventoryMiningToolBelt data = null;
 			if (data != null) {
 				ItemStack selectedTool = ItemMiningToolBelt.getSelectedTool(entityplayer.getHeldItem());
 				if (selectedTool != null) {

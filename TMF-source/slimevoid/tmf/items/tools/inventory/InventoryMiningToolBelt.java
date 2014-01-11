@@ -9,7 +9,7 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package slimevoid.tmf.items.tools.data;
+package slimevoid.tmf.items.tools.inventory;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,14 +23,14 @@ import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.NBTLib;
 
-public class MiningToolBelt implements IInventory {
+public class InventoryMiningToolBelt implements IInventory {
 
 	World				world;
 	EntityLivingBase	entityliving;
 	public int			selectedTool	= 0;
 	ItemStack[]			miningTools		= new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
 
-	public MiningToolBelt(World world, EntityLivingBase entityliving, ItemStack itemstack) {
+	public InventoryMiningToolBelt(World world, EntityLivingBase entityliving, ItemStack itemstack) {
 		this.world = world;
 		this.entityliving = entityliving;
 		if (itemstack.hasTagCompound()) {

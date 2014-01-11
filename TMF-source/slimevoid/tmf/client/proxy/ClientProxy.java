@@ -42,7 +42,7 @@ import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.KeyBindings;
 import slimevoid.tmf.core.lib.PacketLib;
 import slimevoid.tmf.core.lib.ResourceLib;
-import slimevoid.tmf.items.tools.data.MiningToolBelt;
+import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import slimevoidlib.core.SlimevoidCore;
@@ -122,7 +122,7 @@ public class ClientProxy extends CommonProxy {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {
 		case GuiLib.TOOL_BELT_GUIID:
-			MiningToolBelt data = new MiningToolBelt(world, player, player.getHeldItem());
+			InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, player, player.getHeldItem());
 			return new GuiMiningToolBelt(player, data);
 		case GuiLib.REFINERY_GUIID:
 			TileEntity tile1 = SlimevoidHelper.getBlockTileEntity(	world,

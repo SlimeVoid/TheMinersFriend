@@ -13,14 +13,13 @@ package slimevoid.tmf.core.lib;
 
 public class CommandLib {
 
-	public static final String	PLAY_MOTION_SWEEP			= "playMotionSweep";
-	public static final String	PLAY_MOTION_PING			= "playMotionPing";
-	public static final String	UPDATE_TOOL_BELT_CONTENTS	= "updateToolBelt";
-	public static final String	CYCLE_TOOL_BELT				= "cycleToolBelt";
-	public static final String	UPDATE_TOOL_BELT_TOOL		= "updateSelectedTool";
-	public static final String	TOGGLE_MINING_MODE			= "toggleMiningMode";
-	public static final String	MESSAGE_TOOL_SELECT			= "toolSelected";
-	public static final String	MINING_MODE_ACTIVATED		= "miningModeOn";
-	public static final String	MINING_MODE_DEACTIVATED		= "miningModeOff";
+	public static final String	PLAY_MOTION_SWEEP		= "playMotionSweep";
+	public static final String	PLAY_MOTION_PING		= "playMotionPing";
+	public static final String	CYCLE_TOOL_BELT			= "cycleToolBelt";
+	public static final String	UPDATE_TOOL_BELT_TOOL	= "updateSelectedTool";
+	public static final String	TOGGLE_MINING_MODE		= "toggleMiningMode";
+	public static final String	MESSAGE_TOOL_SELECT		= "toolSelected";
+	public static final String	MINING_MODE_ACTIVATED	= "miningModeOn";
+	public static final String	MINING_MODE_DEACTIVATED	= "miningModeOff";
 
 }
