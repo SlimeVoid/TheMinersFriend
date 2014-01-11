@@ -211,16 +211,12 @@ public class ItemRendererToolBelt implements IItemRenderer {
 	private void doRenderEquippedItem(ItemStack itemstack, RenderBlocks renderBlocks, EntityLivingBase entityliving) {
 		int index = 0;
 		TextureManager texturemanager = this.mc.getTextureManager();
-		if (itemstack != null) {
-			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-			GL11.glPopMatrix();
-			this.mc.entityRenderer.itemRenderer.renderItem(	entityliving,
-															itemstack,
-															index);
-			GL11.glPushMatrix();
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-			return;
-		}
+		/*
+		 * if (itemstack != null) { GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		 * GL11.glPopMatrix(); this.mc.entityRenderer.itemRenderer.renderItem(
+		 * entityliving, itemstack, index); GL11.glPushMatrix();
+		 * GL11.glEnable(GL12.GL_RESCALE_NORMAL); return; }
+		 */
 
 		this.renderItem(entityliving,
 						itemstack,
