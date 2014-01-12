@@ -106,10 +106,8 @@ public class ResourceLib {
 	public static final String				RECIPE_PATH_JSON		= RECIPE_PATH
 																		+ "json/";
 
-	public static final String				RECIPES_REFINERY		= RECIPE_PATH_JSON
-																		+ "refinery.json";
-	public static final String				RECIPES_GRINDER			= RECIPE_PATH_JSON
-																		+ "grinder.json";
+	public static final String				RECIPES_REFINERY		= "refinery.json";
+	public static final String				RECIPES_GRINDER			= "grinder.json";
 
 	public static final String				MINERAL_ACXIUM			= TEXTURE_PREFIX
 																		+ ItemLib.MINERAL_ACXIUM;

@@ -45,6 +45,7 @@ import slimevoid.tmf.items.tools.ItemMotionSensor;
 import slimevoidlib.blocks.BlockBase;
 import slimevoidlib.items.ItemBlockBase;
 import slimevoidlib.util.FileReader;
+import slimevoidlib.util.json.JSONLoader;
 import slimevoidlib.util.xml.XMLRecipeLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -239,10 +240,10 @@ public class TMFCore {
 		EnumMachine.registerMachines();
 
 		// REFINERY
-		JSONRefineryRecipesLoader.loadFile(new File(TMFCore.class.getClassLoader().getResource(ResourceLib.RECIPES_REFINERY).getFile()));
+		JSONLoader.registerJSONLoader(new JSONRefineryRecipesLoader());
 
 		// GRINDER
-		JSONGrinderRecipesLoader.loadFile(new File(TMFCore.class.getClassLoader().getResource(ResourceLib.RECIPES_GRINDER).getFile()));
+		JSONLoader.registerJSONLoader(new JSONGrinderRecipesLoader());
 
 		// GEOLOGICAL EQUIPMENT
 

@@ -11,14 +11,12 @@
  */
 package slimevoid.tmf.blocks.machines.recipes;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.lib.JSONLoaderTMF;
+import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.items.ItemTMF;
 import slimevoid.tmf.items.minerals.ItemMineral;
 import slimevoid.tmf.items.minerals.ItemMineralDust;
@@ -29,7 +27,12 @@ import argo.jdom.JsonRootNode;
 import argo.jdom.JsonStringNode;
 import argo.saj.InvalidSyntaxException;
 
-public class JSONGrinderRecipesLoader {
+public class JSONGrinderRecipesLoader extends JSONLoaderTMF {
+
+	public JSONGrinderRecipesLoader() {
+		super(ResourceLib.RECIPE_PATH_JSON, ResourceLib.RECIPES_GRINDER);
+	}
+
 	private static final JdomParser				parser		= new JdomParser();
 	private static Map<String, ItemTMF>			mineralMap	= new HashMap<String, ItemTMF>();
 	private static Map<String, ItemMineralDust>	dustMap		= new HashMap<String, ItemMineralDust>();
@@ -56,33 +59,8 @@ public class JSONGrinderRecipesLoader {
 					(ItemMineralDust) TMFCore.dustCydrine);
 	}
 
-	public static void loadFile(File json) {
-		if (!json.exists() || !json.isFile() || !json.canRead()) return;
-
-		try {
-			parseJSON(readFile(json));
-		} catch (InvalidSyntaxException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static String readFile(File file) throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader(file));
-		String line = null;
-		StringBuilder stringBuilder = new StringBuilder();
-		String ls = System.getProperty("line.separator");
-
-		while ((line = reader.readLine()) != null) {
-			stringBuilder.append(line);
-			stringBuilder.append(ls);
-		}
-
-		return stringBuilder.toString();
-	}
-
-	private static void parseJSON(String json) throws InvalidSyntaxException {
+	@Override
+	protected void parseJSON(String json) throws InvalidSyntaxException {
 		JsonRootNode root = parser.parse(json);
 
 		for (String mineral : mineralMap.keySet()) {
