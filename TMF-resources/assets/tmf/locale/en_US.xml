@@ -29,7 +29,13 @@
 	<entry key="item.tmf.ingot.acxium.name">Acxium Ingot</entry>
 	<entry key="item.tmf.ingot.bisogen.name">Bisogen Ingot</entry>
 	<entry key="item.tmf.ingot.cydrine.name">Cydrine Ingot</entry>
-	<entry key="item.tmf.dust.acxium.name">Axcium Dust</entry>
+	<entry key="item.tmf.part.acxium_core.name">Acxium Core</entry>
+	<entry key="item.tmf.part.acxogen_screen.name">Acxogen Screen</entry>
+	<entry key="item.tmf.part.alloy_casing.name">Alloy Casing</entry>
+	<entry key="item.tmf.part.bisogen_gear.name">Bisogen Gear</entry>
+	<entry key="item.tmf.part.cydrine_motor.name">Cydrine Motor</entry>
+	<entry key="item.tmf.part.cydrium_sensor.name">Cydrium Sensor</entry>
+	<entry key="item.tmf.dust.acxium.name">Acxium Dust</entry>
 	<entry key="item.tmf.dust.bisogen.name">Bisogen Dust</entry>
 	<entry key="item.tmf.dust.cydrine.name">Cydrine Dust</entry>
 	<entry key="item.tmf.dust.mixed.name">Mixed Dust</entry>

@@ -2,9 +2,9 @@ package slimevoid.tmf.items.parts;
 
 import slimevoid.tmf.items.ItemTMF;
 
-public class ItemPartBase extends ItemTMF {
+public class ItemMachinePart extends ItemTMF {
 
-	public ItemPartBase(int itemId) {
+	public ItemMachinePart(int itemId) {
 		super(itemId);
 		this.setNoRepair();
 	}

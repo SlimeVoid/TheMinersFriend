@@ -138,6 +138,19 @@ public class ResourceLib {
 	public static final String				MINING_TOOLBELT			= TEXTURE_PREFIX
 																		+ ItemLib.MINING_TOOLBELT;
 
+	public static final String				PART_ACXIUM_CORE		= TEXTURE_PREFIX
+																		+ ItemLib.PART_ACXIUM_CORE;
+	public static final String				PART_ACXOGEN_SCREEN		= TEXTURE_PREFIX
+																		+ ItemLib.PART_ACXOGEN_SCREEN;
+	public static final String				PART_ALLOY_CASING		= TEXTURE_PREFIX
+																		+ ItemLib.PART_ALLOY_CASING;
+	public static final String				PART_BISOGEN_GEAR		= TEXTURE_PREFIX
+																		+ ItemLib.PART_BISOGEN_GEAR;
+	public static final String				PART_CYDRINE_MOTOR		= TEXTURE_PREFIX
+																		+ ItemLib.PART_CYDRINE_MOTOR;
+	public static final String				PART_CYDRIUM_SENSOR		= TEXTURE_PREFIX
+																		+ ItemLib.PART_CYDRIUM_SENSOR;
+
 	public static final String				RECIPE_STORE			= TheMinersFriend.proxy.getMinecraftDir()
 																		+ "/config/TMFRecipes";
 

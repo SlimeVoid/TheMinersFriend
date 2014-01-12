@@ -71,4 +71,19 @@ public class ItemLib {
 
 	public static final String	MINING_MODE				= ITEM_PREFIX
 															+ "miningMode";
+
+	private static final String	PART_PREFIX				= ITEM_PREFIX + "part.";
+
+	public static final String	PART_ALLOY_CASING			= PART_PREFIX
+															+ "alloy_casing";
+	public static final String	PART_ACXIUM_CORE				= PART_PREFIX
+															+ "acxium_core";
+	public static final String	PART_ACXOGEN_SCREEN			= PART_PREFIX
+															+ "acxogen_screen";
+	public static final String	PART_BISOGEN_GEAR			= PART_PREFIX
+															+ "bisogen_gear";
+	public static final String	PART_CYDRINE_MOTOR			= PART_PREFIX
+															+ "cydrine_motor";
+	public static final String	PART_CYDRIUM_SENSOR			= PART_PREFIX
+															+ "cydrium_sensor";
 }

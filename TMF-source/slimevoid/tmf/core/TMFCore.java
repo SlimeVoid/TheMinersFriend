@@ -37,6 +37,7 @@ import slimevoid.tmf.items.minerals.ItemMineralDust;
 import slimevoid.tmf.items.minerals.ItemMineralIngot;
 import slimevoid.tmf.items.minerals.ItemMineralMixedDust;
 import slimevoid.tmf.items.minerals.ItemMineralMixedDustRecipe;
+import slimevoid.tmf.items.parts.ItemMachinePart;
 import slimevoid.tmf.items.tools.ItemMiningHelmet;
 import slimevoid.tmf.items.tools.ItemMiningLamp;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
@@ -81,11 +82,20 @@ public class TMFCore {
 	public static int			dustAcxiumId, dustBisogenId, dustCydrineId,
 			dustMixedId;
 
+	// MACHINE PARTS
+	public static Item			partAcxiumCore, partAlloyCasing,
+			partAcxogenScreen, partBisogenGear, partCydrineMotor,
+			partCydriumSensor;
+	public static int			partAcxiumCoreId, partAlloyCasingId,
+			partAcxogenScreenId, partBisogenGearId, partCydrineMotorId,
+			partCydriumSensorId;
+
 	// ======== ITEM REGISTRATION ========
 	public static void registerItems() {
 		registerTools();
 		registerMinerals();
 		registerIngots();
+		registerParts();
 		registerDusts();
 	}
 
@@ -146,6 +156,15 @@ public class TMFCore {
 										1,
 										1,
 										"Monogencyde");
+	}
+
+	private static void registerParts() {
+		partAcxiumCore = new ItemMachinePart(partAcxiumCoreId).setUnlocalizedName(ItemLib.PART_ACXIUM_CORE).setTextureName(ResourceLib.PART_ACXIUM_CORE);
+		partAcxogenScreen = new ItemMachinePart(partAcxogenScreenId).setUnlocalizedName(ItemLib.PART_ACXOGEN_SCREEN).setTextureName(ResourceLib.PART_ACXOGEN_SCREEN);
+		partAlloyCasing = new ItemMachinePart(partAlloyCasingId).setUnlocalizedName(ItemLib.PART_ALLOY_CASING).setTextureName(ResourceLib.PART_ALLOY_CASING);
+		partBisogenGear = new ItemMachinePart(partBisogenGearId).setUnlocalizedName(ItemLib.PART_BISOGEN_GEAR).setTextureName(ResourceLib.PART_BISOGEN_GEAR);
+		partCydrineMotor = new ItemMachinePart(partCydrineMotorId).setUnlocalizedName(ItemLib.PART_CYDRINE_MOTOR).setTextureName(ResourceLib.PART_CYDRINE_MOTOR);
+		partCydriumSensor = new ItemMachinePart(partCydriumSensorId).setUnlocalizedName(ItemLib.PART_CYDRIUM_SENSOR).setTextureName(ResourceLib.PART_CYDRIUM_SENSOR);
 	}
 
 	// ======== FUEL REGISTRATION ========

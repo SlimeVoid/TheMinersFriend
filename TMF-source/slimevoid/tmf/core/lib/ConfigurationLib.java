@@ -55,6 +55,7 @@ public class ConfigurationLib {
 		loadToolBelt();
 		loadMinerals();
 		loadIngots();
+		loadParts();
 		loadDusts();
 		loadOres();
 		loadMachines();
@@ -125,6 +126,27 @@ public class ConfigurationLib {
 		TMFCore.ingotCydrineId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_ITEM,
 																			"ingotCydrine",
 																			15017).getInt());
+	}
+
+	private static void loadParts() {
+		TMFCore.partAcxiumCoreId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_ITEM,
+																				"partAcxiumCore",
+																				15025).getInt());
+		TMFCore.partAcxogenScreenId = Integer.valueOf(TMFCore.configuration.get(Configuration.CATEGORY_ITEM,
+																				"partAcxogenScreen",
+																				15026).getInt());
+		TMFCore.partAlloyCasingId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_ITEM,
+																				"partAlloyCasing",
+																				15027).getInt());
+		TMFCore.partBisogenGearId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_ITEM,
+																				"partBisogenGear",
+																				15028).getInt());
+		TMFCore.partCydrineMotorId = Integer.valueOf(TMFCore.configuration.get(	Configuration.CATEGORY_ITEM,
+																				"partCydrineMotor",
+																				15029).getInt());
+		TMFCore.partCydriumSensorId = Integer.valueOf(TMFCore.configuration.get(Configuration.CATEGORY_ITEM,
+																				"partCydriumSensor",
+																				15030).getInt());
 	}
 
 	private static void loadDusts() {
@@ -219,6 +241,21 @@ public class ConfigurationLib {
 									TMFCore.ingotBisogen.itemID);
 		XMLLoader.addXmlVariable(	"$ingotCydrine",
 									TMFCore.ingotCydrine.itemID);
+
+		/* PARTS */
+
+		XMLLoader.addXmlVariable(	"$partAcxiumCore",
+									TMFCore.partAcxiumCore.itemID);
+		XMLLoader.addXmlVariable(	"$partAlloyCasing",
+									TMFCore.partAlloyCasing.itemID);
+		XMLLoader.addXmlVariable(	"$partAcxogenScreen",
+									TMFCore.partAcxogenScreen.itemID);
+		XMLLoader.addXmlVariable(	"$partBisogenGear",
+									TMFCore.partBisogenGear.itemID);
+		XMLLoader.addXmlVariable(	"$partCydrineMotor",
+									TMFCore.partCydrineMotor.itemID);
+		XMLLoader.addXmlVariable(	"$partCydriumSensor",
+									TMFCore.partCydriumSensor.itemID);
 
 		/* DUSTS */
 
