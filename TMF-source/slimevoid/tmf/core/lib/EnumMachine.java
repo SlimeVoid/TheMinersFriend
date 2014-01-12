@@ -13,17 +13,10 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public enum EnumMachine {
 
-	REFINERY(BlockLib.BLOCK_REFINERY, TileEntityRefinery.class, true), GRINDER(
-			BlockLib.BLOCK_GRINDER,
-			TileEntityGrinder.class,
-			new BlockGrinderRenderer(),
-			true), GEOEQUIP(
-			BlockLib.BLOCK_GEOEQUIPMENT,
-			TileEntityGeologicalEquipment.class,
-			true), AUTOMIXTABLE(
-			BlockLib.BLOCK_AUTOMIXTABLE,
-			TileEntityAutomaticMixingTable.class,
-			false);
+	REFINERY(BlockLib.BLOCK_REFINERY, TileEntityRefinery.class, true),
+	GRINDER(BlockLib.BLOCK_GRINDER, TileEntityGrinder.class, new BlockGrinderRenderer(), true),
+	GEOEQUIP(BlockLib.BLOCK_GEOEQUIPMENT, TileEntityGeologicalEquipment.class, true),
+	AUTOMIXTABLE(BlockLib.BLOCK_AUTOMIXTABLE, TileEntityAutomaticMixingTable.class, false);
 
 	private int								machineId	= this.ordinal();
 	private String							machineName;
