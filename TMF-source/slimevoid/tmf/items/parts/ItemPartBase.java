@@ -1,11 +1,12 @@
 package slimevoid.tmf.items.parts;
 
-import net.minecraft.item.Item;
+import slimevoid.tmf.items.ItemTMF;
 
-public class ItemPartBase extends Item {
+public class ItemPartBase extends ItemTMF {
 
 	public ItemPartBase(int itemId) {
 		super(itemId);
+		this.setNoRepair();
 	}
 
 }
