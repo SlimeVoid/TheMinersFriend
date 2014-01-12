@@ -13,10 +13,10 @@ package slimevoid.tmf.items.minerals;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
+import slimevoid.tmf.items.ItemTMF;
 
-public class ItemMineral extends Item implements IFuelHandlerTMF {
+public class ItemMineral extends ItemTMF implements IFuelHandlerTMF {
 	private int	burnTime	= 1600;
 	private int	burnSpeed	= 200;
 	private int	burnWidth	= 1;
@@ -24,7 +24,6 @@ public class ItemMineral extends Item implements IFuelHandlerTMF {
 	public ItemMineral(int id) {
 		super(id);
 		this.setNoRepair();
-		this.setCreativeTab(CreativeTabTMF.tabTMF);
 	}
 
 	public Item setBurnSettings(int time, int speed, int width) {

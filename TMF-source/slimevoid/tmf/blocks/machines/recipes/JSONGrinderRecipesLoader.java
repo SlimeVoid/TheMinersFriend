@@ -17,10 +17,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.items.ItemTMF;
 import slimevoid.tmf.items.minerals.ItemMineral;
 import slimevoid.tmf.items.minerals.ItemMineralDust;
-
+import slimevoid.tmf.items.minerals.ItemMineralIngot;
 import argo.jdom.JdomParser;
 import argo.jdom.JsonNode;
 import argo.jdom.JsonRootNode;
@@ -29,7 +31,7 @@ import argo.saj.InvalidSyntaxException;
 
 public class JSONGrinderRecipesLoader {
 	private static final JdomParser				parser		= new JdomParser();
-	private static Map<String, ItemMineral>		mineralMap	= new HashMap<String, ItemMineral>();
+	private static Map<String, ItemTMF>			mineralMap	= new HashMap<String, ItemTMF>();
 	private static Map<String, ItemMineralDust>	dustMap		= new HashMap<String, ItemMineralDust>();
 
 	static {
@@ -39,6 +41,12 @@ public class JSONGrinderRecipesLoader {
 						(ItemMineral) TMFCore.mineralBisogen);
 		mineralMap.put(	"cydrine",
 						(ItemMineral) TMFCore.mineralCydrine);
+		mineralMap.put(	"acxiumIngot",
+						(ItemMineralIngot) TMFCore.ingotAcxium);
+		mineralMap.put(	"bisogenIngot",
+						(ItemMineralIngot) TMFCore.ingotBisogen);
+		mineralMap.put(	"cydrine",
+						(ItemMineralIngot) TMFCore.ingotCydrine);
 
 		dustMap.put("acxium",
 					(ItemMineralDust) TMFCore.dustAcxium);
@@ -114,7 +122,7 @@ public class JSONGrinderRecipesLoader {
 		return dustMap.get(dust);
 	}
 
-	private static ItemMineral strToMineral(String mineral) {
+	private static ItemTMF strToMineral(String mineral) {
 		return mineralMap.get(mineral);
 	}
 }

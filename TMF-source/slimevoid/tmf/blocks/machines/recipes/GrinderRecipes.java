@@ -16,8 +16,7 @@ import java.util.Map;
 import java.util.Random;
 
 import net.minecraft.item.ItemStack;
-
-import slimevoid.tmf.items.minerals.ItemMineral;
+import slimevoid.tmf.items.ItemTMF;
 import slimevoid.tmf.items.minerals.ItemMineralDust;
 
 public class GrinderRecipes {
@@ -34,7 +33,7 @@ public class GrinderRecipes {
 		return mineral != null && grindingMap.containsKey(mineral.itemID);
 	}
 
-	public void addRefinement(ItemMineral mineral, int min, int max, ItemMineralDust dust) {
+	public void addRefinement(ItemTMF mineral, int min, int max, ItemMineralDust dust) {
 		GrinderRecipe recipe = new GrinderRecipe();
 		recipe.dust = dust;
 		recipe.min = min;
@@ -44,7 +43,7 @@ public class GrinderRecipes {
 						recipe);
 	}
 
-	public ItemStack getRefiningResult(ItemMineral mineral) {
+	public ItemStack getRefiningResult(ItemTMF mineral) {
 		return getRefiningResult(mineral.itemID);
 	}
 

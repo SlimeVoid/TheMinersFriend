@@ -1,14 +1,12 @@
 package slimevoid.tmf.items.minerals;
 
-import net.minecraft.item.Item;
-import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
+import slimevoid.tmf.items.ItemTMF;
 
-public class ItemMineralIngot extends Item {
+public class ItemMineralIngot extends ItemTMF {
 
 	public ItemMineralIngot(int id) {
 		super(id);
 		this.setNoRepair();
-		this.setCreativeTab(CreativeTabTMF.tabTMF);
 	}
 
 }
