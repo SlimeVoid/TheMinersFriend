@@ -14,6 +14,7 @@ package slimevoid.tmf.core.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -35,7 +36,7 @@ public class ItemHelper {
 	 * Check if a player is holding or using a parsed tool class and return for
 	 * convenience
 	 * 
-	 * @param entityplayer
+	 * @param entitylivingbase
 	 *            the Player to check
 	 * @param world
 	 *            the World of the Player
@@ -43,11 +44,11 @@ public class ItemHelper {
 	 *            the Class of Item to check for
 	 * @return the Held Item or null if the check was unsuccessfull
 	 */
-	private static ItemStack playerIsHoldingOrUsingTool(EntityPlayer entityplayer, World world, Class<? extends Item> itemClass) {
-		if (entityplayer.getHeldItem() != null
-			&& entityplayer.getHeldItem().getItem() != null
-			&& itemClass.isInstance(entityplayer.getHeldItem().getItem())) {
-			return entityplayer.getHeldItem();
+	private static ItemStack playerIsHoldingOrUsingTool(EntityLivingBase entitylivingbase, World world, Class<? extends Item> itemClass) {
+		if (entitylivingbase.getHeldItem() != null
+			&& entitylivingbase.getHeldItem().getItem() != null
+			&& itemClass.isInstance(entitylivingbase.getHeldItem().getItem())) {
+			return entitylivingbase.getHeldItem();
 		}
 		return null;
 	}
@@ -104,8 +105,8 @@ public class ItemHelper {
 	 *            whether we're checking for a held Tool Belt (Should be true)
 	 * @return
 	 */
-	public static ItemStack getToolBelt(EntityPlayer entityplayer, World world, boolean isHeld) {
-		return isHeld ? playerIsHoldingOrUsingTool(	entityplayer,
+	public static ItemStack getToolBelt(EntityLivingBase entitylivingbase, World world, boolean isHeld) {
+		return isHeld ? playerIsHoldingOrUsingTool(	entitylivingbase,
 													world,
 													ItemMiningToolBelt.class) : null;
 	}

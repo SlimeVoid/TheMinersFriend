@@ -9,6 +9,7 @@ public class NBTLib {
 	public static final int		MAX_TOOLS		= 4;
 
 	private static final String	TOOL			= SLOT + "[#]";
+	public static final String	MINING_MODE		= "Mode";
 
 	public static String getToolKey(int slot) {
 		String toolKey = TOOL.replace(	'#',

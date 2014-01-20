@@ -27,7 +27,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
-import slimevoid.tmf.core.data.MiningMode;
 import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.GuiLib;
@@ -48,6 +47,11 @@ public class ItemMiningToolBelt extends Item {
 	@Override
 	public boolean requiresMultipleRenderPasses() {
 		return true;
+	}
+
+	@Override
+	public int getRenderPasses(int metadata) {
+		return super.getRenderPasses(metadata);
 	}
 
 	@Override
@@ -240,6 +244,56 @@ public class ItemMiningToolBelt extends Item {
 	}
 
 	@Override
+	public boolean onLeftClickEntity(ItemStack itemstack, EntityPlayer entityplayer, Entity entity) {
+		return this.doLeftClickEntity(	itemstack,
+										entityplayer,
+										entity);
+	}
+
+	private boolean doLeftClickEntity(ItemStack itemstack, EntityPlayer entityplayer, Entity entity) {
+		// Retrieves the Selected Tool within the held Tool Belt
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+		boolean onLeftClickEntity = false;
+		if (tool != null) {
+			// Perform the onLeftClickEntity method for the itemstack
+			onLeftClickEntity = tool.getItem().onLeftClickEntity(	tool,
+																	entityplayer,
+																	entity);
+			updateToolBelt(	entityplayer.worldObj,
+							entityplayer,
+							itemstack,
+							tool);
+		}
+		// Otherwise return the original value
+		return onLeftClickEntity;
+	}
+
+	@Override
+	public boolean hitEntity(ItemStack stack, EntityLivingBase mob, EntityLivingBase player) {
+		return this.doHitEntity(stack,
+								mob,
+								player);
+	}
+
+	private boolean doHitEntity(ItemStack itemstack, EntityLivingBase mob, EntityLivingBase entityplayer) {
+		// Retrieves the Selected Tool within the held Tool Belt
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+		boolean hitEntity = false;
+		if (tool != null) {
+			// Perform the hitEntity method for the itemstack
+			hitEntity = tool.getItem().hitEntity(	tool,
+													mob,
+													entityplayer);
+			updateToolBelt(	entityplayer.worldObj,
+							entityplayer,
+							itemstack,
+							tool);
+		}
+		// Otherwise return the original value
+		return hitEntity;
+	}
+
+	@Override
 	public boolean onBlockDestroyed(ItemStack itemstack, World world, int x, int y, int z, int side, EntityLivingBase entityliving) {
 		return doDestroyBlock(	itemstack,
 								world,
@@ -328,9 +382,24 @@ public class ItemMiningToolBelt extends Item {
 		return onBlockDestroyed;
 	}
 
+	@Override
+	public float getStrVsBlock(ItemStack itemstack, Block block, int meta) {
+		// Retrieves the Selected Tool within the held Tool Belt
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+		float strVsBlock = 1.0f;
+		if (tool != null) {
+			// Perform the onBlockStartBreak method for the itemstack
+			strVsBlock = tool.getItem().getStrVsBlock(	tool,
+														block,
+														meta);
+		}
+		// Otherwise return the original value
+		return strVsBlock;
+	}
+
 	private static void updateToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt, ItemStack tool) {
 		InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, entityliving, toolBelt);
-		data.setInventorySlotContents(	data.selectedTool,
+		data.setInventorySlotContents(	data.getSelectedSlot(),
 										tool);
 		updateToolBeltData(	toolBelt,
 							data);
@@ -353,6 +422,27 @@ public class ItemMiningToolBelt extends Item {
 		// This Unique ID is used to store world data for a Tool Belt
 	}
 
+	public static void toggleMiningMode(World world, EntityLivingBase entitylivingbase) {
+		ItemStack toolBelt = ItemHelper.getToolBelt(entitylivingbase,
+													world,
+													true);
+		if (toolBelt != null) {
+			InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, entitylivingbase, toolBelt);
+			data.toggleMiningMode();
+			updateToolBeltData(	toolBelt,
+								data);
+		}
+	}
+
+	private static boolean isMiningModeEnabled(ItemStack itemstack) {
+		if (itemstack.hasTagCompound()) {
+			if (itemstack.stackTagCompound.hasKey(NBTLib.MINING_MODE)) {
+				return itemstack.stackTagCompound.getBoolean(NBTLib.MINING_MODE);
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * This performs the interrupted breakSpeed event from Forge Only activates
 	 * if the player is holding a tool belt Used to retrieve a new speed based
@@ -369,20 +459,27 @@ public class ItemMiningToolBelt extends Item {
 		// If the player is still holding the tool belt
 		if (toolBelt != null) {
 			// Retrieves the Tool Belt data
-			ItemStack selectedStack =
+			ItemStack selectedStack = null;
 			// Checks if the player is in Mining Mode
 			// If true then auto select tool for the best STR vs Block
 			// Otherwise return our selected tool
-			MiningMode.isPlayerInMiningMode(event.entityPlayer) ? selectToolForBlock(	event.entityPlayer.worldObj,
-																						event.entityLiving,
-																						event.block,
-																						event.originalSpeed) : getSelectedTool(event.entityLiving.getHeldItem());
+			if (isMiningModeEnabled(toolBelt)) {
+				selectedStack = selectToolForBlock(	event.entityLiving.worldObj,
+													event.entityLiving,
+													toolBelt,
+													event.block,
+													event.metadata,
+													event.originalSpeed);
+			} else {
+				selectedStack = getSelectedTool(toolBelt);
+			}
 			// If an item exists in the selected slot of the Tool Belt
-			if (selectedStack != null) {
+			if (selectedStack != null && selectedStack.getItem() != null) {
 				// Generate break speed for that Tool vs. Block
-				float newSpeed = (selectedStack.getStrVsBlock(event.block))
-									* MiningMode.getPlayerStrength(	event.entityPlayer,
-																	toolBelt);
+				float newSpeed = (selectedStack.getItem().getStrVsBlock(selectedStack,
+																		event.block,
+																		event.metadata))
+									* DataLib.MINING_MODE_STRENGTH;
 				// If the new speed is greater than the speed being parsed in
 				// the event then set the new speed
 				event.newSpeed = newSpeed > event.originalSpeed ? newSpeed : event.originalSpeed;
@@ -390,22 +487,27 @@ public class ItemMiningToolBelt extends Item {
 		}
 	}
 
-	public static ItemStack selectToolForBlock(World world, EntityLivingBase entityliving, Block block, float currentBreakSpeed) {
+	public static ItemStack selectToolForBlock(World world, EntityLivingBase entitylivingbase, ItemStack toolBelt, Block block, int metadata, float currentBreakSpeed) {
 		float fastestSpeed = currentBreakSpeed;
-		InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, entityliving, entityliving.getHeldItem());
-		for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
-			ItemStack itemstack = data.getStackInSlot(i);
-			if (itemstack != null) {
-				float breakSpeed = itemstack.getStrVsBlock(block);
-				if (breakSpeed > fastestSpeed) {
-					fastestSpeed = breakSpeed;
-					data.selectedTool = i;
-					updateToolBeltData(	entityliving.getHeldItem(),
-										data);
+		int selection = getSelectedSlot(toolBelt);
+		InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, entitylivingbase, toolBelt);
+		ItemStack[] tools = data.getTools();
+		if (tools != null) {
+			for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
+				ItemStack itemstack = tools[i];
+				if (itemstack != null && itemstack.getItem() != null) {
+					float breakSpeed = itemstack.getItem().getStrVsBlock(	itemstack,
+																			block,
+																			metadata);
+					if (breakSpeed > fastestSpeed) {
+						fastestSpeed = breakSpeed;
+						selection = i;
+					}
 				}
 			}
 		}
-		return getSelectedTool(entityliving.getHeldItem());
+		return setSelectedTool(	toolBelt,
+								selection);
 	}
 
 	private static void selectTool(World world, EntityLivingBase entityliving, int i) {
@@ -517,7 +619,7 @@ public class ItemMiningToolBelt extends Item {
 			toolBelt.stackTagCompound.setInteger(	NBTLib.SELECTED_TOOL,
 													selectedTool);
 		}
-		return toolBelt;
+		return getSelectedTool(toolBelt);
 	}
 
 	public static ItemStack cycleTool(ItemStack itemstack) {
@@ -527,9 +629,7 @@ public class ItemMiningToolBelt extends Item {
 			if (selectedTool >= DataLib.TOOL_BELT_SELECTED_MAX) {
 				selectedTool = 0;
 			}
-			setSelectedTool(itemstack,
-							selectedTool);
-			return getToolInSlot(	itemstack,
+			return setSelectedTool(	itemstack,
 									selectedTool);
 		}
 		return null;

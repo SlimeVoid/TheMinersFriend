@@ -32,10 +32,8 @@ import slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 import slimevoid.tmf.core.TheMinersFriend;
-import slimevoid.tmf.core.data.MiningMode;
 import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.CoreLib;
-import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.EventLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.PacketLib;
@@ -116,8 +114,6 @@ public class CommonProxy implements ITMFCommonProxy {
 		PacketLib.registerPacketExecutors();
 
 		EventLib.registerCommonEvents();
-
-		MiningMode.init(DataLib.MINING_MODE_STRENGTH);
 	}
 
 	@Override

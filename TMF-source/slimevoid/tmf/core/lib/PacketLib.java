@@ -11,6 +11,7 @@
  */
 package slimevoid.tmf.core.lib;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import slimevoid.tmf.client.network.ClientPacketHandler;
@@ -99,4 +100,16 @@ public class PacketLib {
 											(Player) entityplayer);
 	}
 
+	public static void sendMiningModeMessage(World world, EntityLivingBase entityliving, boolean mode) {
+		if (entityliving instanceof EntityPlayer) {
+			EntityPlayer entityplayer = (EntityPlayer) entityliving;
+			if (mode) {
+				sendActivateMessage(world,
+									entityplayer);
+			} else {
+				sendDeactivateMessage(	world,
+										entityplayer);
+			}
+		}
+	}
 }

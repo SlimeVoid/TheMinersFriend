@@ -22,13 +22,15 @@ import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.NBTLib;
+import slimevoid.tmf.core.lib.PacketLib;
 
 public class InventoryMiningToolBelt implements IInventory {
 
 	World				world;
 	EntityLivingBase	entityliving;
-	public int			selectedTool	= 0;
+	int					selectedTool	= 0;
 	ItemStack[]			miningTools		= new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
+	boolean				mode			= false;
 
 	public InventoryMiningToolBelt(World world, EntityLivingBase entityliving, ItemStack itemstack) {
 		this.world = world;
@@ -36,6 +38,18 @@ public class InventoryMiningToolBelt implements IInventory {
 		if (itemstack.hasTagCompound()) {
 			this.readFromNBT(itemstack.stackTagCompound);
 		}
+	}
+
+	public int getSelectedSlot() {
+		return this.selectedTool;
+	}
+
+	public boolean getMiningMode() {
+		return this.mode;
+	}
+
+	public ItemStack[] getTools() {
+		return this.miningTools;
 	}
 
 	@Override
@@ -136,7 +150,11 @@ public class InventoryMiningToolBelt implements IInventory {
 	public void closeChest() {
 	}
 
-	public void toggleMiningMode(World world, EntityPlayer entityplayer) {
+	public void toggleMiningMode() {
+		this.mode = !this.mode;
+		PacketLib.sendMiningModeMessage(world,
+										this.entityliving,
+										this.mode);
 	}
 
 	@Override
@@ -161,6 +179,7 @@ public class InventoryMiningToolBelt implements IInventory {
 			}
 		}
 		this.selectedTool = nbttagcompound.getInteger(NBTLib.SELECTED_TOOL);
+		this.mode = nbttagcompound.getBoolean(NBTLib.MINING_MODE);
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
@@ -178,6 +197,8 @@ public class InventoryMiningToolBelt implements IInventory {
 								toolsTag);
 		nbttagcompound.setInteger(	NBTLib.SELECTED_TOOL,
 									this.selectedTool);
+		nbttagcompound.setBoolean(	NBTLib.MINING_MODE,
+									this.mode);
 		return nbttagcompound;
 	}
 }
