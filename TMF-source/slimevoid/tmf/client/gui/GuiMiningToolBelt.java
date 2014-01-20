@@ -60,7 +60,7 @@ public class GuiMiningToolBelt extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		int slot = data.selectedTool;
+		int slot = data.getSelectedSlot();
 		this.drawHighLightedSlot(	slot,
 									par1,
 									par2);
