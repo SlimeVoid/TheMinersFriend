@@ -13,9 +13,9 @@ package slimevoid.tmf.blocks.machines.tileentities;
 
 import java.util.HashMap;
 
+import slimevoid.tmf.blocks.machines.EnumMachine;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.lib.BlockLib;
-import slimevoid.tmf.core.lib.EnumMachine;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.fuel.IFuelHandlerTMF;
 import slimevoid.tmf.items.minerals.ItemMineral;
@@ -72,7 +72,7 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	@Override
 	public boolean onBlockActivated(EntityPlayer player) {
 		player.openGui(	TheMinersFriend.instance,
-						GuiLib.GEOEQUIP_GUIID,
+						GuiLib.GUIID_GEOEQUIP,
 						this.worldObj,
 						this.xCoord,
 						this.yCoord,
@@ -364,11 +364,6 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	@Override
 	public void setCurrentFuelStack(ItemStack stack) {
 		fuelStack = stack;
-	}
-
-	@Override
-	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
-		this.isActive = isBurning;
 	}
 
 	@Override

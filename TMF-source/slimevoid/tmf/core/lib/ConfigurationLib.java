@@ -14,6 +14,7 @@ package slimevoid.tmf.core.lib;
 import java.io.File;
 
 import net.minecraftforge.common.Configuration;
+import slimevoid.tmf.blocks.machines.EnumMachine;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.core.TMFCore;
 import slimevoidlib.data.Logger;

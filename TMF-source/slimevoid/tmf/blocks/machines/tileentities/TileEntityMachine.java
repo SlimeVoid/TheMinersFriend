@@ -165,6 +165,10 @@ public abstract class TileEntityMachine extends TileEntityBase implements
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
+		this.updateMachine();
+	}
+
+	protected void updateMachine() {
 		boolean wasBurning = isBurning();
 		boolean inventoryChanged = false;
 
@@ -231,7 +235,9 @@ public abstract class TileEntityMachine extends TileEntityBase implements
 
 	public abstract void setCurrentFuelStack(ItemStack stack);
 
-	public abstract void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z);
+	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
+		this.isActive = isBurning;
+	}
 
 	public int getItemBurnTime(ItemStack stack) {
 		if (stack == null) return 0;

@@ -17,9 +17,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import slimevoid.tmf.blocks.machines.EnumMachine;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.lib.BlockLib;
-import slimevoid.tmf.core.lib.EnumMachine;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.items.minerals.ItemMineralDust;
 import slimevoid.tmf.items.minerals.ItemMineralMixedDust;
@@ -34,7 +34,7 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 	@Override
 	public boolean onBlockActivated(EntityPlayer player) {
 		player.openGui(	TheMinersFriend.instance,
-						GuiLib.MIXINGTABLE_GUIID,
+						GuiLib.GUIID_MIXINGTABLE,
 						this.worldObj,
 						this.xCoord,
 						this.yCoord,
@@ -43,8 +43,7 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 	}
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
+	public void updateMachine() {
 		smeltItem();
 	}
 
@@ -269,6 +268,7 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 
 	@Override
 	public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
+		// DO NOTHING
 	}
 
 	@Override

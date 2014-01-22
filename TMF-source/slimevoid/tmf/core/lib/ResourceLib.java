@@ -69,6 +69,9 @@ public class ResourceLib {
 	public static final String				GUI_AUTOMIXTABLE_PATH	= GUI_PREFIX
 																		+ "automixtable.png";
 	public static final ResourceLocation	GUI_AUTOMIXTABLE		= new ResourceLocation(CoreLib.MOD_RESOURCES, GUI_AUTOMIXTABLE_PATH);
+	public static final String				GUI_STOVE_PATH			= GUI_PREFIX
+																		+ "stove.png";
+	public static final ResourceLocation	GUI_STOVE				= new ResourceLocation(CoreLib.MOD_RESOURCES, GUI_STOVE_PATH);			;
 
 	private static final String				MACHINE_PREFIX			= ASSET_PREFIX
 																		+ PATH_PREFIX

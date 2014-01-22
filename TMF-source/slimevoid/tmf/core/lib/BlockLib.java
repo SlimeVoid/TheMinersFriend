@@ -34,6 +34,8 @@ public class BlockLib {
 																+ "geoEquip";
 	public static final String			BLOCK_AUTOMIXTABLE	= MACHINE_PREFIX
 																+ "autoMixTable";
+	public static final String			BLOCK_COOKER		= MACHINE_PREFIX
+																+ "cooker";
 
 	private static final String			IDLE				= "_idle";
 

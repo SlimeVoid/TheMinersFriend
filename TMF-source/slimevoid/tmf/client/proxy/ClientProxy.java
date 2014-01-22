@@ -15,17 +15,18 @@ import java.io.File;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityStove;
 import slimevoid.tmf.client.gui.GuiAutomaticMixingTable;
 import slimevoid.tmf.client.gui.GuiGeologicalEquipment;
 import slimevoid.tmf.client.gui.GuiGrinder;
 import slimevoid.tmf.client.gui.GuiMiningToolBelt;
 import slimevoid.tmf.client.gui.GuiRefinery;
+import slimevoid.tmf.client.gui.GuiStove;
 import slimevoid.tmf.client.renderers.BlockMachineRenderingHandler;
 import slimevoid.tmf.client.renderers.ItemRendererToolBelt;
 import slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
@@ -46,7 +47,7 @@ import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import slimevoidlib.core.SlimevoidCore;
-import slimevoidlib.util.helpers.SlimevoidHelper;
+import slimevoidlib.util.helpers.BlockHelper;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -121,47 +122,57 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {
-		case GuiLib.TOOL_BELT_GUIID:
+		case GuiLib.GUIID_TOOL_BELT:
 			InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, player, player.getHeldItem());
 			return new GuiMiningToolBelt(player, data);
-		case GuiLib.REFINERY_GUIID:
-			TileEntity tile1 = SlimevoidHelper.getBlockTileEntity(	world,
-																	x,
-																	y,
-																	z);
-			if (tile1 instanceof TileEntityRefinery) {
-				TileEntityRefinery tileRefinery = (TileEntityRefinery) tile1;
+		case GuiLib.GUIID_REFINERY:
+			TileEntityRefinery tileRefinery = (TileEntityRefinery) BlockHelper.getTileEntity(	world,
+																								x,
+																								y,
+																								z,
+																								TileEntityRefinery.class);
+			if (tileRefinery != null) {
 				return new GuiRefinery(player, tileRefinery);
 			}
 			return null;
-		case GuiLib.GRINDER_GUIID:
-			TileEntity tile2 = SlimevoidHelper.getBlockTileEntity(	world,
-																	x,
-																	y,
-																	z);
-			if (tile2 instanceof TileEntityGrinder) {
-				TileEntityGrinder tileGrinder = (TileEntityGrinder) tile2;
+		case GuiLib.GUIID_GRINDER:
+			TileEntityGrinder tileGrinder = (TileEntityGrinder) BlockHelper.getTileEntity(	world,
+																							x,
+																							y,
+																							z,
+																							TileEntityGrinder.class);
+			if (tileGrinder != null) {
 				return new GuiGrinder(player, tileGrinder);
 			}
 			return null;
-		case GuiLib.GEOEQUIP_GUIID:
-			TileEntity tileGeo = SlimevoidHelper.getBlockTileEntity(world,
-																	x,
-																	y,
-																	z);
-			if (tileGeo instanceof TileEntityGeologicalEquipment) {
-				TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) tileGeo;
+		case GuiLib.GUIID_GEOEQUIP:
+			TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) BlockHelper.getTileEntity(	world,
+																													x,
+																													y,
+																													z,
+																													TileEntityGeologicalEquipment.class);
+			if (tileGeoEquip != null) {
 				return new GuiGeologicalEquipment(player, tileGeoEquip);
 			}
 			return null;
-		case GuiLib.MIXINGTABLE_GUIID:
-			TileEntity tileMix = SlimevoidHelper.getBlockTileEntity(world,
-																	x,
-																	y,
-																	z);
-			if (tileMix instanceof TileEntityAutomaticMixingTable) {
-				TileEntityAutomaticMixingTable tileMixTable = (TileEntityAutomaticMixingTable) tileMix;
+		case GuiLib.GUIID_MIXINGTABLE:
+			TileEntityAutomaticMixingTable tileMixTable = (TileEntityAutomaticMixingTable) BlockHelper.getTileEntity(	world,
+																														x,
+																														y,
+																														z,
+																														TileEntityAutomaticMixingTable.class);
+			if (tileMixTable != null) {
 				return new GuiAutomaticMixingTable(player, tileMixTable);
+			}
+			return null;
+		case GuiLib.GUIID_STOVE:
+			TileEntityStove tileStove = (TileEntityStove) BlockHelper.getTileEntity(world,
+																					x,
+																					y,
+																					z,
+																					TileEntityStove.class);
+			if (tileStove != null) {
+				return new GuiStove(player, tileStove);
 			}
 			return null;
 		default:

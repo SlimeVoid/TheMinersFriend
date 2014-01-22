@@ -17,7 +17,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.Icon;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.ConfigurationLib;
-import slimevoid.tmf.core.lib.EnumMachine;
 import slimevoidlib.blocks.BlockBase;
 
 public class BlockMachineBase extends BlockBase {

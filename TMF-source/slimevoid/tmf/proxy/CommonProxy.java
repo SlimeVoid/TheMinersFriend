@@ -53,10 +53,10 @@ public class CommonProxy implements ITMFCommonProxy {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {
-		case GuiLib.TOOL_BELT_GUIID:
+		case GuiLib.GUIID_TOOL_BELT:
 			InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, player, player.getHeldItem());
 			return new ContainerMiningToolBelt(player.inventory, data);
-		case GuiLib.REFINERY_GUIID:
+		case GuiLib.GUIID_REFINERY:
 			TileEntity tileRef = SlimevoidHelper.getBlockTileEntity(world,
 																	x,
 																	y,
@@ -66,7 +66,7 @@ public class CommonProxy implements ITMFCommonProxy {
 				return new ContainerRefinery(player.inventory, tileRefinery);
 			}
 			return null;
-		case GuiLib.GRINDER_GUIID:
+		case GuiLib.GUIID_GRINDER:
 			TileEntity tileGrind = SlimevoidHelper.getBlockTileEntity(	world,
 																		x,
 																		y,
@@ -76,7 +76,7 @@ public class CommonProxy implements ITMFCommonProxy {
 				return new ContainerGrinder(player.inventory, tileGrinder);
 			}
 			return null;
-		case GuiLib.GEOEQUIP_GUIID:
+		case GuiLib.GUIID_GEOEQUIP:
 			TileEntity tileGeo = SlimevoidHelper.getBlockTileEntity(world,
 																	x,
 																	y,
@@ -86,7 +86,7 @@ public class CommonProxy implements ITMFCommonProxy {
 				return new ContainerGeologicalEquipment(player.inventory, tileGeoEquip);
 			}
 			return null;
-		case GuiLib.MIXINGTABLE_GUIID:
+		case GuiLib.GUIID_MIXINGTABLE:
 			TileEntity tileMix = SlimevoidHelper.getBlockTileEntity(world,
 																	x,
 																	y,

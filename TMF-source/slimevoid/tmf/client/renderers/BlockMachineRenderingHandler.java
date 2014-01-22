@@ -18,8 +18,8 @@ import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
 
+import slimevoid.tmf.blocks.machines.EnumMachine;
 import slimevoid.tmf.core.lib.ConfigurationLib;
-import slimevoid.tmf.core.lib.EnumMachine;
 import slimevoidlib.blocks.BlockBase;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 

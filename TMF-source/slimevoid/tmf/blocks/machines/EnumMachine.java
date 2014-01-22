@@ -1,13 +1,16 @@
-package slimevoid.tmf.core.lib;
+package slimevoid.tmf.blocks.machines;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.util.Icon;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
+import slimevoid.tmf.blocks.machines.tileentities.TileEntityStove;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 import slimevoid.tmf.client.renderers.handlers.BlockGrinderRenderer;
 import slimevoid.tmf.core.TMFCore;
+import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.CoreLib;
 import slimevoidlib.tileentity.TileEntityBase;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
@@ -16,7 +19,8 @@ public enum EnumMachine {
 	REFINERY(BlockLib.BLOCK_REFINERY, TileEntityRefinery.class, true),
 	GRINDER(BlockLib.BLOCK_GRINDER, TileEntityGrinder.class, new BlockGrinderRenderer(), true),
 	GEOEQUIP(BlockLib.BLOCK_GEOEQUIPMENT, TileEntityGeologicalEquipment.class, true),
-	AUTOMIXTABLE(BlockLib.BLOCK_AUTOMIXTABLE, TileEntityAutomaticMixingTable.class, false);
+	AUTOMIXTABLE(BlockLib.BLOCK_AUTOMIXTABLE, TileEntityAutomaticMixingTable.class, false),
+	STOVE(BlockLib.BLOCK_COOKER, TileEntityStove.class, true);
 
 	private int								machineId	= this.ordinal();
 	private String							machineName;
