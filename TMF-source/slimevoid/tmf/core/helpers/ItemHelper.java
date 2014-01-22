@@ -26,6 +26,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import slimevoid.tmf.core.lib.DataLib;
+import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.NBTLib;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import slimevoid.tmf.items.tools.ItemMotionSensor;
@@ -132,6 +133,10 @@ public class ItemHelper {
 		}
 	}
 
+	public static boolean isItem(ItemStack itemstack) {
+		return itemstack != null && itemstack.getItem() != null;
+	}
+
 	/**
 	 * Checks whether a given ItemStack is a Tool belt
 	 * 
@@ -140,7 +145,8 @@ public class ItemHelper {
 	 * @return true or false
 	 */
 	public static boolean isToolBelt(ItemStack itemstack) {
-		return (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMiningToolBelt);
+		return isItem(itemstack)
+				&& itemstack.getItem() instanceof ItemMiningToolBelt;
 	}
 
 	/**
@@ -150,8 +156,37 @@ public class ItemHelper {
 	 * @return ItemBlock or not
 	 */
 	public static boolean isItemBlock(ItemStack itemstack) {
-		return (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemBlock);
+		return isItem(itemstack) && itemstack.getItem() instanceof ItemBlock;
 	}
+
+	/*
+	 * Infi Tool Check for Tinkers Construct compatibility
+	 */
+
+	/**
+	 * Checks to see whether or not tools belong to the infi tool list
+	 * 
+	 * @param itemstack
+	 * @return if is INFI_TOOL
+	 */
+	public static boolean isItemInfiTool(ItemStack itemstack) {
+		return isItem(itemstack)
+				&& itemstack.getUnlocalizedName().startsWith(ItemLib.INFI_TOOL);
+	}
+
+	public static boolean isItemInfiPickaxe(ItemStack itemstack) {
+		return isItemInfiTool(itemstack)
+				&& itemstack.getUnlocalizedName().contains(ItemLib.INFI_TOOL_PICKAXE);
+	}
+
+	public static boolean isItemInfiShovel(ItemStack itemstack) {
+		return isItemInfiTool(itemstack)
+				&& itemstack.getUnlocalizedName().contains(ItemLib.INFI_TOOL_SHOVEL);
+	}
+
+	/*
+	 * End Infi Tool Check
+	 */
 
 	/**
 	 * Checks it the given ItemStack is an instance of ItemPickaxe
@@ -160,7 +195,8 @@ public class ItemHelper {
 	 * @return ItemPickaxe or not
 	 */
 	public static boolean isItemPickaxe(ItemStack itemstack) {
-		return (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemPickaxe);
+		return isItem(itemstack)
+				&& (itemstack.getItem() instanceof ItemPickaxe || isItemInfiPickaxe(itemstack));
 	}
 
 	/**
@@ -170,7 +206,8 @@ public class ItemHelper {
 	 * @return ItemSpade or not
 	 */
 	public static boolean isItemSpade(ItemStack itemstack) {
-		return (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemSpade);
+		return isItem(itemstack)
+				&& (itemstack.getItem() instanceof ItemSpade || isItemInfiShovel(itemstack));
 	}
 
 	/**
@@ -180,7 +217,8 @@ public class ItemHelper {
 	 * @return ItemMotionSensor or not
 	 */
 	public static boolean isItemMotionSensor(ItemStack itemstack) {
-		return (itemstack != null && itemstack.getItem() != null && itemstack.getItem() instanceof ItemMotionSensor);
+		return isItem(itemstack)
+				&& itemstack.getItem() instanceof ItemMotionSensor;
 	}
 
 	public static ItemStack getSelectedTool(ItemStack itemstack) {

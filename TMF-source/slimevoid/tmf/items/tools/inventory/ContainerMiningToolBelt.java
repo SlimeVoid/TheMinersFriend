@@ -33,18 +33,6 @@ public class ContainerMiningToolBelt extends Container {
 		this.addSlotToContainer(new SlotMiningToolBelt(toolBelt, 2, 92, 37)); // Etc
 
 		this.addSlotToContainer(new SlotMiningToolBelt(toolBelt, 3, 92, 59)); // Sensor
-		/*
-		 * for (int inventoryRowIndex = 0; inventoryRowIndex < 3;
-		 * ++inventoryRowIndex) { for (int inventoryColumnIndex = 0;
-		 * inventoryColumnIndex < 9; ++inventoryColumnIndex) {
-		 * this.addSlotToContainer(new Slot(playerInventory,
-		 * inventoryColumnIndex + inventoryRowIndex * 9 + 9, 8 +
-		 * inventoryColumnIndex * 18, 94 + 46 + inventoryRowIndex * 18)); } }
-		 * for (int actionBarSlotIndex = 0; actionBarSlotIndex < 9;
-		 * ++actionBarSlotIndex) { this.addSlotToContainer(new
-		 * Slot(playerInventory, actionBarSlotIndex, 8 + actionBarSlotIndex *
-		 * 18, 152+46)); }
-		 */
 
 		bindPlayerInventory(playerInventory);
 	}
