@@ -514,7 +514,7 @@ public class MotionSensorTickHandler implements ITickHandler {
 
 	private float getPingPitch(double distSq2d) {
 		int maxDistSq = maxEntityDistance * maxEntityDistance;
-		float pitch = (float) (distSq2d / (maxEntityDistance * maxEntityDistance));
+		float pitch = (float) (distSq2d / maxDistSq);
 		float absolutePitch = 1F - pitch;
 		return absolutePitch;
 	}
