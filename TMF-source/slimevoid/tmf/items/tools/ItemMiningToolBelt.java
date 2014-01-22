@@ -119,7 +119,7 @@ public class ItemMiningToolBelt extends Item {
 								entityplayer);
 		} else {
 			entityplayer.openGui(	TheMinersFriend.instance,
-									GuiLib.TOOL_BELT_GUIID,
+									GuiLib.GUIID_TOOL_BELT,
 									world,
 									(int) entityplayer.posX,
 									(int) entityplayer.posY,
