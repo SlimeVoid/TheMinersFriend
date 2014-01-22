@@ -108,6 +108,36 @@ public class ItemMiningToolBelt extends Item {
 				NBTTagCompound nbttagcompound = itemstack.getTagCompound();
 				// System.out.println(nbttagcompound);
 			}
+			this.doTickTools(	itemstack,
+								world,
+								entity,
+								tick,
+								isHeld);
+		}
+	}
+
+	private void doTickTools(ItemStack itemstack, World world, Entity entity, int tick, boolean isHeld) {
+		if (ItemHelper.isToolBelt(itemstack)) {
+			ItemStack[] tools = ItemHelper.getTools(itemstack.stackTagCompound);
+			for (ItemStack tool : tools) {
+				if (tool != null) {
+					this.doTickTool(tool,
+									world,
+									entity,
+									tick,
+									isHeld);
+				}
+			}
+		}
+	}
+
+	private void doTickTool(ItemStack tool, World world, Entity entity, int tick, boolean isHeld) {
+		if (tool != null && tool.getItem() != null) {
+			tool.getItem().onUpdate(tool,
+									world,
+									entity,
+									tick,
+									isHeld);
 		}
 	}
 
