@@ -16,7 +16,6 @@ import net.minecraft.network.NetLoginHandler;
 import net.minecraft.network.packet.NetHandler;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.server.MinecraftServer;
-import slimevoid.tmf.core.helpers.ItemHelper;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.Player;
 
@@ -24,7 +23,6 @@ public class TMFConnectionHandler implements IConnectionHandler {
 
 	@Override
 	public void playerLoggedIn(Player player, NetHandler netHandler, INetworkManager manager) {
-		ItemHelper.checkForToolBelts(player);
 	}
 
 	@Override

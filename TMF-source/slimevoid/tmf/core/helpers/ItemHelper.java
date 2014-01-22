@@ -30,7 +30,6 @@ import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.NBTLib;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import slimevoid.tmf.items.tools.ItemMotionSensor;
-import cpw.mods.fml.common.network.Player;
 
 public class ItemHelper {
 	/**
@@ -110,27 +109,6 @@ public class ItemHelper {
 		return isHeld ? playerIsHoldingOrUsingTool(	entitylivingbase,
 													world,
 													ItemMiningToolBelt.class) : null;
-	}
-
-	/**
-	 * Perform the check for Tool Belts (on player login)
-	 * 
-	 * @param player
-	 *            the Player to check
-	 */
-	public static void checkForToolBelts(Player player) {
-		EntityPlayer entityplayer = (EntityPlayer) player;
-		// For every Tool Belt the Player has in their inventory
-		for (ItemStack toolBelt : getToolBelts(	entityplayer,
-												entityplayer.worldObj)) {
-			// Retrieve the Tool Belt Data
-			// if (data != null) {
-			// If Data Exists Send the Data to the Player to Update their
-			// inventory
-			// PacketDispatcher.sendPacketToPlayer(data.createPacket().getPacket(),
-			// player);
-			// }
-		}
 	}
 
 	public static boolean isItem(ItemStack itemstack) {
