@@ -98,6 +98,8 @@ public class ItemLib {
 	public static final String			INFI_TOOL				= "item.InfiTool";
 
 	public static final CharSequence	INFI_TOOL_PICKAXE		= "Pickaxe";
-
+	public static final CharSequence	INFI_TOOL_HAMMER		= "Hammer";
 	public static final CharSequence	INFI_TOOL_SHOVEL		= "Shovel";
+	public static final CharSequence	INFI_TOOL_MATTOCK		= "Mattock";
+	public static final CharSequence	INFI_TOOL_EXCAVATOR		= "Excavator";
 }

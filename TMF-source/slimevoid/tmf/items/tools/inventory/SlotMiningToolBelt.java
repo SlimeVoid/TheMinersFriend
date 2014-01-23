@@ -45,7 +45,8 @@ public class SlotMiningToolBelt extends Slot {
 	}
 
 	private boolean isValidSlotForItem(ItemStack itemstack) {
-		return this.getSlotIndex() == 2;
+		return this.getSlotIndex() == 2
+				&& !ItemHelper.isItemMotionSensor(itemstack);
 	}
 
 	private boolean isValidSlotForMotionSensor(ItemStack itemstack) {

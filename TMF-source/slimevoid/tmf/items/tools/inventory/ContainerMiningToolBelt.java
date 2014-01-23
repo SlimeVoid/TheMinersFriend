@@ -17,6 +17,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import slimevoidlib.util.helpers.ContainerHelper;
 
 public class ContainerMiningToolBelt extends Container {
 
@@ -65,7 +66,7 @@ public class ContainerMiningToolBelt extends Container {
 			stack = stackInSlot.copy();
 
 			// merges the item into player inventory since its in the inventory
-			if (slot == 0) {
+			if (slot <= 3) {
 				if (!mergeItemStack(stackInSlot,
 									1,
 									inventorySlots.size(),
@@ -74,10 +75,11 @@ public class ContainerMiningToolBelt extends Container {
 				}
 				// places it into the inventory is possible since its in the
 				// player inventory
-			} else if (!mergeItemStack(	stackInSlot,
-										0,
-										1,
-										false)) {
+			} else if (!ContainerHelper.mergeItemStack(	this,
+														stackInSlot,
+														0,
+														4,
+														false)) {
 				return null;
 			}
 

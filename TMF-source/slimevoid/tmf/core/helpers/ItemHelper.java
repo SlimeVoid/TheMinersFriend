@@ -153,13 +153,28 @@ public class ItemHelper {
 	}
 
 	public static boolean isItemInfiPickaxe(ItemStack itemstack) {
-		return isItemInfiTool(itemstack)
-				&& itemstack.getUnlocalizedName().contains(ItemLib.INFI_TOOL_PICKAXE);
+		boolean flag = false;
+		if (isItemInfiTool(itemstack)) {
+			String stackName = itemstack.getUnlocalizedName();
+			if (stackName.contains(ItemLib.INFI_TOOL_PICKAXE)
+				|| stackName.contains(ItemLib.INFI_TOOL_HAMMER)) {
+				flag = true;
+			}
+		}
+		return flag;
 	}
 
 	public static boolean isItemInfiShovel(ItemStack itemstack) {
-		return isItemInfiTool(itemstack)
-				&& itemstack.getUnlocalizedName().contains(ItemLib.INFI_TOOL_SHOVEL);
+		boolean flag = false;
+		if (isItemInfiTool(itemstack)) {
+			String stackName = itemstack.getUnlocalizedName();
+			if (stackName.contains(ItemLib.INFI_TOOL_SHOVEL)
+				|| stackName.contains(ItemLib.INFI_TOOL_MATTOCK)
+				|| stackName.contains(ItemLib.INFI_TOOL_EXCAVATOR)) {
+				flag = true;
+			}
+		}
+		return flag;
 	}
 
 	/*
@@ -213,14 +228,19 @@ public class ItemHelper {
 		return null;
 	}
 
-	public static ItemStack[] getTools(NBTTagCompound nbttagcompound) {
-		NBTTagList toolsTag = nbttagcompound.getTagList(NBTLib.TOOLS);
+	public static ItemStack[] getTools(ItemStack itemstack) {
 		ItemStack[] miningTools = new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
-		for (int i = 0; i < toolsTag.tagCount(); i++) {
-			NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.tagAt(i);
-			byte slot = tagCompound.getByte("Slot");
-			if (slot >= 0 && slot < miningTools.length) {
-				miningTools[slot] = ItemStack.loadItemStackFromNBT(tagCompound);
+		if (itemstack.hasTagCompound()) {
+			NBTTagCompound nbttagcompound = itemstack.getTagCompound();
+			if (nbttagcompound != null && nbttagcompound.hasKey(NBTLib.TOOLS)) {
+				NBTTagList toolsTag = nbttagcompound.getTagList(NBTLib.TOOLS);
+				for (int i = 0; i < toolsTag.tagCount(); i++) {
+					NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.tagAt(i);
+					byte slot = tagCompound.getByte(NBTLib.SLOT);
+					if (slot >= 0 && slot < miningTools.length) {
+						miningTools[slot] = ItemStack.loadItemStackFromNBT(tagCompound);
+					}
+				}
 			}
 		}
 		return miningTools;

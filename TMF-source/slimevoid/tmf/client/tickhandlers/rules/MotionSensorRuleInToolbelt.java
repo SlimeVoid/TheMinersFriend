@@ -40,7 +40,7 @@ public class MotionSensorRuleInToolbelt implements IMotionSensorRule {
 		if (itemstack != null && itemstack.getItem() != null
 			&& itemstack.getItem() instanceof ItemMiningToolBelt) {
 			if (itemstack.hasTagCompound()) {
-				ItemStack[] tools = ItemHelper.getTools(itemstack.stackTagCompound);
+				ItemStack[] tools = ItemHelper.getTools(itemstack);
 				for (int j = 0; j < DataLib.TOOL_BELT_MAX_SIZE; j++) {
 					ItemStack itemstack2 = tools[j];
 					if (itemstack2 != null && itemstack2.getItem() != null
