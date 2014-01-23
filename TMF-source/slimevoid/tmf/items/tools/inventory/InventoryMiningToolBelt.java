@@ -35,7 +35,7 @@ public class InventoryMiningToolBelt implements IInventory {
 	public InventoryMiningToolBelt(World world, EntityLivingBase entityliving, ItemStack itemstack) {
 		this.world = world;
 		this.entityliving = entityliving;
-		if (itemstack.hasTagCompound()) {
+		if (itemstack != null && itemstack.hasTagCompound()) {
 			this.readFromNBT(itemstack.stackTagCompound);
 		}
 	}
@@ -109,30 +109,12 @@ public class InventoryMiningToolBelt implements IInventory {
 		return 64;
 	}
 
-	/**
-	 * Notify this Tool Belt that changes have happened
-	 * 
-	 * @param sendUpdate
-	 *            whether or not we should send updates to connected Players
-	 */
-	public void onInventoryChanged(boolean sendUpdate) {
-		this.onInventoryChanged();
-		if (sendUpdate) this.sendUpdate();
-	}
-
-	/**
-	 * Send the updated Tool Belt data to players connected Kind of Hammer to
-	 * the fly for the moment
-	 */
-	private void sendUpdate() {
-		// PacketDispatcher.sendPacketToAllPlayers(this.createPacket().getPacket());
-	}
-
 	@Override
 	public void onInventoryChanged() {
 		ItemStack heldItem = entityliving.getHeldItem();
 		if (ItemHelper.isToolBelt(heldItem)) {
-			heldItem.stackTagCompound = this.writeToNBT(new NBTTagCompound());
+			heldItem.stackTagCompound = new NBTTagCompound();
+			this.writeToNBT(heldItem.stackTagCompound);
 		}
 
 	}
@@ -182,7 +164,7 @@ public class InventoryMiningToolBelt implements IInventory {
 		this.mode = nbttagcompound.getBoolean(NBTLib.MINING_MODE);
 	}
 
-	public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
+	public void writeToNBT(NBTTagCompound nbttagcompound) {
 		NBTTagList toolsTag = new NBTTagList();
 		for (int i = 0; i < this.miningTools.length; i++) {
 			if (miningTools[i] != null) {
@@ -199,6 +181,5 @@ public class InventoryMiningToolBelt implements IInventory {
 									this.selectedTool);
 		nbttagcompound.setBoolean(	NBTLib.MINING_MODE,
 									this.mode);
-		return nbttagcompound;
 	}
 }

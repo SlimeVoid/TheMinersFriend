@@ -444,14 +444,9 @@ public class ItemMiningToolBelt extends Item {
 							data);
 	}
 
-	private static void updateToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt) {
-		InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, entityliving, toolBelt);
-		updateToolBeltData(	toolBelt,
-							data);
-	}
-
 	private static void updateToolBeltData(ItemStack toolBelt, InventoryMiningToolBelt data) {
-		toolBelt.stackTagCompound = data.writeToNBT(new NBTTagCompound());
+		toolBelt.stackTagCompound = new NBTTagCompound();
+		data.writeToNBT(toolBelt.stackTagCompound);
 	}
 
 	@Override
