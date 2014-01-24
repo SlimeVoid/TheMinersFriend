@@ -631,7 +631,7 @@ public class ItemMiningToolBelt extends Item {
 	}
 
 	private static int getSelectedSlot(ItemStack itemstack) {
-		if (itemstack.hasTagCompound()) {
+		if (ItemHelper.isToolBelt(itemstack)) {
 			int selectedTool = NBTHelper.getTagInteger(	itemstack,
 														NBTLib.SELECTED_TOOL,
 														0);
