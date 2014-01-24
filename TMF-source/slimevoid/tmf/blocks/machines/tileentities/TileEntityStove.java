@@ -11,6 +11,8 @@
  */
 package slimevoid.tmf.blocks.machines.tileentities;
 
+import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -238,6 +240,15 @@ public class TileEntityStove extends TileEntityMachine {
 
 		if (inventoryChanged) {
 			this.onInventoryChanged();
+		}
+	}
+
+	@Override
+	protected void addHarvestContents(ArrayList<ItemStack> harvestList) {
+		for (ItemStack itemstack : this.stoveItemStacks) {
+			if (itemstack != null) {
+				harvestList.add(itemstack);
+			}
 		}
 	}
 }

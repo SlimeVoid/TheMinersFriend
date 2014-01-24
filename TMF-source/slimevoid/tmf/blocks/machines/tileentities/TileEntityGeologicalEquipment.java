@@ -11,20 +11,21 @@
  */
 package slimevoid.tmf.blocks.machines.tileentities;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
-import slimevoid.tmf.blocks.machines.EnumMachine;
-import slimevoid.tmf.core.TheMinersFriend;
-import slimevoid.tmf.core.lib.BlockLib;
-import slimevoid.tmf.core.lib.GuiLib;
-import slimevoid.tmf.fuel.IFuelHandlerTMF;
-import slimevoid.tmf.items.minerals.ItemMineral;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
+import slimevoid.tmf.blocks.machines.EnumMachine;
+import slimevoid.tmf.core.TheMinersFriend;
+import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.GuiLib;
+import slimevoid.tmf.fuel.IFuelHandlerTMF;
+import slimevoid.tmf.items.minerals.ItemMineral;
 
 public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	/**
@@ -380,5 +381,12 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 	@Override
 	public int getExtendedBlockID() {
 		return EnumMachine.GEOEQUIP.getId();
+	}
+
+	@Override
+	protected void addHarvestContents(ArrayList<ItemStack> harvestList) {
+		if (this.fuelStack != null) {
+			harvestList.add(this.fuelStack);
+		}
 	}
 }

@@ -11,6 +11,8 @@
  */
 package slimevoid.tmf.blocks.machines.tileentities;
 
+import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -216,6 +218,15 @@ public class TileEntityGrinder extends TileEntityMachine {
 	@Override
 	public int getExtendedBlockID() {
 		return EnumMachine.GRINDER.getId();
+	}
+
+	@Override
+	protected void addHarvestContents(ArrayList<ItemStack> harvestList) {
+		for (ItemStack itemstack : this.grinderItemStacks) {
+			if (itemstack != null) {
+				harvestList.add(itemstack);
+			}
+		}
 	}
 
 }
