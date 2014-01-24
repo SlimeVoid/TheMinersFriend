@@ -654,7 +654,7 @@ public class ItemMiningToolBelt extends Item {
 	}
 
 	public static ItemStack cycleTool(ItemStack itemstack) {
-		if (itemstack.hasTagCompound()) {
+		if (ItemHelper.isToolBelt(itemstack)) {
 			int selectedTool = getSelectedSlot(itemstack);
 			selectedTool++;
 			if (selectedTool >= DataLib.TOOL_BELT_SELECTED_MAX) {
