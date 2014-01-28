@@ -16,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.tmf.api.IPacketExecutor;
 import slimevoid.tmf.core.helpers.ItemHelper;
-import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import slimevoid.tmf.network.packets.PacketMining;
 import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
@@ -27,8 +26,8 @@ public class ToolBeltCycleToolExecutor implements IPacketExecutor {
 		if (packet instanceof PacketMiningToolBelt) {
 			ItemStack itemstack = entityplayer.getHeldItem();
 			if (ItemHelper.isToolBelt(itemstack)) {
-				ItemStack currentTool = ItemMiningToolBelt.getSelectedTool(itemstack);
-				ItemStack newTool = ItemMiningToolBelt.cycleTool(itemstack);
+				ItemStack currentTool = ItemHelper.getSelectedTool(itemstack);
+				ItemStack newTool = ItemHelper.getNextSelectedTool(itemstack);
 				if (!ItemStack.areItemStacksEqual(	currentTool,
 													newTool)) {
 					/*

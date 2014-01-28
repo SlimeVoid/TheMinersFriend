@@ -13,15 +13,13 @@ package slimevoid.tmf.core.events;
 
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
-import slimevoid.tmf.items.tools.ItemMiningToolBelt;
+import slimevoid.tmf.core.helpers.ItemHelper;
 
 public class MiningToolBeltHarvestCheck {
 
 	@ForgeSubscribe
 	public void onHarvestCheck(HarvestCheck event) {
-		// if (!event.entityPlayer.worldObj.isRemote) {
-		ItemMiningToolBelt.doHarvestCheck(event);
-		// }
+		ItemHelper.doHarvestCheck(event);
 	}
 
 }

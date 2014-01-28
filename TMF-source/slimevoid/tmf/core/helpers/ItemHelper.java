@@ -25,6 +25,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.EntityInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.NBTLib;
@@ -218,7 +221,7 @@ public class ItemHelper {
 		// Check that the current itemstack is a Tool Belt
 		if (isToolBelt(itemstack)) {
 			// Retrieve the selected tool
-			ItemStack selectedTool = ItemMiningToolBelt.getSelectedTool(itemstack);
+			ItemStack selectedTool = ((ItemMiningToolBelt) itemstack.getItem()).getSelectedTool(itemstack);
 			// If there is a tool in the selected slot
 			if (selectedTool != null) {
 				// Perform the onBlockDestroyed using that Tool
@@ -244,5 +247,46 @@ public class ItemHelper {
 			}
 		}
 		return miningTools;
+	}
+
+	public static void doBreakSpeed(BreakSpeed event) {
+		ItemStack heldItem = event.entityLiving.getHeldItem();
+		if (isToolBelt(heldItem)) {
+			((ItemMiningToolBelt) heldItem.getItem()).doBreakSpeed(	event,
+																	heldItem);
+		}
+	}
+
+	public static boolean doEntityInteract(EntityInteractEvent event) {
+		ItemStack heldItem = event.entityLiving.getHeldItem();
+		if (isToolBelt(heldItem)) {
+			return ((ItemMiningToolBelt) heldItem.getItem()).doEntityInteract(	event,
+																				heldItem);
+		}
+		return false;
+	}
+
+	public static void doHarvestCheck(HarvestCheck event) {
+
+		ItemStack heldItem = event.entityLiving.getHeldItem();
+		if (isToolBelt(heldItem)) {
+			((ItemMiningToolBelt) heldItem.getItem()).doHarvestCheck(	event,
+																		heldItem);
+		}
+	}
+
+	public static ItemStack getNextSelectedTool(ItemStack itemstack) {
+		if (isToolBelt(itemstack)) {
+			return ((ItemMiningToolBelt) itemstack.getItem()).cycleTool(itemstack);
+		}
+		return null;
+	}
+
+	public static void toggleMiningMode(World world, EntityPlayer entityplayer, ItemStack itemstack) {
+		if (isToolBelt(itemstack)) {
+			((ItemMiningToolBelt) itemstack.getItem()).toggleMiningMode(world,
+																		entityplayer,
+																		itemstack);
+		}
 	}
 }

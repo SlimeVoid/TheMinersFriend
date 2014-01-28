@@ -13,14 +13,12 @@ package slimevoid.tmf.core.events;
 
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import slimevoid.tmf.items.tools.ItemMiningToolBelt;
+import slimevoid.tmf.core.helpers.ItemHelper;
 
 public class MiningToolBeltBreakSpeed {
 
 	@ForgeSubscribe
 	public void onBreakSpeed(BreakSpeed event) {
-		// if (!event.entityPlayer.worldObj.isRemote) {
-		ItemMiningToolBelt.doBreakSpeed(event);
-		// }
+		ItemHelper.doBreakSpeed(event);
 	}
 }

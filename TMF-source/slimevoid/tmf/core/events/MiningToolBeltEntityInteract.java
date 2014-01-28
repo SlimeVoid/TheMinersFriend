@@ -11,15 +11,15 @@
  */
 package slimevoid.tmf.core.events;
 
-import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
+import slimevoid.tmf.core.helpers.ItemHelper;
 
 public class MiningToolBeltEntityInteract {
 
 	@ForgeSubscribe
 	public void onPlayerInteract(EntityInteractEvent event) {
-		event.setCanceled(ItemMiningToolBelt.doEntityInteract(event));
+		event.setCanceled(ItemHelper.doEntityInteract(event));
 	}
 
 }

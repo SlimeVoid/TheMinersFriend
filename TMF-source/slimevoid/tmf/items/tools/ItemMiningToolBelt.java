@@ -60,7 +60,7 @@ public class ItemMiningToolBelt extends Item {
 		return this.isToolDamaged(itemstack);
 	}
 
-	private boolean isToolDamaged(ItemStack itemstack) {
+	protected boolean isToolDamaged(ItemStack itemstack) {
 		// Retrieves the Selected Tool within the held Tool Belt
 		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
@@ -74,7 +74,7 @@ public class ItemMiningToolBelt extends Item {
 		return this.getMaxToolDamage(itemstack);
 	}
 
-	private int getMaxToolDamage(ItemStack itemstack) {
+	protected int getMaxToolDamage(ItemStack itemstack) {
 		// Retrieves the Selected Tool within the held Tool Belt
 		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
@@ -84,17 +84,39 @@ public class ItemMiningToolBelt extends Item {
 	}
 
 	@Override
+	public int getDamage(ItemStack itemstack) {
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+		if (tool != null) {
+			tool.getItemDamage();
+		}
+		return super.getDamage(itemstack);
+	}
+
+	@Override
 	public int getDisplayDamage(ItemStack itemstack) {
 		return this.getToolDisplayDamage(itemstack);
 	}
 
-	private int getToolDisplayDamage(ItemStack itemstack) {
+	protected int getToolDisplayDamage(ItemStack itemstack) {
 		// Retrieves the Selected Tool within the held Tool Belt
 		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null) {
 			return tool.getItemDamage();
 		}
 		return 0;
+	}
+
+	@Override
+	public void setDamage(ItemStack itemstack, int damage) {
+		this.setToolDamage(	itemstack,
+							damage);
+	}
+
+	protected void setToolDamage(ItemStack itemstack, int damage) {
+		ItemStack tool = getSelectedTool(itemstack);
+		if (tool != null && tool.getItem() != null) {
+			tool.setItemDamage(damage);
+		}
 	}
 
 	@Override
@@ -111,7 +133,7 @@ public class ItemMiningToolBelt extends Item {
 		}
 	}
 
-	private void doTickTools(ItemStack itemstack, World world, Entity entity, int tick, boolean isHeld) {
+	protected void doTickTools(ItemStack itemstack, World world, Entity entity, int tick, boolean isHeld) {
 		if (ItemHelper.isToolBelt(itemstack)) {
 			ItemStack tool = getSelectedTool(itemstack);
 			if (tool != null) {
@@ -129,7 +151,7 @@ public class ItemMiningToolBelt extends Item {
 		}
 	}
 
-	private boolean doTickTool(ItemStack tool, World world, Entity entity, int tick, boolean isHeld) {
+	protected boolean doTickTool(ItemStack tool, World world, Entity entity, int tick, boolean isHeld) {
 		if (tool != null && tool.getItem() != null) {
 			tool.getItem().onUpdate(tool,
 									world,
@@ -196,20 +218,19 @@ public class ItemMiningToolBelt extends Item {
 
 	@Override
 	public int getMaxItemUseDuration(ItemStack itemstack) {
-		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+		ItemStack tool = getSelectedTool(itemstack);
 		if (tool != null) {
-			return tool.getItem().getMaxItemUseDuration(itemstack);
+			return tool.getMaxItemUseDuration();
 		}
 		return super.getMaxItemUseDuration(itemstack);
 	}
 
-	public static void doItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+	public void doItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+		ItemStack tool = getSelectedTool(itemstack);
 		if (tool != null) {
-			tool.getItem().onItemRightClick(tool,
-											world,
-											entityplayer);
+			tool.useItemRightClick(	world,
+									entityplayer);
 			updateToolBelt(	world,
 							entityplayer,
 							itemstack,
@@ -217,10 +238,10 @@ public class ItemMiningToolBelt extends Item {
 		}
 	}
 
-	public static boolean doItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+	public boolean doItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
-		if (tool != null) {
+		ItemStack tool = getSelectedTool(itemstack);
+		if (tool != null && tool.getItem() != null) {
 			if (tool.getItem().onItemUse(	tool,
 											entityplayer,
 											world,
@@ -241,9 +262,9 @@ public class ItemMiningToolBelt extends Item {
 		return false;
 	}
 
-	public static boolean doItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+	public boolean doItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+		ItemStack tool = getSelectedTool(itemstack);
 		if (tool != null) {
 			if (tool.getItem().onItemUseFirst(	tool,
 												entityplayer,
@@ -265,9 +286,9 @@ public class ItemMiningToolBelt extends Item {
 		return false;
 	}
 
-	public static void doFoodEaten(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+	public void doFoodEaten(ItemStack itemstack, World world, EntityPlayer entityplayer) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+		ItemStack tool = getSelectedTool(itemstack);
 		if (tool != null) {
 			if (!ItemStack.areItemStacksEqual(	tool,
 												tool.getItem().onEaten(	tool,
@@ -291,7 +312,7 @@ public class ItemMiningToolBelt extends Item {
 
 	private boolean doLeftClickEntity(ItemStack itemstack, EntityPlayer entityplayer, Entity entity) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+		ItemStack tool = getSelectedTool(itemstack);
 		boolean onLeftClickEntity = false;
 		if (tool != null) {
 			// Perform the onLeftClickEntity method for the itemstack
@@ -316,9 +337,9 @@ public class ItemMiningToolBelt extends Item {
 
 	private boolean doHitEntity(ItemStack itemstack, EntityLivingBase mob, EntityLivingBase entityplayer) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+		ItemStack tool = getSelectedTool(itemstack);
 		boolean hitEntity = false;
-		if (tool != null) {
+		if (tool != null && tool.getItem() != null) {
 			// Perform the hitEntity method for the itemstack
 			hitEntity = tool.getItem().hitEntity(	tool,
 													mob,
@@ -366,8 +387,8 @@ public class ItemMiningToolBelt extends Item {
 
 	private boolean doStartBreakBlock(ItemStack itemstack, int x, int y, int z, EntityPlayer entityplayer, boolean onBlockStartBreak) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
-		if (tool != null) {
+		ItemStack tool = getSelectedTool(itemstack);
+		if (tool != null && tool.getItem() != null) {
 			// Perform the onBlockStartBreak method for the itemstack
 			onBlockStartBreak = tool.getItem().onBlockStartBreak(	tool,
 																	x,
@@ -400,10 +421,10 @@ public class ItemMiningToolBelt extends Item {
 	 *            the current result
 	 * @return
 	 */
-	public static boolean doDestroyBlock(ItemStack itemstack, World world, int x, int y, int z, int side, EntityLivingBase entityliving, boolean onBlockDestroyed) {
+	public boolean doDestroyBlock(ItemStack itemstack, World world, int x, int y, int z, int side, EntityLivingBase entityliving, boolean onBlockDestroyed) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
-		if (tool != null) {
+		ItemStack tool = getSelectedTool(itemstack);
+		if (tool != null && tool.getItem() != null) {
 			// Perform the onBlockDestroyed method for the itemstack
 			onBlockDestroyed = tool.getItem().onBlockDestroyed(	tool,
 																world,
@@ -426,7 +447,7 @@ public class ItemMiningToolBelt extends Item {
 		// Retrieves the Selected Tool within the held Tool Belt
 		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		float strVsBlock = 1.0f;
-		if (tool != null) {
+		if (tool != null && tool.getItem() != null) {
 			// Perform the onBlockStartBreak method for the itemstack
 			strVsBlock = tool.getItem().getStrVsBlock(	tool,
 														block,
@@ -436,7 +457,7 @@ public class ItemMiningToolBelt extends Item {
 		return strVsBlock;
 	}
 
-	private static void updateToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt, ItemStack tool) {
+	private void updateToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt, ItemStack tool) {
 		InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, entityliving, toolBelt);
 		data.setInventorySlotContents(	data.getSelectedSlot(),
 										tool);
@@ -444,31 +465,21 @@ public class ItemMiningToolBelt extends Item {
 							data);
 	}
 
-	private static void updateToolBeltData(ItemStack toolBelt, InventoryMiningToolBelt data) {
+	private void updateToolBeltData(ItemStack toolBelt, InventoryMiningToolBelt data) {
 		toolBelt.stackTagCompound = new NBTTagCompound();
 		data.writeToNBT(toolBelt.stackTagCompound);
 	}
 
-	@Override
-	public void onCreated(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		// Retrieves a unique data ID from the world and sets the ItemStack to
-		// that ID
-		// This Unique ID is used to store world data for a Tool Belt
-	}
-
-	public static void toggleMiningMode(World world, EntityLivingBase entitylivingbase) {
-		ItemStack toolBelt = ItemHelper.getToolBelt(entitylivingbase,
-													world,
-													true);
-		if (toolBelt != null) {
-			InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, entitylivingbase, toolBelt);
+	public void toggleMiningMode(World world, EntityLivingBase entitylivingbase, ItemStack itemstack) {
+		if (ItemHelper.isToolBelt(itemstack)) {
+			InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, entitylivingbase, itemstack);
 			data.toggleMiningMode();
-			updateToolBeltData(	toolBelt,
+			updateToolBeltData(	itemstack,
 								data);
 		}
 	}
 
-	private static boolean isMiningModeEnabled(ItemStack itemstack) {
+	private boolean isMiningModeEnabled(ItemStack itemstack) {
 		if (itemstack.hasTagCompound()) {
 			if (itemstack.stackTagCompound.hasKey(NBTLib.MINING_MODE)) {
 				return itemstack.stackTagCompound.getBoolean(NBTLib.MINING_MODE);
@@ -484,28 +495,25 @@ public class ItemMiningToolBelt extends Item {
 	 * 
 	 * @param event
 	 *            The event to use
+	 * @param heldItem
 	 */
-	public static void doBreakSpeed(BreakSpeed event) {
-		// Retrieves the Held Tool Belt
-		ItemStack toolBelt = ItemHelper.getToolBelt(event.entityPlayer,
-													event.entityPlayer.worldObj,
-													true);
+	public void doBreakSpeed(BreakSpeed event, ItemStack heldItem) {
 		// If the player is still holding the tool belt
-		if (toolBelt != null) {
+		if (ItemHelper.isToolBelt(heldItem)) {
 			// Retrieves the Tool Belt data
 			ItemStack selectedStack = null;
 			// Checks if the player is in Mining Mode
 			// If true then auto select tool for the best STR vs Block
 			// Otherwise return our selected tool
-			if (isMiningModeEnabled(toolBelt)) {
+			if (isMiningModeEnabled(heldItem)) {
 				selectedStack = selectToolForBlock(	event.entityLiving.worldObj,
 													event.entityLiving,
-													toolBelt,
+													heldItem,
 													event.block,
 													event.metadata,
 													event.originalSpeed);
 			} else {
-				selectedStack = getSelectedTool(toolBelt);
+				selectedStack = getSelectedTool(heldItem);
 			}
 			// If an item exists in the selected slot of the Tool Belt
 			if (selectedStack != null && selectedStack.getItem() != null) {
@@ -521,7 +529,7 @@ public class ItemMiningToolBelt extends Item {
 		}
 	}
 
-	public static ItemStack selectToolForBlock(World world, EntityLivingBase entitylivingbase, ItemStack toolBelt, Block block, int metadata, float currentBreakSpeed) {
+	public ItemStack selectToolForBlock(World world, EntityLivingBase entitylivingbase, ItemStack toolBelt, Block block, int metadata, float currentBreakSpeed) {
 		float fastestSpeed = currentBreakSpeed;
 		int selection = getSelectedSlot(toolBelt);
 		InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, entitylivingbase, toolBelt);
@@ -544,12 +552,6 @@ public class ItemMiningToolBelt extends Item {
 								selection);
 	}
 
-	private static void selectTool(World world, EntityLivingBase entityliving, int i) {
-		ItemStack toolBelt = entityliving.getHeldItem();
-		setSelectedTool(toolBelt,
-						i);
-	}
-
 	/**
 	 * This performs the harvesting check event from Forge Activates when the
 	 * player has successfully mined a block Used to correctly determine whether
@@ -557,10 +559,11 @@ public class ItemMiningToolBelt extends Item {
 	 * 
 	 * @param event
 	 *            The harvesting event
+	 * @param heldItem
 	 */
-	public static void doHarvestCheck(HarvestCheck event) {
+	public void doHarvestCheck(HarvestCheck event, ItemStack heldItem) {
 		// Retrieves the Selected Tool within the held Tool Belt
-		ItemStack tool = ItemHelper.getSelectedTool(event.entityPlayer.getHeldItem());
+		ItemStack tool = getSelectedTool(heldItem);
 		if (tool != null) {
 			// Run a harvest check on that Tool and set the result
 			event.success = tool.canHarvestBlock(event.block);
@@ -575,30 +578,32 @@ public class ItemMiningToolBelt extends Item {
 	 * 
 	 * @param event
 	 *            The Interaction Event
+	 * @param heldItem
 	 * 
 	 * @return whether or not we interacted with the entity Thus whether or not
 	 *         to continue processing the 'normal' interaction
 	 */
-	public static boolean doEntityInteract(EntityInteractEvent event) {
+	public boolean doEntityInteract(EntityInteractEvent event, ItemStack heldItem) {
 		boolean flag = false;
-		// First checks if the player is sneaking
-		if (event.entityPlayer.isSneaking()) {
-			ItemStack toolBelt = event.entityPlayer.getHeldItem();
-			// Retrieves the Selected Tool within the held Tool Belt
-			ItemStack tool = ItemHelper.getSelectedTool(toolBelt);
-			if (tool != null) {
-				flag = tool.func_111282_a(	event.entityPlayer,
-											(EntityLivingBase) event.target);// .interactWith(event.target);
-				updateToolBelt(	event.entityPlayer.worldObj,
-								event.entityPlayer,
-								toolBelt,
-								tool);
+		if (ItemHelper.isToolBelt(heldItem)) {
+			// First checks if the player is sneaking
+			if (event.entityPlayer.isSneaking()) {
+				// Retrieves the Selected Tool within the held Tool Belt
+				ItemStack tool = getSelectedTool(heldItem);
+				if (tool != null) {
+					flag = tool.func_111282_a(	event.entityPlayer,
+												(EntityLivingBase) event.target);// .interactWith(event.target);
+					updateToolBelt(	event.entityPlayer.worldObj,
+									event.entityPlayer,
+									heldItem,
+									tool);
+				}
 			}
 		}
-		return false;
+		return flag;
 	}
 
-	public static boolean doLeftClickBlock(PlayerInteractEvent event) {
+	public boolean doLeftClickBlock(PlayerInteractEvent event) {
 		if (event.entityPlayer.isSneaking()) {
 			System.out.println("Left Clicked Block");
 			return true;
@@ -606,7 +611,7 @@ public class ItemMiningToolBelt extends Item {
 		return false;
 	}
 
-	public static boolean doRightClickBlock(PlayerInteractEvent event) {
+	public boolean doRightClickBlock(PlayerInteractEvent event) {
 		if (event.entityPlayer.isSneaking()) {
 			System.out.println("Right Clicked Block");
 			return true;
@@ -614,7 +619,7 @@ public class ItemMiningToolBelt extends Item {
 		return false;
 	}
 
-	public static boolean doRightClickAir(PlayerInteractEvent event) {
+	public boolean doRightClickAir(PlayerInteractEvent event) {
 		if (event.entityPlayer.isSneaking()) {
 			System.out.println("Right Clicked Air");
 			return true;
@@ -622,7 +627,7 @@ public class ItemMiningToolBelt extends Item {
 		return false;
 	}
 
-	public static ItemStack getToolInSlot(ItemStack toolBelt, int selectedTool) {
+	public ItemStack getToolInSlot(ItemStack toolBelt, int selectedTool) {
 		if (selectedTool >= 0 && selectedTool < DataLib.TOOL_BELT_MAX_SIZE) {
 			ItemStack[] miningTools = ItemHelper.getTools(toolBelt);
 			return miningTools[selectedTool];
@@ -630,7 +635,7 @@ public class ItemMiningToolBelt extends Item {
 		return null;
 	}
 
-	private static int getSelectedSlot(ItemStack itemstack) {
+	private int getSelectedSlot(ItemStack itemstack) {
 		if (ItemHelper.isToolBelt(itemstack)) {
 			int selectedTool = NBTHelper.getTagInteger(	itemstack,
 														NBTLib.SELECTED_TOOL,
@@ -640,20 +645,20 @@ public class ItemMiningToolBelt extends Item {
 		return 0;
 	}
 
-	public static ItemStack getSelectedTool(ItemStack itemstack) {
+	public ItemStack getSelectedTool(ItemStack itemstack) {
 		return getToolInSlot(	itemstack,
 								getSelectedSlot(itemstack));
 	}
 
-	private static ItemStack setSelectedTool(ItemStack toolBelt, int selectedTool) {
+	private ItemStack setSelectedTool(ItemStack toolBelt, int selectedTool) {
 		if (toolBelt.hasTagCompound()) {
 			toolBelt.stackTagCompound.setInteger(	NBTLib.SELECTED_TOOL,
 													selectedTool);
 		}
-		return getSelectedTool(toolBelt);
+		return ItemHelper.getSelectedTool(toolBelt);
 	}
 
-	public static ItemStack cycleTool(ItemStack itemstack) {
+	public ItemStack cycleTool(ItemStack itemstack) {
 		if (ItemHelper.isToolBelt(itemstack)) {
 			int selectedTool = getSelectedSlot(itemstack);
 			selectedTool++;
@@ -673,7 +678,7 @@ public class ItemMiningToolBelt extends Item {
 
 	private String getToolDisplayName(ItemStack itemstack) {
 		int selectedSlot = getSelectedSlot(itemstack);
-		ItemStack tool = getSelectedTool(itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		String name = tool != null ? tool.getDisplayName() : "Slot "
 																+ selectedSlot
 																+ " - Empty";
@@ -702,7 +707,7 @@ public class ItemMiningToolBelt extends Item {
 
 	@Override
 	public boolean hasEffect(ItemStack itemstack, int pass) {
-		ItemStack tool = getSelectedTool(itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null && tool.getItem() != null) {
 			return tool.getItem().hasEffect(tool,
 											pass);
@@ -712,7 +717,7 @@ public class ItemMiningToolBelt extends Item {
 
 	@Override
 	public boolean isItemTool(ItemStack itemstack) {
-		ItemStack tool = getSelectedTool(itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null && tool.getItem() != null) {
 			return tool.getItem().isItemTool(tool);
 		}
@@ -721,10 +726,21 @@ public class ItemMiningToolBelt extends Item {
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack) {
-		ItemStack tool = getSelectedTool(itemstack);
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
 		if (tool != null && tool.getItem() != null) {
 			return tool.getItem().getItemUseAction(tool);
 		}
 		return super.getItemUseAction(itemstack);
+	}
+
+	@Override
+	public boolean onEntitySwing(EntityLivingBase entitylivingbase, ItemStack itemstack) {
+		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+		if (tool != null && tool.getItem() != null) {
+			return tool.getItem().onEntitySwing(entitylivingbase,
+												tool);
+		}
+		return super.onEntitySwing(	entitylivingbase,
+									itemstack);
 	}
 }

@@ -12,9 +12,10 @@
 package slimevoid.tmf.network.packets.executors;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoid.tmf.api.IPacketExecutor;
-import slimevoid.tmf.items.tools.ItemMiningToolBelt;
+import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.network.packets.PacketMining;
 import slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
@@ -23,8 +24,12 @@ public class MiningModeExecutor implements IPacketExecutor {
 	@Override
 	public void execute(PacketMining packet, World world, EntityPlayer entityplayer) {
 		if (packet instanceof PacketMiningToolBelt) {
-			ItemMiningToolBelt.toggleMiningMode(world,
-												entityplayer);
+			ItemStack itemstack = entityplayer.getHeldItem();
+			if (ItemHelper.isToolBelt(itemstack)) {
+				ItemHelper.toggleMiningMode(world,
+											entityplayer,
+											itemstack);
+			}
 		}
 	}
 }
