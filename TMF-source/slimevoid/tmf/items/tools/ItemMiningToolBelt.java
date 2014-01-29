@@ -34,6 +34,8 @@ import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.NBTLib;
 import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import slimevoidlib.nbt.NBTHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMiningToolBelt extends Item {
 
@@ -53,6 +55,21 @@ public class ItemMiningToolBelt extends Item {
 	@Override
 	public int getRenderPasses(int metadata) {
 		return super.getRenderPasses(metadata);
+	}
+
+	@Override
+	public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer entityplayer, EntityLivingBase entitylivingbase) {
+		if (ItemHelper.isToolBelt(itemstack)) {
+			ItemStack tool = getSelectedTool(itemstack);
+			if (tool != null) {
+				return tool.getItem().itemInteractionForEntity(	tool,
+																entityplayer,
+																entitylivingbase);
+			}
+		}
+		return super.itemInteractionForEntity(	itemstack,
+												entityplayer,
+												entitylivingbase);
 	}
 
 	@Override
@@ -459,6 +476,9 @@ public class ItemMiningToolBelt extends Item {
 
 	private void updateToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt, ItemStack tool) {
 		InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, entityliving, toolBelt);
+		if (tool.stackSize == 0) {
+			tool = null;
+		}
 		data.setInventorySlotContents(	data.getSelectedSlot(),
 										tool);
 		updateToolBeltData(	toolBelt,
@@ -726,11 +746,26 @@ public class ItemMiningToolBelt extends Item {
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack) {
-		ItemStack tool = ItemHelper.getSelectedTool(itemstack);
-		if (tool != null && tool.getItem() != null) {
-			return tool.getItem().getItemUseAction(tool);
+		if (ItemHelper.isToolBelt(itemstack)) {
+			ItemStack tool = getSelectedTool(itemstack);
+			if (tool != null) {
+				return tool.getItemUseAction();
+			}
 		}
-		return super.getItemUseAction(itemstack);
+		return EnumAction.none;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public int getColorFromItemStack(ItemStack itemstack, int pass) {
+		if (ItemHelper.isToolBelt(itemstack)) {
+			ItemStack tool = getSelectedTool(itemstack);
+			if (tool != null && tool.getItem() != null) {
+				return tool.getItem().getColorFromItemStack(tool,
+															pass);
+			}
+		}
+		return super.getColorFromItemStack(	itemstack,
+											pass);
 	}
 
 	@Override
