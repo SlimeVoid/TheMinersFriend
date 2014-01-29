@@ -11,11 +11,11 @@
  */
 package slimevoid.tmf.core;
 
-import slimevoid.tmf.api.ITMFCommonProxy;
 import slimevoid.tmf.client.network.ClientPacketHandler;
 import slimevoid.tmf.core.lib.CoreLib;
 import slimevoid.tmf.network.CommonPacketHandler;
 import slimevoid.tmf.network.TMFConnectionHandler;
+import slimevoidlib.ICommonProxy;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -45,7 +45,7 @@ public class TheMinersFriend {
 	@SidedProxy(
 			clientSide = CoreLib.PROXY_CLIENT,
 			serverSide = CoreLib.PROXY_COMMON)
-	public static ITMFCommonProxy	proxy;
+	public static ICommonProxy		proxy;
 
 	@Instance(CoreLib.MOD_ID)
 	public static TheMinersFriend	instance;

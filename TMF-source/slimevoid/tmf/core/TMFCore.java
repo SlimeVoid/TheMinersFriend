@@ -17,7 +17,6 @@ import net.minecraft.block.Block;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.tmf.blocks.machines.BlockMachineBase;
 import slimevoid.tmf.blocks.machines.EnumMachine;
@@ -26,6 +25,7 @@ import slimevoid.tmf.blocks.machines.recipes.JSONRefineryRecipesLoader;
 import slimevoid.tmf.blocks.ores.BlockTMFOre;
 import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.lib.BlockLib;
+import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.LocalizationLib;
 import slimevoid.tmf.core.lib.ResourceLib;
@@ -51,43 +51,38 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class TMFCore {
 
-	// CONFIG
-	public static Configuration	configuration;
-
-	public static String		loggerLevel	= "INFO";
+	public static String	loggerLevel	= "INFO";
 
 	// TOOLS
-	public static int			miningHelmetLampId, miningHelmetIronId,
+	public static int		miningHelmetLampId, miningHelmetIronId,
 			miningHelmetGoldId, miningHelmetDiamondId;
-	public static Item			miningHelmetLamp, miningHelmetIron,
+	public static Item		miningHelmetLamp, miningHelmetIron,
 			miningHelmetGold, miningHelmetDiamond;
 
-	public static Item			motionSensor;
-	public static int			motionSensorId;
+	public static Item		motionSensor;
+	public static int		motionSensorId;
 
-	public static Item			miningToolBelt;
-	public static int			miningToolBeltId;
+	public static Item		miningToolBelt;
+	public static int		miningToolBeltId;
 
 	// MINERALS
-	public static Item			mineralAcxium, mineralBisogen, mineralCydrine;
-	public static int			mineralAcxiumId, mineralBisogenId,
+	public static Item		mineralAcxium, mineralBisogen, mineralCydrine;
+	public static int		mineralAcxiumId, mineralBisogenId,
 			mineralCydrineId;
 
 	// INGOTS
-	public static Item			ingotAcxium, ingotBisogen, ingotCydrine;
-	public static int			ingotAcxiumId, ingotBisogenId, ingotCydrineId;
+	public static Item		ingotAcxium, ingotBisogen, ingotCydrine;
+	public static int		ingotAcxiumId, ingotBisogenId, ingotCydrineId;
 
 	// MINERAL DUSTS
-	public static Item			dustAcxium, dustBisogen, dustCydrine,
-			dustMixed;
-	public static int			dustAcxiumId, dustBisogenId, dustCydrineId,
+	public static Item		dustAcxium, dustBisogen, dustCydrine, dustMixed;
+	public static int		dustAcxiumId, dustBisogenId, dustCydrineId,
 			dustMixedId;
 
 	// MACHINE PARTS
-	public static Item			partAcxiumCore, partAlloyCasing,
-			partAcxogenScreen, partBisogenGear, partCydrineMotor,
-			partCydriumSensor;
-	public static int			partAcxiumCoreId, partAlloyCasingId,
+	public static Item		partAcxiumCore, partAlloyCasing, partAcxogenScreen,
+			partBisogenGear, partCydrineMotor, partCydriumSensor;
+	public static int		partAcxiumCoreId, partAlloyCasingId,
 			partAcxogenScreenId, partBisogenGearId, partCydrineMotorId,
 			partCydriumSensorId;
 
@@ -100,10 +95,13 @@ public class TMFCore {
 		registerDusts();
 	}
 
+	public static void registerToolBelt() {
+		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setUnlocalizedName(ItemLib.MINING_TOOLBELT).setTextureName(ResourceLib.MINING_TOOLBELT);
+	}
+
 	private static void registerTools() {
 		registerMiningHelmets();
 		registerMotionSensor();
-		registerToolBelt();
 	}
 
 	private static void registerMiningHelmets() {
@@ -115,10 +113,6 @@ public class TMFCore {
 
 	private static void registerMotionSensor() {
 		motionSensor = new ItemMotionSensor(motionSensorId).setUnlocalizedName(ItemLib.MOTION_SENSOR).setTextureName(ResourceLib.MOTION_SENSOR);
-	}
-
-	private static void registerToolBelt() {
-		miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setUnlocalizedName(ItemLib.MINING_TOOLBELT).setTextureName(ResourceLib.MINING_TOOLBELT);
 	}
 
 	private static void registerIngots() {
@@ -185,17 +179,13 @@ public class TMFCore {
 
 	// ======== BLOCK REGISTRATION ========
 	public static void registerBlocks() {
-
-		BlockLib.init();
-
-		registerOres();
-
-		GameRegistry.registerWorldGenerator(new WorldGeneration());
-
 		registerMachines();
 	}
 
-	private static void registerOres() {
+	public static void registerOres() {
+
+		BlockLib.init();
+
 		arkiteOre = new BlockTMFOre(arkiteOreId, 128, 20, 5).setUnlocalizedName(BlockLib.ORE_ARKITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
 		bistiteOre = new BlockTMFOre(bistiteOreId, 64, 15, 5).setUnlocalizedName(BlockLib.ORE_BISTITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
 		crokereOre = new BlockTMFOre(crokereOreId, 48, 15, 5).setUnlocalizedName(BlockLib.ORE_CROKERE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
@@ -228,6 +218,8 @@ public class TMFCore {
 		MinecraftForge.setBlockHarvestLevel(egioclaseOre,
 											"pickaxe",
 											2);
+
+		GameRegistry.registerWorldGenerator(new WorldGeneration());
 	}
 
 	private static void registerMachines() {
@@ -262,16 +254,18 @@ public class TMFCore {
 		XMLRecipeLoader.loadFolder(	ResourceLib.RECIPE_PATH_XML,
 									new File(ResourceLib.RECIPE_STORE));
 
-		GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
+		if (ConfigurationLib.loadItems) {
+			GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
 
-		GameRegistry.addSmelting(	mineralAcxium.itemID,
-									new ItemStack(ingotAcxium, 1),
-									1);
-		GameRegistry.addSmelting(	mineralBisogen.itemID,
-									new ItemStack(ingotBisogen, 1),
-									2);
-		GameRegistry.addSmelting(	mineralCydrine.itemID,
-									new ItemStack(ingotCydrine, 1),
-									3);
+			GameRegistry.addSmelting(	mineralAcxium.itemID,
+										new ItemStack(ingotAcxium, 1),
+										1);
+			GameRegistry.addSmelting(	mineralBisogen.itemID,
+										new ItemStack(ingotBisogen, 1),
+										2);
+			GameRegistry.addSmelting(	mineralCydrine.itemID,
+										new ItemStack(ingotCydrine, 1),
+										3);
+		}
 	}
 }

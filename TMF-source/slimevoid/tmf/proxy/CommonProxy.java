@@ -22,7 +22,6 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import slimevoid.tmf.api.ITMFCommonProxy;
 import slimevoid.tmf.blocks.machines.inventory.ContainerAutomaticMixingTable;
 import slimevoid.tmf.blocks.machines.inventory.ContainerGeologicalEquipment;
 import slimevoid.tmf.blocks.machines.inventory.ContainerGrinder;
@@ -40,6 +39,7 @@ import slimevoid.tmf.core.lib.PacketLib;
 import slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
 import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
+import slimevoidlib.ICommonProxy;
 import slimevoidlib.IPacketHandling;
 import slimevoidlib.core.SlimevoidCore;
 import slimevoidlib.util.helpers.SlimevoidHelper;
@@ -48,7 +48,7 @@ import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-public class CommonProxy implements ITMFCommonProxy {
+public class CommonProxy implements ICommonProxy {
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -125,8 +125,10 @@ public class CommonProxy implements ITMFCommonProxy {
 
 	@Override
 	public void registerTickHandlers() {
-		TickRegistry.registerTickHandler(	new MiningHelmetTickHandler(),
-											Side.SERVER);
+		if (ConfigurationLib.loadItems) {
+			TickRegistry.registerTickHandler(	new MiningHelmetTickHandler(),
+												Side.SERVER);
+		}
 	}
 
 	@Override
@@ -149,10 +151,6 @@ public class CommonProxy implements ITMFCommonProxy {
 
 	@Override
 	public void registerTileEntitySpecialRenderer(Class<? extends TileEntity> clazz) {
-	}
-
-	@Override
-	public void registerTESRenderers() {
 	}
 
 	@Override
@@ -201,17 +199,5 @@ public class CommonProxy implements ITMFCommonProxy {
 	public void clientLoggedIn(NetHandler clientHandler, INetworkManager manager, Packet1Login login) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public EntityPlayer getPlayer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public World getWorld() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

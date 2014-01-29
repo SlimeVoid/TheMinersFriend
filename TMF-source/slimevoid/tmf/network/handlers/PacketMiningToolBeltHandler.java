@@ -13,6 +13,7 @@ package slimevoid.tmf.network.handlers;
 
 import slimevoid.tmf.network.packets.PacketMining;
 import slimevoid.tmf.network.packets.PacketMiningToolBelt;
+import slimevoidlib.network.handlers.SubPacketHandler;
 
 public class PacketMiningToolBeltHandler extends SubPacketHandler {
 

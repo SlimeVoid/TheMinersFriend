@@ -15,15 +15,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import slimevoid.tmf.api.IMotionSensor;
-import slimevoid.tmf.api.IPacketExecutor;
 import slimevoid.tmf.core.lib.SoundLib;
-import slimevoid.tmf.network.packets.PacketMining;
 import slimevoid.tmf.network.packets.PacketMotionSensor;
+import slimevoidlib.IPacketExecutor;
+import slimevoidlib.network.PacketUpdate;
 
 public class MotionSensorPingExecutor implements IPacketExecutor {
 
 	@Override
-	public void execute(PacketMining packet, World world, EntityPlayer entityplayer) {
+	public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
 		if (packet instanceof PacketMotionSensor) {
 			PacketMotionSensor packetMS = (PacketMotionSensor) packet;
 			Entity entity = packetMS.getEntity(world);

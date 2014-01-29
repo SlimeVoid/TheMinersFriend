@@ -13,14 +13,14 @@ package slimevoid.tmf.client.network.packets.executors;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import slimevoid.tmf.api.IPacketExecutor;
-import slimevoid.tmf.network.packets.PacketMining;
 import slimevoid.tmf.network.packets.PacketMiningToolBelt;
+import slimevoidlib.IPacketExecutor;
+import slimevoidlib.network.PacketUpdate;
 
 public class ClientMiningToolSelectedExecutor implements IPacketExecutor {
 
 	@Override
-	public void execute(PacketMining packet, World world, EntityPlayer entityplayer) {
+	public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
 		if (packet instanceof PacketMiningToolBelt) {
 			// PacketMiningToolBelt packetMT = (PacketMiningToolBelt) packet;
 			// InventoryMiningToolBelt data = null;

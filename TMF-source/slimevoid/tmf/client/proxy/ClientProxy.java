@@ -48,7 +48,6 @@ import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import slimevoidlib.core.SlimevoidCore;
 import slimevoidlib.util.helpers.BlockHelper;
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
@@ -79,44 +78,47 @@ public class ClientProxy extends CommonProxy {
 	public void registerRenderInformation() {
 		SlimevoidCore.console(	CoreLib.MOD_ID,
 								"Registering Renderers...");
-		ArmorLib.registerArmorTexture(	TMFCore.miningHelmetIron,
-										ResourceLib.IRON_MINING_HELMET);
-		ArmorLib.registerArmorTexture(	TMFCore.miningHelmetGold,
-										ResourceLib.GOLD_MINING_HELMET);
-		ArmorLib.registerArmorTexture(	TMFCore.miningHelmetDiamond,
-										ResourceLib.DIAMOND_MINING_HELMET);
+		if (ConfigurationLib.loadItems) {
+			ArmorLib.registerArmorTexture(	TMFCore.miningHelmetIron,
+											ResourceLib.IRON_MINING_HELMET);
+			ArmorLib.registerArmorTexture(	TMFCore.miningHelmetGold,
+											ResourceLib.GOLD_MINING_HELMET);
+			ArmorLib.registerArmorTexture(	TMFCore.miningHelmetDiamond,
+											ResourceLib.DIAMOND_MINING_HELMET);
+		}
 
 		ItemRendererToolBelt.init();
+
+		if (ConfigurationLib.loadMachines) {
+			ClientRegistry.bindTileEntitySpecialRenderer(	TileEntityGrinder.class,
+															new TileEntitySpecialRendererGrinder());
+			RenderingRegistry.registerBlockHandler(new BlockMachineRenderingHandler());
+		}
 	}
 
 	@Override
 	public void registerTickHandlers() {
 		super.registerTickHandlers();
-		SlimevoidCore.console(	CoreLib.MOD_ID,
-								"Registering Client tick handlers...");
+		if (ConfigurationLib.loadItems) {
+			SlimevoidCore.console(	CoreLib.MOD_ID,
+									"Registering Client tick handlers...");
 
-		MotionSensorTickHandler motionSensor = new MotionSensorTickHandler(ConfigurationLib.motionSensorMaxEntityDistance, ConfigurationLib.motionSensorMaxGameTicks, ConfigurationLib.motionSensorDrawRight);
-		motionSensor.addRule(new MotionSensorRuleOnHotbar());
-		motionSensor.addRule(new MotionSensorRuleInToolbelt());
-		TickRegistry.registerTickHandler(	motionSensor,
-											Side.CLIENT);
+			MotionSensorTickHandler motionSensor = new MotionSensorTickHandler(ConfigurationLib.motionSensorMaxEntityDistance, ConfigurationLib.motionSensorMaxGameTicks, ConfigurationLib.motionSensorDrawRight);
+			motionSensor.addRule(new MotionSensorRuleOnHotbar());
+			motionSensor.addRule(new MotionSensorRuleInToolbelt());
+			TickRegistry.registerTickHandler(	motionSensor,
+												Side.CLIENT);
 
-		TickRegistry.registerTickHandler(	new MiningHelmetTickHandler(),
-											Side.CLIENT);
-		TickRegistry.registerTickHandler(	new MiningHelmetRenderTickHandler(),
-											Side.CLIENT);
+			TickRegistry.registerTickHandler(	new MiningHelmetTickHandler(),
+												Side.CLIENT);
+			TickRegistry.registerTickHandler(	new MiningHelmetRenderTickHandler(),
+												Side.CLIENT);
+		}
 	}
 
 	@Override
 	public String getMinecraftDir() {
 		return Minecraft.getMinecraft().mcDataDir.getPath();
-	}
-
-	@Override
-	public void registerTESRenderers() {
-		ClientRegistry.bindTileEntitySpecialRenderer(	TileEntityGrinder.class,
-														new TileEntitySpecialRendererGrinder());
-		RenderingRegistry.registerBlockHandler(new BlockMachineRenderingHandler());
 	}
 
 	@Override
@@ -178,15 +180,5 @@ public class ClientProxy extends CommonProxy {
 		default:
 			return null;
 		}
-	}
-
-	@Override
-	public EntityPlayer getPlayer() {
-		return FMLClientHandler.instance().getClient().thePlayer;
-	}
-
-	@Override
-	public World getWorld() {
-		return FMLClientHandler.instance().getClient().theWorld;
 	}
 }

@@ -22,21 +22,31 @@ public class TMFInit {
 	public static void initialize(ICommonProxy proxy) {
 		if (initialized) return;
 		initialized = true;
-		// TMFCore.configFile = new File(
-		// TheMinersFriend.proxy.getMinecraftDir(),
-		// "config/TheMinersFriend.cfg");
-		// TMFCore.configuration = new Configuration(TMFCore.configFile);
 		load();
 	}
 
 	public static void load() {
 		SlimevoidCore.console(	CoreLib.MOD_ID,
-								"Registering items...");
-		TMFCore.registerItems();
+								"Registering Miner's Tool Belt...");
+		TMFCore.registerToolBelt();
 
-		SlimevoidCore.console(	CoreLib.MOD_ID,
-								"Registering blocks...");
-		TMFCore.registerBlocks();
+		if (ConfigurationLib.loadItems) {
+			SlimevoidCore.console(	CoreLib.MOD_ID,
+									"Registering items...");
+			TMFCore.registerItems();
+		}
+
+		if (ConfigurationLib.loadMachines) {
+			SlimevoidCore.console(	CoreLib.MOD_ID,
+									"Registering blocks...");
+			TMFCore.registerBlocks();
+		}
+
+		if (ConfigurationLib.loadOres) {
+			SlimevoidCore.console(	CoreLib.MOD_ID,
+									"Registering ores...");
+			TMFCore.registerOres();
+		}
 
 		TheMinersFriend.proxy.registerRenderInformation();
 
@@ -58,7 +68,5 @@ public class TMFInit {
 		SlimevoidCore.console(	CoreLib.MOD_ID,
 								"Registering fuels...");
 		TMFCore.registerFuels();
-
-		TheMinersFriend.proxy.registerTESRenderers();
 	}
 }
