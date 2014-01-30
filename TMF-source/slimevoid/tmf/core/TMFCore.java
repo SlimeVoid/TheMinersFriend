@@ -177,9 +177,24 @@ public class TMFCore {
 	public static int		blockMachineBaseId;
 	public static BlockBase	blockMachineBase;
 
-	// ======== BLOCK REGISTRATION ========
-	public static void registerBlocks() {
-		registerMachines();
+	public static void registerMachines() {
+		// MACHINE BASE
+		blockMachineBase = new BlockMachineBase(blockMachineBaseId);
+		GameRegistry.registerBlock(	blockMachineBase,
+									ItemBlockBase.class,
+									BlockLib.BLOCK_MACHINE_BASE);
+
+		EnumMachine.registerMachines();
+
+		// REFINERY
+		JSONLoader.registerJSONLoader(new JSONRefineryRecipesLoader());
+
+		// GRINDER
+		JSONLoader.registerJSONLoader(new JSONGrinderRecipesLoader());
+
+		// GEOLOGICAL EQUIPMENT
+
+		// AUTOMATIC MIXING TABLE
 	}
 
 	public static void registerOres() {
@@ -220,26 +235,6 @@ public class TMFCore {
 											2);
 
 		GameRegistry.registerWorldGenerator(new WorldGeneration());
-	}
-
-	private static void registerMachines() {
-		// MACHINE BASE
-		blockMachineBase = new BlockMachineBase(blockMachineBaseId);
-		GameRegistry.registerBlock(	blockMachineBase,
-									ItemBlockBase.class,
-									BlockLib.BLOCK_MACHINE_BASE);
-
-		EnumMachine.registerMachines();
-
-		// REFINERY
-		JSONLoader.registerJSONLoader(new JSONRefineryRecipesLoader());
-
-		// GRINDER
-		JSONLoader.registerJSONLoader(new JSONGrinderRecipesLoader());
-
-		// GEOLOGICAL EQUIPMENT
-
-		// AUTOMATIC MIXING TABLE
 	}
 
 	// ======== NAME REGISTRATION ========

@@ -28,6 +28,18 @@ public class ConfigurationLib {
 	// CONFIG
 	public static Configuration	configuration;
 
+	private final static String	CATEGORY_LAUNCH_OPTIONS				= "launch options";
+	private static final String	CATEGORY_MOTION_SENSOR				= "motion sensor";
+	private static final String	CATEGORY_MACHINES					= "machines";
+	private static final String	CATEGORY_ORES						= "ores";
+	private static final String	CATEGORY_FUEL						= "fuel";
+	private static final String	CATEGORY_ARMOR						= "armor";
+	private static final String	CATEGORY_PARTS						= "parts";
+
+	public static boolean		loadItems							= true;
+	public static boolean		loadOres							= true;
+	public static boolean		loadMachines						= true;
+
 	@SideOnly(Side.CLIENT)
 	public static int			motionSensorMaxEntityDistance;
 	@SideOnly(Side.CLIENT)
@@ -36,7 +48,6 @@ public class ConfigurationLib {
 	public static boolean		motionSensorDrawRight;
 	public static int			renderMachineId						= RenderingRegistry.getNextAvailableRenderId();
 	public static boolean		motionSensorPlaySounds;
-	public static final String	CATEGORY_MOTION_SENSOR				= "motion sensor";
 	public static final String	COMMENT_MOTION_SENSOR_DRAW_RIGHT	= "Set this to false to draw the motion sensor on the left.";
 
 	@SideOnly(Side.CLIENT)
@@ -77,12 +88,6 @@ public class ConfigurationLib {
 		configuration.save();
 	}
 
-	private final static String	CATEGORY_LAUNCH_OPTIONS	= "launch options";
-
-	public static boolean		loadItems				= false;
-	public static boolean		loadOres				= false;
-	public static boolean		loadMachines			= false;
-
 	private static void loadDefaults() {
 		loadItems = configuration.get(	CATEGORY_LAUNCH_OPTIONS,
 										"shouldLoadItems",
@@ -110,22 +115,22 @@ public class ConfigurationLib {
 	}
 
 	private static void loadMotionSensorCommon() {
-		TMFCore.motionSensorId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.motionSensorId = Integer.valueOf(configuration.get(	CATEGORY_MOTION_SENSOR,
 																	"motionSensor",
 																	15003).getInt());
 	}
 
 	private static void loadMiningHelmet() {
-		TMFCore.miningHelmetIronId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.miningHelmetIronId = Integer.valueOf(configuration.get(	CATEGORY_ARMOR,
 																		"ironMinersHelmet",
 																		15000).getInt());
-		TMFCore.miningHelmetGoldId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.miningHelmetGoldId = Integer.valueOf(configuration.get(	CATEGORY_ARMOR,
 																		"goldMinersHelmet",
 																		15001).getInt());
-		TMFCore.miningHelmetDiamondId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.miningHelmetDiamondId = Integer.valueOf(configuration.get(	CATEGORY_ARMOR,
 																			"diamondMinersHelmet",
 																			15002).getInt());
-		TMFCore.miningHelmetLampId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.miningHelmetLampId = Integer.valueOf(configuration.get(	CATEGORY_ARMOR,
 																		"helmetLamp",
 																		15004).getInt());
 	}
@@ -137,85 +142,85 @@ public class ConfigurationLib {
 	}
 
 	private static void loadMinerals() {
-		TMFCore.mineralAcxiumId = Integer.valueOf(configuration.get(Configuration.CATEGORY_ITEM,
+		TMFCore.mineralAcxiumId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
 																	"mineralAcxium",
 																	15010).getInt());
-		TMFCore.mineralBisogenId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.mineralBisogenId = Integer.valueOf(configuration.get(	CATEGORY_FUEL,
 																		"mineralBisogen",
 																		15011).getInt());
-		TMFCore.mineralCydrineId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.mineralCydrineId = Integer.valueOf(configuration.get(	CATEGORY_FUEL,
 																		"mineralCydrine",
 																		15012).getInt());
 	}
 
 	private static void loadIngots() {
-		TMFCore.ingotAcxiumId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.ingotAcxiumId = Integer.valueOf(configuration.get(	CATEGORY_ORES,
 																	"ingotAcxium",
 																	15015).getInt());
-		TMFCore.ingotBisogenId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.ingotBisogenId = Integer.valueOf(configuration.get(	CATEGORY_ORES,
 																	"ingotBisogen",
 																	15016).getInt());
-		TMFCore.ingotCydrineId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.ingotCydrineId = Integer.valueOf(configuration.get(	CATEGORY_ORES,
 																	"ingotCydrine",
 																	15017).getInt());
 	}
 
 	private static void loadParts() {
-		TMFCore.partAcxiumCoreId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.partAcxiumCoreId = Integer.valueOf(configuration.get(	CATEGORY_PARTS,
 																		"partAcxiumCore",
 																		15025).getInt());
-		TMFCore.partAcxogenScreenId = Integer.valueOf(configuration.get(Configuration.CATEGORY_ITEM,
+		TMFCore.partAcxogenScreenId = Integer.valueOf(configuration.get(CATEGORY_PARTS,
 																		"partAcxogenScreen",
 																		15026).getInt());
-		TMFCore.partAlloyCasingId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.partAlloyCasingId = Integer.valueOf(configuration.get(	CATEGORY_PARTS,
 																		"partAlloyCasing",
 																		15027).getInt());
-		TMFCore.partBisogenGearId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.partBisogenGearId = Integer.valueOf(configuration.get(	CATEGORY_PARTS,
 																		"partBisogenGear",
 																		15028).getInt());
-		TMFCore.partCydrineMotorId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.partCydrineMotorId = Integer.valueOf(configuration.get(	CATEGORY_PARTS,
 																		"partCydrineMotor",
 																		15029).getInt());
-		TMFCore.partCydriumSensorId = Integer.valueOf(configuration.get(Configuration.CATEGORY_ITEM,
+		TMFCore.partCydriumSensorId = Integer.valueOf(configuration.get(CATEGORY_PARTS,
 																		"partCydriumSensor",
 																		15030).getInt());
 	}
 
 	private static void loadDusts() {
-		TMFCore.dustAcxiumId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.dustAcxiumId = Integer.valueOf(configuration.get(	CATEGORY_FUEL,
 																	"dustAcxium",
 																	15020).getInt());
-		TMFCore.dustBisogenId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.dustBisogenId = Integer.valueOf(configuration.get(	CATEGORY_FUEL,
 																	"dustBisogen",
 																	15021).getInt());
-		TMFCore.dustCydrineId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_ITEM,
+		TMFCore.dustCydrineId = Integer.valueOf(configuration.get(	CATEGORY_FUEL,
 																	"dustCydrine",
 																	15022).getInt());
-		TMFCore.dustMixedId = Integer.valueOf(configuration.get(Configuration.CATEGORY_ITEM,
+		TMFCore.dustMixedId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
 																"dustMixed",
 																15023).getInt());
 	}
 
 	private static void loadOres() {
-		TMFCore.arkiteOreId = Integer.valueOf(configuration.get(Configuration.CATEGORY_BLOCK,
+		TMFCore.arkiteOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
 																"arkiteOre",
 																1025).getInt());
-		TMFCore.bistiteOreId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_BLOCK,
+		TMFCore.bistiteOreId = Integer.valueOf(configuration.get(	CATEGORY_ORES,
 																	"bistiteOre",
 																	1026).getInt());
-		TMFCore.crokereOreId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_BLOCK,
+		TMFCore.crokereOreId = Integer.valueOf(configuration.get(	CATEGORY_ORES,
 																	"crokereOre",
 																	1027).getInt());
-		TMFCore.derniteOreId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_BLOCK,
+		TMFCore.derniteOreId = Integer.valueOf(configuration.get(	CATEGORY_ORES,
 																	"derniteOre",
 																	1028).getInt());
-		TMFCore.egioclaseOreId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_BLOCK,
+		TMFCore.egioclaseOreId = Integer.valueOf(configuration.get(	CATEGORY_ORES,
 																	"egioclaseOre",
 																	1029).getInt());
 	}
 
 	private static void loadMachines() {
-		TMFCore.blockMachineBaseId = Integer.valueOf(configuration.get(	Configuration.CATEGORY_BLOCK,
+		TMFCore.blockMachineBaseId = Integer.valueOf(configuration.get(	CATEGORY_MACHINES,
 																		"blockMachine",
 																		1100).getInt());
 

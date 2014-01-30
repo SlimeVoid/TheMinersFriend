@@ -36,16 +36,16 @@ public class TMFInit {
 			TMFCore.registerItems();
 		}
 
-		if (ConfigurationLib.loadMachines) {
-			SlimevoidCore.console(	CoreLib.MOD_ID,
-									"Registering blocks...");
-			TMFCore.registerBlocks();
-		}
-
 		if (ConfigurationLib.loadOres) {
 			SlimevoidCore.console(	CoreLib.MOD_ID,
 									"Registering ores...");
 			TMFCore.registerOres();
+		}
+
+		if (ConfigurationLib.loadMachines) {
+			SlimevoidCore.console(	CoreLib.MOD_ID,
+									"Registering machines...");
+			TMFCore.registerMachines();
 		}
 
 		TheMinersFriend.proxy.registerRenderInformation();
