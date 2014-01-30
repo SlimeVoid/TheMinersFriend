@@ -11,14 +11,12 @@
  */
 package slimevoid.tmf.items.tools;
 
-import net.minecraft.item.Item;
-import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
+import slimevoid.tmf.items.ItemTMF;
 
-public class ItemMiningLamp extends Item {
+public class ItemMiningLamp extends ItemTMF {
 
 	public ItemMiningLamp(int itemID) {
 		super(itemID);
-		this.setCreativeTab(CreativeTabTMF.tabTMF);
 	}
 
 }

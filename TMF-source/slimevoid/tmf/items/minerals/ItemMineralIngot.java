@@ -6,7 +6,6 @@ public class ItemMineralIngot extends ItemTMF {
 
 	public ItemMineralIngot(int id) {
 		super(id);
-		this.setNoRepair();
 	}
 
 }

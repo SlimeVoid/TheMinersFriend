@@ -8,6 +8,7 @@ public class ItemTMF extends Item {
 	public ItemTMF(int id) {
 		super(id);
 		this.setCreativeTab(CreativeTabTMF.tabTMF);
+		this.setNoRepair();
 	}
 
 }
