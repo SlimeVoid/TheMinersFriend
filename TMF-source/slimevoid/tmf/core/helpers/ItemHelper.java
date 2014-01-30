@@ -28,6 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
+import slimevoid.tmf.core.lib.CommandLib;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.NBTLib;
@@ -277,7 +278,16 @@ public class ItemHelper {
 
 	public static ItemStack getNextSelectedTool(ItemStack itemstack) {
 		if (isToolBelt(itemstack)) {
-			return ((ItemMiningToolBelt) itemstack.getItem()).cycleTool(itemstack);
+			return ((ItemMiningToolBelt) itemstack.getItem()).cycleTool(itemstack,
+																		CommandLib.CYCLE_TOOLBELT_UP);
+		}
+		return null;
+	}
+
+	public static ItemStack getPreviousSelectedTool(ItemStack itemstack) {
+		if (isToolBelt(itemstack)) {
+			return ((ItemMiningToolBelt) itemstack.getItem()).cycleTool(itemstack,
+																		CommandLib.CYCLE_TOOLBELT_DOWN);
 		}
 		return null;
 	}

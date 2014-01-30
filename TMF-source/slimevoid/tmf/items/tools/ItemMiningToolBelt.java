@@ -18,7 +18,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -27,24 +26,23 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import slimevoid.tmf.core.TheMinersFriend;
-import slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import slimevoid.tmf.core.helpers.ItemHelper;
+import slimevoid.tmf.core.lib.CommandLib;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.NBTLib;
+import slimevoid.tmf.items.ItemTMF;
 import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import slimevoidlib.nbt.NBTHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemMiningToolBelt extends Item {
+public class ItemMiningToolBelt extends ItemTMF {
 
 	public ItemMiningToolBelt(int itemID) {
 		super(itemID);
 		this.setMaxStackSize(1);
 		this.setFull3D();
-		this.setNoRepair();
-		this.setCreativeTab(CreativeTabTMF.tabTMF);
 	}
 
 	@Override
@@ -555,7 +553,7 @@ public class ItemMiningToolBelt extends Item {
 		InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, entitylivingbase, toolBelt);
 		ItemStack[] tools = data.getTools();
 		if (tools != null) {
-			for (int i = 0; i < DataLib.TOOL_BELT_SELECTED_MAX; i++) {
+			for (int i = 0; i <= DataLib.TOOL_BELT_SELECTED_MAX; i++) {
 				ItemStack itemstack = tools[i];
 				if (itemstack != null && itemstack.getItem() != null) {
 					float breakSpeed = itemstack.getItem().getStrVsBlock(	itemstack,
@@ -678,17 +676,35 @@ public class ItemMiningToolBelt extends Item {
 		return ItemHelper.getSelectedTool(toolBelt);
 	}
 
-	public ItemStack cycleTool(ItemStack itemstack) {
+	public ItemStack cycleTool(ItemStack itemstack, int direction) {
 		if (ItemHelper.isToolBelt(itemstack)) {
 			int selectedTool = getSelectedSlot(itemstack);
-			selectedTool++;
-			if (selectedTool >= DataLib.TOOL_BELT_SELECTED_MAX) {
-				selectedTool = 0;
+			if (direction == CommandLib.CYCLE_TOOLBELT_UP) {
+				selectedTool = cycleToolUp(selectedTool);
+			}
+			if (direction == CommandLib.CYCLE_TOOLBELT_DOWN) {
+				selectedTool = cycleToolDown(selectedTool);
 			}
 			return setSelectedTool(	itemstack,
 									selectedTool);
 		}
 		return null;
+	}
+
+	private int cycleToolUp(int currentTool) {
+		currentTool++;
+		if (currentTool > DataLib.TOOL_BELT_SELECTED_MAX) {
+			currentTool = 0;
+		}
+		return currentTool;
+	}
+
+	private int cycleToolDown(int currentTool) {
+		currentTool--;
+		if (currentTool < 0) {
+			currentTool = DataLib.TOOL_BELT_SELECTED_MAX;
+		}
+		return currentTool;
 	}
 
 	@Override
