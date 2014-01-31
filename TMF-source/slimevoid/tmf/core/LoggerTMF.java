@@ -15,14 +15,14 @@ import slimevoidlib.data.Logger;
 
 public class LoggerTMF extends Logger {
 
-	private static Logger	instance;
+	private static LoggerTMF	instance;
 
 	@Override
 	protected String getLoggerName() {
 		return "TMF";
 	}
 
-	public static Logger getInstance(String name) {
+	public static LoggerTMF getInstance(String name) {
 		if (instance == null) instance = new LoggerTMF();
 
 		instance.setName(name);
