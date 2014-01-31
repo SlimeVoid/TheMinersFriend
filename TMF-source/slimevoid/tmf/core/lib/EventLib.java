@@ -14,6 +14,7 @@ package slimevoid.tmf.core.lib;
 import net.minecraftforge.common.MinecraftForge;
 import slimevoid.tmf.client.sounds.TrackerSounds;
 import slimevoid.tmf.client.tickhandlers.input.ToolBeltMouseWheelHandler;
+import slimevoid.tmf.core.events.MiningToolBeltAttributeModifiers;
 import slimevoid.tmf.core.events.MiningToolBeltBreakSpeed;
 import slimevoid.tmf.core.events.MiningToolBeltEntityInteract;
 import slimevoid.tmf.core.events.MiningToolBeltHarvestCheck;
@@ -32,5 +33,6 @@ public class EventLib {
 		MinecraftForge.EVENT_BUS.register(new MiningToolBeltEntityInteract());
 		MinecraftForge.EVENT_BUS.register(new MiningToolBeltHarvestCheck());
 		MinecraftForge.EVENT_BUS.register(new MiningToolBeltBreakSpeed());
+		MinecraftForge.EVENT_BUS.register(new MiningToolBeltAttributeModifiers());
 	}
 }
