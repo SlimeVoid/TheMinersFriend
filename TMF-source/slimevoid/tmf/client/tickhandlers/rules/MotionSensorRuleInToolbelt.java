@@ -14,6 +14,7 @@ package slimevoid.tmf.client.tickhandlers.rules;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import slimevoid.tmf.api.IMotionSensorRule;
 import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;

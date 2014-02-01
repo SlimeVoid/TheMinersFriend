@@ -9,7 +9,7 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package slimevoid.tmf.client.tickhandlers.rules;
+package slimevoid.tmf.api;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;

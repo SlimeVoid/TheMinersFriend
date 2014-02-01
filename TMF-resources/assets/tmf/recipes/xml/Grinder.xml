@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<recipes>
+    <recipe outId="$machine" meta="$grinder" stackSize="1">
+        <layout>
+            GMG
+            ACA
+            AFA
+        </layout>
+        <mapping id="$partAlloyCasing">A</mapping>
+        <mapping id="$partAcxiumCore">C</mapping>
+        <mapping id="$tile.furnace">F</mapping>
+        <mapping id="$partBisogenGear">G</mapping>
+        <mapping id="$partCydrineMotor">M</mapping>
+    </recipe>
+</recipes>

@@ -119,6 +119,13 @@ public class ResourceLib {
 	public static final String				MINERAL_CYDRINE			= TEXTURE_PREFIX
 																		+ ItemLib.MINERAL_CYDRINE;
 
+	public static final String				NUGGET_ACXIUM			= TEXTURE_PREFIX
+																		+ ItemLib.NUGGET_ACXIUM;
+	public static final String				NUGGET_BISOGEN			= TEXTURE_PREFIX
+																		+ ItemLib.NUGGET_BISOGEN;
+	public static final String				NUGGET_CYDRINE			= TEXTURE_PREFIX
+																		+ ItemLib.NUGGET_CYDRINE;
+
 	public static final String				INGOT_ACXIUM			= TEXTURE_PREFIX
 																		+ ItemLib.INGOT_ACXIUM;
 	public static final String				INGOT_BISOGEN			= TEXTURE_PREFIX

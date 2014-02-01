@@ -49,6 +49,16 @@ public class ItemLib {
 	public static final String			MINERAL_CYDRINE			= MINERAL_PREFIX
 																	+ "cydrine";
 
+	private static final String			NUGGET_PREFIX			= ITEM_PREFIX
+																	+ "nugget.";
+
+	public static final String			NUGGET_ACXIUM			= NUGGET_PREFIX
+																	+ "acxium";
+	public static final String			NUGGET_BISOGEN			= NUGGET_PREFIX
+																	+ "bisogen";
+	public static final String			NUGGET_CYDRINE			= NUGGET_PREFIX
+																	+ "cydrine";
+
 	private static final String			INGOT_PREFIX			= ITEM_PREFIX
 																	+ "ingot.";
 

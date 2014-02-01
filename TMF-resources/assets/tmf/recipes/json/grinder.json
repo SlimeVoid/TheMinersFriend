@@ -2,7 +2,10 @@
 	"acxium":		{"acxium": [1]},
 	"bisogen":		{"bisogen":[1]},
 	"cydrine":		{"cydrine":[1]},
-	"acxiumIngot":		{"acxium":[1]},
-	"bisogenIngot":		{"bisogen":[1]},
-	"cydrineIngot":		{"cydrine":[1]}
+	"acxiumNugget":		{"acxium":[1]},
+	"bisogenNugget":		{"bisogen":[1]},
+	"cydrineNugget":		{"cydrine":[1]},
+	"acxiumIngot":		{"acxium":[9]},
+	"bisogenIngot":		{"bisogen":[9]},
+	"cydrineIngot":		{"cydrine":[9]}
 }

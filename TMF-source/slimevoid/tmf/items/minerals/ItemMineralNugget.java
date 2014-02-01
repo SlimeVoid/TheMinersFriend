@@ -9,12 +9,14 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package slimevoid.tmf.api;
+package slimevoid.tmf.items.minerals;
 
-import net.minecraft.item.ItemStack;
+import slimevoid.tmf.items.ItemTMF;
 
-public interface IMiningToolBelt {
+public class ItemMineralNugget extends ItemTMF {
 
-	public ItemStack getItemStackInSlot(ItemStack itemstack, int slot);
+	public ItemMineralNugget(int id) {
+		super(id);
+	}
 
 }

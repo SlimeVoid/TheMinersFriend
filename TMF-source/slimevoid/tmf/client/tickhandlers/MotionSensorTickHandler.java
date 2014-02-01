@@ -30,7 +30,7 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import slimevoid.tmf.client.tickhandlers.rules.IMotionSensorRule;
+import slimevoid.tmf.api.IMotionSensorRule;
 import slimevoid.tmf.core.lib.CommandLib;
 import slimevoid.tmf.core.lib.ResourceLib;
 import slimevoid.tmf.network.packets.PacketMotionSensor;

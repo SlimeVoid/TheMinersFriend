@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<recipes>
+    <recipe outId="$ingotAcxium" stackSize="1">
+        <layout>
+            AAA
+            AAA
+            AAA
+        </layout>
+        <mapping id="$nuggetAcxium">A</mapping>
+    </recipe>
+    <recipe outId="$ingotBisogen" stackSize="1">
+        <layout>
+            BBB
+            BBB
+            BBB
+        </layout>
+        <mapping id="$nuggetBisogen">B</mapping>
+    </recipe>
+    <recipe outId="$ingotCydrine" stackSize="1">
+        <layout>
+            CCC
+            CCC
+            CCC
+        </layout>
+        <mapping id="$nuggetCydrine">C</mapping>
+    </recipe>
+    <recipe outId="$nuggetAcxium" stackSize="9">
+        <layout>
+            A
+        </layout>
+        <mapping id="$ingotAcxium">A</mapping>
+    </recipe>
+    <recipe outId="$nuggetBisogen" stackSize="9">
+        <layout>
+            B
+        </layout>
+        <mapping id="$ingotBisogen">B</mapping>
+    </recipe>
+    <recipe outId="$nuggetCydrine" stackSize="9">
+        <layout>
+            C
+        </layout>
+        <mapping id="$ingotCydrine">C</mapping>
+    </recipe>
+</recipes>

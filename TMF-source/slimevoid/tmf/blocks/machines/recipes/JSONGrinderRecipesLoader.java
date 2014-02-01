@@ -21,6 +21,7 @@ import slimevoid.tmf.items.ItemTMF;
 import slimevoid.tmf.items.minerals.ItemMineral;
 import slimevoid.tmf.items.minerals.ItemMineralDust;
 import slimevoid.tmf.items.minerals.ItemMineralIngot;
+import slimevoid.tmf.items.minerals.ItemMineralNugget;
 import argo.jdom.JdomParser;
 import argo.jdom.JsonNode;
 import argo.jdom.JsonRootNode;
@@ -44,11 +45,17 @@ public class JSONGrinderRecipesLoader extends JSONLoaderTMF {
 						(ItemMineral) TMFCore.mineralBisogen);
 		mineralMap.put(	"cydrine",
 						(ItemMineral) TMFCore.mineralCydrine);
+		mineralMap.put(	"acxiumNugget",
+						(ItemMineralNugget) TMFCore.nuggetAcxium);
+		mineralMap.put(	"bisogenNugget",
+						(ItemMineralNugget) TMFCore.nuggetBisogen);
+		mineralMap.put(	"cydrineNugget",
+						(ItemMineralNugget) TMFCore.nuggetCydrine);
 		mineralMap.put(	"acxiumIngot",
 						(ItemMineralIngot) TMFCore.ingotAcxium);
 		mineralMap.put(	"bisogenIngot",
 						(ItemMineralIngot) TMFCore.ingotBisogen);
-		mineralMap.put(	"cydrine",
+		mineralMap.put(	"cydrineIngot",
 						(ItemMineralIngot) TMFCore.ingotCydrine);
 
 		dustMap.put("acxium",

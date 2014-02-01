@@ -154,15 +154,25 @@ public class ConfigurationLib {
 	}
 
 	private static void loadIngots() {
+		TMFCore.nuggetAcxiumId = Integer.valueOf(configuration.get(	CATEGORY_ORES,
+																	"nuggetAcxium",
+																	15013).getInt());
+		TMFCore.nuggetBisogenId = Integer.valueOf(configuration.get(CATEGORY_ORES,
+																	"nuggetBisogen",
+																	15014).getInt());
+		TMFCore.nuggetCydrineId = Integer.valueOf(configuration.get(CATEGORY_ORES,
+																	"nuggetCydrine",
+																	15015).getInt());
+
 		TMFCore.ingotAcxiumId = Integer.valueOf(configuration.get(	CATEGORY_ORES,
 																	"ingotAcxium",
-																	15015).getInt());
+																	15016).getInt());
 		TMFCore.ingotBisogenId = Integer.valueOf(configuration.get(	CATEGORY_ORES,
 																	"ingotBisogen",
-																	15016).getInt());
+																	15017).getInt());
 		TMFCore.ingotCydrineId = Integer.valueOf(configuration.get(	CATEGORY_ORES,
 																	"ingotCydrine",
-																	15017).getInt());
+																	15018).getInt());
 	}
 
 	private static void loadParts() {
@@ -280,6 +290,13 @@ public class ConfigurationLib {
 										TMFCore.mineralCydrine.itemID);
 
 			/* INGOTS */
+
+			XMLLoader.addXmlVariable(	"$nuggetAcxium",
+										TMFCore.nuggetAcxium.itemID);
+			XMLLoader.addXmlVariable(	"$nuggetBisogen",
+										TMFCore.nuggetBisogen.itemID);
+			XMLLoader.addXmlVariable(	"$nuggetCydrine",
+										TMFCore.nuggetCydrine.itemID);
 
 			XMLLoader.addXmlVariable(	"$ingotAcxium",
 										TMFCore.ingotAcxium.itemID);

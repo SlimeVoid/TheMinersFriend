@@ -37,6 +37,7 @@ import slimevoid.tmf.items.minerals.ItemMineralDust;
 import slimevoid.tmf.items.minerals.ItemMineralIngot;
 import slimevoid.tmf.items.minerals.ItemMineralMixedDust;
 import slimevoid.tmf.items.minerals.ItemMineralMixedDustRecipe;
+import slimevoid.tmf.items.minerals.ItemMineralNugget;
 import slimevoid.tmf.items.parts.ItemMachinePart;
 import slimevoid.tmf.items.tools.ItemMiningHelmet;
 import slimevoid.tmf.items.tools.ItemMiningLamp;
@@ -69,6 +70,10 @@ public class TMFCore {
 	public static Item		mineralAcxium, mineralBisogen, mineralCydrine;
 	public static int		mineralAcxiumId, mineralBisogenId,
 			mineralCydrineId;
+
+	// NUGGETS
+	public static Item		nuggetAcxium, nuggetBisogen, nuggetCydrine;
+	public static int		nuggetAcxiumId, nuggetBisogenId, nuggetCydrineId;
 
 	// INGOTS
 	public static Item		ingotAcxium, ingotBisogen, ingotCydrine;
@@ -116,6 +121,9 @@ public class TMFCore {
 	}
 
 	private static void registerIngots() {
+		nuggetAcxium = new ItemMineralNugget(nuggetAcxiumId).setUnlocalizedName(ItemLib.NUGGET_ACXIUM).setTextureName(ResourceLib.NUGGET_ACXIUM);
+		nuggetBisogen = new ItemMineralNugget(nuggetBisogenId).setUnlocalizedName(ItemLib.NUGGET_BISOGEN).setTextureName(ResourceLib.NUGGET_BISOGEN);
+		nuggetCydrine = new ItemMineralNugget(nuggetCydrineId).setUnlocalizedName(ItemLib.NUGGET_CYDRINE).setTextureName(ResourceLib.NUGGET_CYDRINE);
 		ingotAcxium = new ItemMineralIngot(ingotAcxiumId).setUnlocalizedName(ItemLib.INGOT_ACXIUM).setTextureName(ResourceLib.INGOT_ACXIUM);
 		ingotBisogen = new ItemMineralIngot(ingotBisogenId).setUnlocalizedName(ItemLib.INGOT_BISOGEN).setTextureName(ResourceLib.INGOT_BISOGEN);
 		ingotCydrine = new ItemMineralIngot(ingotCydrineId).setUnlocalizedName(ItemLib.INGOT_CYDRINE).setTextureName(ResourceLib.INGOT_CYDRINE);
