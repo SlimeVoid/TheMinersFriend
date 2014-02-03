@@ -17,9 +17,9 @@ import slimevoidlib.network.handlers.SubPacketHandler;
 
 public class PacketMiningToolBeltHandler extends SubPacketHandler {
 
-	@Override
-	protected PacketMining createNewPacket() {
-		return new PacketMiningToolBelt();
-	}
+    @Override
+    protected PacketMining createNewPacket() {
+        return new PacketMiningToolBelt();
+    }
 
 }

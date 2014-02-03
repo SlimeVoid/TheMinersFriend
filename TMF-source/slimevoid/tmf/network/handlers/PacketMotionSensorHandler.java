@@ -17,9 +17,9 @@ import slimevoidlib.network.handlers.SubPacketHandler;
 
 public class PacketMotionSensorHandler extends SubPacketHandler {
 
-	@Override
-	protected PacketMining createNewPacket() {
-		return new PacketMotionSensor();
-	}
+    @Override
+    protected PacketMining createNewPacket() {
+        return new PacketMotionSensor();
+    }
 
 }

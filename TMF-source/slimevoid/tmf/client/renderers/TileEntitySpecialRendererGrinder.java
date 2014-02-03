@@ -24,77 +24,77 @@ import slimevoidlib.tileentity.TileEntityBase;
 
 public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer {
 
-	public void bindResource(ResourceLocation resourceLocation) {
-		this.bindTexture(resourceLocation);
-	}
+    public void bindResource(ResourceLocation resourceLocation) {
+        this.bindTexture(resourceLocation);
+    }
 
-	@Override
-	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTickTime) {
-		ModelGrinder grinder = new ModelGrinder((TileEntityGrinder) tile);
+    @Override
+    public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTickTime) {
+        ModelGrinder grinder = new ModelGrinder((TileEntityGrinder) tile);
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glColor4f(	1.0F,
-						1.0F,
-						1.0F,
-						1.0F);
-		GL11.glTranslatef(	(float) x,
-							(float) y,
-							(float) z);
+        GL11.glPushMatrix();
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        GL11.glColor4f(1.0F,
+                       1.0F,
+                       1.0F,
+                       1.0F);
+        GL11.glTranslatef((float) x,
+                          (float) y,
+                          (float) z);
 
-		int meta = 0;
-		if (tile.worldObj != null) meta = ((TileEntityBase) tile).getRotation();
+        int meta = 0;
+        if (tile.worldObj != null) meta = ((TileEntityBase) tile).getRotation();
 
-		boolean dir = false;
-		switch (meta) {
-		case 0:
-			break;
-		case 1:
-			GL11.glTranslatef(	0.5f,
-								0.5f,
-								0.5f);
-			GL11.glRotatef(	270,
-							0,
-							1,
-							0);
-			GL11.glTranslatef(	-0.5f,
-								-0.5f,
-								-0.5f);
-			break;
-		case 2:
-			GL11.glTranslatef(	0.5f,
-								0.5f,
-								0.5f);
-			GL11.glRotatef(	180,
-							0,
-							1,
-							0);
-			GL11.glTranslatef(	-0.5f,
-								-0.5f,
-								-0.5f);
-			break;
-		case 3:
-			GL11.glTranslatef(	0.5f,
-								0.5f,
-								0.5f);
-			GL11.glRotatef(	90,
-							0,
-							1,
-							0);
-			GL11.glTranslatef(	-0.5f,
-								-0.5f,
-								-0.5f);
-			break;
-		}
+        boolean dir = false;
+        switch (meta) {
+        case 0:
+            break;
+        case 1:
+            GL11.glTranslatef(0.5f,
+                              0.5f,
+                              0.5f);
+            GL11.glRotatef(270,
+                           0,
+                           1,
+                           0);
+            GL11.glTranslatef(-0.5f,
+                              -0.5f,
+                              -0.5f);
+            break;
+        case 2:
+            GL11.glTranslatef(0.5f,
+                              0.5f,
+                              0.5f);
+            GL11.glRotatef(180,
+                           0,
+                           1,
+                           0);
+            GL11.glTranslatef(-0.5f,
+                              -0.5f,
+                              -0.5f);
+            break;
+        case 3:
+            GL11.glTranslatef(0.5f,
+                              0.5f,
+                              0.5f);
+            GL11.glRotatef(90,
+                           0,
+                           1,
+                           0);
+            GL11.glTranslatef(-0.5f,
+                              -0.5f,
+                              -0.5f);
+            break;
+        }
 
-		grinder.renderAll(	this,
-							dir);
+        grinder.renderAll(this,
+                          dir);
 
-		if (tile.getBlockType() != null) {
-			// grinder.updateBounds(tile.getBlockType());
-		}
+        if (tile.getBlockType() != null) {
+            // grinder.updateBounds(tile.getBlockType());
+        }
 
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-		GL11.glPopMatrix();
-	}
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        GL11.glPopMatrix();
+    }
 }

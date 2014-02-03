@@ -17,9 +17,9 @@ import slimevoid.tmf.core.helpers.ItemHelper;
 
 public class MiningToolBeltHarvestCheck {
 
-	@ForgeSubscribe
-	public void onHarvestCheck(HarvestCheck event) {
-		ItemHelper.doHarvestCheck(event);
-	}
+    @ForgeSubscribe
+    public void onHarvestCheck(HarvestCheck event) {
+        ItemHelper.doHarvestCheck(event);
+    }
 
 }

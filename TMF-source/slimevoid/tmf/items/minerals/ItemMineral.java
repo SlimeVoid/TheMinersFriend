@@ -17,48 +17,48 @@ import slimevoid.tmf.fuel.IFuelHandlerTMF;
 import slimevoid.tmf.items.ItemTMF;
 
 public class ItemMineral extends ItemTMF implements IFuelHandlerTMF {
-	private int	burnTime	= 1600;
-	private int	burnSpeed	= 200;
-	private int	burnWidth	= 1;
+    private int burnTime  = 1600;
+    private int burnSpeed = 200;
+    private int burnWidth = 1;
 
-	public ItemMineral(int id) {
-		super(id);
-	}
+    public ItemMineral(int id) {
+        super(id);
+    }
 
-	public Item setBurnSettings(int time, int speed, int width) {
-		setBurnTime(time);
-		setBurnSpeed(speed);
-		setBurnWidth(width);
-		return this;
-	}
+    public Item setBurnSettings(int time, int speed, int width) {
+        setBurnTime(time);
+        setBurnSpeed(speed);
+        setBurnWidth(width);
+        return this;
+    }
 
-	@Override
-	public int getBurnTime(ItemStack stack) {
-		return burnTime;
-	}
+    @Override
+    public int getBurnTime(ItemStack stack) {
+        return burnTime;
+    }
 
-	public Item setBurnTime(int burnTime) {
-		this.burnTime = burnTime;
-		return this;
-	}
+    public Item setBurnTime(int burnTime) {
+        this.burnTime = burnTime;
+        return this;
+    }
 
-	@Override
-	public int getBurnSpeed(ItemStack stack) {
-		return burnSpeed;
-	}
+    @Override
+    public int getBurnSpeed(ItemStack stack) {
+        return burnSpeed;
+    }
 
-	public Item setBurnSpeed(int burnSpeed) {
-		this.burnSpeed = burnSpeed;
-		return this;
-	}
+    public Item setBurnSpeed(int burnSpeed) {
+        this.burnSpeed = burnSpeed;
+        return this;
+    }
 
-	@Override
-	public int getBurnWidth(ItemStack stack) {
-		return burnWidth;
-	}
+    @Override
+    public int getBurnWidth(ItemStack stack) {
+        return burnWidth;
+    }
 
-	public Item setBurnWidth(int burnWidth) {
-		this.burnWidth = burnWidth;
-		return this;
-	}
+    public Item setBurnWidth(int burnWidth) {
+        this.burnWidth = burnWidth;
+        return this;
+    }
 }

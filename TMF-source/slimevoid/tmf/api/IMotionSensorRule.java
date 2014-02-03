@@ -16,5 +16,5 @@ import net.minecraft.world.World;
 
 public interface IMotionSensorRule {
 
-	public boolean doShowMotionSensor(EntityPlayer entityplayer, World world);
+    public boolean doShowMotionSensor(EntityPlayer entityplayer, World world);
 }

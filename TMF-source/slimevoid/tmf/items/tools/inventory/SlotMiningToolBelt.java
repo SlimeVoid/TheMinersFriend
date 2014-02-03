@@ -18,38 +18,38 @@ import slimevoid.tmf.core.helpers.ItemHelper;
 
 public class SlotMiningToolBelt extends Slot {
 
-	public SlotMiningToolBelt(IInventory inventory, int slotIndex, int xDisplayPosition, int yDisplayPosition) {
-		super(inventory, slotIndex, xDisplayPosition, yDisplayPosition);
-	}
+    public SlotMiningToolBelt(IInventory inventory, int slotIndex, int xDisplayPosition, int yDisplayPosition) {
+        super(inventory, slotIndex, xDisplayPosition, yDisplayPosition);
+    }
 
-	@Override
-	public boolean isItemValid(ItemStack itemstack) {
-		return !ItemHelper.isItemBlock(itemstack)
-				&& !ItemHelper.isToolBelt(itemstack)
-				&& this.isItemValidForSlot(itemstack);
-	}
+    @Override
+    public boolean isItemValid(ItemStack itemstack) {
+        return !ItemHelper.isItemBlock(itemstack)
+               && !ItemHelper.isToolBelt(itemstack)
+               && this.isItemValidForSlot(itemstack);
+    }
 
-	private boolean isItemValidForSlot(ItemStack itemstack) {
-		return this.isValidSlotForPickaxe(itemstack)
-				|| this.isValidSlotForSpade(itemstack)
-				|| this.isValidSlotForItem(itemstack)
-				|| this.isValidSlotForMotionSensor(itemstack);
-	}
+    private boolean isItemValidForSlot(ItemStack itemstack) {
+        return this.isValidSlotForPickaxe(itemstack)
+               || this.isValidSlotForSpade(itemstack)
+               || this.isValidSlotForItem(itemstack)
+               || this.isValidSlotForMotionSensor(itemstack);
+    }
 
-	private boolean isValidSlotForPickaxe(ItemStack itemstack) {
-		return this.getSlotIndex() == 0 && ItemHelper.isItemPickaxe(itemstack);
-	}
+    private boolean isValidSlotForPickaxe(ItemStack itemstack) {
+        return this.getSlotIndex() == 0 && ItemHelper.isItemPickaxe(itemstack);
+    }
 
-	private boolean isValidSlotForSpade(ItemStack itemstack) {
-		return this.getSlotIndex() == 1 && ItemHelper.isItemSpade(itemstack);
-	}
+    private boolean isValidSlotForSpade(ItemStack itemstack) {
+        return this.getSlotIndex() == 1 && ItemHelper.isItemSpade(itemstack);
+    }
 
-	private boolean isValidSlotForItem(ItemStack itemstack) {
-		return this.getSlotIndex() == 2
-				&& !ItemHelper.isItemMotionSensor(itemstack);
-	}
+    private boolean isValidSlotForItem(ItemStack itemstack) {
+        return this.getSlotIndex() == 2
+               && !ItemHelper.isItemMotionSensor(itemstack);
+    }
 
-	private boolean isValidSlotForMotionSensor(ItemStack itemstack) {
-		return getSlotIndex() == 3 && ItemHelper.isItemMotionSensor(itemstack);
-	}
+    private boolean isValidSlotForMotionSensor(ItemStack itemstack) {
+        return getSlotIndex() == 3 && ItemHelper.isItemMotionSensor(itemstack);
+    }
 }

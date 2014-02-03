@@ -27,41 +27,41 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 
 @Mod(
-		modid = CoreLib.MOD_ID,
-		name = CoreLib.MOD_NAME,
-		version = CoreLib.MOD_VERSION,
-		dependencies = CoreLib.MOD_DEPENDENCIES)
+        modid = CoreLib.MOD_ID,
+        name = CoreLib.MOD_NAME,
+        version = CoreLib.MOD_VERSION,
+        dependencies = CoreLib.MOD_DEPENDENCIES)
 @NetworkMod(
-		clientSideRequired = true,
-		serverSideRequired = false,
-		clientPacketHandlerSpec = @SidedPacketHandler(
-				channels = { CoreLib.MOD_CHANNEL },
-				packetHandler = ClientPacketHandler.class),
-		serverPacketHandlerSpec = @SidedPacketHandler(
-				channels = { CoreLib.MOD_CHANNEL },
-				packetHandler = CommonPacketHandler.class),
-		connectionHandler = TMFConnectionHandler.class)
+        clientSideRequired = true,
+        serverSideRequired = false,
+        clientPacketHandlerSpec = @SidedPacketHandler(
+                channels = { CoreLib.MOD_CHANNEL },
+                packetHandler = ClientPacketHandler.class),
+        serverPacketHandlerSpec = @SidedPacketHandler(
+                channels = { CoreLib.MOD_CHANNEL },
+                packetHandler = CommonPacketHandler.class),
+        connectionHandler = TMFConnectionHandler.class)
 public class TheMinersFriend {
-	@SidedProxy(
-			clientSide = CoreLib.PROXY_CLIENT,
-			serverSide = CoreLib.PROXY_COMMON)
-	public static ICommonProxy		proxy;
+    @SidedProxy(
+            clientSide = CoreLib.PROXY_CLIENT,
+            serverSide = CoreLib.PROXY_COMMON)
+    public static ICommonProxy    proxy;
 
-	@Instance(CoreLib.MOD_ID)
-	public static TheMinersFriend	instance;
+    @Instance(CoreLib.MOD_ID)
+    public static TheMinersFriend instance;
 
-	@EventHandler
-	public void TheMinersFriendPreInit(FMLPreInitializationEvent event) {
-		proxy.registerConfigurationProperties(event.getSuggestedConfigurationFile());
-		proxy.preInit();
-	}
+    @EventHandler
+    public void TheMinersFriendPreInit(FMLPreInitializationEvent event) {
+        proxy.registerConfigurationProperties(event.getSuggestedConfigurationFile());
+        proxy.preInit();
+    }
 
-	@EventHandler
-	public void TheMinersFriendInit(FMLInitializationEvent event) {
-		TMFInit.initialize(proxy);
-	}
+    @EventHandler
+    public void TheMinersFriendInit(FMLInitializationEvent event) {
+        TMFInit.initialize(proxy);
+    }
 
-	@EventHandler
-	public void TheMinersFriendPostInit(FMLPostInitializationEvent event) {
-	}
+    @EventHandler
+    public void TheMinersFriendPostInit(FMLPostInitializationEvent event) {
+    }
 }

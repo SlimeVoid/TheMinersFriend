@@ -20,47 +20,47 @@ import slimevoid.tmf.items.ItemTMF;
 import slimevoid.tmf.items.minerals.ItemMineralDust;
 
 public class GrinderRecipes {
-	private static final GrinderRecipes	grinderBase	= new GrinderRecipes();
-	private Random						random		= new Random();
+    private static final GrinderRecipes grinderBase = new GrinderRecipes();
+    private Random                      random      = new Random();
 
-	private Map<Integer, GrinderRecipe>	grindingMap	= new HashMap<Integer, GrinderRecipe>();
+    private Map<Integer, GrinderRecipe> grindingMap = new HashMap<Integer, GrinderRecipe>();
 
-	public static final GrinderRecipes grinding() {
-		return grinderBase;
-	}
+    public static final GrinderRecipes grinding() {
+        return grinderBase;
+    }
 
-	public boolean isMineralAllowed(ItemStack mineral) {
-		return mineral != null && grindingMap.containsKey(mineral.itemID);
-	}
+    public boolean isMineralAllowed(ItemStack mineral) {
+        return mineral != null && grindingMap.containsKey(mineral.itemID);
+    }
 
-	public void addRefinement(ItemTMF mineral, int min, int max, ItemMineralDust dust) {
-		GrinderRecipe recipe = new GrinderRecipe();
-		recipe.dust = dust;
-		recipe.min = min;
-		recipe.max = max;
+    public void addRefinement(ItemTMF mineral, int min, int max, ItemMineralDust dust) {
+        GrinderRecipe recipe = new GrinderRecipe();
+        recipe.dust = dust;
+        recipe.min = min;
+        recipe.max = max;
 
-		grindingMap.put(mineral.itemID,
-						recipe);
-	}
+        grindingMap.put(mineral.itemID,
+                        recipe);
+    }
 
-	public ItemStack getRefiningResult(ItemTMF mineral) {
-		return getRefiningResult(mineral.itemID);
-	}
+    public ItemStack getRefiningResult(ItemTMF mineral) {
+        return getRefiningResult(mineral.itemID);
+    }
 
-	public ItemStack getRefiningResult(int mineralId) {
-		if (!grindingMap.containsKey(mineralId)) return null;
+    public ItemStack getRefiningResult(int mineralId) {
+        if (!grindingMap.containsKey(mineralId)) return null;
 
-		return grindingMap.get(mineralId).generateItemStack();
+        return grindingMap.get(mineralId).generateItemStack();
 
-	}
+    }
 
-	public class GrinderRecipe {
-		public int				max;
-		public int				min;
-		public ItemMineralDust	dust;
+    public class GrinderRecipe {
+        public int             max;
+        public int             min;
+        public ItemMineralDust dust;
 
-		public ItemStack generateItemStack() {
-			return new ItemStack(dust, random.nextInt((max - min + 1)) + min);
-		}
-	}
+        public ItemStack generateItemStack() {
+            return new ItemStack(dust, random.nextInt((max - min + 1)) + min);
+        }
+    }
 }

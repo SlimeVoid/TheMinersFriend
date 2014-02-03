@@ -16,19 +16,19 @@ import slimevoid.tmf.core.lib.PacketLib;
 
 public class PacketMiningToolBelt extends PacketMining {
 
-	public PacketMiningToolBelt() {
-		super(PacketLib.MINING_TOOL_BELT);
-	}
+    public PacketMiningToolBelt() {
+        super(PacketLib.MINING_TOOL_BELT);
+    }
 
-	public PacketMiningToolBelt(String command) {
-		this();
-		this.setCommand(command);
-		// this.payload = new PacketPayload(2, 0, 0, 0);
-	}
+    public PacketMiningToolBelt(String command) {
+        this();
+        this.setCommand(command);
+        // this.payload = new PacketPayload(2, 0, 0, 0);
+    }
 
-	@Override
-	public boolean targetExists(World world) {
-		return false;
-	}
+    @Override
+    public boolean targetExists(World world) {
+        return false;
+    }
 
 }

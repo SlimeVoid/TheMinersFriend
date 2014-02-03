@@ -19,18 +19,18 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class CreativeTabTMF extends CreativeTabs {
 
-	public static CreativeTabs	tabTMF	= new CreativeTabTMF(CoreLib.MOD_ID);
+    public static CreativeTabs tabTMF = new CreativeTabTMF(CoreLib.MOD_ID);
 
-	CreativeTabTMF(String par2Str) {
-		super(par2Str);
-	}
+    CreativeTabTMF(String par2Str) {
+        super(par2Str);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	/**
-	 * the itemID for the item to be displayed on the tab
-	 */
-	public int getTabIconItemIndex() {
-		return TMFCore.miningToolBelt.itemID;
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    /**
+     * the itemID for the item to be displayed on the tab
+     */
+    public int getTabIconItemIndex() {
+        return TMFCore.miningToolBelt.itemID;
+    }
 }

@@ -16,13 +16,13 @@ import slimevoidlib.util.json.JSONLoader;
 
 public abstract class JSONLoaderTMF extends JSONLoader {
 
-	public JSONLoaderTMF(String location, String filename) {
-		super(TMFCore.class, location, filename);
-	}
+    public JSONLoaderTMF(String location, String filename) {
+        super(TMFCore.class, location, filename);
+    }
 
-	@Override
-	protected String getModID() {
-		return CoreLib.MOD_ID;
-	}
+    @Override
+    protected String getModID() {
+        return CoreLib.MOD_ID;
+    }
 
 }

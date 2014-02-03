@@ -21,27 +21,27 @@ import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TrackerSounds {
 
-	@ForgeSubscribe
-	public void onSound(SoundLoadEvent event) {
-		if (ConfigurationLib.motionSensorPlaySounds) {
-			// For each custom sound file we have defined in Sounds
-			for (String file : SoundLib.trackerFiles) {
-				// Try to add the custom sound file to the pool of sounds
-				try {
-					event.manager.soundPoolSounds.addSound(file);
-				}
-				// If we cannot add the custom sound file to the pool, log the
-				// exception
-				catch (Exception e) {
-					System.err.print(e);
-					LoggerTMF.getInstance(Logger.filterClassName(this.getClass().toString())).write(false,
-																									"Failed to register sound ["
-																											+ file
-																											+ "]",
-																									Logger.LogLevel.DEBUG);
-				}
-			}
-			FMLCommonHandler.instance().getFMLLogger().fine("Tracker Sounds Registered");
-		}
-	}
+    @ForgeSubscribe
+    public void onSound(SoundLoadEvent event) {
+        if (ConfigurationLib.motionSensorPlaySounds) {
+            // For each custom sound file we have defined in Sounds
+            for (String file : SoundLib.trackerFiles) {
+                // Try to add the custom sound file to the pool of sounds
+                try {
+                    event.manager.soundPoolSounds.addSound(file);
+                }
+                // If we cannot add the custom sound file to the pool, log the
+                // exception
+                catch (Exception e) {
+                    System.err.print(e);
+                    LoggerTMF.getInstance(Logger.filterClassName(this.getClass().toString())).write(false,
+                                                                                                    "Failed to register sound ["
+                                                                                                            + file
+                                                                                                            + "]",
+                                                                                                    Logger.LogLevel.DEBUG);
+                }
+            }
+            FMLCommonHandler.instance().getFMLLogger().fine("Tracker Sounds Registered");
+        }
+    }
 }

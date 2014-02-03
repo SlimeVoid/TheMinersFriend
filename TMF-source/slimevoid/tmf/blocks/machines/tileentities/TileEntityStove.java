@@ -26,229 +26,229 @@ import slimevoid.tmf.core.lib.GuiLib;
 
 public class TileEntityStove extends TileEntityMachine {
 
-	/*
-	 * 0-5 Stacks to smelt 6-12 Stacks smelted
-	 */
-	private ItemStack[]	stoveItemStacks	= new ItemStack[12];
-	private int			itemToSmelt		= 0;
+    /*
+     * 0-5 Stacks to smelt 6-12 Stacks smelted
+     */
+    private ItemStack[] stoveItemStacks = new ItemStack[12];
+    private int         itemToSmelt     = 0;
 
-	@Override
-	public boolean onBlockActivated(EntityPlayer player) {
-		player.openGui(	TheMinersFriend.instance,
-						GuiLib.GUIID_STOVE,
-						this.worldObj,
-						this.xCoord,
-						this.yCoord,
-						this.zCoord);
+    @Override
+    public boolean onBlockActivated(EntityPlayer player) {
+        player.openGui(TheMinersFriend.instance,
+                       GuiLib.GUIID_STOVE,
+                       this.worldObj,
+                       this.xCoord,
+                       this.yCoord,
+                       this.zCoord);
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public int getSizeInventory() {
-		return stoveItemStacks.length;
-	}
+    @Override
+    public int getSizeInventory() {
+        return stoveItemStacks.length;
+    }
 
-	@Override
-	public ItemStack getStackInSlot(int index) {
-		return stoveItemStacks[index];
-	}
+    @Override
+    public ItemStack getStackInSlot(int index) {
+        return stoveItemStacks[index];
+    }
 
-	@Override
-	public void setInventorySlotContents(int index, ItemStack stack) {
-		stoveItemStacks[index] = stack;
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        stoveItemStacks[index] = stack;
 
-		if (stack != null && stack.stackSize > getInventoryStackLimit()) {
-			stack.stackSize = getInventoryStackLimit();
-		}
-	}
+        if (stack != null && stack.stackSize > getInventoryStackLimit()) {
+            stack.stackSize = getInventoryStackLimit();
+        }
+    }
 
-	@Override
-	public String getInvName() {
-		return BlockLib.BLOCK_COOKER;
-	}
+    @Override
+    public String getInvName() {
+        return BlockLib.BLOCK_COOKER;
+    }
 
-	@Override
-	public void readFromNBT(NBTTagCompound ntbCompound) {
-		super.readFromNBT(ntbCompound);
+    @Override
+    public void readFromNBT(NBTTagCompound ntbCompound) {
+        super.readFromNBT(ntbCompound);
 
-		NBTTagList items = ntbCompound.getTagList("Items");
-		stoveItemStacks = new ItemStack[getSizeInventory()];
+        NBTTagList items = ntbCompound.getTagList("Items");
+        stoveItemStacks = new ItemStack[getSizeInventory()];
 
-		for (int i = 0; i < items.tagCount(); ++i) {
-			NBTTagCompound itemInSlot = (NBTTagCompound) items.tagAt(i);
-			byte itemBytes = itemInSlot.getByte("Slot");
+        for (int i = 0; i < items.tagCount(); ++i) {
+            NBTTagCompound itemInSlot = (NBTTagCompound) items.tagAt(i);
+            byte itemBytes = itemInSlot.getByte("Slot");
 
-			if (itemBytes >= 0 && itemBytes < stoveItemStacks.length) {
-				stoveItemStacks[itemBytes] = ItemStack.loadItemStackFromNBT(itemInSlot);
-			}
-		}
-		this.itemToSmelt = ntbCompound.getInteger("SmeltIndex");
-	}
+            if (itemBytes >= 0 && itemBytes < stoveItemStacks.length) {
+                stoveItemStacks[itemBytes] = ItemStack.loadItemStackFromNBT(itemInSlot);
+            }
+        }
+        this.itemToSmelt = ntbCompound.getInteger("SmeltIndex");
+    }
 
-	@Override
-	public void writeToNBT(NBTTagCompound ntbCompound) {
-		super.writeToNBT(ntbCompound);
+    @Override
+    public void writeToNBT(NBTTagCompound ntbCompound) {
+        super.writeToNBT(ntbCompound);
 
-		NBTTagList items = new NBTTagList();
+        NBTTagList items = new NBTTagList();
 
-		for (int i = 0; i < stoveItemStacks.length; ++i) {
-			if (stoveItemStacks[i] != null) {
-				NBTTagCompound itemInSlot = new NBTTagCompound();
-				itemInSlot.setByte(	"Slot",
-									(byte) i);
-				stoveItemStacks[i].writeToNBT(itemInSlot);
-				items.appendTag(itemInSlot);
-			}
-		}
+        for (int i = 0; i < stoveItemStacks.length; ++i) {
+            if (stoveItemStacks[i] != null) {
+                NBTTagCompound itemInSlot = new NBTTagCompound();
+                itemInSlot.setByte("Slot",
+                                   (byte) i);
+                stoveItemStacks[i].writeToNBT(itemInSlot);
+                items.appendTag(itemInSlot);
+            }
+        }
 
-		ntbCompound.setTag(	"Items",
-							items);
-		ntbCompound.setInteger(	"SmeltIndex",
-								this.itemToSmelt);
-	}
+        ntbCompound.setTag("Items",
+                           items);
+        ntbCompound.setInteger("SmeltIndex",
+                               this.itemToSmelt);
+    }
 
-	@Override
-	public boolean isInvNameLocalized() {
-		return false;
-	}
+    @Override
+    public boolean isInvNameLocalized() {
+        return false;
+    }
 
-	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
-		return slot >= 0 && slot < 6;
-	}
+    @Override
+    public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+        return slot >= 0 && slot < 6;
+    }
 
-	@Override
-	public int[] getAccessibleSlotsFromSide(int side) {
-		int[] itemsToSmelt = new int[] { 0, 1, 2, 3, 4, 5 };
-		int[] smeltedItems = new int[] { 6, 7, 8, 9, 10, 11 };
-		if (ForgeDirection.getOrientation(side) == ForgeDirection.UP) return itemsToSmelt;
-		if (ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) return smeltedItems;
-		if (ForgeDirection.getOrientation(this.getRotatedSide(side)) == ForgeDirection.EAST) return smeltedItems;
-		return itemsToSmelt;
-	}
+    @Override
+    public int[] getAccessibleSlotsFromSide(int side) {
+        int[] itemsToSmelt = new int[] { 0, 1, 2, 3, 4, 5 };
+        int[] smeltedItems = new int[] { 6, 7, 8, 9, 10, 11 };
+        if (ForgeDirection.getOrientation(side) == ForgeDirection.UP) return itemsToSmelt;
+        if (ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) return smeltedItems;
+        if (ForgeDirection.getOrientation(this.getRotatedSide(side)) == ForgeDirection.EAST) return smeltedItems;
+        return itemsToSmelt;
+    }
 
-	@Override
-	public boolean canInsertItem(int slot, ItemStack itemstack, int side) {
-		return slot >= 0 && slot < 6;
-	}
+    @Override
+    public boolean canInsertItem(int slot, ItemStack itemstack, int side) {
+        return slot >= 0 && slot < 6;
+    }
 
-	@Override
-	public boolean canExtractItem(int slot, ItemStack itemstack, int side) {
-		return ForgeDirection.getOrientation(this.getRotatedSide(side)) == ForgeDirection.EAST
-				&& slot >= 6 && slot < 12;
-	}
+    @Override
+    public boolean canExtractItem(int slot, ItemStack itemstack, int side) {
+        return ForgeDirection.getOrientation(this.getRotatedSide(side)) == ForgeDirection.EAST
+               && slot >= 6 && slot < 12;
+    }
 
-	@Override
-	public void smeltItem() {
-		if (canSmelt()) {
-			ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.stoveItemStacks[this.itemToSmelt]);
-			for (int i = 6; i < 12; i++) {
-				if (this.stoveItemStacks[i] == null) {
-					this.stoveItemStacks[i] = itemstack.copy();
-				} else if (this.stoveItemStacks[i].isItemEqual(itemstack)) {
-					stoveItemStacks[i].stackSize += itemstack.stackSize;
-				}
+    @Override
+    public void smeltItem() {
+        if (canSmelt()) {
+            ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.stoveItemStacks[this.itemToSmelt]);
+            for (int i = 6; i < 12; i++) {
+                if (this.stoveItemStacks[i] == null) {
+                    this.stoveItemStacks[i] = itemstack.copy();
+                } else if (this.stoveItemStacks[i].isItemEqual(itemstack)) {
+                    stoveItemStacks[i].stackSize += itemstack.stackSize;
+                }
 
-				--this.stoveItemStacks[this.itemToSmelt].stackSize;
+                --this.stoveItemStacks[this.itemToSmelt].stackSize;
 
-				if (this.stoveItemStacks[this.itemToSmelt].stackSize <= 0) {
-					this.stoveItemStacks[this.itemToSmelt] = null;
-				}
-			}
-		}
-	}
+                if (this.stoveItemStacks[this.itemToSmelt].stackSize <= 0) {
+                    this.stoveItemStacks[this.itemToSmelt] = null;
+                }
+            }
+        }
+    }
 
-	@Override
-	protected boolean canSmelt() {
-		if (this.stoveItemStacks[this.itemToSmelt] == null) return false;
-		ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.stoveItemStacks[this.itemToSmelt]);
-		if (itemstack == null) return false;
-		for (int i = 6; i < 12; i++) {
-			if (this.stoveItemStacks[i] == null) {
-				return true;
-			} else if (this.stoveItemStacks[i].isItemEqual(itemstack)) {
-				int result = this.stoveItemStacks[i].stackSize
-								+ itemstack.stackSize;
-				return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
-			}
-		}
-		return false;
-	}
+    @Override
+    protected boolean canSmelt() {
+        if (this.stoveItemStacks[this.itemToSmelt] == null) return false;
+        ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.stoveItemStacks[this.itemToSmelt]);
+        if (itemstack == null) return false;
+        for (int i = 6; i < 12; i++) {
+            if (this.stoveItemStacks[i] == null) {
+                return true;
+            } else if (this.stoveItemStacks[i].isItemEqual(itemstack)) {
+                int result = this.stoveItemStacks[i].stackSize
+                             + itemstack.stackSize;
+                return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
+            }
+        }
+        return false;
+    }
 
-	@Override
-	public int getExtendedBlockID() {
-		return EnumMachine.STOVE.getId();
-	}
+    @Override
+    public int getExtendedBlockID() {
+        return EnumMachine.STOVE.getId();
+    }
 
-	@Override
-	public int getCurrentFuelBurnTime() {
-		return 0;
-	}
+    @Override
+    public int getCurrentFuelBurnTime() {
+        return 0;
+    }
 
-	@Override
-	public int getCurrentFuelBurnSpeed() {
-		return 0;
-	}
+    @Override
+    public int getCurrentFuelBurnSpeed() {
+        return 0;
+    }
 
-	@Override
-	public int getCurrentFuelBurnWidth() {
-		return 0;
-	}
+    @Override
+    public int getCurrentFuelBurnWidth() {
+        return 0;
+    }
 
-	@Override
-	public ItemStack getCurrentFuelStack() {
-		return null;
-	}
+    @Override
+    public ItemStack getCurrentFuelStack() {
+        return null;
+    }
 
-	@Override
-	public void setCurrentFuelStack(ItemStack stack) {
-	}
+    @Override
+    public void setCurrentFuelStack(ItemStack stack) {
+    }
 
-	@Override
-	public void updateMachine() {
-		boolean wasBurning = isBurning();
-		boolean inventoryChanged = false;
+    @Override
+    public void updateMachine() {
+        boolean wasBurning = isBurning();
+        boolean inventoryChanged = false;
 
-		if (isBurning()) --burnTime;
+        if (isBurning()) --burnTime;
 
-		if (!worldObj.isRemote) {
-			if (!isBurning() && canSmelt()) {
-				// TODO :: Cooking Time
-			}
+        if (!worldObj.isRemote) {
+            if (!isBurning() && canSmelt()) {
+                // TODO :: Cooking Time
+            }
 
-			if (isBurning() && canSmelt()) {
-				++cookTime;
-				if (cookTime == currentItemCookTime) {
-					cookTime = 0;
-					smeltItem();
-					inventoryChanged = true;
-				}
-			} else {
-				cookTime = 0;
-			}
+            if (isBurning() && canSmelt()) {
+                ++cookTime;
+                if (cookTime == currentItemCookTime) {
+                    cookTime = 0;
+                    smeltItem();
+                    inventoryChanged = true;
+                }
+            } else {
+                cookTime = 0;
+            }
 
-			if (wasBurning != isBurning()) {
-				inventoryChanged = true;
-				updateMachineBlockState(isBurning(),
-										worldObj,
-										xCoord,
-										yCoord,
-										zCoord);
-			}
-		}
+            if (wasBurning != isBurning()) {
+                inventoryChanged = true;
+                updateMachineBlockState(isBurning(),
+                                        worldObj,
+                                        xCoord,
+                                        yCoord,
+                                        zCoord);
+            }
+        }
 
-		if (inventoryChanged) {
-			this.onInventoryChanged();
-		}
-	}
+        if (inventoryChanged) {
+            this.onInventoryChanged();
+        }
+    }
 
-	@Override
-	protected void addHarvestContents(ArrayList<ItemStack> harvestList) {
-		for (ItemStack itemstack : this.stoveItemStacks) {
-			if (itemstack != null) {
-				harvestList.add(itemstack);
-			}
-		}
-	}
+    @Override
+    protected void addHarvestContents(ArrayList<ItemStack> harvestList) {
+        for (ItemStack itemstack : this.stoveItemStacks) {
+            if (itemstack != null) {
+                harvestList.add(itemstack);
+            }
+        }
+    }
 }

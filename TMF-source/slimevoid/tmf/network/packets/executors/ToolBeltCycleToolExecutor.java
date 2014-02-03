@@ -22,29 +22,29 @@ import slimevoidlib.network.PacketUpdate;
 
 public class ToolBeltCycleToolExecutor implements IPacketExecutor {
 
-	@Override
-	public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
-		if (packet instanceof PacketMiningToolBelt) {
-			ItemStack itemstack = entityplayer.getHeldItem();
-			if (ItemHelper.isToolBelt(itemstack)) {
-				ItemStack currentTool = ItemHelper.getSelectedTool(itemstack);
-				ItemStack newTool = null;
-				if (packet.side == CommandLib.CYCLE_TOOLBELT_UP) {
-					newTool = ItemHelper.getNextSelectedTool(itemstack);
-				}
-				if (packet.side == CommandLib.CYCLE_TOOLBELT_DOWN) {
-					newTool = ItemHelper.getPreviousSelectedTool(itemstack);
-				}
-				if (!ItemStack.areItemStacksEqual(	currentTool,
-													newTool)) {
-					/*
-					 * PacketLib.sendToolBeltSelectMessage(world, entityplayer,
-					 * toolBelt.getToolBeltId());
-					 */
-					// toolBelt.onInventoryChanged();
-				}
-			}
-		}
-	}
+    @Override
+    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+        if (packet instanceof PacketMiningToolBelt) {
+            ItemStack itemstack = entityplayer.getHeldItem();
+            if (ItemHelper.isToolBelt(itemstack)) {
+                ItemStack currentTool = ItemHelper.getSelectedTool(itemstack);
+                ItemStack newTool = null;
+                if (packet.side == CommandLib.CYCLE_TOOLBELT_UP) {
+                    newTool = ItemHelper.getNextSelectedTool(itemstack);
+                }
+                if (packet.side == CommandLib.CYCLE_TOOLBELT_DOWN) {
+                    newTool = ItemHelper.getPreviousSelectedTool(itemstack);
+                }
+                if (!ItemStack.areItemStacksEqual(currentTool,
+                                                  newTool)) {
+                    /*
+                     * PacketLib.sendToolBeltSelectMessage(world, entityplayer,
+                     * toolBelt.getToolBeltId());
+                     */
+                    // toolBelt.onInventoryChanged();
+                }
+            }
+        }
+    }
 
 }

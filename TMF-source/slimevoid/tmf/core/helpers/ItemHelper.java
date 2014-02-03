@@ -36,267 +36,267 @@ import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import slimevoid.tmf.items.tools.ItemMotionSensor;
 
 public class ItemHelper {
-	/**
-	 * Check if a player is holding or using a parsed tool class and return for
-	 * convenience
-	 * 
-	 * @param entitylivingbase
-	 *            the Player to check
-	 * @param world
-	 *            the World of the Player
-	 * @param itemClass
-	 *            the Class of Item to check for
-	 * @return the Held Item or null if the check was unsuccessfull
-	 */
-	private static ItemStack playerIsHoldingOrUsingTool(EntityLivingBase entitylivingbase, World world, Class<? extends Item> itemClass) {
-		if (entitylivingbase.getHeldItem() != null
-			&& entitylivingbase.getHeldItem().getItem() != null
-			&& itemClass.isInstance(entitylivingbase.getHeldItem().getItem())) {
-			return entitylivingbase.getHeldItem();
-		}
-		return null;
-	}
+    /**
+     * Check if a player is holding or using a parsed tool class and return for
+     * convenience
+     * 
+     * @param entitylivingbase
+     *            the Player to check
+     * @param world
+     *            the World of the Player
+     * @param itemClass
+     *            the Class of Item to check for
+     * @return the Held Item or null if the check was unsuccessfull
+     */
+    private static ItemStack playerIsHoldingOrUsingTool(EntityLivingBase entitylivingbase, World world, Class<? extends Item> itemClass) {
+        if (entitylivingbase.getHeldItem() != null
+            && entitylivingbase.getHeldItem().getItem() != null
+            && itemClass.isInstance(entitylivingbase.getHeldItem().getItem())) {
+            return entitylivingbase.getHeldItem();
+        }
+        return null;
+    }
 
-	/**
-	 * Check if a player is carrying a certain tool type and return the list for
-	 * convenience
-	 * 
-	 * @param entityplayer
-	 *            the Player to check
-	 * @param world
-	 *            the World of the Player
-	 * @param itemClass
-	 *            the Class of Item to check for
-	 * @return the List of tools
-	 */
-	private static List<ItemStack> playerHasTools(EntityPlayer entityplayer, World world, Class<? extends Item> itemClass) {
-		List<ItemStack> tools = new ArrayList<ItemStack>();
-		IInventory playerInventory = entityplayer.inventory;
-		for (int slot = 0; slot < playerInventory.getSizeInventory(); slot++) {
-			ItemStack itemstack = playerInventory.getStackInSlot(slot);
-			if (itemstack != null && itemstack.getItem() != null
-				&& itemClass.isInstance(itemstack.getItem())) {
-				tools.add(itemstack);
-			}
-		}
-		return tools;
-	}
+    /**
+     * Check if a player is carrying a certain tool type and return the list for
+     * convenience
+     * 
+     * @param entityplayer
+     *            the Player to check
+     * @param world
+     *            the World of the Player
+     * @param itemClass
+     *            the Class of Item to check for
+     * @return the List of tools
+     */
+    private static List<ItemStack> playerHasTools(EntityPlayer entityplayer, World world, Class<? extends Item> itemClass) {
+        List<ItemStack> tools = new ArrayList<ItemStack>();
+        IInventory playerInventory = entityplayer.inventory;
+        for (int slot = 0; slot < playerInventory.getSizeInventory(); slot++) {
+            ItemStack itemstack = playerInventory.getStackInSlot(slot);
+            if (itemstack != null && itemstack.getItem() != null
+                && itemClass.isInstance(itemstack.getItem())) {
+                tools.add(itemstack);
+            }
+        }
+        return tools;
+    }
 
-	/**
-	 * Check if a player has any Tool Belts in their inventory and return the
-	 * List for convenience
-	 * 
-	 * @param entityplayer
-	 *            the Player to check
-	 * @param world
-	 *            the World of the Player
-	 * @return the List of Tool Belts (if any)
-	 */
-	public static List<ItemStack> getToolBelts(EntityPlayer entityplayer, World world) {
-		return playerHasTools(	entityplayer,
-								world,
-								ItemMiningToolBelt.class);
-	}
+    /**
+     * Check if a player has any Tool Belts in their inventory and return the
+     * List for convenience
+     * 
+     * @param entityplayer
+     *            the Player to check
+     * @param world
+     *            the World of the Player
+     * @return the List of Tool Belts (if any)
+     */
+    public static List<ItemStack> getToolBelts(EntityPlayer entityplayer, World world) {
+        return playerHasTools(entityplayer,
+                              world,
+                              ItemMiningToolBelt.class);
+    }
 
-	/**
-	 * Check if a Player has a Tool Belt and return for convenience
-	 * 
-	 * @param entityplayer
-	 *            the Player to check
-	 * @param world
-	 *            the World of the Player
-	 * @param isHeld
-	 *            whether we're checking for a held Tool Belt (Should be true)
-	 * @return
-	 */
-	public static ItemStack getToolBelt(EntityLivingBase entitylivingbase, World world, boolean isHeld) {
-		return isHeld ? playerIsHoldingOrUsingTool(	entitylivingbase,
-													world,
-													ItemMiningToolBelt.class) : null;
-	}
+    /**
+     * Check if a Player has a Tool Belt and return for convenience
+     * 
+     * @param entityplayer
+     *            the Player to check
+     * @param world
+     *            the World of the Player
+     * @param isHeld
+     *            whether we're checking for a held Tool Belt (Should be true)
+     * @return
+     */
+    public static ItemStack getToolBelt(EntityLivingBase entitylivingbase, World world, boolean isHeld) {
+        return isHeld ? playerIsHoldingOrUsingTool(entitylivingbase,
+                                                   world,
+                                                   ItemMiningToolBelt.class) : null;
+    }
 
-	public static boolean isItem(ItemStack itemstack) {
-		return itemstack != null && itemstack.getItem() != null;
-	}
+    public static boolean isItem(ItemStack itemstack) {
+        return itemstack != null && itemstack.getItem() != null;
+    }
 
-	/**
-	 * Checks whether a given ItemStack is a Tool belt
-	 * 
-	 * @param itemstack
-	 *            the ItemStack to check
-	 * @return true or false
-	 */
-	public static boolean isToolBelt(ItemStack itemstack) {
-		return isItem(itemstack)
-				&& itemstack.getItem() instanceof ItemMiningToolBelt;
-	}
+    /**
+     * Checks whether a given ItemStack is a Tool belt
+     * 
+     * @param itemstack
+     *            the ItemStack to check
+     * @return true or false
+     */
+    public static boolean isToolBelt(ItemStack itemstack) {
+        return isItem(itemstack)
+               && itemstack.getItem() instanceof ItemMiningToolBelt;
+    }
 
-	/**
-	 * Checks it the given ItemStack is an instance of ItemBlock
-	 * 
-	 * @param itemstack
-	 * @return ItemBlock or not
-	 */
-	public static boolean isItemBlock(ItemStack itemstack) {
-		return isItem(itemstack) && itemstack.getItem() instanceof ItemBlock;
-	}
+    /**
+     * Checks it the given ItemStack is an instance of ItemBlock
+     * 
+     * @param itemstack
+     * @return ItemBlock or not
+     */
+    public static boolean isItemBlock(ItemStack itemstack) {
+        return isItem(itemstack) && itemstack.getItem() instanceof ItemBlock;
+    }
 
-	/*
-	 * Infi Tool Check for Tinkers Construct compatibility
-	 */
+    /*
+     * Infi Tool Check for Tinkers Construct compatibility
+     */
 
-	/**
-	 * Checks to see whether or not tools belong to the infi tool list
-	 * 
-	 * @param itemstack
-	 * @return if is INFI_TOOL
-	 */
-	public static boolean isItemInfiTool(ItemStack itemstack) {
-		return isItem(itemstack)
-				&& itemstack.getUnlocalizedName().startsWith(ItemLib.INFI_TOOL);
-	}
+    /**
+     * Checks to see whether or not tools belong to the infi tool list
+     * 
+     * @param itemstack
+     * @return if is INFI_TOOL
+     */
+    public static boolean isItemInfiTool(ItemStack itemstack) {
+        return isItem(itemstack)
+               && itemstack.getUnlocalizedName().startsWith(ItemLib.INFI_TOOL);
+    }
 
-	public static boolean isItemInfiPickaxe(ItemStack itemstack) {
-		boolean flag = false;
-		if (isItemInfiTool(itemstack)) {
-			String stackName = itemstack.getUnlocalizedName();
-			if (stackName.contains(ItemLib.INFI_TOOL_PICKAXE)
-				|| stackName.contains(ItemLib.INFI_TOOL_HAMMER)) {
-				flag = true;
-			}
-		}
-		return flag;
-	}
+    public static boolean isItemInfiPickaxe(ItemStack itemstack) {
+        boolean flag = false;
+        if (isItemInfiTool(itemstack)) {
+            String stackName = itemstack.getUnlocalizedName();
+            if (stackName.contains(ItemLib.INFI_TOOL_PICKAXE)
+                || stackName.contains(ItemLib.INFI_TOOL_HAMMER)) {
+                flag = true;
+            }
+        }
+        return flag;
+    }
 
-	public static boolean isItemInfiShovel(ItemStack itemstack) {
-		boolean flag = false;
-		if (isItemInfiTool(itemstack)) {
-			String stackName = itemstack.getUnlocalizedName();
-			if (stackName.contains(ItemLib.INFI_TOOL_SHOVEL)
-				|| stackName.contains(ItemLib.INFI_TOOL_MATTOCK)
-				|| stackName.contains(ItemLib.INFI_TOOL_EXCAVATOR)) {
-				flag = true;
-			}
-		}
-		return flag;
-	}
+    public static boolean isItemInfiShovel(ItemStack itemstack) {
+        boolean flag = false;
+        if (isItemInfiTool(itemstack)) {
+            String stackName = itemstack.getUnlocalizedName();
+            if (stackName.contains(ItemLib.INFI_TOOL_SHOVEL)
+                || stackName.contains(ItemLib.INFI_TOOL_MATTOCK)
+                || stackName.contains(ItemLib.INFI_TOOL_EXCAVATOR)) {
+                flag = true;
+            }
+        }
+        return flag;
+    }
 
-	/*
-	 * End Infi Tool Check
-	 */
+    /*
+     * End Infi Tool Check
+     */
 
-	/**
-	 * Checks it the given ItemStack is an instance of ItemPickaxe
-	 * 
-	 * @param itemstack
-	 * @return ItemPickaxe or not
-	 */
-	public static boolean isItemPickaxe(ItemStack itemstack) {
-		return isItem(itemstack)
-				&& (itemstack.getItem() instanceof ItemPickaxe || isItemInfiPickaxe(itemstack));
-	}
+    /**
+     * Checks it the given ItemStack is an instance of ItemPickaxe
+     * 
+     * @param itemstack
+     * @return ItemPickaxe or not
+     */
+    public static boolean isItemPickaxe(ItemStack itemstack) {
+        return isItem(itemstack)
+               && (itemstack.getItem() instanceof ItemPickaxe || isItemInfiPickaxe(itemstack));
+    }
 
-	/**
-	 * Checks it the given ItemStack is an instance of ItemSpade
-	 * 
-	 * @param itemstack
-	 * @return ItemSpade or not
-	 */
-	public static boolean isItemSpade(ItemStack itemstack) {
-		return isItem(itemstack)
-				&& (itemstack.getItem() instanceof ItemSpade || isItemInfiShovel(itemstack));
-	}
+    /**
+     * Checks it the given ItemStack is an instance of ItemSpade
+     * 
+     * @param itemstack
+     * @return ItemSpade or not
+     */
+    public static boolean isItemSpade(ItemStack itemstack) {
+        return isItem(itemstack)
+               && (itemstack.getItem() instanceof ItemSpade || isItemInfiShovel(itemstack));
+    }
 
-	/**
-	 * Checks it the given ItemStack is an instance of ItemMotionSensor
-	 * 
-	 * @param itemstack
-	 * @return ItemMotionSensor or not
-	 */
-	public static boolean isItemMotionSensor(ItemStack itemstack) {
-		return isItem(itemstack)
-				&& itemstack.getItem() instanceof ItemMotionSensor;
-	}
+    /**
+     * Checks it the given ItemStack is an instance of ItemMotionSensor
+     * 
+     * @param itemstack
+     * @return ItemMotionSensor or not
+     */
+    public static boolean isItemMotionSensor(ItemStack itemstack) {
+        return isItem(itemstack)
+               && itemstack.getItem() instanceof ItemMotionSensor;
+    }
 
-	public static ItemStack getSelectedTool(ItemStack itemstack) {
-		// Check that the current itemstack is a Tool Belt
-		if (isToolBelt(itemstack)) {
-			// Retrieve the selected tool
-			ItemStack selectedTool = ((ItemMiningToolBelt) itemstack.getItem()).getSelectedTool(itemstack);
-			// If there is a tool in the selected slot
-			if (selectedTool != null) {
-				// Perform the onBlockDestroyed using that Tool
-				return selectedTool;
-			}
-		}
-		return null;
-	}
+    public static ItemStack getSelectedTool(ItemStack itemstack) {
+        // Check that the current itemstack is a Tool Belt
+        if (isToolBelt(itemstack)) {
+            // Retrieve the selected tool
+            ItemStack selectedTool = ((ItemMiningToolBelt) itemstack.getItem()).getSelectedTool(itemstack);
+            // If there is a tool in the selected slot
+            if (selectedTool != null) {
+                // Perform the onBlockDestroyed using that Tool
+                return selectedTool;
+            }
+        }
+        return null;
+    }
 
-	public static ItemStack[] getTools(ItemStack itemstack) {
-		ItemStack[] miningTools = new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
-		if (itemstack.hasTagCompound()) {
-			NBTTagCompound nbttagcompound = itemstack.getTagCompound();
-			if (nbttagcompound != null && nbttagcompound.hasKey(NBTLib.TOOLS)) {
-				NBTTagList toolsTag = nbttagcompound.getTagList(NBTLib.TOOLS);
-				for (int i = 0; i < toolsTag.tagCount(); i++) {
-					NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.tagAt(i);
-					byte slot = tagCompound.getByte(NBTLib.SLOT);
-					if (slot >= 0 && slot < miningTools.length) {
-						miningTools[slot] = ItemStack.loadItemStackFromNBT(tagCompound);
-					}
-				}
-			}
-		}
-		return miningTools;
-	}
+    public static ItemStack[] getTools(ItemStack itemstack) {
+        ItemStack[] miningTools = new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
+        if (itemstack.hasTagCompound()) {
+            NBTTagCompound nbttagcompound = itemstack.getTagCompound();
+            if (nbttagcompound != null && nbttagcompound.hasKey(NBTLib.TOOLS)) {
+                NBTTagList toolsTag = nbttagcompound.getTagList(NBTLib.TOOLS);
+                for (int i = 0; i < toolsTag.tagCount(); i++) {
+                    NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.tagAt(i);
+                    byte slot = tagCompound.getByte(NBTLib.SLOT);
+                    if (slot >= 0 && slot < miningTools.length) {
+                        miningTools[slot] = ItemStack.loadItemStackFromNBT(tagCompound);
+                    }
+                }
+            }
+        }
+        return miningTools;
+    }
 
-	public static void doBreakSpeed(BreakSpeed event) {
-		ItemStack heldItem = event.entityLiving.getHeldItem();
-		if (isToolBelt(heldItem)) {
-			((ItemMiningToolBelt) heldItem.getItem()).doBreakSpeed(	event,
-																	heldItem);
-		}
-	}
+    public static void doBreakSpeed(BreakSpeed event) {
+        ItemStack heldItem = event.entityLiving.getHeldItem();
+        if (isToolBelt(heldItem)) {
+            ((ItemMiningToolBelt) heldItem.getItem()).doBreakSpeed(event,
+                                                                   heldItem);
+        }
+    }
 
-	public static boolean doEntityInteract(EntityInteractEvent event) {
-		ItemStack heldItem = event.entityLiving.getHeldItem();
-		if (isToolBelt(heldItem)) {
-			return ((ItemMiningToolBelt) heldItem.getItem()).doEntityInteract(	event,
-																				heldItem);
-		}
-		return false;
-	}
+    public static boolean doEntityInteract(EntityInteractEvent event) {
+        ItemStack heldItem = event.entityLiving.getHeldItem();
+        if (isToolBelt(heldItem)) {
+            return ((ItemMiningToolBelt) heldItem.getItem()).doEntityInteract(event,
+                                                                              heldItem);
+        }
+        return false;
+    }
 
-	public static void doHarvestCheck(HarvestCheck event) {
+    public static void doHarvestCheck(HarvestCheck event) {
 
-		ItemStack heldItem = event.entityLiving.getHeldItem();
-		if (isToolBelt(heldItem)) {
-			((ItemMiningToolBelt) heldItem.getItem()).doHarvestCheck(	event,
-																		heldItem);
-		}
-	}
+        ItemStack heldItem = event.entityLiving.getHeldItem();
+        if (isToolBelt(heldItem)) {
+            ((ItemMiningToolBelt) heldItem.getItem()).doHarvestCheck(event,
+                                                                     heldItem);
+        }
+    }
 
-	public static ItemStack getNextSelectedTool(ItemStack itemstack) {
-		if (isToolBelt(itemstack)) {
-			return ((ItemMiningToolBelt) itemstack.getItem()).cycleTool(itemstack,
-																		CommandLib.CYCLE_TOOLBELT_UP);
-		}
-		return null;
-	}
+    public static ItemStack getNextSelectedTool(ItemStack itemstack) {
+        if (isToolBelt(itemstack)) {
+            return ((ItemMiningToolBelt) itemstack.getItem()).cycleTool(itemstack,
+                                                                        CommandLib.CYCLE_TOOLBELT_UP);
+        }
+        return null;
+    }
 
-	public static ItemStack getPreviousSelectedTool(ItemStack itemstack) {
-		if (isToolBelt(itemstack)) {
-			return ((ItemMiningToolBelt) itemstack.getItem()).cycleTool(itemstack,
-																		CommandLib.CYCLE_TOOLBELT_DOWN);
-		}
-		return null;
-	}
+    public static ItemStack getPreviousSelectedTool(ItemStack itemstack) {
+        if (isToolBelt(itemstack)) {
+            return ((ItemMiningToolBelt) itemstack.getItem()).cycleTool(itemstack,
+                                                                        CommandLib.CYCLE_TOOLBELT_DOWN);
+        }
+        return null;
+    }
 
-	public static void toggleMiningMode(World world, EntityPlayer entityplayer, ItemStack itemstack) {
-		if (isToolBelt(itemstack)) {
-			((ItemMiningToolBelt) itemstack.getItem()).toggleMiningMode(world,
-																		entityplayer,
-																		itemstack);
-		}
-	}
+    public static void toggleMiningMode(World world, EntityPlayer entityplayer, ItemStack itemstack) {
+        if (isToolBelt(itemstack)) {
+            ((ItemMiningToolBelt) itemstack.getItem()).toggleMiningMode(world,
+                                                                        entityplayer,
+                                                                        itemstack);
+        }
+    }
 }

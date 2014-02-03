@@ -17,56 +17,56 @@ import slimevoidlib.ICommonProxy;
 import slimevoidlib.core.SlimevoidCore;
 
 public class TMFInit {
-	private static boolean	initialized	= false;
+    private static boolean initialized = false;
 
-	public static void initialize(ICommonProxy proxy) {
-		if (initialized) return;
-		initialized = true;
-		load();
-	}
+    public static void initialize(ICommonProxy proxy) {
+        if (initialized) return;
+        initialized = true;
+        load();
+    }
 
-	public static void load() {
-		SlimevoidCore.console(	CoreLib.MOD_ID,
-								"Registering Miner's Tool Belt...");
-		TMFCore.registerToolBelt();
+    public static void load() {
+        SlimevoidCore.console(CoreLib.MOD_ID,
+                              "Registering Miner's Tool Belt...");
+        TMFCore.registerToolBelt();
 
-		if (ConfigurationLib.loadItems) {
-			SlimevoidCore.console(	CoreLib.MOD_ID,
-									"Registering items...");
-			TMFCore.registerItems();
-		}
+        if (ConfigurationLib.loadItems) {
+            SlimevoidCore.console(CoreLib.MOD_ID,
+                                  "Registering items...");
+            TMFCore.registerItems();
+        }
 
-		if (ConfigurationLib.loadOres) {
-			SlimevoidCore.console(	CoreLib.MOD_ID,
-									"Registering ores...");
-			TMFCore.registerOres();
-		}
+        if (ConfigurationLib.loadOres) {
+            SlimevoidCore.console(CoreLib.MOD_ID,
+                                  "Registering ores...");
+            TMFCore.registerOres();
+        }
 
-		if (ConfigurationLib.loadMachines) {
-			SlimevoidCore.console(	CoreLib.MOD_ID,
-									"Registering machines...");
-			TMFCore.registerMachines();
-		}
+        if (ConfigurationLib.loadMachines) {
+            SlimevoidCore.console(CoreLib.MOD_ID,
+                                  "Registering machines...");
+            TMFCore.registerMachines();
+        }
 
-		TheMinersFriend.proxy.registerRenderInformation();
+        TheMinersFriend.proxy.registerRenderInformation();
 
-		TheMinersFriend.proxy.registerTickHandlers();
+        TheMinersFriend.proxy.registerTickHandlers();
 
-		SlimevoidCore.console(	CoreLib.MOD_ID,
-								"Registering names...");
-		TMFCore.registerNames();
+        SlimevoidCore.console(CoreLib.MOD_ID,
+                              "Registering names...");
+        TMFCore.registerNames();
 
-		SlimevoidCore.console(	CoreLib.MOD_ID,
-								"Registering XML variables...");
+        SlimevoidCore.console(CoreLib.MOD_ID,
+                              "Registering XML variables...");
 
-		ConfigurationLib.loadXMLVariables();
+        ConfigurationLib.loadXMLVariables();
 
-		SlimevoidCore.console(	CoreLib.MOD_ID,
-								"Registering recipes...");
-		TMFCore.registerRecipes();
+        SlimevoidCore.console(CoreLib.MOD_ID,
+                              "Registering recipes...");
+        TMFCore.registerRecipes();
 
-		SlimevoidCore.console(	CoreLib.MOD_ID,
-								"Registering fuels...");
-		TMFCore.registerFuels();
-	}
+        SlimevoidCore.console(CoreLib.MOD_ID,
+                              "Registering fuels...");
+        TMFCore.registerFuels();
+    }
 }

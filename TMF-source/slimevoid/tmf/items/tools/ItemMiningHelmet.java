@@ -20,20 +20,20 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMiningHelmet extends ItemArmor {
 
-	public ItemMiningHelmet(int itemID, EnumArmorMaterial material, int renderIndex, int armorType) {
-		super(itemID, material, renderIndex, armorType);
-		this.setCreativeTab(CreativeTabTMF.tabTMF);
-	}
+    public ItemMiningHelmet(int itemID, EnumArmorMaterial material, int renderIndex, int armorType) {
+        super(itemID, material, renderIndex, armorType);
+        this.setCreativeTab(CreativeTabTMF.tabTMF);
+    }
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public Icon getIconFromDamageForRenderPass(int damage, int renderPass) {
-		return renderPass == 1 ? this.itemIcon : super.getIconFromDamageForRenderPass(	damage,
-																						renderPass);
-	}
+    @SideOnly(Side.CLIENT)
+    @Override
+    public Icon getIconFromDamageForRenderPass(int damage, int renderPass) {
+        return renderPass == 1 ? this.itemIcon : super.getIconFromDamageForRenderPass(damage,
+                                                                                      renderPass);
+    }
 
-	@Override
-	public Icon getIconFromDamage(int par1) {
-		return this.itemIcon;
-	}
+    @Override
+    public Icon getIconFromDamage(int par1) {
+        return this.itemIcon;
+    }
 }

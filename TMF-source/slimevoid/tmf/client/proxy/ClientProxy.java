@@ -57,128 +57,128 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
-	@Override
-	public void preInit() {
-		super.preInit();
+    @Override
+    public void preInit() {
+        super.preInit();
 
-		PacketLib.registerClientPacketExecutors();
+        PacketLib.registerClientPacketExecutors();
 
-		EventLib.registerClientEvents();
+        EventLib.registerClientEvents();
 
-		KeyBindings.registerKeyBindings();
-	}
+        KeyBindings.registerKeyBindings();
+    }
 
-	@Override
-	public void registerConfigurationProperties(File configFile) {
-		super.registerConfigurationProperties(configFile);
-		ConfigurationLib.ClientConfig();
-	}
+    @Override
+    public void registerConfigurationProperties(File configFile) {
+        super.registerConfigurationProperties(configFile);
+        ConfigurationLib.ClientConfig();
+    }
 
-	@Override
-	public void registerRenderInformation() {
-		SlimevoidCore.console(	CoreLib.MOD_ID,
-								"Registering Renderers...");
-		if (ConfigurationLib.loadItems) {
-			ArmorLib.registerArmorTexture(	TMFCore.miningHelmetIron,
-											ResourceLib.IRON_MINING_HELMET);
-			ArmorLib.registerArmorTexture(	TMFCore.miningHelmetGold,
-											ResourceLib.GOLD_MINING_HELMET);
-			ArmorLib.registerArmorTexture(	TMFCore.miningHelmetDiamond,
-											ResourceLib.DIAMOND_MINING_HELMET);
-		}
+    @Override
+    public void registerRenderInformation() {
+        SlimevoidCore.console(CoreLib.MOD_ID,
+                              "Registering Renderers...");
+        if (ConfigurationLib.loadItems) {
+            ArmorLib.registerArmorTexture(TMFCore.miningHelmetIron,
+                                          ResourceLib.IRON_MINING_HELMET);
+            ArmorLib.registerArmorTexture(TMFCore.miningHelmetGold,
+                                          ResourceLib.GOLD_MINING_HELMET);
+            ArmorLib.registerArmorTexture(TMFCore.miningHelmetDiamond,
+                                          ResourceLib.DIAMOND_MINING_HELMET);
+        }
 
-		ItemRendererToolBelt.init();
+        ItemRendererToolBelt.init();
 
-		if (ConfigurationLib.loadMachines) {
-			ClientRegistry.bindTileEntitySpecialRenderer(	TileEntityGrinder.class,
-															new TileEntitySpecialRendererGrinder());
-			RenderingRegistry.registerBlockHandler(new BlockMachineRenderingHandler());
-		}
-	}
+        if (ConfigurationLib.loadMachines) {
+            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGrinder.class,
+                                                         new TileEntitySpecialRendererGrinder());
+            RenderingRegistry.registerBlockHandler(new BlockMachineRenderingHandler());
+        }
+    }
 
-	@Override
-	public void registerTickHandlers() {
-		super.registerTickHandlers();
-		if (ConfigurationLib.loadItems) {
-			SlimevoidCore.console(	CoreLib.MOD_ID,
-									"Registering Client tick handlers...");
+    @Override
+    public void registerTickHandlers() {
+        super.registerTickHandlers();
+        if (ConfigurationLib.loadItems) {
+            SlimevoidCore.console(CoreLib.MOD_ID,
+                                  "Registering Client tick handlers...");
 
-			MotionSensorTickHandler motionSensor = new MotionSensorTickHandler(ConfigurationLib.motionSensorMaxEntityDistance, ConfigurationLib.motionSensorMaxGameTicks, ConfigurationLib.motionSensorDrawRight);
-			motionSensor.addRule(new MotionSensorRuleOnHotbar());
-			motionSensor.addRule(new MotionSensorRuleInToolbelt());
-			TickRegistry.registerTickHandler(	motionSensor,
-												Side.CLIENT);
+            MotionSensorTickHandler motionSensor = new MotionSensorTickHandler(ConfigurationLib.motionSensorMaxEntityDistance, ConfigurationLib.motionSensorMaxGameTicks, ConfigurationLib.motionSensorDrawRight);
+            motionSensor.addRule(new MotionSensorRuleOnHotbar());
+            motionSensor.addRule(new MotionSensorRuleInToolbelt());
+            TickRegistry.registerTickHandler(motionSensor,
+                                             Side.CLIENT);
 
-			TickRegistry.registerTickHandler(	new MiningHelmetTickHandler(),
-												Side.CLIENT);
-			TickRegistry.registerTickHandler(	new MiningHelmetRenderTickHandler(),
-												Side.CLIENT);
-		}
-	}
+            TickRegistry.registerTickHandler(new MiningHelmetTickHandler(),
+                                             Side.CLIENT);
+            TickRegistry.registerTickHandler(new MiningHelmetRenderTickHandler(),
+                                             Side.CLIENT);
+        }
+    }
 
-	@Override
-	public String getMinecraftDir() {
-		return Minecraft.getMinecraft().mcDataDir.getPath();
-	}
+    @Override
+    public String getMinecraftDir() {
+        return Minecraft.getMinecraft().mcDataDir.getPath();
+    }
 
-	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		switch (ID) {
-		case GuiLib.GUIID_TOOL_BELT:
-			InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, player, player.getHeldItem());
-			return new GuiMiningToolBelt(player, data);
-		case GuiLib.GUIID_REFINERY:
-			TileEntityRefinery tileRefinery = (TileEntityRefinery) BlockHelper.getTileEntity(	world,
-																								x,
-																								y,
-																								z,
-																								TileEntityRefinery.class);
-			if (tileRefinery != null) {
-				return new GuiRefinery(player, tileRefinery);
-			}
-			return null;
-		case GuiLib.GUIID_GRINDER:
-			TileEntityGrinder tileGrinder = (TileEntityGrinder) BlockHelper.getTileEntity(	world,
-																							x,
-																							y,
-																							z,
-																							TileEntityGrinder.class);
-			if (tileGrinder != null) {
-				return new GuiGrinder(player, tileGrinder);
-			}
-			return null;
-		case GuiLib.GUIID_GEOEQUIP:
-			TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) BlockHelper.getTileEntity(	world,
-																													x,
-																													y,
-																													z,
-																													TileEntityGeologicalEquipment.class);
-			if (tileGeoEquip != null) {
-				return new GuiGeologicalEquipment(player, tileGeoEquip);
-			}
-			return null;
-		case GuiLib.GUIID_MIXINGTABLE:
-			TileEntityAutomaticMixingTable tileMixTable = (TileEntityAutomaticMixingTable) BlockHelper.getTileEntity(	world,
-																														x,
-																														y,
-																														z,
-																														TileEntityAutomaticMixingTable.class);
-			if (tileMixTable != null) {
-				return new GuiAutomaticMixingTable(player, tileMixTable);
-			}
-			return null;
-		case GuiLib.GUIID_STOVE:
-			TileEntityStove tileStove = (TileEntityStove) BlockHelper.getTileEntity(world,
-																					x,
-																					y,
-																					z,
-																					TileEntityStove.class);
-			if (tileStove != null) {
-				return new GuiStove(player, tileStove);
-			}
-			return null;
-		default:
-			return null;
-		}
-	}
+    @Override
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        switch (ID) {
+        case GuiLib.GUIID_TOOL_BELT:
+            InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, player, player.getHeldItem());
+            return new GuiMiningToolBelt(player, data);
+        case GuiLib.GUIID_REFINERY:
+            TileEntityRefinery tileRefinery = (TileEntityRefinery) BlockHelper.getTileEntity(world,
+                                                                                             x,
+                                                                                             y,
+                                                                                             z,
+                                                                                             TileEntityRefinery.class);
+            if (tileRefinery != null) {
+                return new GuiRefinery(player, tileRefinery);
+            }
+            return null;
+        case GuiLib.GUIID_GRINDER:
+            TileEntityGrinder tileGrinder = (TileEntityGrinder) BlockHelper.getTileEntity(world,
+                                                                                          x,
+                                                                                          y,
+                                                                                          z,
+                                                                                          TileEntityGrinder.class);
+            if (tileGrinder != null) {
+                return new GuiGrinder(player, tileGrinder);
+            }
+            return null;
+        case GuiLib.GUIID_GEOEQUIP:
+            TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) BlockHelper.getTileEntity(world,
+                                                                                                                   x,
+                                                                                                                   y,
+                                                                                                                   z,
+                                                                                                                   TileEntityGeologicalEquipment.class);
+            if (tileGeoEquip != null) {
+                return new GuiGeologicalEquipment(player, tileGeoEquip);
+            }
+            return null;
+        case GuiLib.GUIID_MIXINGTABLE:
+            TileEntityAutomaticMixingTable tileMixTable = (TileEntityAutomaticMixingTable) BlockHelper.getTileEntity(world,
+                                                                                                                     x,
+                                                                                                                     y,
+                                                                                                                     z,
+                                                                                                                     TileEntityAutomaticMixingTable.class);
+            if (tileMixTable != null) {
+                return new GuiAutomaticMixingTable(player, tileMixTable);
+            }
+            return null;
+        case GuiLib.GUIID_STOVE:
+            TileEntityStove tileStove = (TileEntityStove) BlockHelper.getTileEntity(world,
+                                                                                    x,
+                                                                                    y,
+                                                                                    z,
+                                                                                    TileEntityStove.class);
+            if (tileStove != null) {
+                return new GuiStove(player, tileStove);
+            }
+            return null;
+        default:
+            return null;
+        }
+    }
 }

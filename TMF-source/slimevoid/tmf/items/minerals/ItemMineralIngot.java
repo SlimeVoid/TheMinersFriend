@@ -15,8 +15,8 @@ import slimevoid.tmf.items.ItemTMF;
 
 public class ItemMineralIngot extends ItemTMF {
 
-	public ItemMineralIngot(int id) {
-		super(id);
-	}
+    public ItemMineralIngot(int id) {
+        super(id);
+    }
 
 }

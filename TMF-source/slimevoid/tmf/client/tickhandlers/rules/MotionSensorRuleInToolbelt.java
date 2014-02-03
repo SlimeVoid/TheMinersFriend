@@ -22,36 +22,36 @@ import slimevoid.tmf.items.tools.ItemMotionSensor;
 
 public class MotionSensorRuleInToolbelt implements IMotionSensorRule {
 
-	@Override
-	public boolean doShowMotionSensor(EntityPlayer entityplayer, World world) {
-		if (entityplayer != null && entityplayer.inventory != null) {
-			for (int i = 0; i < 9; i++) {
-				ItemStack itemstack = entityplayer.inventory.mainInventory[i];
-				if (hasMotionSensor(entityplayer,
-									world,
-									itemstack)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+    @Override
+    public boolean doShowMotionSensor(EntityPlayer entityplayer, World world) {
+        if (entityplayer != null && entityplayer.inventory != null) {
+            for (int i = 0; i < 9; i++) {
+                ItemStack itemstack = entityplayer.inventory.mainInventory[i];
+                if (hasMotionSensor(entityplayer,
+                                    world,
+                                    itemstack)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-	private boolean hasMotionSensor(EntityPlayer entityplayer, World world, ItemStack itemstack) {
-		if (itemstack != null && itemstack.getItem() != null
-			&& itemstack.getItem() instanceof ItemMiningToolBelt) {
-			if (itemstack.hasTagCompound()) {
-				ItemStack[] tools = ItemHelper.getTools(itemstack);
-				for (int j = 0; j < DataLib.TOOL_BELT_MAX_SIZE; j++) {
-					ItemStack itemstack2 = tools[j];
-					if (itemstack2 != null && itemstack2.getItem() != null
-						&& itemstack2.getItem() instanceof ItemMotionSensor) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
+    private boolean hasMotionSensor(EntityPlayer entityplayer, World world, ItemStack itemstack) {
+        if (itemstack != null && itemstack.getItem() != null
+            && itemstack.getItem() instanceof ItemMiningToolBelt) {
+            if (itemstack.hasTagCompound()) {
+                ItemStack[] tools = ItemHelper.getTools(itemstack);
+                for (int j = 0; j < DataLib.TOOL_BELT_MAX_SIZE; j++) {
+                    ItemStack itemstack2 = tools[j];
+                    if (itemstack2 != null && itemstack2.getItem() != null
+                        && itemstack2.getItem() instanceof ItemMotionSensor) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
 }

@@ -34,82 +34,82 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class PacketLib {
 
-	public static final int	MOTION_SENSOR		= 0;
-	public static final int	MINING_TOOL_BELT	= 1;
+    public static final int MOTION_SENSOR    = 0;
+    public static final int MINING_TOOL_BELT = 1;
 
-	public static void registerPacketExecutors() {
-		CommonPacketHandler.init();
+    public static void registerPacketExecutors() {
+        CommonPacketHandler.init();
 
-		// MOTION SENSOR
-		PacketMotionSensorHandler packetMotionSensorHandler = new PacketMotionSensorHandler();
-		packetMotionSensorHandler.registerPacketHandler(CommandLib.PLAY_MOTION_SWEEP,
-														new MotionSensorSweepExecutor());
-		packetMotionSensorHandler.registerPacketHandler(CommandLib.PLAY_MOTION_PING,
-														new MotionSensorPingExecutor());
-		CommonPacketHandler.registerPacketHandler(	PacketLib.MOTION_SENSOR,
-													packetMotionSensorHandler);
+        // MOTION SENSOR
+        PacketMotionSensorHandler packetMotionSensorHandler = new PacketMotionSensorHandler();
+        packetMotionSensorHandler.registerPacketHandler(CommandLib.PLAY_MOTION_SWEEP,
+                                                        new MotionSensorSweepExecutor());
+        packetMotionSensorHandler.registerPacketHandler(CommandLib.PLAY_MOTION_PING,
+                                                        new MotionSensorPingExecutor());
+        CommonPacketHandler.registerPacketHandler(PacketLib.MOTION_SENSOR,
+                                                  packetMotionSensorHandler);
 
-		// MINING TOOL BELT
-		PacketMiningToolBeltHandler packetMiningToolBeltHandler = new PacketMiningToolBeltHandler();
-		packetMiningToolBeltHandler.registerPacketHandler(	CommandLib.CYCLE_TOOL_BELT,
-															new ToolBeltCycleToolExecutor());
-		packetMiningToolBeltHandler.registerPacketHandler(	CommandLib.TOGGLE_MINING_MODE,
-															new MiningModeExecutor());
-		CommonPacketHandler.registerPacketHandler(	PacketLib.MINING_TOOL_BELT,
-													packetMiningToolBeltHandler);
-	}
+        // MINING TOOL BELT
+        PacketMiningToolBeltHandler packetMiningToolBeltHandler = new PacketMiningToolBeltHandler();
+        packetMiningToolBeltHandler.registerPacketHandler(CommandLib.CYCLE_TOOL_BELT,
+                                                          new ToolBeltCycleToolExecutor());
+        packetMiningToolBeltHandler.registerPacketHandler(CommandLib.TOGGLE_MINING_MODE,
+                                                          new MiningModeExecutor());
+        CommonPacketHandler.registerPacketHandler(PacketLib.MINING_TOOL_BELT,
+                                                  packetMiningToolBeltHandler);
+    }
 
-	@SideOnly(Side.CLIENT)
-	public static void registerClientPacketExecutors() {
-		ClientPacketHandler.init();
+    @SideOnly(Side.CLIENT)
+    public static void registerClientPacketExecutors() {
+        ClientPacketHandler.init();
 
-		// MINING TOOL BELT
-		ClientPacketMiningToolBeltHandler clientToolBeltHandler = new ClientPacketMiningToolBeltHandler();
-		clientToolBeltHandler.registerPacketHandler(CommandLib.MESSAGE_TOOL_SELECT,
-													new ClientMiningToolSelectedExecutor());
-		clientToolBeltHandler.registerPacketHandler(CommandLib.MINING_MODE_ACTIVATED,
-													new ClientMiningModeActivatedExecutor());
-		clientToolBeltHandler.registerPacketHandler(CommandLib.MINING_MODE_DEACTIVATED,
-													new ClientMiningModeDeactivatedExecutor());
-		ClientPacketHandler.registerPacketHandler(	PacketLib.MINING_TOOL_BELT,
-													clientToolBeltHandler);
-	}
+        // MINING TOOL BELT
+        ClientPacketMiningToolBeltHandler clientToolBeltHandler = new ClientPacketMiningToolBeltHandler();
+        clientToolBeltHandler.registerPacketHandler(CommandLib.MESSAGE_TOOL_SELECT,
+                                                    new ClientMiningToolSelectedExecutor());
+        clientToolBeltHandler.registerPacketHandler(CommandLib.MINING_MODE_ACTIVATED,
+                                                    new ClientMiningModeActivatedExecutor());
+        clientToolBeltHandler.registerPacketHandler(CommandLib.MINING_MODE_DEACTIVATED,
+                                                    new ClientMiningModeDeactivatedExecutor());
+        ClientPacketHandler.registerPacketHandler(PacketLib.MINING_TOOL_BELT,
+                                                  clientToolBeltHandler);
+    }
 
-	public static void sendToolBeltMessage(World world, EntityPlayer entityplayer, String command) {
-		PacketMiningToolBelt packet = new PacketMiningToolBelt(command);
-		PacketDispatcher.sendPacketToPlayer(packet.getPacket(),
-											(Player) entityplayer);
-	}
+    public static void sendToolBeltMessage(World world, EntityPlayer entityplayer, String command) {
+        PacketMiningToolBelt packet = new PacketMiningToolBelt(command);
+        PacketDispatcher.sendPacketToPlayer(packet.getPacket(),
+                                            (Player) entityplayer);
+    }
 
-	public static void sendActivateMessage(World world, EntityPlayer entityplayer) {
-		sendToolBeltMessage(world,
-							entityplayer,
-							CommandLib.MINING_MODE_ACTIVATED);
-	}
+    public static void sendActivateMessage(World world, EntityPlayer entityplayer) {
+        sendToolBeltMessage(world,
+                            entityplayer,
+                            CommandLib.MINING_MODE_ACTIVATED);
+    }
 
-	public static void sendDeactivateMessage(World world, EntityPlayer entityplayer) {
-		sendToolBeltMessage(world,
-							entityplayer,
-							CommandLib.MINING_MODE_DEACTIVATED);
-	}
+    public static void sendDeactivateMessage(World world, EntityPlayer entityplayer) {
+        sendToolBeltMessage(world,
+                            entityplayer,
+                            CommandLib.MINING_MODE_DEACTIVATED);
+    }
 
-	public static void sendToolBeltSelectMessage(World world, EntityPlayer entityplayer, int toolBeltId) {
-		PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.MESSAGE_TOOL_SELECT);
-		// packet.setToolBeltId(toolBeltId);
-		PacketDispatcher.sendPacketToPlayer(packet.getPacket(),
-											(Player) entityplayer);
-	}
+    public static void sendToolBeltSelectMessage(World world, EntityPlayer entityplayer, int toolBeltId) {
+        PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.MESSAGE_TOOL_SELECT);
+        // packet.setToolBeltId(toolBeltId);
+        PacketDispatcher.sendPacketToPlayer(packet.getPacket(),
+                                            (Player) entityplayer);
+    }
 
-	public static void sendMiningModeMessage(World world, EntityLivingBase entityliving, boolean mode) {
-		if (entityliving instanceof EntityPlayer) {
-			EntityPlayer entityplayer = (EntityPlayer) entityliving;
-			if (mode) {
-				sendActivateMessage(world,
-									entityplayer);
-			} else {
-				sendDeactivateMessage(	world,
-										entityplayer);
-			}
-		}
-	}
+    public static void sendMiningModeMessage(World world, EntityLivingBase entityliving, boolean mode) {
+        if (entityliving instanceof EntityPlayer) {
+            EntityPlayer entityplayer = (EntityPlayer) entityliving;
+            if (mode) {
+                sendActivateMessage(world,
+                                    entityplayer);
+            } else {
+                sendDeactivateMessage(world,
+                                      entityplayer);
+            }
+        }
+    }
 }

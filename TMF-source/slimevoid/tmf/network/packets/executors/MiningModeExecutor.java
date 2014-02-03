@@ -21,15 +21,15 @@ import slimevoidlib.network.PacketUpdate;
 
 public class MiningModeExecutor implements IPacketExecutor {
 
-	@Override
-	public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
-		if (packet instanceof PacketMiningToolBelt) {
-			ItemStack itemstack = entityplayer.getHeldItem();
-			if (ItemHelper.isToolBelt(itemstack)) {
-				ItemHelper.toggleMiningMode(world,
-											entityplayer,
-											itemstack);
-			}
-		}
-	}
+    @Override
+    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+        if (packet instanceof PacketMiningToolBelt) {
+            ItemStack itemstack = entityplayer.getHeldItem();
+            if (ItemHelper.isToolBelt(itemstack)) {
+                ItemHelper.toggleMiningMode(world,
+                                            entityplayer,
+                                            itemstack);
+            }
+        }
+    }
 }

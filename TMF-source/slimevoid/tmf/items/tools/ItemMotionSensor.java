@@ -18,18 +18,18 @@ import slimevoid.tmf.items.ItemTMF;
 
 public class ItemMotionSensor extends ItemTMF {
 
-	public ItemMotionSensor(int itemID) {
-		super(itemID);
-		this.setMaxStackSize(1);
-	}
+    public ItemMotionSensor(int itemID) {
+        super(itemID);
+        this.setMaxStackSize(1);
+    }
 
-	@Override
-	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-		return itemstack;
-	}
+    @Override
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+        return itemstack;
+    }
 
-	@Override
-	public boolean isFull3D() {
-		return true;
-	}
+    @Override
+    public boolean isFull3D() {
+        return true;
+    }
 }

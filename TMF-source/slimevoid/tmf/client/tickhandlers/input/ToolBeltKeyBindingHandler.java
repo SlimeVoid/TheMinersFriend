@@ -20,28 +20,28 @@ import cpw.mods.fml.common.TickType;
 
 public class ToolBeltKeyBindingHandler extends KeyHandler {
 
-	public ToolBeltKeyBindingHandler(KeyBinding[] keyBindings, boolean[] repeatings) {
-		super(keyBindings, repeatings);
-	}
+    public ToolBeltKeyBindingHandler(KeyBinding[] keyBindings, boolean[] repeatings) {
+        super(keyBindings, repeatings);
+    }
 
-	@Override
-	public String getLabel() {
-		return "ToolBeltKeyBindings";
-	}
+    @Override
+    public String getLabel() {
+        return "ToolBeltKeyBindings";
+    }
 
-	@Override
-	public void keyDown(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat) {
-	}
+    @Override
+    public void keyDown(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat) {
+    }
 
-	@Override
-	public void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd) {
-		if (tickEnd) KeyBindings.doKeyUp(	types,
-											kb);
-	}
+    @Override
+    public void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd) {
+        if (tickEnd) KeyBindings.doKeyUp(types,
+                                         kb);
+    }
 
-	@Override
-	public EnumSet<TickType> ticks() {
-		return EnumSet.of(TickType.CLIENT);
-	}
+    @Override
+    public EnumSet<TickType> ticks() {
+        return EnumSet.of(TickType.CLIENT);
+    }
 
 }

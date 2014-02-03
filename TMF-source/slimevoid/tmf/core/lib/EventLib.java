@@ -23,16 +23,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class EventLib {
 
-	@SideOnly(Side.CLIENT)
-	public static void registerClientEvents() {
-		MinecraftForge.EVENT_BUS.register(new TrackerSounds());
-		MinecraftForge.EVENT_BUS.register(new ToolBeltMouseWheelHandler());
-	}
+    @SideOnly(Side.CLIENT)
+    public static void registerClientEvents() {
+        MinecraftForge.EVENT_BUS.register(new TrackerSounds());
+        MinecraftForge.EVENT_BUS.register(new ToolBeltMouseWheelHandler());
+    }
 
-	public static void registerCommonEvents() {
-		MinecraftForge.EVENT_BUS.register(new MiningToolBeltEntityInteract());
-		MinecraftForge.EVENT_BUS.register(new MiningToolBeltHarvestCheck());
-		MinecraftForge.EVENT_BUS.register(new MiningToolBeltBreakSpeed());
-		MinecraftForge.EVENT_BUS.register(new MiningToolBeltAttributeModifiers());
-	}
+    public static void registerCommonEvents() {
+        MinecraftForge.EVENT_BUS.register(new MiningToolBeltEntityInteract());
+        MinecraftForge.EVENT_BUS.register(new MiningToolBeltHarvestCheck());
+        MinecraftForge.EVENT_BUS.register(new MiningToolBeltBreakSpeed());
+        MinecraftForge.EVENT_BUS.register(new MiningToolBeltAttributeModifiers());
+    }
 }

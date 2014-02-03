@@ -17,9 +17,9 @@ import slimevoid.tmf.core.helpers.ItemHelper;
 
 public class MiningToolBeltEntityInteract {
 
-	@ForgeSubscribe
-	public void onPlayerInteract(EntityInteractEvent event) {
-		event.setCanceled(ItemHelper.doEntityInteract(event));
-	}
+    @ForgeSubscribe
+    public void onPlayerInteract(EntityInteractEvent event) {
+        event.setCanceled(ItemHelper.doEntityInteract(event));
+    }
 
 }

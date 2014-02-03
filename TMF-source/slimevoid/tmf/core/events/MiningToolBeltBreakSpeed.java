@@ -17,8 +17,8 @@ import slimevoid.tmf.core.helpers.ItemHelper;
 
 public class MiningToolBeltBreakSpeed {
 
-	@ForgeSubscribe
-	public void onBreakSpeed(BreakSpeed event) {
-		ItemHelper.doBreakSpeed(event);
-	}
+    @ForgeSubscribe
+    public void onBreakSpeed(BreakSpeed event) {
+        ItemHelper.doBreakSpeed(event);
+    }
 }

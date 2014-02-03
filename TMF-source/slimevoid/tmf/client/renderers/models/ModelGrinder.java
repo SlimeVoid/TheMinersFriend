@@ -25,125 +25,125 @@ import slimevoidlib.render.WavefrontOBJModelLoader;
 import slimevoidlib.render.WavefrontOBJModelLoader.FaceMissingTextureException;
 
 public class ModelGrinder extends ModelBase {
-	public ModelSlimevoidObject	staticModel;
-	public ModelSlimevoidObject	rollerModel;
-	public ModelSlimevoidObject	axlesModel;
-	public ModelSlimevoidObject	gearsModel;
+    public ModelSlimevoidObject staticModel;
+    public ModelSlimevoidObject rollerModel;
+    public ModelSlimevoidObject axlesModel;
+    public ModelSlimevoidObject gearsModel;
 
-	public TileEntityGrinder	tile;
+    public TileEntityGrinder    tile;
 
-	public int					rotationSpeedDivider	= 20;
+    public int                  rotationSpeedDivider = 20;
 
-	public ModelGrinder(TileEntityGrinder tile) {
-		this.tile = tile;
-		try {
-			staticModel = (new WavefrontOBJModelLoader()).loadObjFile(	this,
-																		256,
-																		256,
-																		ResourceLib.getModelPath(true)
-																				+ "grinderStatic.obj");
-			rollerModel = (new WavefrontOBJModelLoader()).loadObjFile(	this,
-																		256,
-																		256,
-																		ResourceLib.getModelPath(true)
-																				+ "grinderRoller.obj");
-			gearsModel = (new WavefrontOBJModelLoader()).loadObjFile(	this,
-																		256,
-																		256,
-																		ResourceLib.getModelPath(true)
-																				+ "grinderGears.obj");
-			axlesModel = (new WavefrontOBJModelLoader()).loadObjFile(	this,
-																		256,
-																		256,
-																		ResourceLib.getModelPath(false)
-																				+ "grinderAxles.obj");
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (ArithmeticException e) {
-			e.printStackTrace();
-		} catch (FaceMissingTextureException e) {
-			e.printStackTrace();
-		}
-	}
+    public ModelGrinder(TileEntityGrinder tile) {
+        this.tile = tile;
+        try {
+            staticModel = (new WavefrontOBJModelLoader()).loadObjFile(this,
+                                                                      256,
+                                                                      256,
+                                                                      ResourceLib.getModelPath(true)
+                                                                              + "grinderStatic.obj");
+            rollerModel = (new WavefrontOBJModelLoader()).loadObjFile(this,
+                                                                      256,
+                                                                      256,
+                                                                      ResourceLib.getModelPath(true)
+                                                                              + "grinderRoller.obj");
+            gearsModel = (new WavefrontOBJModelLoader()).loadObjFile(this,
+                                                                     256,
+                                                                     256,
+                                                                     ResourceLib.getModelPath(true)
+                                                                             + "grinderGears.obj");
+            axlesModel = (new WavefrontOBJModelLoader()).loadObjFile(this,
+                                                                     256,
+                                                                     256,
+                                                                     ResourceLib.getModelPath(false)
+                                                                             + "grinderAxles.obj");
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        } catch (ArithmeticException e) {
+            e.printStackTrace();
+        } catch (FaceMissingTextureException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public void updateBounds(Block block) {
-		ModelSlimevoidObject.ModelSlimevoidObjectBounds[] bounds = new ModelSlimevoidObject.ModelSlimevoidObjectBounds[4];
-		bounds[0] = staticModel.getBounds();
-		bounds[1] = rollerModel.getBounds();
-		bounds[2] = axlesModel.getBounds();
-		bounds[3] = gearsModel.getBounds();
+    public void updateBounds(Block block) {
+        ModelSlimevoidObject.ModelSlimevoidObjectBounds[] bounds = new ModelSlimevoidObject.ModelSlimevoidObjectBounds[4];
+        bounds[0] = staticModel.getBounds();
+        bounds[1] = rollerModel.getBounds();
+        bounds[2] = axlesModel.getBounds();
+        bounds[3] = gearsModel.getBounds();
 
-		int minX = 0;
-		int minY = 0;
-		int minZ = 0;
-		int maxX = 0;
-		int maxY = 0;
-		int maxZ = 0;
+        int minX = 0;
+        int minY = 0;
+        int minZ = 0;
+        int maxX = 0;
+        int maxY = 0;
+        int maxZ = 0;
 
-		for (ModelSlimevoidObject.ModelSlimevoidObjectBounds bound : bounds) {
-			if (bound.minX < minX || (minX == 0 && bound.minX != 0)) minX = bound.minX;
-			if (bound.minY < minY) minY = bound.minY;
-			if (bound.minZ < minZ || (minZ == 0 && bound.minZ != 0)) minZ = bound.minZ;
+        for (ModelSlimevoidObject.ModelSlimevoidObjectBounds bound : bounds) {
+            if (bound.minX < minX || (minX == 0 && bound.minX != 0)) minX = bound.minX;
+            if (bound.minY < minY) minY = bound.minY;
+            if (bound.minZ < minZ || (minZ == 0 && bound.minZ != 0)) minZ = bound.minZ;
 
-			if (bound.maxX > maxX) maxX = bound.maxX;
-			if (bound.maxY > maxY) maxY = bound.maxY;
-			if (bound.maxZ > maxZ) maxZ = bound.maxZ;
-		}
+            if (bound.maxX > maxX) maxX = bound.maxX;
+            if (bound.maxY > maxY) maxY = bound.maxY;
+            if (bound.maxZ > maxZ) maxZ = bound.maxZ;
+        }
 
-		block.setBlockBounds(	minX / 16f,
-								minY / 16f,
-								minZ / 16f,
-								maxX / 16f,
-								maxY / 16f,
-								maxZ / 16f);
-	}
+        block.setBlockBounds(minX / 16f,
+                             minY / 16f,
+                             minZ / 16f,
+                             maxX / 16f,
+                             maxY / 16f,
+                             maxZ / 16f);
+    }
 
-	public void renderAll(TileEntitySpecialRendererGrinder renderer, boolean dir) {
-		renderer.bindResource(ModelLib.GRINDER_STATIC);
-		staticModel.render(0.0625F);
+    public void renderAll(TileEntitySpecialRendererGrinder renderer, boolean dir) {
+        renderer.bindResource(ModelLib.GRINDER_STATIC);
+        staticModel.render(0.0625F);
 
-		GL11.glPushMatrix();
-		if (tile != null && tile.getBlockType() != null && tile.isActive) {
-			GL11.glTranslatef(	0,
-								0.5f,
-								0.5f);
-			if (dir) GL11.glRotatef((System.currentTimeMillis() / rotationSpeedDivider) % 360,
-									1,
-									0,
-									0);
-			else GL11.glRotatef((-System.currentTimeMillis() / rotationSpeedDivider) % 360,
-								1,
-								0,
-								0);
-			GL11.glTranslatef(	0,
-								-0.5f,
-								-0.5f);
-		}
-		renderer.bindResource(ModelLib.GRINDER_ROLLERS);
-		rollerModel.render(0.0625F);
-		renderer.bindResource(ModelLib.GRINDER_GEARS);
-		gearsModel.render(0.0625F);
-		GL11.glPopMatrix();
+        GL11.glPushMatrix();
+        if (tile != null && tile.getBlockType() != null && tile.isActive) {
+            GL11.glTranslatef(0,
+                              0.5f,
+                              0.5f);
+            if (dir) GL11.glRotatef((System.currentTimeMillis() / rotationSpeedDivider) % 360,
+                                    1,
+                                    0,
+                                    0);
+            else GL11.glRotatef((-System.currentTimeMillis() / rotationSpeedDivider) % 360,
+                                1,
+                                0,
+                                0);
+            GL11.glTranslatef(0,
+                              -0.5f,
+                              -0.5f);
+        }
+        renderer.bindResource(ModelLib.GRINDER_ROLLERS);
+        rollerModel.render(0.0625F);
+        renderer.bindResource(ModelLib.GRINDER_GEARS);
+        gearsModel.render(0.0625F);
+        GL11.glPopMatrix();
 
-		GL11.glPushMatrix();
-		if (tile != null && tile.getBlockType() != null && tile.isActive) {
-			GL11.glTranslatef(	0,
-								0.21875f,
-								0.5f);
-			if (dir) GL11.glRotatef((-System.currentTimeMillis() / rotationSpeedDivider) % 360,
-									1,
-									0,
-									0);
-			else GL11.glRotatef((System.currentTimeMillis() / rotationSpeedDivider) % 360,
-								1,
-								0,
-								0);
-			GL11.glTranslatef(	0,
-								-0.21875f,
-								-0.5f);
-		}
-		renderer.bindResource(ModelLib.GRINDER_AXELS);
-		axlesModel.render(0.0625F);
-		GL11.glPopMatrix();
-	}
+        GL11.glPushMatrix();
+        if (tile != null && tile.getBlockType() != null && tile.isActive) {
+            GL11.glTranslatef(0,
+                              0.21875f,
+                              0.5f);
+            if (dir) GL11.glRotatef((-System.currentTimeMillis() / rotationSpeedDivider) % 360,
+                                    1,
+                                    0,
+                                    0);
+            else GL11.glRotatef((System.currentTimeMillis() / rotationSpeedDivider) % 360,
+                                1,
+                                0,
+                                0);
+            GL11.glTranslatef(0,
+                              -0.21875f,
+                              -0.5f);
+        }
+        renderer.bindResource(ModelLib.GRINDER_AXELS);
+        axlesModel.render(0.0625F);
+        GL11.glPopMatrix();
+    }
 }

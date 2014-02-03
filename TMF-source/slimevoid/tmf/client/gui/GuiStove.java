@@ -21,31 +21,31 @@ import slimevoid.tmf.blocks.machines.tileentities.TileEntityStove;
 import slimevoid.tmf.core.lib.ResourceLib;
 
 public class GuiStove extends GuiContainer {
-	private TileEntityStove	stove;
+    private TileEntityStove stove;
 
-	public GuiStove(EntityPlayer entityplayer, TileEntityStove tileStove) {
-		super(new ContainerStove(entityplayer.inventory, tileStove));
-		this.xSize = 177;
-		this.ySize = 221;
-		this.stove = tileStove;
-	}
+    public GuiStove(EntityPlayer entityplayer, TileEntityStove tileStove) {
+        super(new ContainerStove(entityplayer.inventory, tileStove));
+        this.xSize = 177;
+        this.ySize = 221;
+        this.stove = tileStove;
+    }
 
-	@Override
-	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
-		// /int tex = mc.renderEngine.getTexture(ResourceLib.GUI_AUTOMIXTABLE);
-		GL11.glColor4f(	1.0F,
-						1.0F,
-						1.0F,
-						1.0F);
-		mc.renderEngine.bindTexture(ResourceLib.GUI_STOVE);
-		int sizeX = (width - xSize) / 2;
-		int sizeY = (height - ySize) / 2;
-		drawTexturedModalRect(	sizeX,
-								sizeY,
-								0,
-								0,
-								xSize,
-								ySize);
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
+        // /int tex = mc.renderEngine.getTexture(ResourceLib.GUI_AUTOMIXTABLE);
+        GL11.glColor4f(1.0F,
+                       1.0F,
+                       1.0F,
+                       1.0F);
+        mc.renderEngine.bindTexture(ResourceLib.GUI_STOVE);
+        int sizeX = (width - xSize) / 2;
+        int sizeY = (height - ySize) / 2;
+        drawTexturedModalRect(sizeX,
+                              sizeY,
+                              0,
+                              0,
+                              xSize,
+                              ySize);
 
-	}
+    }
 }

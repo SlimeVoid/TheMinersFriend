@@ -18,24 +18,24 @@ import slimevoid.tmf.core.lib.CoreLib;
 
 public class BlockTMFOre extends BlockOre {
 
-	public int	spawnLevel, spawnRate, spawnSize;
+    public int spawnLevel, spawnRate, spawnSize;
 
-	public BlockTMFOre(int id, int spawnLevel, int spawnRate, int spawnSize) {
-		super(id);
-		this.spawnLevel = spawnLevel;
-		this.spawnRate = spawnRate;
-		this.spawnSize = spawnSize;
-		BlockLib.registerTMFOre(this);
-	}
+    public BlockTMFOre(int id, int spawnLevel, int spawnRate, int spawnSize) {
+        super(id);
+        this.spawnLevel = spawnLevel;
+        this.spawnRate = spawnRate;
+        this.spawnSize = spawnSize;
+        BlockLib.registerTMFOre(this);
+    }
 
-	@Override
-	public Block setUnlocalizedName(String name) {
-		this.textureName = name;
-		return super.setUnlocalizedName(name);
-	}
+    @Override
+    public Block setUnlocalizedName(String name) {
+        this.textureName = name;
+        return super.setUnlocalizedName(name);
+    }
 
-	@Override
-	public String getTextureName() {
-		return CoreLib.MOD_RESOURCES + ":" + this.textureName;
-	}
+    @Override
+    public String getTextureName() {
+        return CoreLib.MOD_RESOURCES + ":" + this.textureName;
+    }
 }

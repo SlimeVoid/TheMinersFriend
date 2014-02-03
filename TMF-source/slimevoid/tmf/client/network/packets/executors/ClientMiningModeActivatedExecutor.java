@@ -21,12 +21,12 @@ import slimevoidlib.network.PacketUpdate;
 
 public class ClientMiningModeActivatedExecutor implements IPacketExecutor {
 
-	@Override
-	public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
-		if (packet instanceof PacketMiningToolBelt) {
-			PacketMiningToolBelt packetMT = (PacketMiningToolBelt) packet;
-			String message = StatCollector.translateToLocal(MessageLib.MINING_MODE_ACTIVATED);
-			entityplayer.addChatMessage(message);
-		}
-	}
+    @Override
+    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+        if (packet instanceof PacketMiningToolBelt) {
+            PacketMiningToolBelt packetMT = (PacketMiningToolBelt) packet;
+            String message = StatCollector.translateToLocal(MessageLib.MINING_MODE_ACTIVATED);
+            entityplayer.addChatMessage(message);
+        }
+    }
 }

@@ -13,12 +13,12 @@ package slimevoid.tmf.core.lib;
 
 public class SoundLib {
 
-	private static String	RESOURCE_PREFIX	= CoreLib.MOD_RESOURCES + ":";
+    private static String  RESOURCE_PREFIX = CoreLib.MOD_RESOURCES + ":";
 
-	public static String[]	trackerFiles	= {
-			RESOURCE_PREFIX + "trackersweep.ogg",
-			RESOURCE_PREFIX + "trackerping.ogg" };
+    public static String[] trackerFiles    = {
+            RESOURCE_PREFIX + "trackersweep.ogg",
+            RESOURCE_PREFIX + "trackerping.ogg" };
 
-	public static String	TRACKER_SWEEP	= RESOURCE_PREFIX + "trackersweep";
-	public static String	TRACKER_PING	= RESOURCE_PREFIX + "trackerping";
+    public static String   TRACKER_SWEEP   = RESOURCE_PREFIX + "trackersweep";
+    public static String   TRACKER_PING    = RESOURCE_PREFIX + "trackerping";
 }

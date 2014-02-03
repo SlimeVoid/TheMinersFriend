@@ -27,71 +27,71 @@ import slimevoid.tmf.core.lib.CoreLib;
  */
 public abstract class PacketMining extends PacketUpdate {
 
-	private String	command;
+    private String command;
 
-	@Override
-	public void writeData(DataOutputStream data) throws IOException {
-		super.writeData(data);
-		data.writeUTF(this.command);
-	}
+    @Override
+    public void writeData(DataOutputStream data) throws IOException {
+        super.writeData(data);
+        data.writeUTF(this.command);
+    }
 
-	@Override
-	public void readData(DataInputStream data) throws IOException {
-		super.readData(data);
-		this.command = data.readUTF();
-	}
+    @Override
+    public void readData(DataInputStream data) throws IOException {
+        super.readData(data);
+        this.command = data.readUTF();
+    }
 
-	/**
-	 * Constructor for Default Mining Packets
-	 * 
-	 * @param packetId
-	 *            the packet ID used to identify the type of packet data being
-	 *            sent or received
-	 */
-	public PacketMining(int packetId) {
-		super(packetId);
-		this.setChannel(CoreLib.MOD_CHANNEL);
-	}
+    /**
+     * Constructor for Default Mining Packets
+     * 
+     * @param packetId
+     *            the packet ID used to identify the type of packet data being
+     *            sent or received
+     */
+    public PacketMining(int packetId) {
+        super(packetId);
+        this.setChannel(CoreLib.MOD_CHANNEL);
+    }
 
-	/**
-	 * Constructor for Default Mining Packets Used to add payload data to the
-	 * packet
-	 * 
-	 * @param packetId
-	 *            the packet ID used to identify the type of packet data being
-	 *            sent or received
-	 * @param payload
-	 *            the new payload to be associated with the packet
-	 */
-	public PacketMining(int packetId, PacketPayload payload) {
-		super(packetId, payload);
-		this.setChannel(CoreLib.MOD_CHANNEL);
-	}
+    /**
+     * Constructor for Default Mining Packets Used to add payload data to the
+     * packet
+     * 
+     * @param packetId
+     *            the packet ID used to identify the type of packet data being
+     *            sent or received
+     * @param payload
+     *            the new payload to be associated with the packet
+     */
+    public PacketMining(int packetId, PacketPayload payload) {
+        super(packetId, payload);
+        this.setChannel(CoreLib.MOD_CHANNEL);
+    }
 
-	@Override
-	public String toString() {
-		return this.getCommand() + "(" + xPosition + "," + yPosition + ","
-				+ zPosition + ")";
-	}
+    @Override
+    public String toString() {
+        return this.getCommand() + "(" + xPosition + "," + yPosition + ","
+               + zPosition + ")";
+    }
 
-	/**
-	 * Retrieves the command String corresponding to the executor
-	 * 
-	 * @return Returns command
-	 */
-	@Override
-	public String getCommand() {
-		return this.command;
-	}
+    /**
+     * Retrieves the command String corresponding to the executor
+     * 
+     * @return Returns command
+     */
+    @Override
+    public String getCommand() {
+        return this.command;
+    }
 
-	/**
-	 * Sets the command in the packet
-	 * 
-	 * @param command
-	 *            The command to be added
-	 */
-	@Override
-	public void setCommand(String command) {
-		this.command = command;
-	}
+    /**
+     * Sets the command in the packet
+     * 
+     * @param command
+     *            The command to be added
+     */
+    @Override
+    public void setCommand(String command) {
+        this.command = command;
+    }
 }

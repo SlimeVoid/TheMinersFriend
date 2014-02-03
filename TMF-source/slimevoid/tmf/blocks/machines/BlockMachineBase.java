@@ -21,38 +21,38 @@ import slimevoidlib.blocks.BlockBase;
 
 public class BlockMachineBase extends BlockBase {
 
-	@Override
-	public void registerIcons(IconRegister iconRegister) {
-		for (int i = 0; i < this.tileEntityMap.length; i++) {
-			EnumMachine machine = EnumMachine.getMachine(i);
-			if (machine != null) {
-				machine.registerIcons(iconRegister);
-			}
-		}
-	}
+    @Override
+    public void registerIcons(IconRegister iconRegister) {
+        for (int i = 0; i < this.tileEntityMap.length; i++) {
+            EnumMachine machine = EnumMachine.getMachine(i);
+            if (machine != null) {
+                machine.registerIcons(iconRegister);
+            }
+        }
+    }
 
-	public BlockMachineBase(int id) {
-		super(id, Material.rock, EnumMachine.values().length);
-	}
+    public BlockMachineBase(int id) {
+        super(id, Material.rock, EnumMachine.values().length);
+    }
 
-	@Override
-	public Icon getIcon(int side, int metadata) {
-		Icon icon = null;
-		EnumMachine machine = EnumMachine.getMachine(metadata);
-		if (machine != null) {
-			icon = machine.getIcon(side);
-		}
-		return icon != null ? icon : this.blockIcon;
-	}
+    @Override
+    public Icon getIcon(int side, int metadata) {
+        Icon icon = null;
+        EnumMachine machine = EnumMachine.getMachine(metadata);
+        if (machine != null) {
+            icon = machine.getIcon(side);
+        }
+        return icon != null ? icon : this.blockIcon;
+    }
 
-	@Override
-	public CreativeTabs getCreativeTab() {
-		return CreativeTabTMF.tabTMF;
-	}
+    @Override
+    public CreativeTabs getCreativeTab() {
+        return CreativeTabTMF.tabTMF;
+    }
 
-	@Override
-	public int getRenderType() {
-		return ConfigurationLib.renderMachineId;
-	}
+    @Override
+    public int getRenderType() {
+        return ConfigurationLib.renderMachineId;
+    }
 
 }

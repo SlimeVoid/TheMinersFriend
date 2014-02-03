@@ -24,52 +24,52 @@ import slimevoid.tmf.items.tools.ItemMiningHelmet;
 
 public class ArmorLib {
 
-	private static HashMap<Integer, String>	armorTextures	= new HashMap<Integer, String>();
+    private static HashMap<Integer, String> armorTextures = new HashMap<Integer, String>();
 
-	public static String getArmorTextureFromItemStack(ItemStack itemstack) {
-		return getArmorTextureFromItemID(itemstack.itemID);
-	}
+    public static String getArmorTextureFromItemStack(ItemStack itemstack) {
+        return getArmorTextureFromItemID(itemstack.itemID);
+    }
 
-	public static String getArmorTextureFromItemID(int itemID) {
-		if (armorTextures.containsKey(itemID)) {
-			return armorTextures.get(itemID);
-		} else {
-			LoggerTMF.getInstance("ArmorLib").write(true,
-													"Failed to get Texture file for ID ["
-															+ itemID + "]",
-													Logger.LogLevel.DEBUG);
-		}
-		return "";
-	}
+    public static String getArmorTextureFromItemID(int itemID) {
+        if (armorTextures.containsKey(itemID)) {
+            return armorTextures.get(itemID);
+        } else {
+            LoggerTMF.getInstance("ArmorLib").write(true,
+                                                    "Failed to get Texture file for ID ["
+                                                            + itemID + "]",
+                                                    Logger.LogLevel.DEBUG);
+        }
+        return "";
+    }
 
-	public static String registerArmorTexture(Item item, String textureFile) {
-		if (!armorTextures.containsKey(item.itemID)) {
-			armorTextures.put(	item.itemID,
-								textureFile);
-			return getArmorTextureFromItemID(item.itemID);
-		} else {
-			LoggerTMF.getInstance("ArmorLib").write(true,
-													"Texture file for item ["
-															+ item.getUnlocalizedName()
-															+ "] already registered",
-													Logger.LogLevel.DEBUG);
-		}
-		return "";
-	}
+    public static String registerArmorTexture(Item item, String textureFile) {
+        if (!armorTextures.containsKey(item.itemID)) {
+            armorTextures.put(item.itemID,
+                              textureFile);
+            return getArmorTextureFromItemID(item.itemID);
+        } else {
+            LoggerTMF.getInstance("ArmorLib").write(true,
+                                                    "Texture file for item ["
+                                                            + item.getUnlocalizedName()
+                                                            + "] already registered",
+                                                    Logger.LogLevel.DEBUG);
+        }
+        return "";
+    }
 
-	private static ItemStack playerIsWearingArmor(EntityPlayer entityplayer, World world, Class<? extends ItemArmor> armorClass) {
-		for (ItemStack armorPiece : entityplayer.inventory.armorInventory) {
-			if (armorPiece != null
-				&& armorClass.isInstance(armorPiece.getItem())) {
-				return armorPiece;
-			}
-		}
-		return null;
-	}
+    private static ItemStack playerIsWearingArmor(EntityPlayer entityplayer, World world, Class<? extends ItemArmor> armorClass) {
+        for (ItemStack armorPiece : entityplayer.inventory.armorInventory) {
+            if (armorPiece != null
+                && armorClass.isInstance(armorPiece.getItem())) {
+                return armorPiece;
+            }
+        }
+        return null;
+    }
 
-	public static ItemStack getHelm(EntityPlayer entityplayer, World world) {
-		return playerIsWearingArmor(entityplayer,
-									world,
-									ItemMiningHelmet.class);
-	}
+    public static ItemStack getHelm(EntityPlayer entityplayer, World world) {
+        return playerIsWearingArmor(entityplayer,
+                                    world,
+                                    ItemMiningHelmet.class);
+    }
 }

@@ -25,32 +25,32 @@ import slimevoidlib.data.Logger.LogLevel;
 
 public class MiningToolBeltAttributeModifiers {
 
-	private HashMap<EntityLivingBase, ItemStack>	previousTool	= new HashMap<EntityLivingBase, ItemStack>();
+    private HashMap<EntityLivingBase, ItemStack> previousTool = new HashMap<EntityLivingBase, ItemStack>();
 
-	@ForgeSubscribe
-	public void onLivingUpdate(LivingUpdateEvent event) {
-		EntityLivingBase entity = event.entityLiving;
-		ItemStack heldItem = entity.getHeldItem();
-		ItemStack tool = ItemHelper.getSelectedTool(heldItem);
-		ItemStack previousTool = this.previousTool.containsKey(entity) ? this.previousTool.get(entity) : null;
-		if (!ItemStack.areItemStacksEqual(	previousTool,
-											tool)) {
-			if (previousTool != null) {
-				event.entityLiving.getAttributeMap().removeAttributeModifiers(previousTool.getAttributeModifiers());
-			}
-			if (tool != null) {
-				event.entityLiving.getAttributeMap().applyAttributeModifiers(tool.getAttributeModifiers());
-			}
-			try {
-				this.previousTool.put(	entity,
-										tool == null ? null : tool.copy());
-			} catch (ConcurrentModificationException c) {
-				SlimevoidCore.console(	CoreLib.MOD_ID,
-										"Phew, that was close! onLivingUpdate could not update "
-												+ entity.getEntityName()
-												+ "'s previous item.",
-										LogLevel.WARNING.ordinal());
-			}
-		}
-	}
+    @ForgeSubscribe
+    public void onLivingUpdate(LivingUpdateEvent event) {
+        EntityLivingBase entity = event.entityLiving;
+        ItemStack heldItem = entity.getHeldItem();
+        ItemStack tool = ItemHelper.getSelectedTool(heldItem);
+        ItemStack previousTool = this.previousTool.containsKey(entity) ? this.previousTool.get(entity) : null;
+        if (!ItemStack.areItemStacksEqual(previousTool,
+                                          tool)) {
+            if (previousTool != null) {
+                event.entityLiving.getAttributeMap().removeAttributeModifiers(previousTool.getAttributeModifiers());
+            }
+            if (tool != null) {
+                event.entityLiving.getAttributeMap().applyAttributeModifiers(tool.getAttributeModifiers());
+            }
+            try {
+                this.previousTool.put(entity,
+                                      tool == null ? null : tool.copy());
+            } catch (ConcurrentModificationException c) {
+                SlimevoidCore.console(CoreLib.MOD_ID,
+                                      "Phew, that was close! onLivingUpdate could not update "
+                                              + entity.getEntityName()
+                                              + "'s previous item.",
+                                      LogLevel.WARNING.ordinal());
+            }
+        }
+    }
 }
