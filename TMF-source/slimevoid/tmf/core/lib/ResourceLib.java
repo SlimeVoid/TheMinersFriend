@@ -164,8 +164,7 @@ public class ResourceLib {
 
     public static String getModelPath(boolean hasHDModel) {
         if (hasHDModel
-            && FMLClientHandler.instance().getClient().gameSettings.fancyGraphics
-            && FMLClientHandler.instance().getClient().gameSettings.advancedOpengl) {
+            && FMLClientHandler.instance().getClient().gameSettings.fancyGraphics) {
             return MODEL_PREFIX + HD_PREFIX;
         }
         return MODEL_PREFIX;

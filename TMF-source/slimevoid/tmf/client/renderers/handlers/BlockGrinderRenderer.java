@@ -17,8 +17,8 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
+import slimevoid.tmf.blocks.machines.EnumMachine;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
@@ -28,30 +28,42 @@ public class BlockGrinderRenderer implements ISimpleBlockRenderingHandler {
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
         TileEntityGrinder tile = new TileEntityGrinder();
         tile.blockType = block;
+        GL11.glPushMatrix();
+        GL11.glTranslatef(-0.2F,
+                          0.0F,
+                          -0.3F);
+        GL11.glRotatef(-5,
+                       0,
+                       1,
+                       0);
+        GL11.glRotatef(5,
+                       0,
+                       0,
+                       1);
+        GL11.glScalef(1.35F,
+                      1.35F,
+                      1.35F);
         TileEntityRenderer.instance.renderTileEntityAt(tile,
-                                                       0.0D,
-                                                       0.0D,
-                                                       0.0D,
+                                                       -0.3D,
+                                                       -0.3D,
+                                                       -0.3D,
                                                        0.0F);
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        GL11.glPopMatrix();
     }
 
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public boolean shouldRender3DInInventory() {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public int getRenderId() {
-        // TODO Auto-generated method stub
-        return 0;
+        return EnumMachine.GRINDER.getId();
     }
 
 }

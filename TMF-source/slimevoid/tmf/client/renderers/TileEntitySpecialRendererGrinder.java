@@ -16,7 +16,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.client.renderers.models.ModelGrinder;
@@ -33,7 +32,7 @@ public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer 
         ModelGrinder grinder = new ModelGrinder((TileEntityGrinder) tile);
 
         GL11.glPushMatrix();
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        // GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glColor4f(1.0F,
                        1.0F,
                        1.0F,
@@ -94,7 +93,7 @@ public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer 
             // grinder.updateBounds(tile.getBlockType());
         }
 
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        // GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
     }
 }
