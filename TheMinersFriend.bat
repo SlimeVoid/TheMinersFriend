@@ -7,6 +7,7 @@ set forgedir="%programdir%\Forge"
 set mcpdir="%forgedir%\mcp"
 set slimevoidlib="%repodir%\SlimevoidLibrary"
 set tmf="%repodir%\TheMinersFriend"
+set tcapi="%repodir%\Thaumcraft"
 cd %mcpdir%
 
 if not exist %slimevoidlib% GOTO :ECFAIL
@@ -29,7 +30,7 @@ GOTO :ECFAIL
 :COPYEC
 xcopy "%slimevoidlib%\SV-common\*.*" "%mcpdir%\src\minecraft" /S
 xcopy "%tmf%\TMF-source\*.*" "%mcpdir%\src\minecraft" /S
-xcopy "%tmf%\TMF-apis\*.*" "%mcpdir%\src\minecraft" /S
+xcopy "%tcapi%\*.*" "%mcpdir%\src\minecraft" /S
 pause
 call %mcpdir%\recompile.bat
 call %mcpdir%\reobfuscate.bat
