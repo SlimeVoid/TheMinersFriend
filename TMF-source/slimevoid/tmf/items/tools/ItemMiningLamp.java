@@ -17,6 +17,7 @@ public class ItemMiningLamp extends ItemTMF {
 
     public ItemMiningLamp(int itemID) {
         super(itemID);
+        this.setNoRepair();
     }
 
 }

@@ -21,6 +21,7 @@ public class ItemMotionSensor extends ItemTMF {
     public ItemMotionSensor(int itemID) {
         super(itemID);
         this.setMaxStackSize(1);
+        this.setNoRepair();
     }
 
     @Override

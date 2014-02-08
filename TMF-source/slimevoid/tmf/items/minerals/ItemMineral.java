@@ -23,6 +23,7 @@ public class ItemMineral extends ItemTMF implements IFuelHandlerTMF {
 
     public ItemMineral(int id) {
         super(id);
+        this.setNoRepair();
     }
 
     public Item setBurnSettings(int time, int speed, int width) {

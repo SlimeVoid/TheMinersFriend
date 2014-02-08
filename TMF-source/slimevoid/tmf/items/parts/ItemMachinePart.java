@@ -18,6 +18,7 @@ public class ItemMachinePart extends ItemTMF {
     public ItemMachinePart(int itemId) {
         super(itemId);
         this.setFull3D();
+        this.setNoRepair();
     }
 
 }

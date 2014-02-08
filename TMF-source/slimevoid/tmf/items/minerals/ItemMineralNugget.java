@@ -17,6 +17,7 @@ public class ItemMineralNugget extends ItemTMF {
 
     public ItemMineralNugget(int id) {
         super(id);
+        this.setNoRepair();
     }
 
 }
