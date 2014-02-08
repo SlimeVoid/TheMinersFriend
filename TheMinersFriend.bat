@@ -29,6 +29,7 @@ GOTO :ECFAIL
 :COPYEC
 xcopy "%slimevoidlib%\SV-common\*.*" "%mcpdir%\src\minecraft" /S
 xcopy "%tmf%\TMF-source\*.*" "%mcpdir%\src\minecraft" /S
+xcopy "%tmf%\TMF-apis\*.*" "%mcpdir%\src\minecraft" /S
 pause
 call %mcpdir%\recompile.bat
 call %mcpdir%\reobfuscate.bat

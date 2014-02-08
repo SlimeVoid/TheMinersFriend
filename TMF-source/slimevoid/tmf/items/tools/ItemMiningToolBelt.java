@@ -28,16 +28,20 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.core.lib.CommandLib;
+import slimevoid.tmf.core.lib.CoreLib;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.NBTLib;
 import slimevoid.tmf.items.ItemTMF;
 import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
+import slimevoidlib.core.SlimevoidCore;
 import slimevoidlib.nbt.NBTHelper;
+import thaumcraft.api.IRepairable;
+import thaumcraft.api.IRepairableExtended;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemMiningToolBelt extends ItemTMF {
+public class ItemMiningToolBelt extends ItemTMF implements IRepairableExtended {
 
     public ItemMiningToolBelt(int itemID) {
         super(itemID);
@@ -129,9 +133,28 @@ public class ItemMiningToolBelt extends ItemTMF {
 
     protected void setToolDamage(ItemStack itemstack, int damage) {
         ItemStack tool = getSelectedTool(itemstack);
-        if (tool != null && tool.getItem() != null) {
+        if (tool != null) {
             tool.setItemDamage(damage);
+            updateToolBelt(itemstack,
+                           tool);
         }
+    }
+
+    @Override
+    public boolean doRepair(ItemStack stack, EntityPlayer player, int enchantlevel) {
+        SlimevoidCore.console(CoreLib.MOD_ID,
+                              "Toolbelt - Thaumcraft Repair");
+        ItemStack tool = this.getSelectedTool(stack);
+        boolean flag = false;
+        if (tool != null && tool.getItem() != null) {
+            if (tool.getItem() instanceof IRepairableExtended
+                || tool.getItem() instanceof IRepairable) {
+                this.setToolDamage(stack,
+                                   tool.getItemDamage() - enchantlevel);
+                flag = true;
+            }
+        }
+        return flag;
     }
 
     @Override
@@ -470,6 +493,17 @@ public class ItemMiningToolBelt extends ItemTMF {
         }
         // Otherwise return the original value
         return strVsBlock;
+    }
+
+    private void updateToolBelt(ItemStack toolBelt, ItemStack tool) {
+        InventoryMiningToolBelt data = new InventoryMiningToolBelt(toolBelt);
+        if (tool.stackSize == 0) {
+            tool = null;
+        }
+        data.setInventorySlotContents(data.getSelectedSlot(),
+                                      tool);
+        updateToolBeltData(toolBelt,
+                           data);
     }
 
     private void updateToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt, ItemStack tool) {

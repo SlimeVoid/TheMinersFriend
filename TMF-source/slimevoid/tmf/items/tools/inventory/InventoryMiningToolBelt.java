@@ -32,6 +32,10 @@ public class InventoryMiningToolBelt implements IInventory {
     ItemStack[]      miningTools  = new ItemStack[DataLib.TOOL_BELT_MAX_SIZE];
     boolean          mode         = false;
 
+    public InventoryMiningToolBelt(ItemStack itemstack) {
+        this(null, null, itemstack);
+    }
+
     public InventoryMiningToolBelt(World world, EntityLivingBase entityliving, ItemStack itemstack) {
         this.world = world;
         this.entityliving = entityliving;
@@ -165,6 +169,18 @@ public class InventoryMiningToolBelt implements IInventory {
     }
 
     public void writeToNBT(NBTTagCompound nbttagcompound) {
+        ItemStack tool = this.miningTools[this.getSelectedSlot()];
+        NBTTagList enchantments = null;
+        if (tool != null && tool.hasTagCompound()
+            && tool.getEnchantmentTagList() != null) {
+            enchantments = tool.getEnchantmentTagList();
+        }
+        if (enchantments != null) {
+            nbttagcompound.setTag("ench",
+                                  enchantments);
+        }
+        nbttagcompound.setBoolean(NBTLib.MIRRORED_TOOL,
+                                  true);
         NBTTagList toolsTag = new NBTTagList();
         for (int i = 0; i < this.miningTools.length; i++) {
             if (miningTools[i] != null) {
