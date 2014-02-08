@@ -36,8 +36,9 @@ import cpw.mods.fml.client.FMLClientHandler;
 
 public class ItemRendererToolBelt implements IItemRenderer {
 
-    private Minecraft mc;
-    private int       zLevel = 0;
+    private Minecraft                     mc;
+    private int                           zLevel         = 0;
+    private final static ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
 
     public ItemRendererToolBelt(Minecraft client) {
         this.mc = client;
@@ -243,7 +244,7 @@ public class ItemRendererToolBelt implements IItemRenderer {
         if (itemstack.hasEffect(index)) {
             GL11.glDepthFunc(GL11.GL_EQUAL);
             GL11.glDisable(GL11.GL_LIGHTING);
-            texturemanager.bindTexture(new ResourceLocation("%blur%/misc/glint.png"));
+            texturemanager.bindTexture(RES_ITEM_GLINT);
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(GL11.GL_SRC_COLOR,
                              GL11.GL_ONE);
