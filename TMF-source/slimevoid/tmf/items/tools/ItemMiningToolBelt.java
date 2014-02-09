@@ -113,6 +113,15 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
         return this.getToolDisplayDamage(itemstack);
     }
 
+    @Override
+    public String getItemStackDisplayName(ItemStack itemstack) {
+        ItemStack tool = this.getSelectedTool(itemstack);
+        if (tool != null && tool.getItem() != null) {
+            return tool.getItem().getItemStackDisplayName(tool);
+        }
+        return super.getItemStackDisplayName(itemstack);
+    }
+
     protected int getToolDisplayDamage(ItemStack itemstack) {
         // Retrieves the Selected Tool within the held Tool Belt
         ItemStack tool = ItemHelper.getSelectedTool(itemstack);
@@ -141,7 +150,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
     public void onUpdate(ItemStack itemstack, World world, Entity entity, int tick, boolean isHeld) {
         if (!world.isRemote && entity instanceof EntityLivingBase) {
             if (!itemstack.hasTagCompound()) {
-                getSelectedSlot(itemstack);
+                this.getSelectedSlot(itemstack);
             }
             this.doTickTools(itemstack,
                              world,
@@ -160,10 +169,10 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
                                     entity,
                                     tick,
                                     isHeld)) {
-                    updateToolBelt(world,
-                                   (EntityLivingBase) entity,
-                                   itemstack,
-                                   tool);
+                    this.updateToolBelt(world,
+                                        (EntityLivingBase) entity,
+                                        itemstack,
+                                        tool);
                 }
             }
         }
@@ -329,6 +338,20 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
                                            entityplayer,
                                            count);
             this.updateToolBelt(entityplayer.worldObj,
+                                entityplayer,
+                                itemstack,
+                                tool);
+        }
+    }
+
+    public void onPlayerStoppedUsing(ItemStack itemstack, World world, EntityPlayer entityplayer, int count) {
+        ItemStack tool = this.getSelectedTool(itemstack);
+        if (tool != null && tool.getItem() != null) {
+            tool.getItem().onPlayerStoppedUsing(tool,
+                                                world,
+                                                entityplayer,
+                                                count);
+            this.updateToolBelt(world,
                                 entityplayer,
                                 itemstack,
                                 tool);
@@ -692,29 +715,34 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
     }
 
     public ItemStack getSelectedTool(ItemStack itemstack) {
-        return getToolInSlot(itemstack,
-                             getSelectedSlot(itemstack));
+        if (ItemHelper.isToolBelt(itemstack)) {
+            return getToolInSlot(itemstack,
+                                 getSelectedSlot(itemstack));
+        }
+        return null;
     }
 
     private ItemStack setSelectedTool(ItemStack toolBelt, int selectedTool) {
-        if (toolBelt.hasTagCompound()) {
-            toolBelt.stackTagCompound.setInteger(NBTLib.SELECTED_TOOL,
-                                                 selectedTool);
+        if (ItemHelper.isToolBelt(toolBelt)) {
+            if (toolBelt.hasTagCompound()) {
+                toolBelt.stackTagCompound.setInteger(NBTLib.SELECTED_TOOL,
+                                                     selectedTool);
+            }
         }
-        return ItemHelper.getSelectedTool(toolBelt);
+        return this.getSelectedTool(toolBelt);
     }
 
     public ItemStack cycleTool(ItemStack itemstack, int direction) {
         if (ItemHelper.isToolBelt(itemstack)) {
-            int selectedTool = getSelectedSlot(itemstack);
+            int selectedTool = this.getSelectedSlot(itemstack);
             if (direction == CommandLib.CYCLE_TOOLBELT_UP) {
                 selectedTool = cycleToolUp(selectedTool);
             }
             if (direction == CommandLib.CYCLE_TOOLBELT_DOWN) {
                 selectedTool = cycleToolDown(selectedTool);
             }
-            return setSelectedTool(itemstack,
-                                   selectedTool);
+            return this.setSelectedTool(itemstack,
+                                        selectedTool);
         }
         return null;
     }
@@ -790,11 +818,9 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
 
     @Override
     public EnumAction getItemUseAction(ItemStack itemstack) {
-        if (ItemHelper.isToolBelt(itemstack)) {
-            ItemStack tool = getSelectedTool(itemstack);
-            if (tool != null) {
-                return tool.getItemUseAction();
-            }
+        ItemStack tool = this.getSelectedTool(itemstack);
+        if (tool != null) {
+            return tool.getItemUseAction();
         }
         return EnumAction.none;
     }
@@ -821,5 +847,14 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
         }
         return super.onEntitySwing(entitylivingbase,
                                    itemstack);
+    }
+
+    @Override
+    public ItemStack getContainerItemStack(ItemStack itemstack) {
+        ItemStack tool = this.getSelectedTool(itemstack);
+        if (tool != null && tool.getItem() != null) {
+            return tool.getItem().getContainerItemStack(tool);
+        }
+        return null;
     }
 }
