@@ -249,6 +249,11 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
         if (tool != null) {
             tool.useItemRightClick(world,
                                    entityplayer);
+            if (ItemStack.areItemStacksEqual(entityplayer.getItemInUse(),
+                                             tool)) {
+                entityplayer.setItemInUse(itemstack,
+                                          tool.getMaxItemUseDuration());
+            }
             updateToolBelt(world,
                            entityplayer,
                            itemstack,
@@ -308,16 +313,11 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
         // Retrieves the Selected Tool within the held Tool Belt
         ItemStack tool = getSelectedTool(itemstack);
         if (tool != null) {
-            if (!ItemStack.areItemStacksEqual(tool,
-                                              tool.getItem().onEaten(tool,
-                                                                     world,
-                                                                     entityplayer))) {
-
-                updateToolBelt(world,
-                               entityplayer,
-                               itemstack,
-                               tool);
-            }
+            updateToolBelt(world,
+                           entityplayer,
+                           itemstack,
+                           tool.onFoodEaten(world,
+                                            entityplayer));
         }
     }
 
