@@ -322,6 +322,20 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
     }
 
     @Override
+    public void onUsingItemTick(ItemStack itemstack, EntityPlayer entityplayer, int count) {
+        ItemStack tool = this.getSelectedTool(itemstack);
+        if (tool != null && tool.getItem() != null) {
+            tool.getItem().onUsingItemTick(tool,
+                                           entityplayer,
+                                           count);
+            this.updateToolBelt(entityplayer.worldObj,
+                                entityplayer,
+                                itemstack,
+                                tool);
+        }
+    }
+
+    @Override
     public boolean onLeftClickEntity(ItemStack itemstack, EntityPlayer entityplayer, Entity entity) {
         return this.doLeftClickEntity(itemstack,
                                       entityplayer,
