@@ -258,8 +258,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
         if (tool != null) {
             tool.useItemRightClick(world,
                                    entityplayer);
-            if (ItemStack.areItemStacksEqual(entityplayer.getItemInUse(),
-                                             tool)) {
+            if (entityplayer.isUsingItem()) {
                 entityplayer.setItemInUse(itemstack,
                                           tool.getMaxItemUseDuration());
             }

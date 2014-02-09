@@ -214,19 +214,19 @@ public class ConfigurationLib {
     private static void loadOres() {
         TMFCore.arkiteOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                 "arkiteOre",
-                                                                1025).getInt());
+                                                                3515).getInt());
         TMFCore.bistiteOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                  "bistiteOre",
-                                                                 1026).getInt());
+                                                                 3516).getInt());
         TMFCore.crokereOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                  "crokereOre",
-                                                                 1027).getInt());
+                                                                 3517).getInt());
         TMFCore.derniteOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                  "derniteOre",
-                                                                 1028).getInt());
+                                                                 3518).getInt());
         TMFCore.egioclaseOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                    "egioclaseOre",
-                                                                   1029).getInt());
+                                                                   3519).getInt());
     }
 
     private static void loadMachines() {
