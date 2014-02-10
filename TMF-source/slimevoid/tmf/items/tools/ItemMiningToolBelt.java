@@ -497,6 +497,20 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
     }
 
     @Override
+    public float getStrVsBlock(ItemStack itemstack, Block block) {
+        // Retrieves the Selected Tool within the held Tool Belt
+        ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+        float strVsBlock = 1.0f;
+        if (tool != null && tool.getItem() != null) {
+            // Perform the onBlockStartBreak method for the itemstack
+            strVsBlock = tool.getItem().getStrVsBlock(tool,
+                                                      block);
+        }
+        // Otherwise return the original value
+        return strVsBlock;
+    }
+
+    @Override
     public float getStrVsBlock(ItemStack itemstack, Block block, int meta) {
         // Retrieves the Selected Tool within the held Tool Belt
         ItemStack tool = ItemHelper.getSelectedTool(itemstack);
