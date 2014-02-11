@@ -250,6 +250,7 @@ public class ItemHelper {
         return miningTools;
     }
 
+    @Deprecated
     public static void doBreakSpeed(BreakSpeed event) {
         ItemStack heldItem = event.entityLiving.getHeldItem();
         if (isToolBelt(heldItem)) {

@@ -181,6 +181,12 @@ public class InventoryMiningToolBelt implements IInventory {
         }
         nbttagcompound.setBoolean(NBTLib.MIRRORED_TOOL,
                                   true);
+
+        if (ItemHelper.isItemInfiTool(tool)) {
+            NBTTagCompound tag = tool.stackTagCompound.getCompoundTag(NBTLib.INFI_TOOL);
+            nbttagcompound.setTag(NBTLib.INFI_TOOL,
+                                  tag);
+        }
         NBTTagList toolsTag = new NBTTagList();
         for (int i = 0; i < this.miningTools.length; i++) {
             if (miningTools[i] != null) {

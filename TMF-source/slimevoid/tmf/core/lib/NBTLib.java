@@ -23,6 +23,9 @@ public class NBTLib {
     public static final String  MINING_MODE   = "Mode";
     public static final String  MIRRORED_TOOL = "MirroredTools";
 
+    public static final String  INFI_TOOL     = "InfiTool";
+    public static final String  HARVEST_LEVEL = "HarvestLevel";
+
     public static String getToolKey(int slot) {
         String toolKey = TOOL.replace('#',
                                       String.valueOf(slot).charAt(0));

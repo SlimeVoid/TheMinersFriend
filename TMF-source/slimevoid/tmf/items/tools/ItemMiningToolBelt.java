@@ -47,6 +47,15 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
     }
 
     @Override
+    public String getUnlocalizedName(ItemStack itemstack) {
+        ItemStack tool = this.getSelectedTool(itemstack);
+        if (tool != null) {
+            return tool.getUnlocalizedName();
+        }
+        return super.getUnlocalizedName(itemstack);
+    }
+
+    @Override
     public boolean requiresMultipleRenderPasses() {
         return true;
     }
@@ -498,20 +507,13 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
 
     @Override
     public float getStrVsBlock(ItemStack itemstack, Block block) {
-        // Retrieves the Selected Tool within the held Tool Belt
-        ItemStack tool = ItemHelper.getSelectedTool(itemstack);
-        float strVsBlock = 1.0f;
-        if (tool != null && tool.getItem() != null) {
-            // Perform the onBlockStartBreak method for the itemstack
-            strVsBlock = tool.getItem().getStrVsBlock(tool,
-                                                      block);
-        }
-        // Otherwise return the original value
-        return strVsBlock;
+        return this.getStrVsBlock(itemstack,
+                                  block,
+                                  0);
     }
 
     @Override
-    public float getStrVsBlock(ItemStack itemstack, Block block, int meta) {
+    public float getStrVsBlock(ItemStack itemstack, Block block, int metadata) {
         // Retrieves the Selected Tool within the held Tool Belt
         ItemStack tool = ItemHelper.getSelectedTool(itemstack);
         float strVsBlock = 1.0f;
@@ -519,10 +521,99 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
             // Perform the onBlockStartBreak method for the itemstack
             strVsBlock = tool.getItem().getStrVsBlock(tool,
                                                       block,
-                                                      meta);
+                                                      metadata);
         }
         // Otherwise return the original value
-        return strVsBlock;
+        return this.getStrengthFromTool(itemstack,
+                                        block,
+                                        metadata,
+                                        strVsBlock);
+    }
+
+    protected float getStrengthFromTool(ItemStack itemstack, Block block, int metadata, float originalSpeed) {
+        // If the player is still holding the tool belt
+        if (ItemHelper.isToolBelt(itemstack)) {
+            // Retrieves the Tool Belt data
+            ItemStack tool = null;
+            // Checks if the player is in Mining Mode
+            // If true then auto select tool for the best STR vs Block
+            // Otherwise return our selected tool
+            float multiplier = 1.0F;
+            if (isMiningModeEnabled(itemstack)) {
+                tool = selectToolForBlock(itemstack,
+                                          block,
+                                          metadata,
+                                          originalSpeed);
+                multiplier = DataLib.MINING_MODE_STRENGTH;
+            } else {
+                tool = getSelectedTool(itemstack);
+            }
+            // If an item exists in the selected slot of the Tool Belt
+            if (tool != null && tool.getItem() != null) {
+                // Generate break speed for that Tool vs. Block
+                float newSpeed = tool.getItem().getStrVsBlock(tool,
+                                                              block,
+                                                              metadata);
+                return newSpeed > originalSpeed ? newSpeed * multiplier : originalSpeed;
+            }
+        }
+        return originalSpeed;
+    }
+
+    protected ItemStack selectToolForBlock(ItemStack itemstack, Block block, int metadata, float originalSpeed) {
+        float fastestSpeed = originalSpeed;
+        int selection = getSelectedSlot(itemstack);
+        ItemStack[] tools = ItemHelper.getTools(itemstack);
+        if (tools != null) {
+            for (int i = 0; i <= DataLib.TOOL_BELT_SELECTED_MAX; i++) {
+                ItemStack tool = tools[i];
+                if (tool != null && tool.getItem() != null) {
+                    float breakSpeed = tool.getItem().getStrVsBlock(tool,
+                                                                    block,
+                                                                    metadata);
+                    if (breakSpeed > fastestSpeed) {
+                        fastestSpeed = breakSpeed;
+                        selection = i;
+                    }
+                }
+            }
+        }
+        return setSelectedTool(itemstack,
+                               selection);
+    }
+
+    @Override
+    public boolean canHarvestBlock(Block block, ItemStack itemstack) {
+        ItemStack tool = this.isMiningModeEnabled(itemstack) ? this.selectToolForHarvest(itemstack,
+                                                                                         block) : this.getSelectedTool(itemstack);
+        if (tool != null) {
+            return tool.canHarvestBlock(block);
+        }
+        return super.canHarvestBlock(block,
+                                     itemstack);
+    }
+
+    protected ItemStack selectToolForHarvest(ItemStack itemstack, Block block) {
+        float fastestSpeed = 0.0F;
+        int selection = getSelectedSlot(itemstack);
+        ItemStack[] tools = ItemHelper.getTools(itemstack);
+        if (tools != null) {
+            for (int i = 0; i <= DataLib.TOOL_BELT_SELECTED_MAX; i++) {
+                ItemStack tool = tools[i];
+                if (tool != null && tool.getItem() != null) {
+                    float breakSpeed = tool.getItem().getStrVsBlock(tool,
+                                                                    block,
+                                                                    0);
+                    boolean canHarvest = tool.canHarvestBlock(block);
+                    if (breakSpeed > fastestSpeed && canHarvest) {
+                        fastestSpeed = breakSpeed;
+                        selection = i;
+                    }
+                }
+            }
+        }
+        return setSelectedTool(itemstack,
+                               selection);
     }
 
     private void updateToolBelt(ItemStack toolBelt, ItemStack tool) {
@@ -579,38 +670,12 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
      *            The event to use
      * @param heldItem
      */
+    @Deprecated
     public void doBreakSpeed(BreakSpeed event, ItemStack heldItem) {
-        // If the player is still holding the tool belt
-        if (ItemHelper.isToolBelt(heldItem)) {
-            // Retrieves the Tool Belt data
-            ItemStack selectedStack = null;
-            // Checks if the player is in Mining Mode
-            // If true then auto select tool for the best STR vs Block
-            // Otherwise return our selected tool
-            if (isMiningModeEnabled(heldItem)) {
-                selectedStack = selectToolForBlock(event.entityLiving.worldObj,
-                                                   event.entityLiving,
-                                                   heldItem,
-                                                   event.block,
-                                                   event.metadata,
-                                                   event.originalSpeed);
-            } else {
-                selectedStack = getSelectedTool(heldItem);
-            }
-            // If an item exists in the selected slot of the Tool Belt
-            if (selectedStack != null && selectedStack.getItem() != null) {
-                // Generate break speed for that Tool vs. Block
-                float newSpeed = (selectedStack.getItem().getStrVsBlock(selectedStack,
-                                                                        event.block,
-                                                                        event.metadata))
-                                 * DataLib.MINING_MODE_STRENGTH;
-                // If the new speed is greater than the speed being parsed in
-                // the event then set the new speed
-                event.newSpeed = newSpeed > event.originalSpeed ? newSpeed : event.originalSpeed;
-            }
-        }
+
     }
 
+    @Deprecated
     public ItemStack selectToolForBlock(World world, EntityLivingBase entitylivingbase, ItemStack toolBelt, Block block, int metadata, float currentBreakSpeed) {
         float fastestSpeed = currentBreakSpeed;
         int selection = getSelectedSlot(toolBelt);
@@ -643,6 +708,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
      *            The harvesting event
      * @param heldItem
      */
+    @Deprecated
     public void doHarvestCheck(HarvestCheck event, ItemStack heldItem) {
         // Retrieves the Selected Tool within the held Tool Belt
         ItemStack tool = getSelectedTool(heldItem);
