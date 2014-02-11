@@ -37,7 +37,6 @@ import slimevoid.tmf.items.ItemTMF;
 import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import slimevoidlib.nbt.NBTHelper;
 import thaumcraft.api.IRepairable;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -281,12 +280,13 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
             tool.useItemRightClick(world,
                                    entityplayer);
             if (entityplayer.isUsingItem()) {
-                ReflectionHelper.setPrivateValue(EntityPlayer.class,
-                                                 entityplayer,
-                                                 itemstack,
-                                                 32);
-                // entityplayer.setItemInUse(itemstack,
-                // tool.getMaxItemUseDuration());
+                entityplayer.setItemInUse(itemstack,
+                                          tool.getMaxItemUseDuration());
+                // ReflectionHelper.setPrivateValue(EntityPlayer.class,
+                // entityplayer,
+                // itemstack,
+                // ItemHelper.getItemInUseFieldId(world,
+                // entityplayer));
             }
             this.updateToolInToolBelt(world,
                                       entityplayer,
@@ -366,24 +366,15 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
         ItemStack tool = this.getSelectedTool(itemstack);
         ItemStack toolCopy = ItemStack.copyItemStack(tool);
         if (tool != null && tool.getItem() != null) {
-            ReflectionHelper.setPrivateValue(EntityPlayer.class,
-                                             entityplayer,
-                                             tool,
-                                             32);
             tool.getItem().onUsingItemTick(tool,
                                            entityplayer,
                                            count);
-            System.out.println(entityplayer.getItemInUseCount());
             this.updateToolInToolBelt(entityplayer.worldObj,
                                       entityplayer,
                                       itemstack,
                                       tool,
                                       toolCopy);
         }
-        ReflectionHelper.setPrivateValue(EntityPlayer.class,
-                                         entityplayer,
-                                         tool,
-                                         32);
     }
 
     public void onPlayerStoppedUsing(ItemStack itemstack, World world, EntityPlayer entityplayer, int count) {
@@ -886,7 +877,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
         return null;
     }
 
-    private int getSelectedSlot(ItemStack itemstack) {
+    public int getSelectedSlot(ItemStack itemstack) {
         if (ItemHelper.isToolBelt(itemstack)) {
             int selectedTool = NBTHelper.getTagInteger(itemstack,
                                                        NBTLib.SELECTED_TOOL,

@@ -32,6 +32,7 @@ import slimevoid.tmf.client.renderers.ItemRendererToolBelt;
 import slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
 import slimevoid.tmf.client.tickhandlers.MiningHelmetRenderTickHandler;
 import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
+import slimevoid.tmf.client.tickhandlers.TickHandlerPlayer;
 import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleInToolbelt;
 import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleOnHotbar;
 import slimevoid.tmf.core.TMFCore;
@@ -114,6 +115,8 @@ public class ClientProxy extends CommonProxy {
             TickRegistry.registerTickHandler(new MiningHelmetRenderTickHandler(),
                                              Side.CLIENT);
         }
+        TickRegistry.registerTickHandler(new TickHandlerPlayer(),
+                                         Side.CLIENT);
     }
 
     @Override

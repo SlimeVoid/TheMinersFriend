@@ -152,6 +152,12 @@ public class ItemRendererToolBelt implements IItemRenderer {
                                            itemstack,
                                            0,
                                            0);
+            itemRenderer.renderItemOverlayIntoGUI(this.mc.fontRenderer,
+                                                  textureManager,
+                                                  itemstack,
+                                                  0,
+                                                  0,
+                                                  (String) null);
         }
     }
 

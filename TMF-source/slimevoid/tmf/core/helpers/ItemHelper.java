@@ -34,6 +34,8 @@ import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.NBTLib;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import slimevoid.tmf.items.tools.ItemMotionSensor;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 
 public class ItemHelper {
     /**
@@ -300,5 +302,22 @@ public class ItemHelper {
                                                                         entityplayer,
                                                                         itemstack);
         }
+    }
+
+    public static int getItemInUseFieldId(World world, EntityPlayer entityplayer) {
+        return FMLCommonHandler.instance().getSide() == Side.CLIENT
+               || world.isRemote ? 32 : 31;
+    }
+
+    public static int getItemUseCountFieldId(World world, EntityPlayer entityplayer) {
+        return FMLCommonHandler.instance().getSide() == Side.CLIENT
+               || world.isRemote ? 33 : 32;
+    }
+
+    public static int getSelectedSlot(ItemStack itemstack) {
+        if (isToolBelt(itemstack)) {
+            return ((ItemMiningToolBelt) itemstack.getItem()).getSelectedSlot(itemstack);
+        }
+        return 0;
     }
 }
