@@ -23,6 +23,7 @@ import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.NBTLib;
 import slimevoid.tmf.core.lib.PacketLib;
+import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 
 public class InventoryMiningToolBelt implements IInventory {
 
@@ -170,35 +171,10 @@ public class InventoryMiningToolBelt implements IInventory {
 
     public void writeToNBT(NBTTagCompound nbttagcompound) {
         ItemStack tool = this.miningTools[this.getSelectedSlot()];
-        NBTTagList enchantments = null;
-        if (tool != null && tool.hasTagCompound()
-            && tool.getEnchantmentTagList() != null) {
-            enchantments = tool.getEnchantmentTagList();
-        }
-        if (enchantments != null) {
-            nbttagcompound.setTag("ench",
-                                  enchantments);
-        }
-        nbttagcompound.setBoolean(NBTLib.MIRRORED_TOOL,
-                                  true);
-
-        if (ItemHelper.isItemInfiTool(tool)) {
-            NBTTagCompound tag = tool.stackTagCompound.getCompoundTag(NBTLib.INFI_TOOL);
-            nbttagcompound.setTag(NBTLib.INFI_TOOL,
-                                  tag);
-        }
-        NBTTagList toolsTag = new NBTTagList();
-        for (int i = 0; i < this.miningTools.length; i++) {
-            if (miningTools[i] != null) {
-                NBTTagCompound tagCompound = new NBTTagCompound();
-                tagCompound.setByte(NBTLib.SLOT,
-                                    (byte) i);
-                this.miningTools[i].writeToNBT(tagCompound);
-                toolsTag.appendTag(tagCompound);
-            }
-        }
-        nbttagcompound.setTag(NBTLib.TOOLS,
-                              toolsTag);
+        ItemMiningToolBelt.updateMirroredTags(nbttagcompound,
+                                              tool);
+        ItemMiningToolBelt.updateToolListTags(nbttagcompound,
+                                              this.miningTools);
         nbttagcompound.setInteger(NBTLib.SELECTED_TOOL,
                                   this.selectedTool);
         nbttagcompound.setBoolean(NBTLib.MINING_MODE,

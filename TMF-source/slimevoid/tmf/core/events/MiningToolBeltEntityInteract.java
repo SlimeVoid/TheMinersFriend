@@ -15,6 +15,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import slimevoid.tmf.core.helpers.ItemHelper;
 
+@Deprecated
 public class MiningToolBeltEntityInteract {
 
     @ForgeSubscribe

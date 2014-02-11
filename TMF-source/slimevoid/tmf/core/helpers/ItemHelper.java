@@ -259,6 +259,7 @@ public class ItemHelper {
         }
     }
 
+    @Deprecated
     public static boolean doEntityInteract(EntityInteractEvent event) {
         ItemStack heldItem = event.entityLiving.getHeldItem();
         if (isToolBelt(heldItem)) {
