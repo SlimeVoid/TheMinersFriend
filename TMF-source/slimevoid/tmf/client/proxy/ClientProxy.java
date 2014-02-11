@@ -32,7 +32,8 @@ import slimevoid.tmf.client.renderers.ItemRendererToolBelt;
 import slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
 import slimevoid.tmf.client.tickhandlers.MiningHelmetRenderTickHandler;
 import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
-import slimevoid.tmf.client.tickhandlers.TickHandlerPlayer;
+import slimevoid.tmf.client.tickhandlers.PlayerToolBeltTickHandler;
+import slimevoid.tmf.client.tickhandlers.WandGuiTickHandler;
 import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleInToolbelt;
 import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleOnHotbar;
 import slimevoid.tmf.core.TMFCore;
@@ -51,6 +52,7 @@ import slimevoidlib.core.SlimevoidCore;
 import slimevoidlib.util.helpers.BlockHelper;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -95,6 +97,10 @@ public class ClientProxy extends CommonProxy {
                                                          new TileEntitySpecialRendererGrinder());
             RenderingRegistry.registerBlockHandler(new BlockMachineRenderingHandler());
         }
+        if (Loader.isModLoaded("Thaumcraft")) {
+            TickRegistry.registerTickHandler(new WandGuiTickHandler(),
+                                             Side.CLIENT);
+        }
     }
 
     @Override
@@ -115,7 +121,7 @@ public class ClientProxy extends CommonProxy {
             TickRegistry.registerTickHandler(new MiningHelmetRenderTickHandler(),
                                              Side.CLIENT);
         }
-        TickRegistry.registerTickHandler(new TickHandlerPlayer(),
+        TickRegistry.registerTickHandler(new PlayerToolBeltTickHandler(),
                                          Side.CLIENT);
     }
 

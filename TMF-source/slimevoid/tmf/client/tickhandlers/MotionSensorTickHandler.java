@@ -20,7 +20,6 @@ import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -356,9 +355,9 @@ public class MotionSensorTickHandler implements ITickHandler {
         GL11.glClear(256);
 
         GL11.glPushMatrix();
-        RenderHelper.enableGUIStandardItemLighting();
-        GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        // RenderHelper.enableGUIStandardItemLighting();
+        // GL11.glDisable(GL11.GL_LIGHTING);
+        // GL11.glDisable(GL11.GL_DEPTH_TEST);
         if (drawOnRight) {
             GL11.glTranslatef(sr.getScaledWidth() - 60,
                               sr.getScaledHeight(),
@@ -381,8 +380,8 @@ public class MotionSensorTickHandler implements ITickHandler {
                      128,
                      ResourceLib.TRACKER_BG,
                      1);
-        GL11.glEnable(GL11.GL_LIGHTING);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        // GL11.glEnable(GL11.GL_LIGHTING);
+        // GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glPopMatrix();
         GL11.glPopMatrix();
     }
@@ -424,9 +423,9 @@ public class MotionSensorTickHandler implements ITickHandler {
         GL11.glClear(256);
 
         GL11.glPushMatrix();
-        RenderHelper.enableGUIStandardItemLighting();
-        GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        // RenderHelper.enableGUIStandardItemLighting();
+        // GL11.glDisable(GL11.GL_LIGHTING);
+        // GL11.glDisable(GL11.GL_DEPTH_TEST);
 
         if (drawOnRight) {
             GL11.glTranslatef(sr.getScaledWidth() - 60,
@@ -460,8 +459,8 @@ public class MotionSensorTickHandler implements ITickHandler {
                      128,
                      ResourceLib.TRACKER_CONTACT,
                      (float) (0.4d + Math.log(3.2d - deltaTick * 3d) * 0.6d));
-        GL11.glEnable(GL11.GL_LIGHTING);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        // GL11.glEnable(GL11.GL_LIGHTING);
+        // GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glPopMatrix();
         GL11.glPopMatrix();
     }
@@ -474,9 +473,9 @@ public class MotionSensorTickHandler implements ITickHandler {
         GL11.glClear(256);
 
         GL11.glPushMatrix();
-        RenderHelper.enableGUIStandardItemLighting();
-        GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        // RenderHelper.enableGUIStandardItemLighting();
+        // GL11.glDisable(GL11.GL_LIGHTING);
+        // GL11.glDisable(GL11.GL_DEPTH_TEST);
         if (drawOnRight) {
             GL11.glTranslatef(sr.getScaledWidth() - 60,
                               sr.getScaledHeight(),
@@ -498,8 +497,8 @@ public class MotionSensorTickHandler implements ITickHandler {
                      128,
                      ResourceLib.TRACKER_SWEEP,
                      (float) (1d - deltaTick / 2d));
-        GL11.glEnable(GL11.GL_LIGHTING);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        // GL11.glEnable(GL11.GL_LIGHTING);
+        // GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glPopMatrix();
         GL11.glPopMatrix();
     }

@@ -10,7 +10,7 @@ import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
-public class TickHandlerPlayer implements ITickHandler {
+public class PlayerToolBeltTickHandler implements ITickHandler {
 
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData) {
