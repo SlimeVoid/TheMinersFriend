@@ -37,6 +37,7 @@ import slimevoid.tmf.items.ItemTMF;
 import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import slimevoidlib.nbt.NBTHelper;
 import thaumcraft.api.IRepairable;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -77,13 +78,11 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
                 flag = tool.getItem().itemInteractionForEntity(tool,
                                                                entityplayer,
                                                                entitylivingbase);
-                if (!ItemStack.areItemStacksEqual(tool,
-                                                  toolCopy)) {
-                    this.updateToolBelt(entityplayer.worldObj,
-                                        entityplayer,
-                                        itemstack,
-                                        tool);
-                }
+                this.updateToolInToolBelt(entityplayer.worldObj,
+                                          entityplayer,
+                                          itemstack,
+                                          tool,
+                                          toolCopy);
             }
         }
         return flag;
@@ -282,16 +281,18 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
             tool.useItemRightClick(world,
                                    entityplayer);
             if (entityplayer.isUsingItem()) {
-                entityplayer.setItemInUse(itemstack,
-                                          tool.getMaxItemUseDuration());
+                ReflectionHelper.setPrivateValue(EntityPlayer.class,
+                                                 entityplayer,
+                                                 itemstack,
+                                                 32);
+                // entityplayer.setItemInUse(itemstack,
+                // tool.getMaxItemUseDuration());
             }
-            if (!ItemStack.areItemStacksEqual(tool,
-                                              toolCopy)) {
-                this.updateToolBelt(world,
-                                    entityplayer,
-                                    itemstack,
-                                    tool);
-            }
+            this.updateToolInToolBelt(world,
+                                      entityplayer,
+                                      itemstack,
+                                      tool,
+                                      toolCopy);
         }
     }
 
@@ -311,13 +312,11 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
                                             hitX,
                                             hitY,
                                             hitZ);
-            if (!ItemStack.areItemStacksEqual(tool,
-                                              toolCopy)) {
-                this.updateToolBelt(world,
-                                    entityplayer,
-                                    itemstack,
-                                    tool);
-            }
+            this.updateToolInToolBelt(world,
+                                      entityplayer,
+                                      itemstack,
+                                      tool,
+                                      toolCopy);
         }
         return flag;
     }
@@ -338,13 +337,11 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
                                                  hitX,
                                                  hitY,
                                                  hitZ);
-            if (!ItemStack.areItemStacksEqual(tool,
-                                              toolCopy)) {
-                this.updateToolBelt(world,
-                                    entityplayer,
-                                    itemstack,
-                                    tool);
-            }
+            this.updateToolInToolBelt(world,
+                                      entityplayer,
+                                      itemstack,
+                                      tool,
+                                      toolCopy);
         }
         return flag;
     }
@@ -356,13 +353,11 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
         if (tool != null) {
             tool = tool.onFoodEaten(world,
                                     entityplayer);
-            if (!ItemStack.areItemStacksEqual(tool,
-                                              toolCopy)) {
-                this.updateToolBelt(world,
-                                    entityplayer,
-                                    itemstack,
-                                    tool);
-            }
+            this.updateToolInToolBelt(world,
+                                      entityplayer,
+                                      itemstack,
+                                      tool,
+                                      toolCopy);
         }
     }
 
@@ -371,17 +366,24 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
         ItemStack tool = this.getSelectedTool(itemstack);
         ItemStack toolCopy = ItemStack.copyItemStack(tool);
         if (tool != null && tool.getItem() != null) {
+            ReflectionHelper.setPrivateValue(EntityPlayer.class,
+                                             entityplayer,
+                                             tool,
+                                             32);
             tool.getItem().onUsingItemTick(tool,
                                            entityplayer,
                                            count);
-            if (!ItemStack.areItemStacksEqual(tool,
-                                              toolCopy)) {
-                this.updateToolBelt(entityplayer.worldObj,
-                                    entityplayer,
-                                    itemstack,
-                                    tool);
-            }
+            System.out.println(entityplayer.getItemInUseCount());
+            this.updateToolInToolBelt(entityplayer.worldObj,
+                                      entityplayer,
+                                      itemstack,
+                                      tool,
+                                      toolCopy);
         }
+        ReflectionHelper.setPrivateValue(EntityPlayer.class,
+                                         entityplayer,
+                                         tool,
+                                         32);
     }
 
     public void onPlayerStoppedUsing(ItemStack itemstack, World world, EntityPlayer entityplayer, int count) {
@@ -392,13 +394,11 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
                                                 world,
                                                 entityplayer,
                                                 count);
-            if (!ItemStack.areItemStacksEqual(tool,
-                                              toolCopy)) {
-                this.updateToolBelt(world,
-                                    entityplayer,
-                                    itemstack,
-                                    tool);
-            }
+            this.updateToolInToolBelt(world,
+                                      entityplayer,
+                                      itemstack,
+                                      tool,
+                                      toolCopy);
         }
     }
 
@@ -419,13 +419,11 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
             onLeftClickEntity = tool.getItem().onLeftClickEntity(tool,
                                                                  entityplayer,
                                                                  entity);
-            if (!ItemStack.areItemStacksEqual(tool,
-                                              toolCopy)) {
-                this.updateToolBelt(entityplayer.worldObj,
-                                    entityplayer,
-                                    itemstack,
-                                    tool);
-            }
+            this.updateToolInToolBelt(entityplayer.worldObj,
+                                      entityplayer,
+                                      itemstack,
+                                      tool,
+                                      toolCopy);
         }
         // Otherwise return the original value
         return onLeftClickEntity;
@@ -448,13 +446,11 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
             hitEntity = tool.getItem().hitEntity(tool,
                                                  mob,
                                                  entityplayer);
-            if (!ItemStack.areItemStacksEqual(tool,
-                                              toolCopy)) {
-                this.updateToolBelt(entityplayer.worldObj,
-                                    entityplayer,
-                                    itemstack,
-                                    tool);
-            }
+            this.updateToolInToolBelt(entityplayer.worldObj,
+                                      entityplayer,
+                                      itemstack,
+                                      tool,
+                                      toolCopy);
         }
         // Otherwise return the original value
         return hitEntity;
@@ -503,13 +499,11 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
                                                                  y,
                                                                  z,
                                                                  entityplayer);
-            if (!ItemStack.areItemStacksEqual(tool,
-                                              toolCopy)) {
-                this.updateToolBelt(entityplayer.worldObj,
-                                    entityplayer,
-                                    itemstack,
-                                    tool);
-            }
+            this.updateToolInToolBelt(entityplayer.worldObj,
+                                      entityplayer,
+                                      itemstack,
+                                      tool,
+                                      toolCopy);
         }
         // Otherwise return the original value
         return onBlockStartBreak;
@@ -532,7 +526,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
      *            the current result
      * @return
      */
-    public boolean doDestroyBlock(ItemStack itemstack, World world, int x, int y, int z, int side, EntityLivingBase entityliving, boolean onBlockDestroyed) {
+    public boolean doDestroyBlock(ItemStack itemstack, World world, int x, int y, int z, int side, EntityLivingBase entitylivingbase, boolean onBlockDestroyed) {
         // Retrieves the Selected Tool within the held Tool Belt
         ItemStack tool = this.getSelectedTool(itemstack);
         ItemStack toolCopy = ItemStack.copyItemStack(tool);
@@ -544,14 +538,12 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
                                                                y,
                                                                z,
                                                                side,
-                                                               entityliving);
-            if (!ItemStack.areItemStacksEqual(tool,
-                                              toolCopy)) {
-                this.updateToolBelt(world,
-                                    entityliving,
-                                    itemstack,
-                                    tool);
-            }
+                                                               entitylivingbase);
+            this.updateToolInToolBelt(world,
+                                      entitylivingbase,
+                                      itemstack,
+                                      tool,
+                                      toolCopy);
         }
         // Otherwise return the original value
         return onBlockDestroyed;
@@ -734,6 +726,16 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
         }
     }
 
+    private void updateToolInToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt, ItemStack tool, ItemStack toolCopy) {
+        if (!ItemStack.areItemStacksEqual(tool,
+                                          toolCopy)) {
+            this.updateToolBelt(world,
+                                entityliving,
+                                toolBelt,
+                                tool);
+        }
+    }
+
     private void updateToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt, ItemStack tool) {
         this.updateToolBelt(toolBelt,
                             tool);
@@ -841,13 +843,11 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
                 if (tool != null) {
                     flag = tool.func_111282_a(event.entityPlayer,
                                               (EntityLivingBase) event.target);// .interactWith(event.target);
-                    if (!ItemStack.areItemStacksEqual(tool,
-                                                      toolCopy)) {
-                        this.updateToolBelt(event.entityPlayer.worldObj,
-                                            event.entityPlayer,
-                                            heldItem,
-                                            tool);
-                    }
+                    this.updateToolInToolBelt(event.entityPlayer.worldObj,
+                                              event.entityPlayer,
+                                              heldItem,
+                                              tool,
+                                              toolCopy);
                 }
             }
         }
@@ -1027,13 +1027,11 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
         if (tool != null && tool.getItem() != null) {
             flag = tool.getItem().onEntitySwing(entitylivingbase,
                                                 tool);
-            if (!ItemStack.areItemStacksEqual(tool,
-                                              toolCopy)) {
-                this.updateToolBelt(entitylivingbase.worldObj,
-                                    entitylivingbase,
-                                    itemstack,
-                                    tool);
-            }
+            this.updateToolInToolBelt(entitylivingbase.worldObj,
+                                      entitylivingbase,
+                                      itemstack,
+                                      tool,
+                                      toolCopy);
 
         }
         return super.onEntitySwing(entitylivingbase,
