@@ -14,6 +14,7 @@ package slimevoid.tmf.core.lib;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import slimevoid.compatibility.packets.PacketCompatibilityHandler;
 import slimevoid.tmf.client.network.ClientPacketHandler;
 import slimevoid.tmf.client.network.handlers.ClientPacketMiningToolBeltHandler;
 import slimevoid.tmf.client.network.packets.executors.ClientMiningModeActivatedExecutor;
@@ -34,11 +35,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class PacketLib {
 
-    public static final int MOTION_SENSOR    = 0;
-    public static final int MINING_TOOL_BELT = 1;
+    public static final int MOD_COMPAT       = 0;
+    public static final int MOTION_SENSOR    = 1;
+    public static final int MINING_TOOL_BELT = 2;
 
     public static void registerPacketExecutors() {
         CommonPacketHandler.init();
+
+        // MOD COMPATIBILITY
+        CommonPacketHandler.registerPacketHandler(MOD_COMPAT,
+                                                  new PacketCompatibilityHandler());
 
         // MOTION SENSOR
         PacketMotionSensorHandler packetMotionSensorHandler = new PacketMotionSensorHandler();
@@ -46,7 +52,7 @@ public class PacketLib {
                                                         new MotionSensorSweepExecutor());
         packetMotionSensorHandler.registerPacketHandler(CommandLib.PLAY_MOTION_PING,
                                                         new MotionSensorPingExecutor());
-        CommonPacketHandler.registerPacketHandler(PacketLib.MOTION_SENSOR,
+        CommonPacketHandler.registerPacketHandler(MOTION_SENSOR,
                                                   packetMotionSensorHandler);
 
         // MINING TOOL BELT
@@ -55,7 +61,7 @@ public class PacketLib {
                                                           new ToolBeltCycleToolExecutor());
         packetMiningToolBeltHandler.registerPacketHandler(CommandLib.TOGGLE_MINING_MODE,
                                                           new MiningModeExecutor());
-        CommonPacketHandler.registerPacketHandler(PacketLib.MINING_TOOL_BELT,
+        CommonPacketHandler.registerPacketHandler(MINING_TOOL_BELT,
                                                   packetMiningToolBeltHandler);
     }
 

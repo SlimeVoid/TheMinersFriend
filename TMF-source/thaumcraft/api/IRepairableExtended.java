@@ -1,0 +1,9 @@
+package thaumcraft.api;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+
+public interface IRepairableExtended {
+
+    public boolean doRepair(ItemStack itemstack, EntityPlayer entityplayer, int level);
+}

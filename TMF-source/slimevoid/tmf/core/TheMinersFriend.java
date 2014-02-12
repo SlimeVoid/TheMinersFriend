@@ -59,6 +59,7 @@ public class TheMinersFriend {
     @EventHandler
     public void TheMinersFriendInit(FMLInitializationEvent event) {
         TMFInit.initialize(proxy);
+        proxy.registerEventHandlers();
     }
 
     @EventHandler

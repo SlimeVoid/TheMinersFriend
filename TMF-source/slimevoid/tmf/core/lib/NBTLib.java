@@ -21,9 +21,6 @@ public class NBTLib {
 
     private static final String TOOL          = SLOT + "[#]";
     public static final String  MINING_MODE   = "Mode";
-
-    public static final String  INFI_TOOL     = "InfiTool";
-    public static final String  HARVEST_LEVEL = "HarvestLevel";
     public static final String  ENCHANTMENTS  = "ench";
 
     public static String getToolKey(int slot) {

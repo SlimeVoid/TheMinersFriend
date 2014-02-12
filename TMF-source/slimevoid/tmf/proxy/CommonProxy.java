@@ -22,6 +22,7 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import slimevoid.compatibility.TMFCompatibility;
 import slimevoid.tmf.blocks.machines.inventory.ContainerAutomaticMixingTable;
 import slimevoid.tmf.blocks.machines.inventory.ContainerGeologicalEquipment;
 import slimevoid.tmf.blocks.machines.inventory.ContainerGrinder;
@@ -111,10 +112,9 @@ public class CommonProxy implements ICommonProxy {
     public void preInit() {
         NetworkRegistry.instance().registerGuiHandler(TheMinersFriend.instance,
                                                       this);
-
         PacketLib.registerPacketExecutors();
 
-        EventLib.registerCommonEvents();
+        TMFCompatibility.registerPacketExecutors();
     }
 
     @Override
@@ -158,49 +158,36 @@ public class CommonProxy implements ICommonProxy {
 
     @Override
     public void registerEventHandlers() {
-        // TODO Auto-generated method stub
-
+        EventLib.registerCommonEvents();
     }
 
     @Override
     public boolean isClient(World world) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public void playerLoggedIn(Player player, NetHandler netHandler, INetworkManager manager) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public String connectionReceived(NetLoginHandler netHandler, INetworkManager manager) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public void connectionOpened(NetHandler netClientHandler, String server, int port, INetworkManager manager) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void connectionOpened(NetHandler netClientHandler, MinecraftServer server, INetworkManager manager) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void connectionClosed(INetworkManager manager) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void clientLoggedIn(NetHandler clientHandler, INetworkManager manager, Packet1Login login) {
-        // TODO Auto-generated method stub
-
     }
 }

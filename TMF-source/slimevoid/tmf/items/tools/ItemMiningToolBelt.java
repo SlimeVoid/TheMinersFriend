@@ -26,6 +26,8 @@ import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
+import slimevoid.compatibility.tinkersconstruct.TinkersConstruct;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.core.lib.CommandLib;
@@ -36,11 +38,11 @@ import slimevoid.tmf.core.lib.PacketLib;
 import slimevoid.tmf.items.ItemTMF;
 import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import slimevoidlib.nbt.NBTHelper;
-import thaumcraft.api.IRepairable;
+import thaumcraft.api.IRepairableExtended;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
+public class ItemMiningToolBelt extends ItemTMF implements IRepairableExtended {
 
     public ItemMiningToolBelt(int itemID) {
         super(itemID);
@@ -651,7 +653,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
                                     selection);
     }
 
-    private void updateToolBelt(ItemStack toolBelt, ItemStack tool) {
+    public void updateToolBelt(ItemStack toolBelt, ItemStack tool) {
         if (tool.stackSize == 0) {
             tool = null;
         }
@@ -708,16 +710,11 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
             nbttagcompound.removeTag(NBTLib.ENCHANTMENTS);
         }
 
-        if (ItemHelper.isItemInfiTool(tool)) {
-            NBTTagCompound tag = tool.stackTagCompound.getCompoundTag(NBTLib.INFI_TOOL);
-            nbttagcompound.setTag(NBTLib.INFI_TOOL,
-                                  tag);
-        } else if (nbttagcompound.hasKey(NBTLib.INFI_TOOL)) {
-            nbttagcompound.removeTag(NBTLib.INFI_TOOL);
-        }
+        TinkersConstruct.handleNBT(tool,
+                                   nbttagcompound);
     }
 
-    private void updateToolInToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt, ItemStack tool, ItemStack toolCopy) {
+    public void updateToolInToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt, ItemStack tool, ItemStack toolCopy) {
         if (!ItemStack.areItemStacksEqual(tool,
                                           toolCopy)) {
             this.updateToolBelt(world,
@@ -1036,5 +1033,13 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable {
             return tool.getItem().getContainerItemStack(tool);
         }
         return null;
+    }
+
+    @Override
+    public boolean doRepair(ItemStack itemstack, EntityPlayer entityplayer, int level) {
+        return ThaumcraftStatic.doRepair(this,
+                                         itemstack,
+                                         entityplayer,
+                                         level);
     }
 }

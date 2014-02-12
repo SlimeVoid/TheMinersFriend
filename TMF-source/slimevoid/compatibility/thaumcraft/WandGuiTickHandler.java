@@ -1,4 +1,4 @@
-package slimevoid.tmf.client.tickhandlers;
+package slimevoid.compatibility.thaumcraft;
 
 import java.util.EnumSet;
 
@@ -6,11 +6,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import slimevoid.tmf.core.helpers.ItemHelper;
-import thaumcraft.client.lib.GUITicker;
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
-public class WandGuiTickHandler extends GUITicker {
+public class WandGuiTickHandler extends GUITicker implements ITickHandler {
 
     public void tickEnd(EnumSet<TickType> type, Object... tickData) {
         Minecraft mc = FMLClientHandler.instance().getClient();
@@ -24,9 +24,7 @@ public class WandGuiTickHandler extends GUITicker {
                     && Minecraft.isGuiEnabled()) {
                     ItemStack heldItem = player.inventory.getCurrentItem();
                     ItemStack tool = ItemHelper.getSelectedTool(heldItem);
-                    if (tool != null
-                        && tool.getItem() != null
-                        && tool.getItem().getUnlocalizedName().equals("item.WandCasting")) {
+                    if (ThaumcraftStatic.isWand(tool)) {
                         ItemStack heldCopy = heldItem.copy();
                         player.inventory.setInventorySlotContents(player.inventory.currentItem,
                                                                   tool);

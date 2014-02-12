@@ -16,6 +16,8 @@ import java.io.File;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import slimevoid.compatibility.TMFCompatibility;
+import slimevoid.compatibility.thaumcraft.WandGuiTickHandler;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
@@ -33,7 +35,6 @@ import slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
 import slimevoid.tmf.client.tickhandlers.MiningHelmetRenderTickHandler;
 import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
 import slimevoid.tmf.client.tickhandlers.PlayerToolBeltTickHandler;
-import slimevoid.tmf.client.tickhandlers.WandGuiTickHandler;
 import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleInToolbelt;
 import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleOnHotbar;
 import slimevoid.tmf.core.TMFCore;
@@ -66,9 +67,9 @@ public class ClientProxy extends CommonProxy {
 
         PacketLib.registerClientPacketExecutors();
 
-        EventLib.registerClientEvents();
-
         KeyBindings.registerKeyBindings();
+
+        TMFCompatibility.registerKeyBindings();
     }
 
     @Override
@@ -97,10 +98,7 @@ public class ClientProxy extends CommonProxy {
                                                          new TileEntitySpecialRendererGrinder());
             RenderingRegistry.registerBlockHandler(new BlockMachineRenderingHandler());
         }
-        if (Loader.isModLoaded("Thaumcraft")) {
-            TickRegistry.registerTickHandler(new WandGuiTickHandler(),
-                                             Side.CLIENT);
-        }
+        TMFCompatibility.registerTickHandlers();
     }
 
     @Override
@@ -189,5 +187,11 @@ public class ClientProxy extends CommonProxy {
         default:
             return null;
         }
+    }
+
+    @Override
+    public void registerEventHandlers() {
+        super.registerEventHandlers();
+        EventLib.registerClientEvents();
     }
 }
