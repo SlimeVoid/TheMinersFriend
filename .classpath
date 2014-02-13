@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="TMF-source"/>
 	<classpathentry kind="src" path="TMF-resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Thaumcraft"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

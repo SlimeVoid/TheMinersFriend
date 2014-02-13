@@ -21,6 +21,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -216,7 +217,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairableExtended {
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         if (entityplayer.isSneaking()) {
             entityplayer.openGui(TheMinersFriend.instance,
-                                 GuiLib.GUIID_TOOL_BELT,
+                                 GuiLib.getBeltIdFromItemStack(itemstack),
                                  world,
                                  (int) entityplayer.posX,
                                  (int) entityplayer.posY,
@@ -945,7 +946,9 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairableExtended {
         String name = tool != null ? tool.getDisplayName() : "Slot "
                                                              + selectedSlot
                                                              + " - Empty";
-        return "ToolBelt : " + name;
+        return StatCollector.translateToLocal(this.getUnlocalizedName()
+                                              + ".name")
+               + " : " + name;
     }
 
     @Override

@@ -26,7 +26,11 @@ public class ContainerMiningToolBelt extends Container {
 
     public ContainerMiningToolBelt(InventoryPlayer playerInventory, IInventory toolBelt) {
         this.toolbelt = toolBelt;
+        this.bindToolBeltInventory(toolBelt);
+        bindPlayerInventory(playerInventory);
+    }
 
+    protected void bindToolBeltInventory(IInventory toolBelt) {
         this.addSlotToContainer(new SlotMiningToolBelt(toolBelt, 0, 69, 37)); // Pick
 
         this.addSlotToContainer(new SlotMiningToolBelt(toolBelt, 1, 69, 59)); // Spade
@@ -34,8 +38,6 @@ public class ContainerMiningToolBelt extends Container {
         this.addSlotToContainer(new SlotMiningToolBelt(toolBelt, 2, 92, 37)); // Etc
 
         this.addSlotToContainer(new SlotMiningToolBelt(toolBelt, 3, 92, 59)); // Sensor
-
-        bindPlayerInventory(playerInventory);
     }
 
     protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {

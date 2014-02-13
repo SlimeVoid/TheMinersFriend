@@ -15,9 +15,10 @@ import java.io.File;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import slimevoid.compatibility.TMFCompatibility;
-import slimevoid.compatibility.thaumcraft.WandGuiTickHandler;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
@@ -46,14 +47,15 @@ import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.KeyBindings;
 import slimevoid.tmf.core.lib.PacketLib;
 import slimevoid.tmf.core.lib.ResourceLib;
+import slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
 import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
+import slimevoid.tmf.items.tools.inventory.SlotUtilityBelt;
 import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import slimevoidlib.core.SlimevoidCore;
 import slimevoidlib.util.helpers.BlockHelper;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -132,8 +134,25 @@ public class ClientProxy extends CommonProxy {
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         switch (ID) {
         case GuiLib.GUIID_TOOL_BELT:
-            InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, player, player.getHeldItem());
-            return new GuiMiningToolBelt(player, data);
+            InventoryMiningToolBelt toolBelt = new InventoryMiningToolBelt(world, player, player.getHeldItem());
+            return new GuiMiningToolBelt(new ContainerMiningToolBelt(player.inventory, toolBelt), player, toolBelt);
+        case GuiLib.GUIID_UTILITY_BELT:
+            InventoryMiningToolBelt utilityBelt = new InventoryMiningToolBelt(world, player, player.getHeldItem());
+            ContainerMiningToolBelt container = new ContainerMiningToolBelt(player.inventory, utilityBelt) {
+                @Override
+                protected void bindToolBeltInventory(IInventory toolBelt) {
+                    this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 0, 69, 37));
+                    this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 1, 69, 59));
+                    this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 2, 92, 37));
+                    this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 3, 92, 59));
+                }
+            };
+            return new GuiMiningToolBelt(container, player, utilityBelt) {
+                @Override
+                public ResourceLocation getBackground() {
+                    return ResourceLib.GUI_UTILITYBELT;
+                }
+            };
         case GuiLib.GUIID_REFINERY:
             TileEntityRefinery tileRefinery = (TileEntityRefinery) BlockHelper.getTileEntity(world,
                                                                                              x,

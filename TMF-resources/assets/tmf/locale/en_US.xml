@@ -16,7 +16,8 @@
 	<entry key="tile.tmf.ore.crokere.name">Crokere Ore</entry>
 	<entry key="tile.tmf.ore.dernite.name">Dernite Ore</entry>
 	<entry key="tile.tmf.ore.egioclase.name">Egioclase Ore</entry>
-	<entry key="item.tmf.tool.belt.name">Mining Tool-Belt</entry>
+	<entry key="item.tmf.tool.belt.name">Tool-Belt</entry>
+	<entry key="item.tmf.tool.utilitybelt.name">Utility-Belt</entry>
 	<entry key="item.tmf.armor.helm.lamp.name">Mining Helmet Lamp</entry>
 	<entry key="item.tmf.armor.helm.iron.name">Iron Mining Helmet</entry>
 	<entry key="item.tmf.armor.helm.gold.name">Gold Mining Helmet</entry>

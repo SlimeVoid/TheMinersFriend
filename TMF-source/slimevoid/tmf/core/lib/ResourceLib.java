@@ -57,6 +57,9 @@ public class ResourceLib {
     public static final String           GUI_TOOLBELT_PATH     = GUI_PREFIX
                                                                  + "toolbeltGui.png";
     public static final ResourceLocation GUI_TOOLBELT          = new ResourceLocation(CoreLib.MOD_RESOURCES, GUI_TOOLBELT_PATH);
+    public static final String           GUI_UTILITYBELT_PATH  = GUI_PREFIX
+                                                                 + "utilityBeltGui.png";
+    public static final ResourceLocation GUI_UTILITYBELT       = new ResourceLocation(CoreLib.MOD_RESOURCES, GUI_UTILITYBELT_PATH);
     public static final String           GUI_GEOEQUIP_PATH     = GUI_PREFIX
                                                                  + "geoequip.png";
     public static final ResourceLocation GUI_GEOEQUIP          = new ResourceLocation(CoreLib.MOD_RESOURCES, GUI_GEOEQUIP_PATH);
@@ -141,10 +144,13 @@ public class ResourceLib {
                                                                  + ItemLib.DUST_CYDRINE;
     public static final String           DUST_MIXED            = TEXTURE_PREFIX
                                                                  + ItemLib.DUST_MIXED;
+
     public static final String           MOTION_SENSOR         = TEXTURE_PREFIX
                                                                  + ItemLib.MOTION_SENSOR;
     public static final String           MINING_TOOLBELT       = TEXTURE_PREFIX
                                                                  + ItemLib.MINING_TOOLBELT;
+    public static final String           UTILITY_BELT          = TEXTURE_PREFIX
+                                                                 + ItemLib.UTILITY_BELT;
 
     public static final String           PART_ACXIUM_CORE      = TEXTURE_PREFIX
                                                                  + ItemLib.PART_ACXIUM_CORE;

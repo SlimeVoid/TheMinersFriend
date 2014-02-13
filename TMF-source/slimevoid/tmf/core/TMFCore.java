@@ -66,6 +66,9 @@ public class TMFCore {
     public static Item   miningToolBelt;
     public static int    miningToolBeltId;
 
+    public static Item   utilityBelt;
+    public static int    utilityBeltId;
+
     // MINERALS
     public static Item   mineralAcxium, mineralBisogen, mineralCydrine;
     public static int    mineralAcxiumId, mineralBisogenId, mineralCydrineId;
@@ -101,6 +104,7 @@ public class TMFCore {
 
     public static void registerToolBelt() {
         miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setUnlocalizedName(ItemLib.MINING_TOOLBELT).setTextureName(ResourceLib.MINING_TOOLBELT);
+        utilityBelt = new ItemMiningToolBelt(utilityBeltId).setUnlocalizedName(ItemLib.UTILITY_BELT).setTextureName(ResourceLib.UTILITY_BELT);
     }
 
     private static void registerTools() {

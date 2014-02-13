@@ -14,20 +14,21 @@ package slimevoid.tmf.client.gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
 import slimevoid.tmf.core.lib.ResourceLib;
-import slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
 import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 
 public class GuiMiningToolBelt extends GuiContainer {
 
     InventoryMiningToolBelt data;
 
-    public GuiMiningToolBelt(EntityPlayer entityplayer, InventoryMiningToolBelt toolBelt) {
-        super(new ContainerMiningToolBelt(entityplayer.inventory, toolBelt));
+    public GuiMiningToolBelt(Container container, EntityPlayer entityplayer, InventoryMiningToolBelt toolBelt) {
+        super(container);
         this.xSize = 177;
         this.ySize = 221;
         data = toolBelt;
@@ -94,7 +95,7 @@ public class GuiMiningToolBelt extends GuiContainer {
                        1.0F,
                        1.0F,
                        1.0F);
-        mc.renderEngine.bindTexture(ResourceLib.GUI_TOOLBELT);
+        mc.renderEngine.bindTexture(this.getBackground());
         int sizeX = (width - xSize) / 2;
         int sizeY = (height - ySize) / 2;
         drawTexturedModalRect(sizeX,
@@ -103,5 +104,9 @@ public class GuiMiningToolBelt extends GuiContainer {
                               0,
                               xSize,
                               ySize);
+    }
+
+    public ResourceLocation getBackground() {
+        return ResourceLib.GUI_TOOLBELT;
     }
 }

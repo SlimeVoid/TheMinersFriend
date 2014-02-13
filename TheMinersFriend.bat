@@ -45,6 +45,7 @@ rmdir "%packagedir%\TheMinersFriend" /S /Q
 )
 mkdir "%packagedir%\TheMinersFriend\slimevoid\tmf"
 xcopy "%mcpdir%\reobf\minecraft\slimevoid\tmf\*.*" "%packagedir%\TheMinersFriend\slimevoid\tmf\" /S
+xcopy "%mcpdir%\reobf\minecraft\slimevoid\compatibility\*.*" "%packagedir%\TheMinersFriend\slimevoid\compatibility\" /S
 xcopy "%tmf%\TMF-resources\*.*" "%packagedir%\TheMinersFriend\" /S
 echo "The Miners Friend Packaged Successfully
 pause

@@ -47,6 +47,8 @@ public class ItemRendererToolBelt implements IItemRenderer {
     public static void init() {
         MinecraftForgeClient.registerItemRenderer(TMFCore.miningToolBelt.itemID,
                                                   new ItemRendererToolBelt(FMLClientHandler.instance().getClient()));
+        MinecraftForgeClient.registerItemRenderer(TMFCore.utilityBelt.itemID,
+                                                  new ItemRendererToolBelt(FMLClientHandler.instance().getClient()));
     }
 
     private IItemRenderer getRendererForTool(ItemStack itemstack, ItemRenderType type) {

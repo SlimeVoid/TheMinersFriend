@@ -14,6 +14,7 @@ package slimevoid.tmf.proxy;
 import java.io.File;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
 import net.minecraft.network.packet.NetHandler;
@@ -40,6 +41,7 @@ import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.PacketLib;
 import slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
 import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
+import slimevoid.tmf.items.tools.inventory.SlotUtilityBelt;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import slimevoidlib.ICommonProxy;
 import slimevoidlib.IPacketHandling;
@@ -58,6 +60,17 @@ public class CommonProxy implements ICommonProxy {
         case GuiLib.GUIID_TOOL_BELT:
             InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, player, player.getHeldItem());
             return new ContainerMiningToolBelt(player.inventory, data);
+        case GuiLib.GUIID_UTILITY_BELT:
+            InventoryMiningToolBelt utility = new InventoryMiningToolBelt(world, player, player.getHeldItem());
+            return new ContainerMiningToolBelt(player.inventory, utility) {
+                @Override
+                protected void bindToolBeltInventory(IInventory toolBelt) {
+                    this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 0, 69, 37));
+                    this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 1, 69, 59));
+                    this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 2, 92, 37));
+                    this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 3, 92, 59));
+                }
+            };
         case GuiLib.GUIID_REFINERY:
             TileEntity tileRef = SlimevoidHelper.getBlockTileEntity(world,
                                                                     x,

@@ -11,17 +11,25 @@
  */
 package slimevoid.tmf.core.lib;
 
+import net.minecraft.item.ItemStack;
+
 public class GuiLib {
 
     // Gui Ids
     public static final int GUIID_TOOL_BELT                 = 0;
-    public static final int GUIID_REFINERY                  = 1;
-    public static final int GUIID_GRINDER                   = 2;
-    public static final int GUIID_GEOEQUIP                  = 3;
-    public static final int GUIID_MIXINGTABLE               = 4;
-    public static final int GUIID_STOVE                     = 5;
+    public static final int GUIID_UTILITY_BELT              = 1;
+    public static final int GUIID_REFINERY                  = 2;
+    public static final int GUIID_GRINDER                   = 3;
+    public static final int GUIID_GEOEQUIP                  = 4;
+    public static final int GUIID_MIXINGTABLE               = 5;
+    public static final int GUIID_STOVE                     = 6;
 
     // Button Ids
     public static final int MOTION_SENSOR_SETTINGS_BUTTONID = 0;
+
+    public static int getBeltIdFromItemStack(ItemStack itemstack) {
+        return itemstack.getItem().getUnlocalizedName().equals("item."
+                                                               + ItemLib.MINING_TOOLBELT) ? GUIID_TOOL_BELT : GUIID_UTILITY_BELT;
+    }
 
 }

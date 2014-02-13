@@ -139,6 +139,9 @@ public class ConfigurationLib {
         TMFCore.miningToolBeltId = Integer.valueOf(configuration.get(Configuration.CATEGORY_ITEM,
                                                                      "toolBelt",
                                                                      15005).getInt());
+        TMFCore.utilityBeltId = Integer.valueOf(configuration.get(Configuration.CATEGORY_ITEM,
+                                                                  "utilityBelt",
+                                                                  15006).getInt());
     }
 
     private static void loadMinerals() {
@@ -248,6 +251,9 @@ public class ConfigurationLib {
 
         XMLLoader.addXmlVariable("$miningToolBelt",
                                  TMFCore.miningToolBelt.itemID);
+
+        XMLLoader.addXmlVariable("$utilityBelt",
+                                 TMFCore.utilityBelt.itemID);
 
         if (loadMachines) {
             /* MACHINES */

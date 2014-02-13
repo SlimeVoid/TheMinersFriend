@@ -83,6 +83,9 @@ public class ItemLib {
     public static final String       MINING_TOOLBELT       = TOOL_PREFIX
                                                              + "belt";
 
+    public static final String       UTILITY_BELT          = TOOL_PREFIX
+                                                             + "utilitybelt";
+
     public static final String       MINING_MODE           = ITEM_PREFIX
                                                              + "miningMode";
 
