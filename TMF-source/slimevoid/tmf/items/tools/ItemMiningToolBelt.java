@@ -285,11 +285,6 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairableExtended {
             if (entityplayer.isUsingItem()) {
                 entityplayer.setItemInUse(itemstack,
                                           tool.getMaxItemUseDuration());
-                // ReflectionHelper.setPrivateValue(EntityPlayer.class,
-                // entityplayer,
-                // itemstack,
-                // ItemHelper.getItemInUseFieldId(world,
-                // entityplayer));
             }
             this.updateToolInToolBelt(world,
                                       entityplayer,
@@ -659,15 +654,13 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairableExtended {
             tool = null;
         }
         if (toolBelt.hasTagCompound()) {
-            if (toolBelt.getTagCompound() != null) {
-                int selectedSlot = this.getSelectedSlot(toolBelt);
-                ItemStack[] tools = ItemHelper.getTools(toolBelt);
-                if (!ItemStack.areItemStacksEqual(tools[selectedSlot],
-                                                  tool)) {
-                    tools[selectedSlot] = tool;
-                    this.refreshTools(toolBelt,
-                                      tools);
-                }
+            int selectedSlot = this.getSelectedSlot(toolBelt);
+            ItemStack[] tools = ItemHelper.getTools(toolBelt);
+            if (!ItemStack.areItemStacksEqual(tools[selectedSlot],
+                                              tool)) {
+                tools[selectedSlot] = tool;
+                this.refreshTools(toolBelt,
+                                  tools);
             }
         }
     }
