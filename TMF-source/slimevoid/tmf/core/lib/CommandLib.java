@@ -21,6 +21,7 @@ public class CommandLib {
     public static final String MESSAGE_TOOL_SELECT     = "toolSelected";
     public static final String MINING_MODE_ACTIVATED   = "miningModeOn";
     public static final String MINING_MODE_DEACTIVATED = "miningModeOff";
+    public static final String OPEN_TOOLBELT_GUI       = "toolBeltGui";
 
     public static final int    CYCLE_TOOLBELT_UP       = 1;
     public static final int    CYCLE_TOOLBELT_DOWN     = -1;

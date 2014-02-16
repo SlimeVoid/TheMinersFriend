@@ -15,11 +15,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
 import slimevoid.compatibility.tinkersconstruct.TinkersConstructStatic;
-import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.core.lib.CommandLib;
 import slimevoid.tmf.core.lib.DataLib;
-import slimevoid.tmf.core.lib.GuiLib;
 import slimevoid.tmf.core.lib.MessageLib;
 import slimevoid.tmf.core.lib.NBTLib;
 import slimevoid.tmf.core.lib.PacketLib;
@@ -172,19 +170,9 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-        if (entityplayer.isSneaking()) {
-            entityplayer.openGui(TheMinersFriend.instance,
-                                 GuiLib.getBeltIdFromItemStack(itemstack),
-                                 world,
-                                 (int) entityplayer.posX,
-                                 (int) entityplayer.posY,
-                                 (int) entityplayer.posZ);
-        } else {
-            this.doItemRightClick(itemstack,
-                                  world,
-                                  entityplayer);
-        }
-
+        this.doItemRightClick(itemstack,
+                              world,
+                              entityplayer);
         return itemstack;
     }
 
@@ -232,22 +220,20 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
 
     public void doItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         ItemStack tool = this.getSelectedTool(itemstack);
-        ItemStack toolCopy = ItemStack.copyItemStack(tool);
 
         if (tool != null) {
-            tool.useItemRightClick(world,
-                                   entityplayer);
+            tool = tool.useItemRightClick(world,
+                                          entityplayer);
 
             if (entityplayer.isUsingItem()) {
                 entityplayer.setItemInUse(itemstack,
                                           tool.getMaxItemUseDuration());
             }
 
-            this.updateToolInToolBelt(world,
-                                      entityplayer,
-                                      itemstack,
-                                      tool,
-                                      toolCopy);
+            this.updateToolBelt(world,
+                                entityplayer,
+                                itemstack,
+                                tool);
         }
     }
 
@@ -280,7 +266,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
         ItemStack tool = this.getSelectedTool(itemstack);
         ItemStack toolCopy = ItemStack.copyItemStack(tool);
         boolean flag = false;
-        if (tool != null) {
+        if (tool != null && tool.getItem() != null) {
             flag = tool.getItem().onItemUseFirst(tool,
                                                  entityplayer,
                                                  world,

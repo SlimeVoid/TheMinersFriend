@@ -12,11 +12,18 @@
 package slimevoid.tmf.client.tickhandlers.input;
 
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.event.ForgeSubscribe;
+
+import org.lwjgl.input.Keyboard;
+
 import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.core.lib.CommandLib;
 import slimevoid.tmf.core.lib.KeyBindings;
+import slimevoid.tmf.core.lib.PacketLib;
 import cpw.mods.fml.client.FMLClientHandler;
 
 public class ToolBeltMouseWheelHandler {
@@ -24,21 +31,33 @@ public class ToolBeltMouseWheelHandler {
     @ForgeSubscribe
     public void onMouseEvent(MouseEvent event) {
         int wheel = event.dwheel;
-        if (isToolBeltScroll(wheel)) {
-            if (wheel > 0) {
-                KeyBindings.doToolBeltCycle(CommandLib.CYCLE_TOOLBELT_UP);
-                event.setCanceled(true);
+        EntityPlayer entityplayer = FMLClientHandler.instance().getClient().thePlayer;
+        World world = entityplayer.getEntityWorld();
+        ItemStack heldItem = entityplayer.getHeldItem();
+        if (ItemHelper.isToolBelt(heldItem)) {
+            if (isScrolling(wheel)) {
+                if (wheel > 0) {
+                    KeyBindings.doToolBeltCycle(CommandLib.CYCLE_TOOLBELT_UP);
+                    event.setCanceled(true);
+                }
+                if (wheel < 0) {
+                    KeyBindings.doToolBeltCycle(CommandLib.CYCLE_TOOLBELT_DOWN);
+                    event.setCanceled(true);
+                }
             }
-            if (wheel < 0) {
-                KeyBindings.doToolBeltCycle(CommandLib.CYCLE_TOOLBELT_DOWN);
-                event.setCanceled(true);
+            if (isRightClicking(event.button)) {
+                PacketLib.sendToolBeltGuiRequest(world,
+                                                 entityplayer);
             }
         }
     }
 
-    private boolean isToolBeltScroll(int wheel) {
-        return ItemHelper.isToolBelt(FMLClientHandler.instance().getClient().thePlayer.getHeldItem())
-               && GameSettings.isKeyDown(FMLClientHandler.instance().getClient().gameSettings.keyBindSneak)
+    private boolean isScrolling(int wheel) {
+        return GameSettings.isKeyDown(FMLClientHandler.instance().getClient().gameSettings.keyBindSneak)
                && wheel != 0;
+    }
+
+    private boolean isRightClicking(int button) {
+        return Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && button == 1;
     }
 }

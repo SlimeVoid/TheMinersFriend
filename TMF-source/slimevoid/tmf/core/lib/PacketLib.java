@@ -28,6 +28,7 @@ import slimevoid.tmf.network.packets.executors.MiningModeExecutor;
 import slimevoid.tmf.network.packets.executors.MotionSensorPingExecutor;
 import slimevoid.tmf.network.packets.executors.MotionSensorSweepExecutor;
 import slimevoid.tmf.network.packets.executors.ToolBeltCycleToolExecutor;
+import slimevoid.tmf.network.packets.executors.ToolBeltOpenGuiExecutor;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
@@ -61,6 +62,8 @@ public class PacketLib {
                                                           new ToolBeltCycleToolExecutor());
         packetMiningToolBeltHandler.registerPacketHandler(CommandLib.TOGGLE_MINING_MODE,
                                                           new MiningModeExecutor());
+        packetMiningToolBeltHandler.registerPacketHandler(CommandLib.OPEN_TOOLBELT_GUI,
+                                                          new ToolBeltOpenGuiExecutor());
         CommonPacketHandler.registerPacketHandler(MINING_TOOL_BELT,
                                                   packetMiningToolBeltHandler);
     }
@@ -117,5 +120,10 @@ public class PacketLib {
                                       entityplayer);
             }
         }
+    }
+
+    public static void sendToolBeltGuiRequest(World world, EntityPlayer entityplayer) {
+        PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.OPEN_TOOLBELT_GUI);
+        PacketDispatcher.sendPacketToServer(packet.getPacket());
     }
 }
