@@ -1,4 +1,4 @@
-package slimevoid.tmf.client.tickhandlers;
+package slimevoid.tmf.tickhandlers;
 
 import java.util.EnumSet;
 
@@ -12,7 +12,7 @@ import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
-public class PlayerToolBeltTickHandler implements ITickHandler {
+public class ToolBeltTickHandler implements ITickHandler {
 
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData) {

@@ -7,6 +7,7 @@ import slimevoid.compatibility.packets.PacketCompatibility;
 import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import thaumcraft.api.IRepairable;
+import thaumcraft.api.IRepairableExtended;
 import thaumcraft.common.items.wands.WandManager;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
@@ -46,10 +47,30 @@ public class ThaumcraftStatic {
     }
 
     public static boolean doRepair(ItemStack itemstack, EntityPlayer entityplayer, int level) {
+        ItemStack heldItem = entityplayer.getHeldItem();
+        ItemMiningToolBelt toolBelt = (ItemMiningToolBelt) heldItem.getItem();
         ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+        ItemStack toolCopy = ItemStack.copyItemStack(tool);
         if (tool != null && tool.getItem() != null) {
-            return tool.getItem() instanceof IRepairable;
+            if (tool.getItem() instanceof IRepairable) {
+                if (tool.getItem() instanceof IRepairableExtended) {
+                    if (((IRepairableExtended) tool.getItem()).doRepair(tool,
+                                                                        entityplayer,
+                                                                        level)) {
+                        tool.damageItem(-level,
+                                        entityplayer);
+                    }
+                } else {
+                    tool.damageItem(-level,
+                                    entityplayer);
+                }
+            }
         }
+        toolBelt.updateToolInToolBelt(entityplayer.getEntityWorld(),
+                                      entityplayer,
+                                      heldItem,
+                                      tool,
+                                      toolCopy);
         return false;
     }
 }

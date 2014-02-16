@@ -32,7 +32,6 @@ import slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
-import slimevoid.tmf.client.tickhandlers.PlayerToolBeltTickHandler;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.CoreLib;
@@ -43,6 +42,7 @@ import slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
 import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import slimevoid.tmf.items.tools.inventory.SlotUtilityBelt;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
+import slimevoid.tmf.tickhandlers.ToolBeltTickHandler;
 import slimevoidlib.ICommonProxy;
 import slimevoidlib.IPacketHandling;
 import slimevoidlib.core.SlimevoidCore;
@@ -143,7 +143,7 @@ public class CommonProxy implements ICommonProxy {
             TickRegistry.registerTickHandler(new MiningHelmetTickHandler(),
                                              Side.SERVER);
         }
-        TickRegistry.registerTickHandler(new PlayerToolBeltTickHandler(),
+        TickRegistry.registerTickHandler(new ToolBeltTickHandler(),
                                          Side.SERVER);
     }
 

@@ -25,15 +25,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.EntityInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
 import slimevoid.tmf.core.lib.CommandLib;
 import slimevoid.tmf.core.lib.DataLib;
 import slimevoid.tmf.core.lib.ItemLib;
 import slimevoid.tmf.core.lib.NBTLib;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import slimevoid.tmf.items.tools.ItemMotionSensor;
+import slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
@@ -252,34 +250,6 @@ public class ItemHelper {
         return miningTools;
     }
 
-    @Deprecated
-    public static void doBreakSpeed(BreakSpeed event) {
-        ItemStack heldItem = event.entityLiving.getHeldItem();
-        if (isToolBelt(heldItem)) {
-            ((ItemMiningToolBelt) heldItem.getItem()).doBreakSpeed(event,
-                                                                   heldItem);
-        }
-    }
-
-    @Deprecated
-    public static boolean doEntityInteract(EntityInteractEvent event) {
-        ItemStack heldItem = event.entityLiving.getHeldItem();
-        if (isToolBelt(heldItem)) {
-            return ((ItemMiningToolBelt) heldItem.getItem()).doEntityInteract(event,
-                                                                              heldItem);
-        }
-        return false;
-    }
-
-    public static void doHarvestCheck(HarvestCheck event) {
-
-        ItemStack heldItem = event.entityLiving.getHeldItem();
-        if (isToolBelt(heldItem)) {
-            ((ItemMiningToolBelt) heldItem.getItem()).doHarvestCheck(event,
-                                                                     heldItem);
-        }
-    }
-
     public static ItemStack getNextSelectedTool(ItemStack itemstack) {
         if (isToolBelt(itemstack)) {
             return ((ItemMiningToolBelt) itemstack.getItem()).cycleTool(itemstack,
@@ -326,5 +296,13 @@ public class ItemHelper {
             return ((ItemMiningToolBelt) itemstack.getItem()).isMiningModeEnabled(itemstack);
         }
         return false;
+    }
+
+    public static void updateContainerInfo(World world, EntityPlayer entityplayer, ItemStack toolBelt) {
+        if (entityplayer.openContainer != null
+            && entityplayer.openContainer instanceof ContainerMiningToolBelt) {
+            ContainerMiningToolBelt container = (ContainerMiningToolBelt) entityplayer.openContainer;
+            container.getToolBelt().onExternalChange();
+        }
     }
 }

@@ -35,7 +35,6 @@ import slimevoid.tmf.client.renderers.ItemRendererToolBelt;
 import slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
 import slimevoid.tmf.client.tickhandlers.MiningHelmetRenderTickHandler;
 import slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
-import slimevoid.tmf.client.tickhandlers.PlayerToolBeltTickHandler;
 import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleInToolbelt;
 import slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleOnHotbar;
 import slimevoid.tmf.core.TMFCore;
@@ -52,6 +51,7 @@ import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import slimevoid.tmf.items.tools.inventory.SlotUtilityBelt;
 import slimevoid.tmf.proxy.CommonProxy;
 import slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
+import slimevoid.tmf.tickhandlers.ToolBeltTickHandler;
 import slimevoidlib.core.SlimevoidCore;
 import slimevoidlib.util.helpers.BlockHelper;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -121,7 +121,7 @@ public class ClientProxy extends CommonProxy {
             TickRegistry.registerTickHandler(new MiningHelmetRenderTickHandler(),
                                              Side.CLIENT);
         }
-        TickRegistry.registerTickHandler(new PlayerToolBeltTickHandler(),
+        TickRegistry.registerTickHandler(new ToolBeltTickHandler(),
                                          Side.CLIENT);
     }
 

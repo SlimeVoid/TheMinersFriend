@@ -96,4 +96,8 @@ public class ContainerMiningToolBelt extends Container {
 
         return stack;
     }
+
+    public InventoryMiningToolBelt getToolBelt() {
+        return (InventoryMiningToolBelt) this.toolbelt;
+    }
 }
