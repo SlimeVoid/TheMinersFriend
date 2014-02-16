@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 import slimevoid.compatibility.packets.PacketCompatibility;
 import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
+import thaumcraft.api.IRepairable;
 import thaumcraft.common.items.wands.WandManager;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
@@ -36,11 +37,19 @@ public class ThaumcraftStatic {
             WandManager.changeFocus(tool,
                                     world,
                                     entityplayer);
-            ((ItemMiningToolBelt) heldItem.getItem()).updateSelectedTool(world,
+            ((ItemMiningToolBelt) heldItem.getItem()).updateToolInToolBelt(world,
                                                                            entityplayer,
                                                                            heldItem,
                                                                            tool,
                                                                            toolCopy);
         }
+    }
+
+    public static boolean doRepair(ItemStack itemstack, EntityPlayer entityplayer, int level) {
+        ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+        if (tool != null && tool.getItem() != null) {
+            return tool.getItem() instanceof IRepairable;
+        }
+        return false;
     }
 }

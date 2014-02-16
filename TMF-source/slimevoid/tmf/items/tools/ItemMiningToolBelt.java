@@ -28,7 +28,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerEvent.HarvestCheck;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
-import slimevoid.compatibility.tinkersconstruct.TinkersConstruct;
+import slimevoid.compatibility.tinkersconstruct.TinkersConstructStatic;
 import slimevoid.tmf.core.TheMinersFriend;
 import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.core.lib.CommandLib;
@@ -39,11 +39,13 @@ import slimevoid.tmf.core.lib.PacketLib;
 import slimevoid.tmf.items.ItemTMF;
 import slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import slimevoidlib.nbt.NBTHelper;
+import thaumcraft.api.IRepairable;
 import thaumcraft.api.IRepairableExtended;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemMiningToolBelt extends ItemTMF implements IRepairableExtended {
+public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
+        IRepairableExtended {
 
     public ItemMiningToolBelt(int itemID) {
         super(itemID);
@@ -316,6 +318,12 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairableExtended {
                                       tool,
                                       toolCopy);
         }
+        if (!flag) {
+            this.onItemRightClick(itemstack,
+                                  world,
+                                  entityplayer);
+            return true;
+        }
         return flag;
     }
 
@@ -340,6 +348,12 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairableExtended {
                                       itemstack,
                                       tool,
                                       toolCopy);
+        }
+        if (!flag && entityplayer.isSneaking()) {
+            this.onItemRightClick(itemstack,
+                                  world,
+                                  entityplayer);
+            return true;
         }
         return flag;
     }
@@ -617,36 +631,19 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairableExtended {
 
     @Override
     public boolean canHarvestBlock(Block block, ItemStack itemstack) {
-        ItemStack tool = this.isMiningModeEnabled(itemstack) ? this.selectToolForHarvest(itemstack,
-                                                                                         block) : this.getSelectedTool(itemstack);
-        if (tool != null) {
-            return tool.canHarvestBlock(block);
+        ItemStack selectedTool = this.getSelectedTool(itemstack);
+        boolean flag = false;
+        if (selectedTool != null) {
+            flag = selectedTool.canHarvestBlock(block);
         }
-        return super.canHarvestBlock(block,
-                                     itemstack);
-    }
-
-    protected ItemStack selectToolForHarvest(ItemStack itemstack, Block block) {
-        float fastestSpeed = 0.0F;
-        int selection = getSelectedSlot(itemstack);
-        ItemStack[] tools = ItemHelper.getTools(itemstack);
-        if (tools != null) {
-            for (int i = 0; i <= DataLib.TOOL_BELT_SELECTED_MAX; i++) {
-                ItemStack tool = tools[i];
-                if (tool != null && tool.getItem() != null) {
-                    float breakSpeed = tool.getItem().getStrVsBlock(tool,
-                                                                    block,
-                                                                    0);
-                    boolean canHarvest = tool.canHarvestBlock(block);
-                    if (breakSpeed > fastestSpeed && canHarvest) {
-                        fastestSpeed = breakSpeed;
-                        selection = i;
-                    }
+        if (this.isMiningModeEnabled(itemstack)) {
+            for (ItemStack tool : ItemHelper.getTools(itemstack)) {
+                if (tool != null && tool.canHarvestBlock(block)) {
+                    flag = true;
                 }
             }
         }
-        return this.setSelectedTool(itemstack,
-                                    selection);
+        return flag;
     }
 
     public void updateToolBelt(ItemStack toolBelt, ItemStack tool) {
@@ -704,8 +701,8 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairableExtended {
             nbttagcompound.removeTag(NBTLib.ENCHANTMENTS);
         }
 
-        TinkersConstruct.handleNBT(tool,
-                                   nbttagcompound);
+        TinkersConstructStatic.handleNBT(tool,
+                                         nbttagcompound);
     }
 
     public void updateToolInToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt, ItemStack tool, ItemStack toolCopy) {
@@ -734,7 +731,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairableExtended {
         }
     }
 
-    private boolean isMiningModeEnabled(ItemStack itemstack) {
+    public boolean isMiningModeEnabled(ItemStack itemstack) {
         if (itemstack.hasTagCompound()) {
             if (itemstack.stackTagCompound.hasKey(NBTLib.MINING_MODE)) {
                 return itemstack.stackTagCompound.getBoolean(NBTLib.MINING_MODE);
@@ -1033,8 +1030,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairableExtended {
 
     @Override
     public boolean doRepair(ItemStack itemstack, EntityPlayer entityplayer, int level) {
-        return ThaumcraftStatic.doRepair(this,
-                                         itemstack,
+        return ThaumcraftStatic.doRepair(itemstack,
                                          entityplayer,
                                          level);
     }

@@ -51,7 +51,7 @@ public class PlayerToolBeltTickHandler implements ITickHandler {
                  */
                 if (entityplayer.isSwingInProgress) {
                     if (((ItemMiningToolBelt) heldItem.getItem()).isMiningModeEnabled(heldItem)) {
-                        entityplayer.addExhaustion(this.calculateAbsorption(world,
+                        entityplayer.addExhaustion(this.calculateExhaustion(world,
                                                                             entityplayer,
                                                                             heldItem));
                     }
@@ -60,9 +60,8 @@ public class PlayerToolBeltTickHandler implements ITickHandler {
         }
     }
 
-    private float calculateAbsorption(World world, EntityPlayer entityplayer, ItemStack heldItem) {
+    private float calculateExhaustion(World world, EntityPlayer entityplayer, ItemStack heldItem) {
         float progress = entityplayer.swingProgress;
-        // System.out.println("Swing: " + progress);
         if (progress >= 0.5F) {
             return ConfigurationLib.miningModeExhaustion;
         }
