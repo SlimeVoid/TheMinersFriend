@@ -48,6 +48,7 @@ public class ToolBeltMouseWheelHandler {
             if (isRightClicking(event.button)) {
                 PacketLib.sendToolBeltGuiRequest(world,
                                                  entityplayer);
+                event.setCanceled(true);
             }
         }
     }
