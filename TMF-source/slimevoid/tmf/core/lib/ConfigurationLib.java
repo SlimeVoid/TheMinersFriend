@@ -48,6 +48,8 @@ public class ConfigurationLib {
     public static boolean       motionSensorDrawRight;
     public static int           renderMachineId                  = RenderingRegistry.getNextAvailableRenderId();
     public static boolean       motionSensorPlaySounds;
+
+    public static float         miningModeExhaustion             = 0.075F;
     public static final String  COMMENT_MOTION_SENSOR_DRAW_RIGHT = "Set this to false to draw the motion sensor on the left.";
 
     @SideOnly(Side.CLIENT)
@@ -142,6 +144,9 @@ public class ConfigurationLib {
         TMFCore.utilityBeltId = Integer.valueOf(configuration.get(Configuration.CATEGORY_ITEM,
                                                                   "utilityBelt",
                                                                   15006).getInt());
+        miningModeExhaustion = Float.parseFloat(configuration.get(CATEGORY_LAUNCH_OPTIONS,
+                                                                  "miningModeExhaustion",
+                                                                  miningModeExhaustion).getString());
     }
 
     private static void loadMinerals() {
