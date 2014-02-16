@@ -320,4 +320,11 @@ public class ItemHelper {
         }
         return 0;
     }
+
+    public static boolean getMiningMode(ItemStack itemstack) {
+        if (isToolBelt(itemstack)) {
+            return ((ItemMiningToolBelt) itemstack.getItem()).isMiningModeEnabled(itemstack);
+        }
+        return false;
+    }
 }
