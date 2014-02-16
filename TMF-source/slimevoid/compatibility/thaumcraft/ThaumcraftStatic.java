@@ -47,8 +47,7 @@ public class ThaumcraftStatic {
     }
 
     public static boolean doRepair(ItemStack itemstack, EntityPlayer entityplayer, int level) {
-        ItemStack heldItem = entityplayer.getHeldItem();
-        ItemMiningToolBelt toolBelt = (ItemMiningToolBelt) heldItem.getItem();
+        ItemMiningToolBelt toolBelt = (ItemMiningToolBelt) itemstack.getItem();
         ItemStack tool = ItemHelper.getSelectedTool(itemstack);
         ItemStack toolCopy = ItemStack.copyItemStack(tool);
         if (tool != null && tool.getItem() != null) {
@@ -68,7 +67,7 @@ public class ThaumcraftStatic {
         }
         toolBelt.updateToolInToolBelt(entityplayer.getEntityWorld(),
                                       entityplayer,
-                                      heldItem,
+                                      itemstack,
                                       tool,
                                       toolCopy);
         return false;
