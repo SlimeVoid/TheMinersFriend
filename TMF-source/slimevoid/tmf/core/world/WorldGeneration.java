@@ -13,12 +13,11 @@ package slimevoid.tmf.core.world;
 
 import java.util.Random;
 
-import slimevoid.tmf.blocks.ores.BlockTMFOre;
-import slimevoid.tmf.core.lib.BlockLib;
-
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import slimevoid.tmf.blocks.ores.BlockTMFOre;
+import slimevoid.tmf.core.lib.BlockLib;
 import cpw.mods.fml.common.IWorldGenerator;
 
 public class WorldGeneration implements IWorldGenerator {
@@ -32,17 +31,18 @@ public class WorldGeneration implements IWorldGenerator {
                            chunkX * 16,
                            chunkZ * 16);
             break;
-        case 0:
-            generateSurface(world,
-                            random,
-                            chunkX * 16,
-                            chunkZ * 16);
-            break;
         case 1:
             generateEnd(world,
                         random,
                         chunkX * 16,
                         chunkZ * 16);
+            break;
+        default:
+            generateSurface(world,
+                            random,
+                            chunkX * 16,
+                            chunkZ * 16);
+            break;
         }
     }
 

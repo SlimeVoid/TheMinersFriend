@@ -170,10 +170,9 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-        this.doItemRightClick(itemstack,
-                              world,
-                              entityplayer);
-        return itemstack;
+        return this.doItemRightClick(itemstack,
+                                     world,
+                                     entityplayer);
     }
 
     @Override
@@ -218,7 +217,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
         return tool != null ? tool.getMaxItemUseDuration() : super.getMaxItemUseDuration(itemstack);
     }
 
-    public void doItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+    public ItemStack doItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         ItemStack tool = this.getSelectedTool(itemstack);
 
         if (tool != null) {
@@ -235,6 +234,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
                                 itemstack,
                                 tool);
         }
+        return itemstack;
     }
 
     public boolean doItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
