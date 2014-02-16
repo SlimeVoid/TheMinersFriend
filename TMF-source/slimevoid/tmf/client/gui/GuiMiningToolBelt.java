@@ -67,18 +67,20 @@ public class GuiMiningToolBelt extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float renderTicks, int x, int y) {
-        this.drawBackground();
-        this.drawHighlightedSlot();
+        int sizeX = (this.width - this.xSize) / 2;
+        int sizeY = (this.height - this.ySize) / 2;
+        this.drawBackground(sizeX,
+                            sizeY);
+        this.drawHighlightedSlot(sizeX,
+                                 sizeY);
     }
 
-    protected void drawBackground() {
+    protected void drawBackground(int sizeX, int sizeY) {
         GL11.glColor4f(1.0F,
                        1.0F,
                        1.0F,
                        1.0F);
         this.mc.renderEngine.bindTexture(this.getBackground());
-        int sizeX = (this.width - this.xSize) / 2;
-        int sizeY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(sizeX,
                                    sizeY,
                                    0,
@@ -87,19 +89,19 @@ public class GuiMiningToolBelt extends GuiContainer {
                                    this.ySize);
     }
 
-    protected void drawHighlightedSlot() {
+    protected void drawHighlightedSlot(int sizeX, int sizeY) {
         int slot = data.getSelectedSlot();
         Slot selectedSlot = this.inventorySlots.getSlot(slot);
-        int x = selectedSlot.xDisplayPosition;
-        int y = selectedSlot.yDisplayPosition;
+        int x = selectedSlot.xDisplayPosition + sizeX;
+        int y = selectedSlot.yDisplayPosition + sizeY;
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         this.drawGradientRect(x,
                               y,
                               x + 16,
                               y + 16,
-                              -2130700000,
-                              -2130700000);
+                              -2130702222,
+                              -2130702222);
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
     }
