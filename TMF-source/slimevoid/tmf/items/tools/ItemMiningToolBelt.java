@@ -219,6 +219,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
 
     public ItemStack doItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         ItemStack tool = this.getSelectedTool(itemstack);
+        ItemStack toolCopy = ItemStack.copyItemStack(tool);
 
         if (tool != null) {
             tool = tool.useItemRightClick(world,
@@ -229,10 +230,11 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
                                           tool.getMaxItemUseDuration());
             }
 
-            this.updateToolBelt(world,
-                                entityplayer,
-                                itemstack,
-                                tool);
+            this.updateToolInToolBelt(world,
+                                      entityplayer,
+                                      itemstack,
+                                      tool,
+                                      toolCopy);
         }
         return itemstack;
     }
