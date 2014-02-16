@@ -264,13 +264,13 @@ public class TMFCore {
             GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
 
             GameRegistry.addSmelting(mineralAcxium.itemID,
-                                     new ItemStack(ingotAcxium, 1),
+                                     new ItemStack(nuggetAcxium, 1),
                                      1);
             GameRegistry.addSmelting(mineralBisogen.itemID,
-                                     new ItemStack(ingotBisogen, 1),
+                                     new ItemStack(nuggetBisogen, 1),
                                      2);
             GameRegistry.addSmelting(mineralCydrine.itemID,
-                                     new ItemStack(ingotCydrine, 1),
+                                     new ItemStack(nuggetCydrine, 1),
                                      3);
         }
     }
