@@ -267,26 +267,8 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
     public boolean doItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         ItemStack tool = this.getSelectedTool(itemstack);
         ItemStack toolCopy = ItemStack.copyItemStack(tool);
-        boolean blockActivated = false;
         boolean flag = false;
-        if (!entityplayer.isSneaking()) {
-            int blockID = world.getBlockId(x,
-                                           y,
-                                           z);
-            Block block = blockID > 0 ? Block.blocksList[blockID] : null;
-            if (block != null) {
-                blockActivated = block.onBlockActivated(world,
-                                                        x,
-                                                        y,
-                                                        z,
-                                                        entityplayer,
-                                                        side,
-                                                        hitX,
-                                                        hitY,
-                                                        hitZ);
-            }
-        }
-        if (!blockActivated && tool != null && tool.getItem() != null) {
+        if (tool != null && tool.getItem() != null) {
             flag = tool.getItem().onItemUseFirst(tool,
                                                  entityplayer,
                                                  world,
@@ -303,7 +285,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
                                       tool,
                                       toolCopy);
         }
-        return blockActivated ? false : flag;
+        return flag;
     }
 
     public void doFoodEaten(ItemStack itemstack, World world, EntityPlayer entityplayer) {
