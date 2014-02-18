@@ -3,7 +3,7 @@ package slimevoid.compatibility.thaumcraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import slimevoid.compatibility.packets.PacketCompatibility;
+import slimevoid.compatibility.lib.packets.PacketCompatibility;
 import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import thaumcraft.api.IRepairable;

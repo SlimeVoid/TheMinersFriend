@@ -1,4 +1,4 @@
-package slimevoid.compatibility.packets;
+package slimevoid.compatibility.lib.packets;
 
 import net.minecraft.world.World;
 import slimevoid.tmf.core.lib.PacketLib;

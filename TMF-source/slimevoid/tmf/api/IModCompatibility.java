@@ -5,6 +5,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public interface IModCompatibility {
 
+    public void registerBlockAndItemInformation();
+
     @SideOnly(Side.CLIENT)
     public void registerKeyBindings();
 

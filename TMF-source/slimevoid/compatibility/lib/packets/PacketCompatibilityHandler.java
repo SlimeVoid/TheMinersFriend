@@ -1,4 +1,4 @@
-package slimevoid.compatibility.packets;
+package slimevoid.compatibility.lib.packets;
 
 import slimevoidlib.network.PacketUpdate;
 import slimevoidlib.network.handlers.SubPacketHandler;

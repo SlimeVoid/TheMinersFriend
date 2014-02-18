@@ -11,6 +11,7 @@
  */
 package slimevoid.tmf.core;
 
+import slimevoid.compatibility.TMFCompatibility;
 import slimevoid.tmf.core.lib.ConfigurationLib;
 import slimevoid.tmf.core.lib.CoreLib;
 import slimevoidlib.ICommonProxy;
@@ -51,6 +52,11 @@ public class TMFInit {
         TheMinersFriend.proxy.registerRenderInformation();
 
         TheMinersFriend.proxy.registerTickHandlers();
+
+        SlimevoidCore.console(CoreLib.MOD_ID,
+                              "Registering Compatibility Blocks and Items...");
+
+        TMFCompatibility.registerBlockAndItemInformation();
 
         SlimevoidCore.console(CoreLib.MOD_ID,
                               "Registering names...");

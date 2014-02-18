@@ -13,6 +13,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import slimevoid.compatibility.mystcraft.MystcraftStatic;
 import slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
 import slimevoid.compatibility.tinkersconstruct.TinkersConstructStatic;
 import slimevoid.tmf.core.helpers.ItemHelper;
@@ -191,16 +192,19 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
 
     @Override
     public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        return this.doItemUseFirst(itemstack,
-                                   entityplayer,
-                                   world,
-                                   x,
-                                   y,
-                                   z,
-                                   side,
-                                   hitX,
-                                   hitY,
-                                   hitZ);
+        return !MystcraftStatic.isBookStandOrLectern(world,
+                                                     x,
+                                                     y,
+                                                     z) ? this.doItemUseFirst(itemstack,
+                                                                              entityplayer,
+                                                                              world,
+                                                                              x,
+                                                                              y,
+                                                                              z,
+                                                                              side,
+                                                                              hitX,
+                                                                              hitY,
+                                                                              hitZ) : false;
     }
 
     @Override

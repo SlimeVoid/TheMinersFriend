@@ -18,6 +18,10 @@ public class Thaumcraft extends MasterCompatibility {
         super(MOD_ID);
     }
 
+    @Override
+    public void registerBlockAndItemInformation() {
+    }
+
     @SideOnly(Side.CLIENT)
     public void registerKeyBindings() {
         KeyBinding[] key = new KeyBinding[] { new KeyBinding("Change ToolBelt Wand Focus", 33) };

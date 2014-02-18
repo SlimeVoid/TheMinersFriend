@@ -11,5 +11,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Thaumcraft"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/TinkersConstruct"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CollaborativeMod"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Mystcraft"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

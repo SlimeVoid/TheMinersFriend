@@ -14,7 +14,7 @@ package slimevoid.tmf.core.lib;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import slimevoid.compatibility.packets.PacketCompatibilityHandler;
+import slimevoid.compatibility.lib.packets.PacketCompatibilityHandler;
 import slimevoid.tmf.client.network.ClientPacketHandler;
 import slimevoid.tmf.client.network.handlers.ClientPacketMiningToolBeltHandler;
 import slimevoid.tmf.client.network.packets.executors.ClientMiningModeActivatedExecutor;

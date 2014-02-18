@@ -2,7 +2,7 @@ package slimevoid.compatibility.thaumcraft;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import slimevoid.compatibility.packets.PacketCompatibility;
+import slimevoid.compatibility.lib.packets.PacketCompatibility;
 import slimevoidlib.IPacketExecutor;
 import slimevoidlib.network.PacketUpdate;
 
