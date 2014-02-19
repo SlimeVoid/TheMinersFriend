@@ -14,8 +14,6 @@ public class Mystcraft extends MasterCompatibility {
 
     @Override
     public void registerBlockAndItemInformation() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -29,6 +27,10 @@ public class Mystcraft extends MasterCompatibility {
 
     @Override
     public void registerTickHandlers() {
+    }
+
+    @Override
+    public void registerEventHandlers() {
     }
 
 }

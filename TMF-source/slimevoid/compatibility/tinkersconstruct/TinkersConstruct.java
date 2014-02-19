@@ -26,4 +26,8 @@ public class TinkersConstruct extends MasterCompatibility {
     @Override
     public void registerTickHandlers() {
     }
+
+    @Override
+    public void registerEventHandlers() {
+    }
 }

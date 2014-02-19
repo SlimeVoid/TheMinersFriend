@@ -100,7 +100,6 @@ public class ClientProxy extends CommonProxy {
                                                          new TileEntitySpecialRendererGrinder());
             RenderingRegistry.registerBlockHandler(new BlockMachineRenderingHandler());
         }
-        TMFCompatibility.registerTickHandlers();
     }
 
     @Override
@@ -123,6 +122,7 @@ public class ClientProxy extends CommonProxy {
         }
         TickRegistry.registerTickHandler(new ToolBeltTickHandler(),
                                          Side.CLIENT);
+        TMFCompatibility.registerTickHandlers();
     }
 
     @Override
@@ -212,5 +212,6 @@ public class ClientProxy extends CommonProxy {
     public void registerEventHandlers() {
         super.registerEventHandlers();
         EventLib.registerClientEvents();
+        TMFCompatibility.registerEventHandlers();
     }
 }

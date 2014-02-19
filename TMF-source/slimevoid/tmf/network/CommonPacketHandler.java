@@ -19,6 +19,8 @@ import java.util.Map;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import slimevoid.tmf.core.LoggerTMF;
+import slimevoid.tmf.core.lib.CoreLib;
+import slimevoid.tmf.core.lib.PacketLib;
 import slimevoidlib.data.Logger;
 import slimevoidlib.network.handlers.SubPacketHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
@@ -85,10 +87,16 @@ public class CommonPacketHandler implements IPacketHandler {
     public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
         DataInputStream data = new DataInputStream(new ByteArrayInputStream(packet.data));
         try {
-            int packetID = data.read();
-            getPacketHandler(packetID).onPacketData(manager,
-                                                    packet,
-                                                    player);
+            if (packet.channel.equals(CoreLib.MOD_CHANNEL)) {
+                int packetID = data.read();
+                getPacketHandler(packetID).onPacketData(manager,
+                                                        packet,
+                                                        player);
+            } else {
+                PacketLib.tryAlternativeHandling(manager,
+                                                 packet,
+                                                 player);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }

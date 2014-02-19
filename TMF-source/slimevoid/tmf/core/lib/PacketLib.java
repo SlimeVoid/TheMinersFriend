@@ -13,8 +13,12 @@ package slimevoid.tmf.core.lib;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.world.World;
 import slimevoid.compatibility.lib.packets.PacketCompatibilityHandler;
+import slimevoid.compatibility.thaumcraft.Thaumcraft;
+import slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
 import slimevoid.tmf.client.network.ClientPacketHandler;
 import slimevoid.tmf.client.network.handlers.ClientPacketMiningToolBeltHandler;
 import slimevoid.tmf.client.network.packets.executors.ClientMiningModeActivatedExecutor;
@@ -125,5 +129,13 @@ public class PacketLib {
     public static void sendToolBeltGuiRequest(World world, EntityPlayer entityplayer) {
         PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.OPEN_TOOLBELT_GUI);
         PacketDispatcher.sendPacketToServer(packet.getPacket());
+    }
+
+    public static void tryAlternativeHandling(INetworkManager manager, Packet250CustomPayload packet, Player player) {
+        if (packet.channel.equals(Thaumcraft.MOD_CHANNEL)) {
+            ThaumcraftStatic.handlePacket(manager,
+                                          packet,
+                                          player);
+        }
     }
 }

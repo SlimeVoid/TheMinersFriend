@@ -311,6 +311,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
     public void onUsingItemTick(ItemStack itemstack, EntityPlayer entityplayer, int count) {
         ItemStack tool = this.getSelectedTool(itemstack);
         ItemStack toolCopy = ItemStack.copyItemStack(tool);
+        int ticks = this.getMaxItemUseDuration(itemstack) - count;
 
         if (tool != null && tool.getItem() != null) {
             tool.getItem().onUsingItemTick(tool,

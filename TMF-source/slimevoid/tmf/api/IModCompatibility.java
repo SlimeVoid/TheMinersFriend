@@ -13,4 +13,6 @@ public interface IModCompatibility {
     public void registerPacketExecutors();
 
     public void registerTickHandlers();
+
+    public void registerEventHandlers();
 }

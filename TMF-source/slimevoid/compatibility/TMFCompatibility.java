@@ -33,4 +33,12 @@ public class TMFCompatibility {
             }
         }
     }
+
+    public static void registerEventHandlers() {
+        for (Mods mod : Mods.values()) {
+            if (mod.getCompat().isLoaded) {
+                mod.getCompat().registerEventHandlers();
+            }
+        }
+    }
 }

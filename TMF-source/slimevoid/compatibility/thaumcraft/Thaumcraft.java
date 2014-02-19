@@ -1,10 +1,10 @@
 package slimevoid.compatibility.thaumcraft;
 
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.common.MinecraftForge;
 import slimevoid.compatibility.MasterCompatibility;
-import slimevoid.tmf.core.lib.PacketLib;
-import slimevoid.tmf.network.CommonPacketHandler;
-import slimevoidlib.network.handlers.SubPacketHandler;
+import slimevoid.compatibility.thaumcraft.client.ThaumcraftKeyBindingHandler;
+import slimevoid.compatibility.thaumcraft.client.WandGuiTickHandler;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -12,7 +12,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Thaumcraft extends MasterCompatibility {
 
-    public static final String MOD_ID = "Thaumcraft";
+    public static final String MOD_ID      = "Thaumcraft";
+    public static final String MOD_CHANNEL = "TC";
 
     public Thaumcraft() {
         super(MOD_ID);
@@ -23,21 +24,25 @@ public class Thaumcraft extends MasterCompatibility {
     }
 
     @SideOnly(Side.CLIENT)
+    @Override
     public void registerKeyBindings() {
         KeyBinding[] key = new KeyBinding[] { new KeyBinding("Change ToolBelt Wand Focus", 33) };
         boolean[] repeat = new boolean[] { false };
         KeyBindingRegistry.registerKeyBinding(new ThaumcraftKeyBindingHandler(key, repeat));
     }
 
+    @Override
     public void registerPacketExecutors() {
-        SubPacketHandler handler = CommonPacketHandler.getPacketHandler(PacketLib.MOD_COMPAT);
-        handler.registerPacketHandler(ThaumcraftStatic.COMMAND_CHANGE_FOCUS,
-                                      new PacketChangeWandFocusExecutor());
     }
 
     @Override
     public void registerTickHandlers() {
         TickRegistry.registerTickHandler(new WandGuiTickHandler(),
                                          Side.CLIENT);
+    }
+
+    @Override
+    public void registerEventHandlers() {
+        MinecraftForge.EVENT_BUS.register(new PlayerTickHandler());
     }
 }

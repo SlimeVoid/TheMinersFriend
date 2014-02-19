@@ -11,6 +11,7 @@
  */
 package slimevoid.tmf.core;
 
+import slimevoid.compatibility.thaumcraft.Thaumcraft;
 import slimevoid.tmf.client.network.ClientPacketHandler;
 import slimevoid.tmf.core.lib.CoreLib;
 import slimevoid.tmf.network.CommonPacketHandler;
@@ -38,7 +39,7 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
                 channels = { CoreLib.MOD_CHANNEL },
                 packetHandler = ClientPacketHandler.class),
         serverPacketHandlerSpec = @SidedPacketHandler(
-                channels = { CoreLib.MOD_CHANNEL },
+                channels = { CoreLib.MOD_CHANNEL, Thaumcraft.MOD_CHANNEL },
                 packetHandler = CommonPacketHandler.class),
         connectionHandler = TMFConnectionHandler.class)
 public class TheMinersFriend {

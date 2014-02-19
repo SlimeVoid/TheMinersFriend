@@ -1,48 +1,71 @@
 package slimevoid.compatibility.thaumcraft;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.world.World;
-import slimevoid.compatibility.lib.packets.PacketCompatibility;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.DimensionManager;
+import slimevoid.compatibility.Mods;
 import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import thaumcraft.api.IRepairable;
 import thaumcraft.api.IRepairableExtended;
 import thaumcraft.common.items.wands.WandManager;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.common.lib.PacketHandler;
+
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteStreams;
+
+import cpw.mods.fml.common.network.Player;
 
 public class ThaumcraftStatic {
 
-    public static final String ITEM_WAND_CASTING    = "item.WandCasting";
-    public static final String COMMAND_CHANGE_FOCUS = "changeFocus";
+    public static final String ITEM_WAND_CASTING = "item.WandCasting";
 
     public static boolean isWand(ItemStack tool) {
         return tool != null && tool.getItem() != null
                && tool.getItem().getUnlocalizedName().equals(ITEM_WAND_CASTING);
     }
 
-    @SideOnly(Side.CLIENT)
-    public static void sendChangeFocus() {
-        PacketCompatibility packet = new PacketCompatibility();
-        packet.setCommand(COMMAND_CHANGE_FOCUS);
-        PacketDispatcher.sendPacketToServer(packet.getPacket());
+    public static boolean isWandInToolBelt(ItemStack itemstack) {
+        ItemStack tool = ItemHelper.getSelectedTool(itemstack);
+        return tool != null && tool.getItem() != null
+               && tool.getItem().getUnlocalizedName().equals(ITEM_WAND_CASTING);
     }
 
-    public static void doChangeFocus(World world, EntityPlayer entityplayer) {
+    public static void doChangeFocus(World world, EntityPlayer entityplayer, String focus) {
         ItemStack heldItem = entityplayer.getHeldItem();
         ItemStack tool = ItemHelper.getSelectedTool(heldItem);
         if (isWand(tool)) {
             ItemStack toolCopy = tool.copy();
             WandManager.changeFocus(tool,
                                     world,
-                                    entityplayer);
+                                    entityplayer,
+                                    focus);
             ((ItemMiningToolBelt) heldItem.getItem()).updateToolInToolBelt(world,
                                                                            entityplayer,
                                                                            heldItem,
                                                                            tool,
                                                                            toolCopy);
+        }
+    }
+
+    public static void handleFocusChangePacket(ByteArrayDataInput data) {
+        int entityId = data.readInt();
+        int dimension = data.readInt();
+        WorldServer world = DimensionManager.getWorld(dimension);
+
+        if (world != null) {
+            Entity player = world.getEntityByID(entityId);
+            String focus = readString(data);
+            if (player != null && player instanceof EntityPlayer) {
+                doChangeFocus(world,
+                              (EntityPlayer) player,
+                              focus);
+            }
         }
     }
 
@@ -71,5 +94,26 @@ public class ThaumcraftStatic {
                                       tool,
                                       toolCopy);
         return false;
+    }
+
+    public static void handlePacket(INetworkManager manager, Packet250CustomPayload packet, Player player) {
+        if (Mods.THAUMCRAFT.getCompat().isLoaded) {
+            ByteArrayDataInput data = ByteStreams.newDataInput(packet.data.clone());
+            byte packetId = data.readByte();
+            if (packetId == PacketHandler.SEND_FOCUS_CHANGE_TO_SERVER) {
+                handleFocusChangePacket(data);
+            }
+        }
+    }
+
+    private static String readString(ByteArrayDataInput dat) {
+        short size = dat.readShort();
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < size; ++i) {
+            builder.append(dat.readChar());
+        }
+
+        return builder.toString();
     }
 }

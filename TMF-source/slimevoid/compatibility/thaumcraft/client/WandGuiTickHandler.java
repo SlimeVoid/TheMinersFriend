@@ -1,17 +1,18 @@
-package slimevoid.compatibility.thaumcraft;
+package slimevoid.compatibility.thaumcraft.client;
 
 import java.util.EnumSet;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
 import slimevoid.tmf.core.helpers.ItemHelper;
-import thaumcraft.client.lib.GUITicker;
+import thaumcraft.client.lib.GraphicsTicker;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
-public class WandGuiTickHandler extends GUITicker implements ITickHandler {
+public class WandGuiTickHandler extends GraphicsTicker implements ITickHandler {
 
     public void tickEnd(EnumSet<TickType> type, Object... tickData) {
         Minecraft mc = FMLClientHandler.instance().getClient();
