@@ -13,6 +13,8 @@ import slimevoid.tmf.core.helpers.ItemHelper;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import thaumcraft.api.IRepairable;
 import thaumcraft.api.IRepairableExtended;
+import thaumcraft.common.items.equipment.ItemElementalSword;
+import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.items.wands.WandManager;
 import thaumcraft.common.lib.PacketHandler;
 
@@ -33,7 +35,7 @@ public class ThaumcraftStatic {
     public static boolean isWandInToolBelt(ItemStack itemstack) {
         ItemStack tool = ItemHelper.getSelectedTool(itemstack);
         return tool != null && tool.getItem() != null
-               && tool.getItem().getUnlocalizedName().equals(ITEM_WAND_CASTING);
+               && tool.getItem() instanceof ItemWandCasting;
     }
 
     public static void doChangeFocus(World world, EntityPlayer entityplayer, String focus) {
@@ -65,6 +67,16 @@ public class ThaumcraftStatic {
                 doChangeFocus(world,
                               (EntityPlayer) player,
                               focus);
+            }
+        }
+    }
+
+    public static void doElementalSwordUpdate(EntityPlayer entityplayer, ItemStack tool) {
+        if (tool != null && tool.getItem() instanceof ItemElementalSword) {
+            entityplayer.motionY += 0.08D;
+
+            if (entityplayer.motionY > 0.5D) {
+                entityplayer.motionY = 0.2D;
             }
         }
     }
