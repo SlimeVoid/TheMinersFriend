@@ -43,6 +43,7 @@ import slimevoid.tmf.items.tools.ItemMiningHelmet;
 import slimevoid.tmf.items.tools.ItemMiningLamp;
 import slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import slimevoid.tmf.items.tools.ItemMotionSensor;
+import slimevoid.tmf.items.tools.recipes.ArmorRecipes;
 import slimevoidlib.blocks.BlockBase;
 import slimevoidlib.items.ItemBlockBase;
 import slimevoidlib.util.FileReader;
@@ -260,6 +261,8 @@ public class TMFCore {
         XMLRecipeLoader.loadFolder(ResourceLib.RECIPE_PATH_XML,
                                    new File(ResourceLib.RECIPE_STORE));
 
+        registerArmorRecipes();
+
         if (ConfigurationLib.loadItems) {
             GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
 
@@ -273,5 +276,25 @@ public class TMFCore {
                                      new ItemStack(nuggetCydrine, 1),
                                      3);
         }
+    }
+
+    private static void registerArmorRecipes() {
+        ArmorRecipes armorRecipes = new ArmorRecipes(new ItemStack(miningHelmetIron), new Object[] {
+                new ItemStack(miningHelmetLamp),
+                new ItemStack(Item.helmetIron) });
+
+        GameRegistry.addRecipe(armorRecipes);
+
+        armorRecipes = new ArmorRecipes(new ItemStack(miningHelmetGold), new Object[] {
+                new ItemStack(miningHelmetLamp),
+                new ItemStack(Item.helmetGold) });
+
+        GameRegistry.addRecipe(armorRecipes);
+
+        armorRecipes = new ArmorRecipes(new ItemStack(miningHelmetDiamond), new Object[] {
+                new ItemStack(miningHelmetLamp),
+                new ItemStack(Item.helmetDiamond) });
+
+        GameRegistry.addRecipe(armorRecipes);
     }
 }

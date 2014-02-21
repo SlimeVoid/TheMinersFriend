@@ -18,9 +18,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import slimevoidlib.data.Logger;
 import slimevoid.tmf.core.LoggerTMF;
 import slimevoid.tmf.items.tools.ItemMiningHelmet;
+import slimevoidlib.data.Logger;
 
 public class ArmorLib {
 
@@ -71,5 +71,20 @@ public class ArmorLib {
         return playerIsWearingArmor(entityplayer,
                                     world,
                                     ItemMiningHelmet.class);
+    }
+
+    public static int getDamageToHelm(ItemStack miningHelm) {
+        switch (((ItemArmor) miningHelm.getItem()).getArmorMaterial().ordinal()) {
+        case 5:
+            return 1;
+        case 4:
+            return 2;
+        case 3:
+            return 3;
+        case 2:
+            return 4;
+        default:
+            return 5;
+        }
     }
 }

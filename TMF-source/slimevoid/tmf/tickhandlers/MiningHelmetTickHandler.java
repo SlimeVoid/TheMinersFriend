@@ -18,6 +18,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingSand;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import slimevoid.tmf.core.lib.ArmorLib;
@@ -28,17 +29,12 @@ public class MiningHelmetTickHandler implements ITickHandler {
 
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData) {
-        if (type.equals(EnumSet.of(TickType.PLAYER))) {
-            EntityPlayer entityplayer = (EntityPlayer) tickData[0];
-            World world = entityplayer.worldObj;
-            checkForFallingBlocks(entityplayer,
-                                  world);
-        }
     }
 
     private void checkForFallingBlocks(EntityPlayer entityplayer, World world) {
-        if (ArmorLib.getHelm(entityplayer,
-                             world) != null) {
+        ItemStack miningHelm = ArmorLib.getHelm(entityplayer,
+                                                world);
+        if (miningHelm != null) {
             AxisAlignedBB box = AxisAlignedBB.getBoundingBox(entityplayer.posX,
                                                              entityplayer.posY,
                                                              entityplayer.posZ,
@@ -57,6 +53,8 @@ public class MiningHelmetTickHandler implements ITickHandler {
                                 && !world.isRemote) {
                                 entityplayer.dropItem(entityfalling.blockID,
                                                       1);
+                                miningHelm.damageItem(1 * ArmorLib.getDamageToHelm(miningHelm),
+                                                      entityplayer);
                             }
                             entityfalling.setDead();
                         }
@@ -68,6 +66,12 @@ public class MiningHelmetTickHandler implements ITickHandler {
 
     @Override
     public void tickEnd(EnumSet<TickType> type, Object... tickData) {
+        if (type.equals(EnumSet.of(TickType.PLAYER))) {
+            EntityPlayer entityplayer = (EntityPlayer) tickData[0];
+            World world = entityplayer.worldObj;
+            checkForFallingBlocks(entityplayer,
+                                  world);
+        }
     }
 
     @Override
