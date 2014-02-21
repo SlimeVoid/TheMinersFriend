@@ -5,6 +5,8 @@ import slimevoid.compatibility.Mods;
 import slimevoid.tmf.core.lib.CoreLib;
 import slimevoidlib.core.SlimevoidCore;
 
+import com.xcompwiz.mystcraft.api.MystObjects;
+
 public class MystcraftStatic {
 
     public static boolean isBookStandOrLectern(World world, int x, int y, int z) {
