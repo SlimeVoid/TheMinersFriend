@@ -69,7 +69,8 @@ public class MiningHelmetTickHandler implements ITickHandler {
         World world = entityplayer.worldObj;
         if (ticksWearingHelmet == 15) {
             ticksWearingHelmet = 0;
-            refreshLighting(world);
+            refreshLighting(entityplayer,
+                            world);
         }
         if (type.equals(EnumSet.of(TickType.PLAYER))) {
             doLightArea(entityplayer,
@@ -78,19 +79,28 @@ public class MiningHelmetTickHandler implements ITickHandler {
         }
     }
 
-    private void refreshLighting(World world) {
+    private void refreshLighting(EntityPlayer entityplayer, World world) {
+        int x = (int) entityplayer.posX;
+        int y = MathHelper.ceiling_double_int(entityplayer.posY
+                                              + entityplayer.getEyeHeight());
+        int z = (int) entityplayer.posZ;
+        ChunkPosition currentposition = new ChunkPosition(x, y, z);
+        Set<ChunkPosition> processedLight = new HashSet<ChunkPosition>();
         for (ChunkPosition position : this.lastLitCoords) {
-            world.setLightValue(EnumSkyBlock.Sky,
-                                position.x,
-                                position.y,
-                                position.z,
-                                this.lastLitLevels.containsKey(position) ? this.lastLitLevels.get(position) : 0);
-            world.updateAllLightTypes(position.x,
-                                      position.y,
-                                      position.z);
+            int light = this.lastLitLevels.containsKey(position) ? this.lastLitLevels.remove(position) : 0;
+            if (position != currentposition) {
+                world.setLightValue(EnumSkyBlock.Block,
+                                    position.x,
+                                    position.y,
+                                    position.z,
+                                    light);
+                processedLight.add(position);
+                world.updateAllLightTypes(position.x,
+                                          position.y,
+                                          position.z);
+            }
         }
-        this.lastLitCoords.clear();
-        this.lastLitLevels.clear();
+        this.lastLitCoords.removeAll(processedLight);
     }
 
     private void checkForFallingBlocks(EntityPlayer entityplayer, World world) {
