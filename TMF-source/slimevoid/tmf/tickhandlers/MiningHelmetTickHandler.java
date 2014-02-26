@@ -14,12 +14,12 @@ package slimevoid.tmf.tickhandlers;
 import java.util.EnumSet;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingSand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import slimevoid.tmf.core.lib.ArmorLib;
 import cpw.mods.fml.common.ITickHandler;
@@ -39,28 +39,29 @@ public class MiningHelmetTickHandler implements ITickHandler {
                                                              entityplayer.posY,
                                                              entityplayer.posZ,
                                                              entityplayer.posX,
-                                                             entityplayer.posY + 1,
+                                                             entityplayer.posY
+                                                                     + entityplayer.getEyeHeight(),
                                                              entityplayer.posZ);
             List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(entityplayer,
                                                                                box);
+            int count = 0;
             if (entities.size() > 0) {
                 for (Entity entity : entities) {
                     if (entity instanceof EntityFallingSand) {
                         EntityFallingSand entityfalling = (EntityFallingSand) entity;
-                        if (entityfalling.blockID == Block.sand.blockID
-                            || entityfalling.blockID == Block.gravel.blockID) {
-                            if (!entityplayer.capabilities.isCreativeMode
-                                && !world.isRemote) {
-                                entityplayer.dropItem(entityfalling.blockID,
-                                                      1);
-                                miningHelm.damageItem(1 * ArmorLib.getDamageToHelm(miningHelm),
-                                                      entityplayer);
-                            }
-                            entityfalling.setDead();
+                        if (!entityplayer.capabilities.isCreativeMode
+                            && !world.isRemote) {
+                            entityplayer.dropItem(entityfalling.blockID,
+                                                  1);
                         }
+                        count++;
+                        entityfalling.setDead();
                     }
                 }
             }
+            double totalDamage = count * ArmorLib.getDamageToHelm(miningHelm);
+            miningHelm.damageItem(MathHelper.ceiling_double_int(totalDamage),
+                                  entityplayer);
         }
     }
 

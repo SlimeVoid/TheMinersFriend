@@ -73,18 +73,18 @@ public class ArmorLib {
                                     ItemMiningHelmet.class);
     }
 
-    public static int getDamageToHelm(ItemStack miningHelm) {
+    public static double getDamageToHelm(ItemStack miningHelm) {
         switch (((ItemArmor) miningHelm.getItem()).getArmorMaterial().ordinal()) {
         case 5:
-            return 1;
+            return 0.2;
         case 4:
-            return 2;
+            return 0.4;
         case 3:
-            return 3;
+            return 0.6;
         case 2:
-            return 4;
+            return 0.8;
         default:
-            return 5;
+            return 1;
         }
     }
 }
