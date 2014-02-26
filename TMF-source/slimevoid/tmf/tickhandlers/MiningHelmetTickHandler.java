@@ -12,7 +12,10 @@
 package slimevoid.tmf.tickhandlers;
 
 import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingSand;
@@ -20,6 +23,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.ChunkPosition;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import slimevoid.tmf.core.lib.ArmorLib;
 import cpw.mods.fml.common.ITickHandler;
@@ -27,8 +32,65 @@ import cpw.mods.fml.common.TickType;
 
 public class MiningHelmetTickHandler implements ITickHandler {
 
+    int                             ticksWearingHelmet = 0;
+    Set<ChunkPosition>              lastLitCoords      = new HashSet<ChunkPosition>();
+    HashMap<ChunkPosition, Integer> lastLitLevels      = new HashMap<ChunkPosition, Integer>();
+
+    private void doLightArea(EntityPlayer entityplayer, World world) {
+        ItemStack miningHelm = ArmorLib.getHelm(entityplayer,
+                                                world);
+        int x = (int) entityplayer.posX;
+        int y = MathHelper.ceiling_double_int(entityplayer.posY
+                                              + entityplayer.getEyeHeight());
+        int z = (int) entityplayer.posZ;
+        ChunkPosition position = new ChunkPosition(x, y, z);
+        if (!this.lastLitCoords.contains(position)) {
+            this.lastLitCoords.add(position);
+            this.lastLitLevels.put(position,
+                                   world.getBlockLightValue(x,
+                                                            y,
+                                                            z));
+        }
+        world.updateAllLightTypes(x,
+                                  y,
+                                  z);
+        if (miningHelm != null) {
+            world.setLightValue(EnumSkyBlock.Block,
+                                x,
+                                y,
+                                z,
+                                15);
+        }
+    }
+
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData) {
+        EntityPlayer entityplayer = (EntityPlayer) tickData[0];
+        World world = entityplayer.worldObj;
+        if (ticksWearingHelmet == 15) {
+            ticksWearingHelmet = 0;
+            refreshLighting(world);
+        }
+        if (type.equals(EnumSet.of(TickType.PLAYER))) {
+            doLightArea(entityplayer,
+                        world);
+            ++ticksWearingHelmet;
+        }
+    }
+
+    private void refreshLighting(World world) {
+        for (ChunkPosition position : this.lastLitCoords) {
+            world.setLightValue(EnumSkyBlock.Sky,
+                                position.x,
+                                position.y,
+                                position.z,
+                                this.lastLitLevels.containsKey(position) ? this.lastLitLevels.get(position) : 0);
+            world.updateAllLightTypes(position.x,
+                                      position.y,
+                                      position.z);
+        }
+        this.lastLitCoords.clear();
+        this.lastLitLevels.clear();
     }
 
     private void checkForFallingBlocks(EntityPlayer entityplayer, World world) {
