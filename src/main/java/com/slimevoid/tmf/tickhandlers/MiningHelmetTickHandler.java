@@ -87,14 +87,18 @@ public class MiningHelmetTickHandler implements ITickHandler {
             }
         }
         if (!isHelmEquipped) {
-            world.scheduleBlockUpdate(playerPos.x,
-                                      playerPos.y,
-                                      playerPos.z,
-                                      ConfigurationLib.blockLight.blockID,
-                                      5);
-            clearedLighting.add(playerPos);
+            if (this.previousLocations.contains(playerPos)) {
+                world.scheduleBlockUpdate(playerPos.x,
+                                          playerPos.y,
+                                          playerPos.z,
+                                          ConfigurationLib.blockLight.blockID,
+                                          5);
+                clearedLighting.add(playerPos);
+            }
         }
-        this.previousLocations.removeAll(clearedLighting);
+        if (!clearedLighting.isEmpty()) {
+            this.previousLocations.removeAll(clearedLighting);
+        }
     }
 
     private void createLightAt(EntityPlayer entityplayer, World world) {
