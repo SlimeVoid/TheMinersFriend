@@ -65,15 +65,15 @@ public class MiningHelmetTickHandler implements ITickHandler {
         if (miningHelm != null) {
             removeLighting(world,
                            position,
-                           false);
+                           true);
         } else {
             removeLighting(world,
                            position,
-                           true);
+                           false);
         }
     }
 
-    private void removeLighting(World world, ChunkPosition playerPos, boolean atPlayer) {
+    private void removeLighting(World world, ChunkPosition playerPos, boolean isHelmEquipped) {
         Set<ChunkPosition> clearedLighting = new HashSet<ChunkPosition>();
         for (ChunkPosition position : this.previousLocations) {
             if (!position.equals(playerPos)) {
@@ -86,7 +86,7 @@ public class MiningHelmetTickHandler implements ITickHandler {
 
             }
         }
-        if (atPlayer) {
+        if (!isHelmEquipped) {
             world.scheduleBlockUpdate(playerPos.x,
                                       playerPos.y,
                                       playerPos.z,
