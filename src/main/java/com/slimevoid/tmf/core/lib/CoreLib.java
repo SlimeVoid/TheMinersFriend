@@ -19,7 +19,7 @@ public class CoreLib {
     public static final String MOD_VERSION      = "0.0.2.3";
     public static final String MOD_DEPENDENCIES = "required-after:SlimevoidLib";
     public static final String MOD_CHANNEL      = "TMF";
-    public static final String PROXY_CLIENT     = "slimevoid.tmf.client.proxy.ClientProxy";
-    public static final String PROXY_COMMON     = "slimevoid.tmf.proxy.CommonProxy";
+    public static final String PROXY_CLIENT     = "com.slimevoid.tmf.client.proxy.ClientProxy";
+    public static final String PROXY_COMMON     = "com.slimevoid.tmf.proxy.CommonProxy";
 
 }
