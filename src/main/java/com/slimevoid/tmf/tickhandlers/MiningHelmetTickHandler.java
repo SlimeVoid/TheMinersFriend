@@ -12,7 +12,6 @@
 package com.slimevoid.tmf.tickhandlers;
 
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,8 +23,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkPosition;
-import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
+import slimevoidlib.core.lib.ConfigurationLib;
 
 import com.slimevoid.tmf.core.lib.ArmorLib;
 
@@ -34,75 +33,86 @@ import cpw.mods.fml.common.TickType;
 
 public class MiningHelmetTickHandler implements ITickHandler {
 
-    int                             ticksWearingHelmet = 0;
-    Set<ChunkPosition>              lastLitCoords      = new HashSet<ChunkPosition>();
-    HashMap<ChunkPosition, Integer> lastLitLevels      = new HashMap<ChunkPosition, Integer>();
-
-    private void doLightArea(EntityPlayer entityplayer, World world) {
-        ItemStack miningHelm = ArmorLib.getHelm(entityplayer,
-                                                world);
-        int x = (int) entityplayer.posX;
-        int y = MathHelper.ceiling_double_int(entityplayer.posY
-                                              + entityplayer.getEyeHeight());
-        int z = (int) entityplayer.posZ;
-        ChunkPosition position = new ChunkPosition(x, y, z);
-        if (!this.lastLitCoords.contains(position)) {
-            this.lastLitCoords.add(position);
-            this.lastLitLevels.put(position,
-                                   world.getBlockLightValue(x,
-                                                            y,
-                                                            z));
-        }
-        world.updateAllLightTypes(x,
-                                  y,
-                                  z);
-        if (miningHelm != null) {
-            world.setLightValue(EnumSkyBlock.Block,
-                                x,
-                                y,
-                                z,
-                                15);
-        }
-    }
+    private int                ticksInHelmet     = 0;
+    private boolean            isFirstTick       = true;
+    private Set<ChunkPosition> previousLocations = new HashSet<ChunkPosition>();
 
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData) {
-        EntityPlayer entityplayer = (EntityPlayer) tickData[0];
-        World world = entityplayer.worldObj;
-        if (ticksWearingHelmet == 15) {
-            ticksWearingHelmet = 0;
-            refreshLighting(entityplayer,
-                            world);
-        }
         if (type.equals(EnumSet.of(TickType.PLAYER))) {
-            doLightArea(entityplayer,
-                        world);
-            ++ticksWearingHelmet;
+            EntityPlayer entityplayer = (EntityPlayer) tickData[0];
+            World world = entityplayer.worldObj;
+            this.createLightAt(entityplayer,
+                               world);
+            ++this.ticksInHelmet;
+            if (this.ticksInHelmet > 15) {
+                this.refreshLighting(entityplayer,
+                                     world);
+                this.ticksInHelmet = 0;
+            }
         }
     }
 
     private void refreshLighting(EntityPlayer entityplayer, World world) {
-        int x = (int) entityplayer.posX;
-        int y = MathHelper.ceiling_double_int(entityplayer.posY
-                                              + entityplayer.getEyeHeight());
-        int z = (int) entityplayer.posZ;
-        ChunkPosition currentposition = new ChunkPosition(x, y, z);
-        Set<ChunkPosition> processedLight = new HashSet<ChunkPosition>();
-        for (ChunkPosition position : this.lastLitCoords) {
-            int light = this.lastLitLevels.containsKey(position) ? this.lastLitLevels.remove(position) : 0;
-            if (position != currentposition) {
-                world.setLightValue(EnumSkyBlock.Block,
-                                    position.x,
-                                    position.y,
-                                    position.z,
-                                    light);
-                processedLight.add(position);
-                world.updateAllLightTypes(position.x,
+        int x = MathHelper.floor_double(entityplayer.posX);
+        int y = MathHelper.floor_double(entityplayer.posY
+                                        + entityplayer.getEyeHeight());
+        int z = MathHelper.floor_double(entityplayer.posZ);
+        ChunkPosition position = new ChunkPosition(x, y, z);
+        ItemStack miningHelm = ArmorLib.getHelm(entityplayer,
+                                                world);
+
+        if (miningHelm != null) {
+            removeLighting(world,
+                           position,
+                           false);
+        } else {
+            removeLighting(world,
+                           position,
+                           true);
+        }
+    }
+
+    private void removeLighting(World world, ChunkPosition playerPos, boolean atPlayer) {
+        Set<ChunkPosition> clearedLighting = new HashSet<ChunkPosition>();
+        for (ChunkPosition position : this.previousLocations) {
+            if (!position.equals(playerPos)) {
+                world.scheduleBlockUpdate(position.x,
                                           position.y,
-                                          position.z);
+                                          position.z,
+                                          ConfigurationLib.blockLight.blockID,
+                                          5);
+                clearedLighting.add(position);
+
             }
         }
-        this.lastLitCoords.removeAll(processedLight);
+        if (atPlayer) {
+            world.scheduleBlockUpdate(playerPos.x,
+                                      playerPos.y,
+                                      playerPos.z,
+                                      ConfigurationLib.blockLight.blockID,
+                                      5);
+            clearedLighting.add(playerPos);
+        }
+        this.previousLocations.removeAll(clearedLighting);
+    }
+
+    private void createLightAt(EntityPlayer entityplayer, World world) {
+        ItemStack miningHelm = ArmorLib.getHelm(entityplayer,
+                                                world);
+
+        if (miningHelm != null) {
+            int x = MathHelper.floor_double(entityplayer.posX);
+            int y = MathHelper.floor_double(entityplayer.posY
+                                            + entityplayer.getEyeHeight());
+            int z = MathHelper.floor_double(entityplayer.posZ);
+            this.previousLocations.add(new ChunkPosition(x, y, z));
+            world.setBlock(x,
+                           y,
+                           z,
+                           ConfigurationLib.blockLight.blockID);
+            isFirstTick = false;
+        }
     }
 
     private void checkForFallingBlocks(EntityPlayer entityplayer, World world) {
