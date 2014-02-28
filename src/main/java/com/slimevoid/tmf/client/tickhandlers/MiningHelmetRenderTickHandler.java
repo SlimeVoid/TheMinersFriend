@@ -51,7 +51,7 @@ public class MiningHelmetRenderTickHandler implements ITickHandler {
     }
 
     private void onRenderTick(EntityPlayer entityplayer, World world) {
-        ItemStack miningHelmet = ArmorLib.getHelm(entityplayer,
+        ItemStack miningHelmet = ArmorLib.getPlayerHelm(entityplayer,
                                                   world);
         if (miningHelmet != null) {
             doRenderMinersLamp(entityplayer,

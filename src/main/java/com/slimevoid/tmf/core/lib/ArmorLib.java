@@ -13,15 +13,15 @@ package com.slimevoid.tmf.core.lib;
 
 import java.util.HashMap;
 
-import com.slimevoid.tmf.core.LoggerTMF;
-import com.slimevoid.tmf.items.tools.ItemMiningHelmet;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import slimevoidlib.data.Logger;
+
+import com.slimevoid.tmf.core.LoggerTMF;
+import com.slimevoid.tmf.items.tools.ItemMiningHelmet;
 
 public class ArmorLib {
 
@@ -58,18 +58,17 @@ public class ArmorLib {
         return "";
     }
 
-    private static ItemStack playerIsWearingArmor(EntityPlayer entityplayer, World world, Class<? extends ItemArmor> armorClass) {
-        for (ItemStack armorPiece : entityplayer.inventory.armorInventory) {
-            if (armorPiece != null
-                && armorClass.isInstance(armorPiece.getItem())) {
-                return armorPiece;
-            }
+    private static ItemStack getPlayerArmorInSlot(int slot, EntityPlayer entityplayer, World world, Class<? extends ItemArmor> armorClass) {
+        ItemStack armorPiece = entityplayer.getCurrentArmor(slot);
+        if (armorPiece != null && armorClass.isInstance(armorPiece.getItem())) {
+            return armorPiece;
         }
         return null;
     }
 
-    public static ItemStack getHelm(EntityPlayer entityplayer, World world) {
-        return playerIsWearingArmor(entityplayer,
+    public static ItemStack getPlayerHelm(EntityPlayer entityplayer, World world) {
+        return getPlayerArmorInSlot(3,
+                                    entityplayer,
                                     world,
                                     ItemMiningHelmet.class);
     }

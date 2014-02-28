@@ -13,13 +13,14 @@ package com.slimevoid.tmf.core.lib;
 
 import java.io.File;
 
+import net.minecraftforge.common.Configuration;
+import slimevoidlib.data.Logger;
+import slimevoidlib.util.xml.XMLLoader;
+
 import com.slimevoid.tmf.blocks.machines.EnumMachine;
 import com.slimevoid.tmf.core.LoggerTMF;
 import com.slimevoid.tmf.core.TMFCore;
 
-import net.minecraftforge.common.Configuration;
-import slimevoidlib.data.Logger;
-import slimevoidlib.util.xml.XMLLoader;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -124,6 +125,9 @@ public class ConfigurationLib {
     }
 
     private static void loadMiningHelmet() {
+        TMFCore.blockMiningLampID = Integer.valueOf(configuration.get(Configuration.CATEGORY_BLOCK,
+                                                                      BlockLib.BLOCK_MINING_LAMP,
+                                                                      TMFCore.blockMiningLampID).getInt());
         TMFCore.miningHelmetIronId = Integer.valueOf(configuration.get(CATEGORY_ARMOR,
                                                                        "ironMinersHelmet",
                                                                        15000).getInt());

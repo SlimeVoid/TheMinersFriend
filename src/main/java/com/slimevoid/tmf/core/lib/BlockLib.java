@@ -20,6 +20,9 @@ public class BlockLib {
 
     private static String            BLOCK_PREFIX       = "tmf.";
 
+    public static final String       BLOCK_MINING_LAMP  = BLOCK_PREFIX
+                                                          + "mininglamp";
+
     public static final int          MAX_MACHINES       = 4;
     private static String            MACHINE_PREFIX     = BLOCK_PREFIX
                                                           + "machine.";

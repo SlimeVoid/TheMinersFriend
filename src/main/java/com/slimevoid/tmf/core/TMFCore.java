@@ -13,6 +13,18 @@ package com.slimevoid.tmf.core;
 
 import java.io.File;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.EnumArmorMaterial;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+import slimevoidlib.blocks.BlockBase;
+import slimevoidlib.items.ItemBlockBase;
+import slimevoidlib.util.FileReader;
+import slimevoidlib.util.json.JSONLoader;
+import slimevoidlib.util.xml.XMLRecipeLoader;
+
+import com.slimevoid.tmf.blocks.BlockMiningLamp;
 import com.slimevoid.tmf.blocks.machines.BlockMachineBase;
 import com.slimevoid.tmf.blocks.machines.EnumMachine;
 import com.slimevoid.tmf.blocks.machines.recipes.JSONGrinderRecipesLoader;
@@ -40,16 +52,6 @@ import com.slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import com.slimevoid.tmf.items.tools.ItemMotionSensor;
 import com.slimevoid.tmf.items.tools.recipes.ArmorRecipes;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.EnumArmorMaterial;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import slimevoidlib.blocks.BlockBase;
-import slimevoidlib.items.ItemBlockBase;
-import slimevoidlib.util.FileReader;
-import slimevoidlib.util.json.JSONLoader;
-import slimevoidlib.util.xml.XMLRecipeLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class TMFCore {
@@ -116,9 +118,9 @@ public class TMFCore {
 
     private static void registerMiningHelmets() {
         miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setUnlocalizedName(ItemLib.MINING_HELMET_LAMP).setTextureName(ResourceLib.MINING_HELMET_LAMP);
-        miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2, 0).setUnlocalizedName(ItemLib.MINING_HELMET_IRON).setTextureName(ResourceLib.MINING_HELMET_IRON);
-        miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4, 0).setUnlocalizedName(ItemLib.MINING_HELMET_GOLD).setTextureName(ResourceLib.MINING_HELMET_GOLD);
-        miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3, 0).setUnlocalizedName(ItemLib.MINING_HELMET_DIAMOND).setTextureName(ResourceLib.MINING_HELMET_DIAMOND);
+        miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2).setUnlocalizedName(ItemLib.MINING_HELMET_IRON).setTextureName(ResourceLib.MINING_HELMET_IRON);
+        miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4).setUnlocalizedName(ItemLib.MINING_HELMET_GOLD).setTextureName(ResourceLib.MINING_HELMET_GOLD);
+        miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3).setUnlocalizedName(ItemLib.MINING_HELMET_DIAMOND).setTextureName(ResourceLib.MINING_HELMET_DIAMOND);
     }
 
     private static void registerMotionSensor() {
@@ -190,7 +192,13 @@ public class TMFCore {
     public static int       blockMachineBaseId;
     public static BlockBase blockMachineBase;
 
+    public static int       blockMiningLampID = 3840;
+    public static Block     blockMiningLamp;
+
     public static void registerMachines() {
+        // Mining Lamp Light Block
+        blockMiningLamp = new BlockMiningLamp(blockMiningLampID).setLightValue(1.0F).setUnlocalizedName(BlockLib.BLOCK_MINING_LAMP);
+
         // MACHINE BASE
         blockMachineBase = new BlockMachineBase(blockMachineBaseId);
         GameRegistry.registerBlock(blockMachineBase,

@@ -12,9 +12,7 @@
 package com.slimevoid.tmf.tickhandlers;
 
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingSand;
@@ -22,9 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
-import slimevoidlib.core.lib.ConfigurationLib;
 
 import com.slimevoid.tmf.core.lib.ArmorLib;
 
@@ -33,95 +29,15 @@ import cpw.mods.fml.common.TickType;
 
 public class MiningHelmetTickHandler implements ITickHandler {
 
-    private int                ticksInHelmet     = 0;
-    private boolean            isFirstTick       = true;
-    private Set<ChunkPosition> previousLocations = new HashSet<ChunkPosition>();
-
     @Override
     public void tickStart(EnumSet<TickType> type, Object... tickData) {
         if (type.equals(EnumSet.of(TickType.PLAYER))) {
-            EntityPlayer entityplayer = (EntityPlayer) tickData[0];
-            World world = entityplayer.worldObj;
-            this.createLightAt(entityplayer,
-                               world);
-            ++this.ticksInHelmet;
-            if (this.ticksInHelmet > 15) {
-                this.refreshLighting(entityplayer,
-                                     world);
-                this.ticksInHelmet = 0;
-            }
-        }
-    }
-
-    private void refreshLighting(EntityPlayer entityplayer, World world) {
-        int x = MathHelper.floor_double(entityplayer.posX);
-        int y = MathHelper.floor_double(entityplayer.posY
-                                        + entityplayer.getEyeHeight());
-        int z = MathHelper.floor_double(entityplayer.posZ);
-        ChunkPosition position = new ChunkPosition(x, y, z);
-        ItemStack miningHelm = ArmorLib.getHelm(entityplayer,
-                                                world);
-
-        if (miningHelm != null) {
-            removeLighting(world,
-                           position,
-                           true);
-        } else {
-            removeLighting(world,
-                           position,
-                           false);
-        }
-    }
-
-    private void removeLighting(World world, ChunkPosition playerPos, boolean isHelmEquipped) {
-        Set<ChunkPosition> clearedLighting = new HashSet<ChunkPosition>();
-        for (ChunkPosition position : this.previousLocations) {
-            if (!position.equals(playerPos)) {
-                world.scheduleBlockUpdate(position.x,
-                                          position.y,
-                                          position.z,
-                                          ConfigurationLib.blockLight.blockID,
-                                          5);
-                clearedLighting.add(position);
-
-            }
-        }
-        if (!isHelmEquipped) {
-            if (this.previousLocations.contains(playerPos)) {
-                world.scheduleBlockUpdate(playerPos.x,
-                                          playerPos.y,
-                                          playerPos.z,
-                                          ConfigurationLib.blockLight.blockID,
-                                          5);
-                clearedLighting.add(playerPos);
-            }
-        }
-        if (!clearedLighting.isEmpty()) {
-            this.previousLocations.removeAll(clearedLighting);
-        }
-    }
-
-    private void createLightAt(EntityPlayer entityplayer, World world) {
-        ItemStack miningHelm = ArmorLib.getHelm(entityplayer,
-                                                world);
-
-        if (miningHelm != null) {
-            int x = MathHelper.floor_double(entityplayer.posX);
-            int y = MathHelper.floor_double(entityplayer.posY
-                                            + entityplayer.getEyeHeight());
-            int z = MathHelper.floor_double(entityplayer.posZ);
-            this.previousLocations.add(new ChunkPosition(x, y, z));
-            world.setBlock(x,
-                           y,
-                           z,
-                           ConfigurationLib.blockLight.blockID);
-            isFirstTick = false;
         }
     }
 
     private void checkForFallingBlocks(EntityPlayer entityplayer, World world) {
-        ItemStack miningHelm = ArmorLib.getHelm(entityplayer,
-                                                world);
+        ItemStack miningHelm = ArmorLib.getPlayerHelm(entityplayer,
+                                                      world);
         if (miningHelm != null) {
             AxisAlignedBB box = AxisAlignedBB.getBoundingBox(entityplayer.posX,
                                                              entityplayer.posY,
