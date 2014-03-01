@@ -14,14 +14,6 @@ package com.slimevoid.tmf.core.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.slimevoid.tmf.core.lib.CommandLib;
-import com.slimevoid.tmf.core.lib.DataLib;
-import com.slimevoid.tmf.core.lib.ItemLib;
-import com.slimevoid.tmf.core.lib.NBTLib;
-import com.slimevoid.tmf.items.tools.ItemMiningToolBelt;
-import com.slimevoid.tmf.items.tools.ItemMotionSensor;
-import com.slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -33,6 +25,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
+
+import com.slimevoid.tmf.core.lib.CommandLib;
+import com.slimevoid.tmf.core.lib.DataLib;
+import com.slimevoid.tmf.core.lib.ItemLib;
+import com.slimevoid.tmf.core.lib.NBTLib;
+import com.slimevoid.tmf.items.tools.ItemMiningToolBelt;
+import com.slimevoid.tmf.items.tools.ItemMotionSensor;
+import com.slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
@@ -238,9 +239,10 @@ public class ItemHelper {
         if (itemstack.hasTagCompound()) {
             NBTTagCompound nbttagcompound = itemstack.getTagCompound();
             if (nbttagcompound != null && nbttagcompound.hasKey(NBTLib.TOOLS)) {
-                NBTTagList toolsTag = nbttagcompound.getTagList(NBTLib.TOOLS);
+                NBTTagList toolsTag = nbttagcompound.getTagList(NBTLib.TOOLS,
+                                                                10);
                 for (int i = 0; i < toolsTag.tagCount(); i++) {
-                    NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.tagAt(i);
+                    NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.getCompoundTagAt(i);
                     byte slot = tagCompound.getByte(NBTLib.SLOT);
                     if (slot >= 0 && slot < miningTools.length) {
                         miningTools[slot] = ItemStack.loadItemStackFromNBT(tagCompound);

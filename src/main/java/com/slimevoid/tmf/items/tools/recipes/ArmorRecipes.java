@@ -91,7 +91,7 @@ public class ArmorRecipes implements IRecipe {
                     while (itemsInRecipe.hasNext()) {
                         ItemStack itemInRecipe = itemsInRecipe.next();
 
-                        if (itemInCraftingTable.itemID == itemInRecipe.itemID) {
+                        if (itemInCraftingTable.getItem().equals(itemInRecipe.getItem())) {
                             flag = true;
                             recipeList.remove(itemInRecipe);
                             break;

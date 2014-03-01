@@ -11,33 +11,25 @@
  */
 package com.slimevoid.tmf.blocks.machines.tileentities;
 
-import com.slimevoid.tmf.core.TMFCore;
-import com.slimevoid.tmf.fuel.IFuelHandlerTMF;
-import com.slimevoid.tmf.items.minerals.ItemMineral;
-
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import slimevoidlib.tileentity.TileEntityBase;
-import slimevoidlib.util.helpers.SlimevoidHelper;
+
+import com.slimevoid.library.tileentity.TileEntityBase;
+import com.slimevoid.library.util.helpers.SlimevoidHelper;
+import com.slimevoid.tmf.core.TMFCore;
+import com.slimevoid.tmf.fuel.IFuelHandlerTMF;
+import com.slimevoid.tmf.items.minerals.ItemMineral;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class TileEntityMachine extends TileEntityBase implements
         ISidedInventory {
-
-    @Override
-    public int getBlockID() {
-        return TMFCore.blockMachineBase.blockID;
-    }
 
     /** The number of ticks that the machine will keep burning */
     public int     burnTime            = 0;
@@ -61,34 +53,26 @@ public abstract class TileEntityMachine extends TileEntityBase implements
     public boolean isActive;
 
     @Override
-    public Icon getBlockTexture(int x, int y, int z, int metadata, int side) {
+    public IIcon getBlockTexture(int x, int y, int z, int metadata, int side) {
         side = this.getRotatedSide(side);
         side = this.isActive ? side + 6 : side;
-        return Block.blocksList[this.getBlockID()].getIcon(side,
-                                                           metadata);
+        return TMFCore.blockMachineBase.getIcon(side,
+                                                metadata);
     }
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return worldObj.getBlockTileEntity(xCoord,
-                                           yCoord,
-                                           zCoord) != this ? false : SlimevoidHelper.isUseableByPlayer(this.worldObj,
-                                                                                                       player,
-                                                                                                       this.xCoord,
-                                                                                                       this.yCoord,
-                                                                                                       this.zCoord,
-                                                                                                       0.5D,
-                                                                                                       0.5D,
-                                                                                                       0.5D,
-                                                                                                       64.0D);
-    }
-
-    @Override
-    public void openChest() {
-    }
-
-    @Override
-    public void closeChest() {
+        return worldObj.getTileEntity(xCoord,
+                                      yCoord,
+                                      zCoord) != this ? false : SlimevoidHelper.isUseableByPlayer(this.worldObj,
+                                                                                                  player,
+                                                                                                  this.xCoord,
+                                                                                                  this.yCoord,
+                                                                                                  this.zCoord,
+                                                                                                  0.5D,
+                                                                                                  0.5D,
+                                                                                                  0.5D,
+                                                                                                  64.0D);
     }
 
     @Override
@@ -186,7 +170,7 @@ public abstract class TileEntityMachine extends TileEntityBase implements
                         --getCurrentFuelStack().stackSize;
 
                         if (getCurrentFuelStack().stackSize == 0) {
-                            setCurrentFuelStack(getCurrentFuelStack().getItem().getContainerItemStack(getCurrentFuelStack()));
+                            setCurrentFuelStack(getCurrentFuelStack().getItem().getContainerItem(getCurrentFuelStack()));
                         }
                     }
                 }
@@ -275,19 +259,6 @@ public abstract class TileEntityMachine extends TileEntityBase implements
                && getItemBurnWidth(stack) > 0;
     }
 
-    @Override
-    public Packet getDescriptionPacket() {
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
-        this.writeToNBT(nbttagcompound);
-        return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 0, nbttagcompound);
-    }
-
-    @Override
-    public void onDataPacket(INetworkManager netmanager, Packet132TileEntityData pkt) {
-        this.readFromNBT(pkt.data);
-        this.onInventoryChanged();
-    }
-
     @SideOnly(Side.CLIENT)
     public int getCookProgressScaled(int par1) {
         if (currentItemCookTime <= 0) return 0;
@@ -316,6 +287,7 @@ public abstract class TileEntityMachine extends TileEntityBase implements
     /**
      * If we need to send information to the client it should be done here
      */
+    @Override
     protected void onInventoryHasChanged(World world, int x, int y, int z) {
         world.markBlockForUpdate(x,
                                  y,

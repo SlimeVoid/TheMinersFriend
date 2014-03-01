@@ -11,19 +11,19 @@
  */
 package com.slimevoid.tmf.blocks.machines.inventory;
 
-import com.slimevoid.tmf.blocks.machines.recipes.RefineryRecipes;
-import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
-import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityMachine;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import com.slimevoid.tmf.blocks.machines.recipes.RefineryRecipes;
+import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
+import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityMachine;
+
 public class ContainerAutomaticMixingTable extends ContainerMachine {
 
     public ContainerAutomaticMixingTable(InventoryPlayer playerInventory, TileEntityAutomaticMixingTable autoMixTable) {
-        super(playerInventory, autoMixTable, autoMixTable.worldObj, 0, 84);
+        super(playerInventory, autoMixTable, autoMixTable.getWorldObj(), 0, 84);
     }
 
     @Override

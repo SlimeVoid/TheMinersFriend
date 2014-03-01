@@ -11,14 +11,14 @@
  */
 package com.slimevoid.tmf.client.gui;
 
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.EntityPlayer;
+
 import org.lwjgl.opengl.GL11;
 
 import com.slimevoid.tmf.blocks.machines.inventory.ContainerAutomaticMixingTable;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
 import com.slimevoid.tmf.core.lib.ResourceLib;
-
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.EntityPlayer;
 
 public class GuiAutomaticMixingTable extends GuiContainer {
     private TileEntityAutomaticMixingTable autoMixTable;

@@ -1,27 +1,19 @@
 package com.slimevoid.compatibility.thaumcraft;
 
+import ibxm.Player;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
-import thaumcraft.api.IRepairable;
-import thaumcraft.api.IRepairableExtended;
-import thaumcraft.common.items.equipment.ItemElementalSword;
-import thaumcraft.common.items.wands.ItemWandCasting;
-import thaumcraft.common.items.wands.WandManager;
-import thaumcraft.common.lib.PacketHandler;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import com.slimevoid.compatibility.Mods;
+import com.slimevoid.library.network.handlers.ServerPacketHandler;
 import com.slimevoid.tmf.core.helpers.ItemHelper;
 import com.slimevoid.tmf.items.tools.ItemMiningToolBelt;
-
-import cpw.mods.fml.common.network.Player;
 
 public class ThaumcraftStatic {
 
@@ -112,7 +104,7 @@ public class ThaumcraftStatic {
         if (Mods.THAUMCRAFT.getCompat().isLoaded) {
             ByteArrayDataInput data = ByteStreams.newDataInput(packet.data.clone());
             byte packetId = data.readByte();
-            if (packetId == PacketHandler.SEND_FOCUS_CHANGE_TO_SERVER) {
+            if (packetId == ServerPacketHandler.SEND_FOCUS_CHANGE_TO_SERVER) {
                 handleFocusChangePacket(data);
             }
         }

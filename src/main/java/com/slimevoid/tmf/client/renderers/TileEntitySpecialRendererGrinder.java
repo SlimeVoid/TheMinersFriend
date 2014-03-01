@@ -17,10 +17,9 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import com.slimevoid.library.tileentity.TileEntityBase;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import com.slimevoid.tmf.client.renderers.models.ModelGrinder;
-
-import slimevoidlib.tileentity.TileEntityBase;
 
 public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer {
 
@@ -43,7 +42,7 @@ public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer 
                           (float) z);
 
         int meta = 0;
-        if (tile.worldObj != null) meta = ((TileEntityBase) tile).getRotation();
+        if (tile.getWorldObj() != null) meta = ((TileEntityBase) tile).getRotation();
 
         boolean dir = false;
         switch (meta) {

@@ -1,13 +1,12 @@
 package com.slimevoid.compatibility.thaumcraft;
 
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.common.MinecraftForge;
+
 import com.slimevoid.compatibility.MasterCompatibility;
 import com.slimevoid.compatibility.thaumcraft.client.ThaumcraftKeyBindingHandler;
 import com.slimevoid.compatibility.thaumcraft.client.WandGuiTickHandler;
 
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraftforge.common.MinecraftForge;
-import cpw.mods.fml.client.registry.KeyBindingRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

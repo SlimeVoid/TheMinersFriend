@@ -11,14 +11,14 @@
  */
 package com.slimevoid.tmf.items;
 
-import com.slimevoid.tmf.core.creativetabs.CreativeTabTMF;
-
 import net.minecraft.item.Item;
+
+import com.slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 
 public abstract class ItemTMF extends Item {
 
     public ItemTMF(int id) {
-        super(id);
+        super();
         this.setCreativeTab(CreativeTabTMF.tabTMF);
     }
 

@@ -11,18 +11,18 @@
  */
 package com.slimevoid.tmf.blocks.machines.inventory;
 
-import com.slimevoid.tmf.blocks.machines.recipes.RefineryRecipes;
-import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import com.slimevoid.tmf.blocks.machines.recipes.RefineryRecipes;
+import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
+
 public class ContainerGeologicalEquipment extends ContainerMachine {
 
     public ContainerGeologicalEquipment(InventoryPlayer playerInventory, TileEntityGeologicalEquipment geoEquip) {
-        super(playerInventory, geoEquip, geoEquip.worldObj, 0, 0);
+        super(playerInventory, geoEquip, geoEquip.getWorldObj(), 0, 0);
         this.bindHotBarInventory(0,
                                  84);
     }

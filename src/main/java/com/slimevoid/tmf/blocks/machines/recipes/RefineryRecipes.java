@@ -17,11 +17,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import net.minecraft.item.ItemStack;
+
 import com.slimevoid.tmf.blocks.ores.BlockTMFOre;
 import com.slimevoid.tmf.core.TMFCore;
 import com.slimevoid.tmf.items.minerals.ItemMineral;
-
-import net.minecraft.item.ItemStack;
 
 public class RefineryRecipes {
     private static final RefineryRecipes       refiningBase = new RefineryRecipes();

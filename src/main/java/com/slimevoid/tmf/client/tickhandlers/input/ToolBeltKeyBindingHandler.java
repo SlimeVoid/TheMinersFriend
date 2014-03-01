@@ -13,11 +13,9 @@ package com.slimevoid.tmf.client.tickhandlers.input;
 
 import java.util.EnumSet;
 
-import com.slimevoid.tmf.core.lib.KeyBindings;
-
 import net.minecraft.client.settings.KeyBinding;
-import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
-import cpw.mods.fml.common.TickType;
+
+import com.slimevoid.tmf.core.lib.KeyBindings;
 
 public class ToolBeltKeyBindingHandler extends KeyHandler {
 

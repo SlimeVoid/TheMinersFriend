@@ -13,12 +13,13 @@ package com.slimevoid.tmf.core.world;
 
 import java.util.Random;
 
-import com.slimevoid.tmf.blocks.ores.BlockTMFOre;
-import com.slimevoid.tmf.core.lib.BlockLib;
-
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+
+import com.slimevoid.tmf.blocks.ores.BlockTMFOre;
+import com.slimevoid.tmf.core.lib.BlockLib;
+
 import cpw.mods.fml.common.IWorldGenerator;
 
 public class WorldGeneration implements IWorldGenerator {
@@ -56,7 +57,7 @@ public class WorldGeneration implements IWorldGenerator {
                 int xCoord = chunkX + random.nextInt(16);
                 int yCoord = random.nextInt(ore.spawnLevel);
                 int zCoord = chunkZ + random.nextInt(16);
-                WorldGenMinable minable = new WorldGenMinable(ore.blockID, ore.spawnSize);
+                WorldGenMinable minable = new WorldGenMinable(ore, ore.spawnSize);
                 minable.generate(world,
                                  random,
                                  xCoord,

@@ -11,9 +11,9 @@
  */
 package com.slimevoid.tmf.network.packets;
 
-import com.slimevoid.tmf.core.lib.PacketLib;
-
 import net.minecraft.world.World;
+
+import com.slimevoid.tmf.core.lib.PacketLib;
 
 public class PacketMiningToolBelt extends PacketMining {
 

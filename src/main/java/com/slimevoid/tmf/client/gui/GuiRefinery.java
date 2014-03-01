@@ -11,14 +11,14 @@
  */
 package com.slimevoid.tmf.client.gui;
 
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.EntityPlayer;
+
 import org.lwjgl.opengl.GL11;
 
 import com.slimevoid.tmf.blocks.machines.inventory.ContainerRefinery;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 import com.slimevoid.tmf.core.lib.ResourceLib;
-
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.EntityPlayer;
 
 public class GuiRefinery extends GuiContainer {
     private TileEntityRefinery refinery;

@@ -15,8 +15,8 @@ import com.slimevoid.tmf.items.ItemTMF;
 
 public class ItemMiningLamp extends ItemTMF {
 
-    public ItemMiningLamp(int itemID) {
-        super(itemID);
+    public ItemMiningLamp(int id) {
+        super(id);
         this.setNoRepair();
     }
 

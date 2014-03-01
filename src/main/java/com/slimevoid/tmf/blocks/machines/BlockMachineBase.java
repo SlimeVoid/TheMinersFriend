@@ -11,34 +11,34 @@
  */
 package com.slimevoid.tmf.blocks.machines;
 
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.util.IIcon;
+
+import com.slimevoid.library.blocks.BlockBase;
 import com.slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import com.slimevoid.tmf.core.lib.ConfigurationLib;
-
-import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.util.Icon;
-import slimevoidlib.blocks.BlockBase;
 
 public class BlockMachineBase extends BlockBase {
 
     @Override
-    public void registerIcons(IconRegister iconRegister) {
+    public void registerIcons(IIconRegister IIconRegister) {
         for (int i = 0; i < this.tileEntityMap.length; i++) {
             EnumMachine machine = EnumMachine.getMachine(i);
             if (machine != null) {
-                machine.registerIcons(iconRegister);
+                machine.registerIcons(IIconRegister);
             }
         }
     }
 
-    public BlockMachineBase(int id) {
-        super(id, Material.rock, EnumMachine.values().length);
+    public BlockMachineBase(int blockId) {
+        super(Material.rock, EnumMachine.values().length);
     }
 
     @Override
-    public Icon getIcon(int side, int metadata) {
-        Icon icon = null;
+    public IIcon getIcon(int side, int metadata) {
+        IIcon icon = null;
         EnumMachine machine = EnumMachine.getMachine(metadata);
         if (machine != null) {
             icon = machine.getIcon(side);
@@ -54,6 +54,30 @@ public class BlockMachineBase extends BlockBase {
     @Override
     public int getRenderType() {
         return ConfigurationLib.renderMachineId;
+    }
+
+    @Override
+    public IIcon[] registerBottomIcons(IIconRegister iconRegister) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public IIcon[] registerTopIcons(IIconRegister iconRegister) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public IIcon[] registerFrontIcons(IIconRegister iconRegister) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public IIcon[] registerSideIcons(IIconRegister iconRegister) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

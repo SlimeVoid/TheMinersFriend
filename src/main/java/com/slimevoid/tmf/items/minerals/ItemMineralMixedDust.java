@@ -14,11 +14,11 @@ package com.slimevoid.tmf.items.minerals;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.item.ItemStack;
+
+import com.slimevoid.library.util.javascript.JSParser;
 import com.slimevoid.tmf.core.TMFCore;
 import com.slimevoid.tmf.fuel.MixedDustNameRegistry;
-
-import slimevoidlib.util.javascript.JSParser;
-import net.minecraft.item.ItemStack;
 
 public class ItemMineralMixedDust extends ItemMineralDust {
     public static String script = null;
@@ -37,7 +37,7 @@ public class ItemMineralMixedDust extends ItemMineralDust {
     }
 
     @Override
-    public String getItemDisplayName(ItemStack itemstack) {
+    public String getItemStackDisplayName(ItemStack itemstack) {
         return MixedDustNameRegistry.getName(getDustMeta(itemstack));
     }
 

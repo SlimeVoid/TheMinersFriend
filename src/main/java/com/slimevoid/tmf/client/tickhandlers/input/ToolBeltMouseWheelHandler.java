@@ -16,7 +16,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.MouseEvent;
-import net.minecraftforge.event.ForgeSubscribe;
 
 import org.lwjgl.input.Keyboard;
 
@@ -26,10 +25,11 @@ import com.slimevoid.tmf.core.lib.KeyBindings;
 import com.slimevoid.tmf.core.lib.PacketLib;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ToolBeltMouseWheelHandler {
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void onMouseEvent(MouseEvent event) {
         int wheel = event.dwheel;
         EntityPlayer entityplayer = FMLClientHandler.instance().getClient().thePlayer;

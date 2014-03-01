@@ -14,16 +14,17 @@ package com.slimevoid.tmf.core;
 import java.io.File;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.EnumArmorMaterial;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import slimevoidlib.blocks.BlockBase;
-import slimevoidlib.items.ItemBlockBase;
-import slimevoidlib.util.FileReader;
-import slimevoidlib.util.json.JSONLoader;
-import slimevoidlib.util.xml.XMLRecipeLoader;
 
+import com.slimevoid.library.blocks.BlockBase;
+import com.slimevoid.library.items.ItemBlockBase;
+import com.slimevoid.library.util.FileReader;
+import com.slimevoid.library.util.json.JSONLoader;
+import com.slimevoid.library.util.xml.XMLRecipeLoader;
 import com.slimevoid.tmf.blocks.BlockMiningLamp;
 import com.slimevoid.tmf.blocks.machines.BlockMachineBase;
 import com.slimevoid.tmf.blocks.machines.EnumMachine;
@@ -46,6 +47,7 @@ import com.slimevoid.tmf.items.minerals.ItemMineralMixedDust;
 import com.slimevoid.tmf.items.minerals.ItemMineralMixedDustRecipe;
 import com.slimevoid.tmf.items.minerals.ItemMineralNugget;
 import com.slimevoid.tmf.items.parts.ItemMachinePart;
+import com.slimevoid.tmf.items.tools.ItemMiningArmor;
 import com.slimevoid.tmf.items.tools.ItemMiningHelmet;
 import com.slimevoid.tmf.items.tools.ItemMiningLamp;
 import com.slimevoid.tmf.items.tools.ItemMiningToolBelt;
@@ -56,44 +58,52 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class TMFCore {
 
-    public static String loggerLevel = "INFO";
+    public static String          loggerLevel = "INFO";
 
     // TOOLS
-    public static int    miningHelmetLampId, miningHelmetIronId,
+    public static int             miningHelmetLampId, miningHelmetIronId,
             miningHelmetGoldId, miningHelmetDiamondId;
-    public static Item   miningHelmetLamp, miningHelmetIron, miningHelmetGold,
+    public static ItemMiningArmor miningHelmetIron, miningHelmetGold,
             miningHelmetDiamond;
 
-    public static Item   motionSensor;
-    public static int    motionSensorId;
+    public static Item            miningHelmetLamp;
 
-    public static Item   miningToolBelt;
-    public static int    miningToolBeltId;
+    public static Item            motionSensor;
+    public static int             motionSensorId;
 
-    public static Item   utilityBelt;
-    public static int    utilityBeltId;
+    public static Item            miningToolBelt;
+    public static int             miningToolBeltId;
+
+    public static Item            utilityBelt;
+    public static int             utilityBeltId;
 
     // MINERALS
-    public static Item   mineralAcxium, mineralBisogen, mineralCydrine;
-    public static int    mineralAcxiumId, mineralBisogenId, mineralCydrineId;
+    public static Item            mineralAcxium, mineralBisogen,
+            mineralCydrine;
+    public static int             mineralAcxiumId, mineralBisogenId,
+            mineralCydrineId;
 
     // NUGGETS
-    public static Item   nuggetAcxium, nuggetBisogen, nuggetCydrine;
-    public static int    nuggetAcxiumId, nuggetBisogenId, nuggetCydrineId;
+    public static Item            nuggetAcxium, nuggetBisogen, nuggetCydrine;
+    public static int             nuggetAcxiumId, nuggetBisogenId,
+            nuggetCydrineId;
 
     // INGOTS
-    public static Item   ingotAcxium, ingotBisogen, ingotCydrine;
-    public static int    ingotAcxiumId, ingotBisogenId, ingotCydrineId;
+    public static Item            ingotAcxium, ingotBisogen, ingotCydrine;
+    public static int             ingotAcxiumId, ingotBisogenId,
+            ingotCydrineId;
 
     // MINERAL DUSTS
-    public static Item   dustAcxium, dustBisogen, dustCydrine, dustMixed;
-    public static int    dustAcxiumId, dustBisogenId, dustCydrineId,
+    public static Item            dustAcxium, dustBisogen, dustCydrine,
+            dustMixed;
+    public static int             dustAcxiumId, dustBisogenId, dustCydrineId,
             dustMixedId;
 
     // MACHINE PARTS
-    public static Item   partAcxiumCore, partAlloyCasing, partAcxogenScreen,
-            partBisogenGear, partCydrineMotor, partCydriumSensor;
-    public static int    partAcxiumCoreId, partAlloyCasingId,
+    public static Item            partAcxiumCore, partAlloyCasing,
+            partAcxogenScreen, partBisogenGear, partCydrineMotor,
+            partCydriumSensor;
+    public static int             partAcxiumCoreId, partAlloyCasingId,
             partAcxogenScreenId, partBisogenGearId, partCydrineMotorId,
             partCydriumSensorId;
 
@@ -118,9 +128,9 @@ public class TMFCore {
 
     private static void registerMiningHelmets() {
         miningHelmetLamp = new ItemMiningLamp(miningHelmetLampId).setUnlocalizedName(ItemLib.MINING_HELMET_LAMP).setTextureName(ResourceLib.MINING_HELMET_LAMP);
-        miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, EnumArmorMaterial.IRON, 2).setUnlocalizedName(ItemLib.MINING_HELMET_IRON).setTextureName(ResourceLib.MINING_HELMET_IRON);
-        miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, EnumArmorMaterial.GOLD, 4).setUnlocalizedName(ItemLib.MINING_HELMET_GOLD).setTextureName(ResourceLib.MINING_HELMET_GOLD);
-        miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, EnumArmorMaterial.DIAMOND, 3).setUnlocalizedName(ItemLib.MINING_HELMET_DIAMOND).setTextureName(ResourceLib.MINING_HELMET_DIAMOND);
+        miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, ArmorMaterial.IRON, 2, ItemLib.MINING_HELMET_IRON, ResourceLib.MINING_HELMET_IRON);
+        miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, ArmorMaterial.GOLD, 4, ItemLib.MINING_HELMET_GOLD, ResourceLib.MINING_HELMET_GOLD);
+        miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, ArmorMaterial.DIAMOND, 3, ItemLib.MINING_HELMET_DIAMOND, ResourceLib.MINING_HELMET_DIAMOND);
     }
 
     private static void registerMotionSensor() {
@@ -197,7 +207,7 @@ public class TMFCore {
 
     public static void registerMachines() {
         // Mining Lamp Light Block
-        blockMiningLamp = new BlockMiningLamp(blockMiningLampID).setLightValue(1.0F).setUnlocalizedName(BlockLib.BLOCK_MINING_LAMP);
+        blockMiningLamp = new BlockMiningLamp(blockMiningLampID).setLightLevel(1.0F).setBlockName(BlockLib.BLOCK_MINING_LAMP);
 
         // MACHINE BASE
         blockMachineBase = new BlockMachineBase(blockMachineBaseId);
@@ -222,11 +232,11 @@ public class TMFCore {
 
         BlockLib.init();
 
-        arkiteOre = new BlockTMFOre(arkiteOreId, 128, 20, 5).setUnlocalizedName(BlockLib.ORE_ARKITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-        bistiteOre = new BlockTMFOre(bistiteOreId, 64, 15, 5).setUnlocalizedName(BlockLib.ORE_BISTITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-        crokereOre = new BlockTMFOre(crokereOreId, 48, 15, 5).setUnlocalizedName(BlockLib.ORE_CROKERE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-        derniteOre = new BlockTMFOre(derniteOreId, 26, 10, 5).setUnlocalizedName(BlockLib.ORE_DERNITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
-        egioclaseOre = new BlockTMFOre(egioclaseOreId, 5, 5, 5).setUnlocalizedName(BlockLib.ORE_EGIOCLASE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabTMF.tabTMF);
+        arkiteOre = new BlockTMFOre(arkiteOreId, 128, 20, 5).setBlockName(BlockLib.ORE_ARKITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundTypeStone).setCreativeTab(CreativeTabTMF.tabTMF);
+        bistiteOre = new BlockTMFOre(bistiteOreId, 64, 15, 5).setBlockName(BlockLib.ORE_BISTITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundTypeStone).setCreativeTab(CreativeTabTMF.tabTMF);
+        crokereOre = new BlockTMFOre(crokereOreId, 48, 15, 5).setBlockName(BlockLib.ORE_CROKERE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundTypeStone).setCreativeTab(CreativeTabTMF.tabTMF);
+        derniteOre = new BlockTMFOre(derniteOreId, 26, 10, 5).setBlockName(BlockLib.ORE_DERNITE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundTypeStone).setCreativeTab(CreativeTabTMF.tabTMF);
+        egioclaseOre = new BlockTMFOre(egioclaseOreId, 5, 5, 5).setBlockName(BlockLib.ORE_EGIOCLASE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundTypeStone).setCreativeTab(CreativeTabTMF.tabTMF);
 
         GameRegistry.registerBlock(arkiteOre,
                                    BlockLib.ORE_ARKITE);
@@ -255,7 +265,8 @@ public class TMFCore {
                                             "pickaxe",
                                             2);
 
-        GameRegistry.registerWorldGenerator(new WorldGeneration());
+        GameRegistry.registerWorldGenerator(new WorldGeneration(),
+                                            100);
     }
 
     // ======== NAME REGISTRATION ========
@@ -275,13 +286,13 @@ public class TMFCore {
         if (ConfigurationLib.loadItems) {
             GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
 
-            GameRegistry.addSmelting(mineralAcxium.itemID,
+            GameRegistry.addSmelting(mineralAcxium,
                                      new ItemStack(nuggetAcxium, 1),
                                      1);
-            GameRegistry.addSmelting(mineralBisogen.itemID,
+            GameRegistry.addSmelting(mineralBisogen,
                                      new ItemStack(nuggetBisogen, 1),
                                      2);
-            GameRegistry.addSmelting(mineralCydrine.itemID,
+            GameRegistry.addSmelting(mineralCydrine,
                                      new ItemStack(nuggetCydrine, 1),
                                      3);
         }
@@ -290,19 +301,19 @@ public class TMFCore {
     private static void registerArmorRecipes() {
         ArmorRecipes armorRecipes = new ArmorRecipes(new ItemStack(miningHelmetIron), new Object[] {
                 new ItemStack(miningHelmetLamp),
-                new ItemStack(Item.helmetIron) });
+                new ItemStack(Items.iron_helmet) });
 
         GameRegistry.addRecipe(armorRecipes);
 
         armorRecipes = new ArmorRecipes(new ItemStack(miningHelmetGold), new Object[] {
                 new ItemStack(miningHelmetLamp),
-                new ItemStack(Item.helmetGold) });
+                new ItemStack(Items.golden_helmet) });
 
         GameRegistry.addRecipe(armorRecipes);
 
         armorRecipes = new ArmorRecipes(new ItemStack(miningHelmetDiamond), new Object[] {
                 new ItemStack(miningHelmetLamp),
-                new ItemStack(Item.helmetDiamond) });
+                new ItemStack(Items.diamond_helmet) });
 
         GameRegistry.addRecipe(armorRecipes);
     }

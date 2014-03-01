@@ -12,7 +12,6 @@
 package com.slimevoid.tmf.client.tickhandlers;
 
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,20 +28,21 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
+import com.slimevoid.library.network.handlers.ClientPacketHandler;
 import com.slimevoid.tmf.api.IMotionSensorRule;
 import com.slimevoid.tmf.core.lib.CommandLib;
 import com.slimevoid.tmf.core.lib.ResourceLib;
 import com.slimevoid.tmf.network.packets.PacketMotionSensor;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
-import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class MotionSensorTickHandler implements ITickHandler {
+public class MotionSensorTickHandler {
     private final Minecraft            mc;
 
     private int                        maxEntityDistance;
@@ -73,48 +73,35 @@ public class MotionSensorTickHandler implements ITickHandler {
         rules.add(rule);
     }
 
-    @Override
-    public void tickStart(EnumSet<TickType> type, Object... tickData) {
+    @SubscribeEvent
+    public void onSensorClientTick(ClientTickEvent event) {
+        EntityPlayer entityplayer = mc.thePlayer;
+        World world = mc.theWorld;
 
-    }
-
-    @Override
-    public void tickEnd(EnumSet<TickType> type, Object... tickData) {
-        if (type.equals(EnumSet.of(TickType.CLIENT))
-            || type.equals(EnumSet.of(TickType.RENDER))
-
-        ) {
-            EntityPlayer entityplayer = mc.thePlayer;
-            World world = mc.theWorld;
-
-            boolean doTick = false;
-            for (IMotionSensorRule rule : rules) {
-                if (rule.doShowMotionSensor(entityplayer,
-                                            world)) doTick = true;
-            }
-
-            if (doTick) {
-                if (type.equals(EnumSet.of(TickType.CLIENT))) {
-                    GuiScreen guiScreen = this.mc.currentScreen;
-                    if (guiScreen == null) onTickInGame(entityplayer,
-                                                        world);
-                } else if (type.equals(EnumSet.of(TickType.RENDER))) {
-                    GuiScreen guiScreen = this.mc.currentScreen;
-                    if (guiScreen == null) onRenderTick(entityplayer);
-                }
-            }
+        if (this.shouldTick(entityplayer,
+                            world)) {
+            GuiScreen guiScreen = this.mc.currentScreen;
+            if (guiScreen == null) onTickInGame(entityplayer,
+                                                world);
         }
     }
 
-    @Override
-    public EnumSet<TickType> ticks() {
-        return EnumSet.of(TickType.CLIENT,
-                          TickType.RENDER);
+    private boolean shouldTick(EntityPlayer entityplayer, World world) {
+        boolean doTick = false;
+        for (IMotionSensorRule rule : rules) {
+            if (rule.doShowMotionSensor(entityplayer,
+                                        world)) doTick = true;
+        }
+        return doTick;
     }
 
-    @Override
-    public String getLabel() {
-        return "MotionSensing";
+    @SubscribeEvent
+    public void onSensorRenderTick(RenderTickEvent event) {
+        EntityPlayer entityplayer = mc.thePlayer;
+        World world = mc.theWorld;
+
+        GuiScreen guiScreen = this.mc.currentScreen;
+        if (guiScreen == null) onRenderTick(entityplayer);
     }
 
     private static double get2dDistSq(Entity a, double x, double z) {
@@ -505,11 +492,11 @@ public class MotionSensorTickHandler implements ITickHandler {
     }
 
     private void playSoundSweep(EntityPlayer entityplayer, World world) {
-        PacketDispatcher.sendPacketToServer((new PacketMotionSensor(CommandLib.PLAY_MOTION_SWEEP, entityplayer, (int) entityplayer.posX, (int) entityplayer.posY, (int) entityplayer.posZ, 1.0F)).getPacket());
+        ClientPacketHandler.listener.sendToServer((new PacketMotionSensor(CommandLib.PLAY_MOTION_SWEEP, entityplayer, (int) entityplayer.posX, (int) entityplayer.posY, (int) entityplayer.posZ, 1.0F)).getPacket());
     }
 
     private void playSoundPing(EntityPlayer entityplayer, World world, double distSq2d) {
-        PacketDispatcher.sendPacketToServer((new PacketMotionSensor(CommandLib.PLAY_MOTION_PING, entityplayer, (int) entityplayer.posX, (int) entityplayer.posY, (int) entityplayer.posZ, getPingPitch(distSq2d))).getPacket());
+        ClientPacketHandler.listener.sendToServer((new PacketMotionSensor(CommandLib.PLAY_MOTION_PING, entityplayer, (int) entityplayer.posX, (int) entityplayer.posY, (int) entityplayer.posZ, getPingPitch(distSq2d))).getPacket());
     }
 
     private float getPingPitch(double distSq2d) {

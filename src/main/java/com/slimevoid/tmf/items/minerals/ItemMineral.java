@@ -11,11 +11,11 @@
  */
 package com.slimevoid.tmf.items.minerals;
 
-import com.slimevoid.tmf.fuel.IFuelHandlerTMF;
-import com.slimevoid.tmf.items.ItemTMF;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import com.slimevoid.tmf.fuel.IFuelHandlerTMF;
+import com.slimevoid.tmf.items.ItemTMF;
 
 public class ItemMineral extends ItemTMF implements IFuelHandlerTMF {
     private int burnTime  = 1600;

@@ -13,7 +13,17 @@ package com.slimevoid.tmf.proxy;
 
 import java.io.File;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+
 import com.slimevoid.compatibility.TMFCompatibility;
+import com.slimevoid.library.ICommonProxy;
+import com.slimevoid.library.IPacketHandling;
+import com.slimevoid.library.core.SlimevoidCore;
+import com.slimevoid.library.util.helpers.SlimevoidHelper;
 import com.slimevoid.tmf.blocks.machines.inventory.ContainerAutomaticMixingTable;
 import com.slimevoid.tmf.blocks.machines.inventory.ContainerGeologicalEquipment;
 import com.slimevoid.tmf.blocks.machines.inventory.ContainerGrinder;
@@ -34,24 +44,7 @@ import com.slimevoid.tmf.items.tools.inventory.SlotUtilityBelt;
 import com.slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import com.slimevoid.tmf.tickhandlers.ToolBeltTickHandler;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.NetLoginHandler;
-import net.minecraft.network.packet.NetHandler;
-import net.minecraft.network.packet.Packet1Login;
-import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import slimevoidlib.ICommonProxy;
-import slimevoidlib.IPacketHandling;
-import slimevoidlib.core.SlimevoidCore;
-import slimevoidlib.util.helpers.SlimevoidHelper;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.Player;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
 
 public class CommonProxy implements ICommonProxy {
 
@@ -124,8 +117,8 @@ public class CommonProxy implements ICommonProxy {
 
     @Override
     public void preInit() {
-        NetworkRegistry.instance().registerGuiHandler(TheMinersFriend.instance,
-                                                      this);
+        NetworkRegistry.INSTANCE.registerGuiHandler(TheMinersFriend.instance,
+                                                    this);
         PacketLib.registerPacketExecutors();
 
         TMFCompatibility.registerPacketExecutors();
@@ -141,11 +134,9 @@ public class CommonProxy implements ICommonProxy {
     @Override
     public void registerTickHandlers() {
         if (ConfigurationLib.loadItems) {
-            TickRegistry.registerTickHandler(new MiningHelmetTickHandler(),
-                                             Side.SERVER);
+            MinecraftForge.EVENT_BUS.register(new MiningHelmetTickHandler());
         }
-        TickRegistry.registerTickHandler(new ToolBeltTickHandler(),
-                                         Side.SERVER);
+        MinecraftForge.EVENT_BUS.register(new ToolBeltTickHandler());
     }
 
     @Override
@@ -155,10 +146,6 @@ public class CommonProxy implements ICommonProxy {
     @Override
     public String getMinecraftDir() {
         return ".";
-    }
-
-    @Override
-    public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
     }
 
     @Override
@@ -177,31 +164,6 @@ public class CommonProxy implements ICommonProxy {
 
     @Override
     public boolean isClient(World world) {
-        return false;
-    }
-
-    @Override
-    public void playerLoggedIn(Player player, NetHandler netHandler, INetworkManager manager) {
-    }
-
-    @Override
-    public String connectionReceived(NetLoginHandler netHandler, INetworkManager manager) {
-        return null;
-    }
-
-    @Override
-    public void connectionOpened(NetHandler netClientHandler, String server, int port, INetworkManager manager) {
-    }
-
-    @Override
-    public void connectionOpened(NetHandler netClientHandler, MinecraftServer server, INetworkManager manager) {
-    }
-
-    @Override
-    public void connectionClosed(INetworkManager manager) {
-    }
-
-    @Override
-    public void clientLoggedIn(NetHandler clientHandler, INetworkManager manager, Packet1Login login) {
+        return world.isRemote;
     }
 }

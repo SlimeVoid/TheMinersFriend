@@ -17,10 +17,12 @@ public class TinkersConstruct extends MasterCompatibility {
     public void registerBlockAndItemInformation() {
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void registerKeyBindings() {
     }
 
+    @Override
     public void registerPacketExecutors() {
     }
 

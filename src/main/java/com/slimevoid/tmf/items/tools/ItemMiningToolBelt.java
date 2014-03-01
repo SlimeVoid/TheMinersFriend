@@ -2,17 +2,6 @@ package com.slimevoid.tmf.items.tools;
 
 import java.util.List;
 
-import com.slimevoid.compatibility.mystcraft.MystcraftStatic;
-import com.slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
-import com.slimevoid.compatibility.tinkersconstruct.TinkersConstructStatic;
-import com.slimevoid.tmf.core.helpers.ItemHelper;
-import com.slimevoid.tmf.core.lib.CommandLib;
-import com.slimevoid.tmf.core.lib.DataLib;
-import com.slimevoid.tmf.core.lib.MessageLib;
-import com.slimevoid.tmf.core.lib.NBTLib;
-import com.slimevoid.tmf.core.lib.PacketLib;
-import com.slimevoid.tmf.items.ItemTMF;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,16 +13,28 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import slimevoidlib.nbt.NBTHelper;
 import thaumcraft.api.IRepairable;
 import thaumcraft.api.IRepairableExtended;
+
+import com.slimevoid.compatibility.mystcraft.MystcraftStatic;
+import com.slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
+import com.slimevoid.compatibility.tinkersconstruct.TinkersConstructStatic;
+import com.slimevoid.library.nbt.NBTHelper;
+import com.slimevoid.tmf.core.helpers.ItemHelper;
+import com.slimevoid.tmf.core.lib.CommandLib;
+import com.slimevoid.tmf.core.lib.DataLib;
+import com.slimevoid.tmf.core.lib.MessageLib;
+import com.slimevoid.tmf.core.lib.NBTLib;
+import com.slimevoid.tmf.core.lib.PacketLib;
+import com.slimevoid.tmf.items.ItemTMF;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
         IRepairableExtended {
-    public ItemMiningToolBelt(int itemID) {
-        super(itemID);
+    public ItemMiningToolBelt(int id) {
+        super(id);
         this.setMaxStackSize(1);
         this.setFull3D();
     }
@@ -106,12 +107,6 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
     @Override
     public int getDisplayDamage(ItemStack itemstack) {
         return this.getToolDisplayDamage(itemstack);
-    }
-
-    @Override
-    public String getItemStackDisplayName(ItemStack itemstack) {
-        ItemStack tool = this.getSelectedTool(itemstack);
-        return tool != null && tool.getItem() != null ? tool.getItem().getItemStackDisplayName(tool) : super.getItemStackDisplayName(itemstack);
     }
 
     protected int getToolDisplayDamage(ItemStack itemstack) {
@@ -309,15 +304,15 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
     }
 
     @Override
-    public void onUsingItemTick(ItemStack itemstack, EntityPlayer entityplayer, int count) {
+    public void onUsingTick(ItemStack itemstack, EntityPlayer entityplayer, int count) {
         ItemStack tool = this.getSelectedTool(itemstack);
         ItemStack toolCopy = ItemStack.copyItemStack(tool);
         int ticks = this.getMaxItemUseDuration(itemstack) - count;
 
         if (tool != null && tool.getItem() != null) {
-            tool.getItem().onUsingItemTick(tool,
-                                           entityplayer,
-                                           count);
+            tool.getItem().onUsingTick(tool,
+                                       entityplayer,
+                                       count);
             this.updateToolInToolBelt(entityplayer.getEntityWorld(),
                                       entityplayer,
                                       itemstack,
@@ -397,20 +392,20 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack itemstack, World world, int x, int y, int z, int side, EntityLivingBase entityliving) {
+    public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase entityliving) {
         return this.doDestroyBlock(itemstack,
                                    world,
+                                   block,
                                    x,
                                    y,
                                    z,
-                                   side,
                                    entityliving,
                                    super.onBlockDestroyed(itemstack,
                                                           world,
+                                                          block,
                                                           x,
                                                           y,
                                                           z,
-                                                          side,
                                                           entityliving));
     }
 
@@ -448,14 +443,14 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
         return onBlockStartBreak;
     }
 
-    public boolean doDestroyBlock(ItemStack itemstack, World world, int x, int y, int z, int side, EntityLivingBase entitylivingbase, boolean onBlockDestroyed) {
+    public boolean doDestroyBlock(ItemStack itemstack, World world, Block block, int y, int z, int side, EntityLivingBase entitylivingbase, boolean onBlockDestroyed) {
         ItemStack tool = this.getSelectedTool(itemstack);
         ItemStack toolCopy = ItemStack.copyItemStack(tool);
 
         if (tool != null && tool.getItem() != null) {
             onBlockDestroyed = tool.getItem().onBlockDestroyed(tool,
                                                                world,
-                                                               x,
+                                                               block,
                                                                y,
                                                                z,
                                                                side,
@@ -471,21 +466,21 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
     }
 
     @Override
-    public float getStrVsBlock(ItemStack itemstack, Block block) {
-        return this.getStrVsBlock(itemstack,
-                                  block,
-                                  0);
+    public float func_150893_a/* getStrVsBlock */(ItemStack itemstack, Block block) {
+        return this.getDigSpeed(itemstack,
+                                block,
+                                0);
     }
 
     @Override
-    public float getStrVsBlock(ItemStack itemstack, Block block, int metadata) {
+    public float getDigSpeed(ItemStack itemstack, Block block, int metadata) {
         ItemStack tool = ItemHelper.getSelectedTool(itemstack);
         float strVsBlock = 1.0F;
 
         if (tool != null && tool.getItem() != null) {
-            strVsBlock = tool.getItem().getStrVsBlock(tool,
-                                                      block,
-                                                      metadata);
+            strVsBlock = tool.getItem().getDigSpeed(tool,
+                                                    block,
+                                                    metadata);
         }
 
         return this.getStrengthFromTool(itemstack,
@@ -511,9 +506,9 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
             // If an item exists in the selected slot of the Tool Belt
             if (tool != null && tool.getItem() != null) {
                 // Generate break speed for that Tool vs. Block
-                float newSpeed = tool.getItem().getStrVsBlock(tool,
-                                                              block,
-                                                              metadata);
+                float newSpeed = tool.getItem().getDigSpeed(tool,
+                                                            block,
+                                                            metadata);
                 return newSpeed > originalSpeed ? newSpeed * multiplier : originalSpeed;
             }
         }
@@ -532,9 +527,9 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
                 ItemStack tool = tools[i];
 
                 if (tool != null && tool.getItem() != null) {
-                    float breakSpeed = tool.getItem().getStrVsBlock(tool,
-                                                                    block,
-                                                                    metadata);
+                    float breakSpeed = tool.getItem().getDigSpeed(tool,
+                                                                  block,
+                                                                  metadata);
 
                     if (breakSpeed > fastestSpeed) {
                         fastestSpeed = breakSpeed;
@@ -552,7 +547,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
     public boolean canHarvestBlock(Block block, ItemStack itemstack) {
         if (ItemHelper.isToolBelt(itemstack)) {
             ItemStack tool = this.getSelectedTool(itemstack);
-            boolean selectedToolCanHarvest = tool != null ? tool.canHarvestBlock(block) : false;
+            boolean selectedToolCanHarvest = tool != null ? tool.func_150998_b(block) : false;
 
             if (this.isMiningModeEnabled(itemstack)) {
                 return selectedToolCanHarvest ? true : this.isToolAvailable(block,
@@ -575,7 +570,8 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
         for (int i = 0; i < tools.length; ++i) {
             ItemStack tool = tools[i];
 
-            if (tool != null && tool.canHarvestBlock(block)) {
+            if (tool != null && tool.func_150998_b(block)) {
+                // canHarvestBlock
                 canHarvest = true;
             }
         }
@@ -783,7 +779,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
     }
 
     @Override
-    public String getItemDisplayName(ItemStack itemstack) {
+    public String getItemStackDisplayName(ItemStack itemstack) {
         return this.getToolDisplayName(itemstack);
     }
 
@@ -883,9 +879,9 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
     }
 
     @Override
-    public ItemStack getContainerItemStack(ItemStack itemstack) {
+    public ItemStack getContainerItem(ItemStack itemstack) {
         ItemStack tool = this.getSelectedTool(itemstack);
-        return tool != null && tool.getItem() != null ? tool.getItem().getContainerItemStack(tool) : null;
+        return tool != null && tool.getItem() != null ? tool.getItem().getContainerItem(tool) : null;
     }
 
     @Override

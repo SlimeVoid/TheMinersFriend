@@ -1,11 +1,10 @@
 package com.slimevoid.compatibility.mystcraft;
 
 import net.minecraft.world.World;
-import slimevoidlib.core.SlimevoidCore;
 
 import com.slimevoid.compatibility.Mods;
+import com.slimevoid.library.core.SlimevoidCore;
 import com.slimevoid.tmf.core.lib.CoreLib;
-import com.xcompwiz.mystcraft.api.MystObjects;
 
 public class MystcraftStatic {
 

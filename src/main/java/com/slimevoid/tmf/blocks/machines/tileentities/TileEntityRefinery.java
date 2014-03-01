@@ -13,18 +13,18 @@ package com.slimevoid.tmf.blocks.machines.tileentities;
 
 import java.util.ArrayList;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import com.slimevoid.tmf.blocks.machines.EnumMachine;
 import com.slimevoid.tmf.blocks.machines.recipes.RefineryRecipes;
 import com.slimevoid.tmf.blocks.machines.recipes.RefineryRecipes.RefineryRecipe;
 import com.slimevoid.tmf.core.TheMinersFriend;
 import com.slimevoid.tmf.core.lib.BlockLib;
 import com.slimevoid.tmf.core.lib.GuiLib;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.ForgeDirection;
 
 public class TileEntityRefinery extends TileEntityMachine {
     /**
@@ -72,11 +72,12 @@ public class TileEntityRefinery extends TileEntityMachine {
     public void readFromNBT(NBTTagCompound ntbCompound) {
         super.readFromNBT(ntbCompound);
 
-        NBTTagList items = ntbCompound.getTagList("Items");
+        NBTTagList items = ntbCompound.getTagList("Items",
+                                                  10);
         refineryItemStacks = new ItemStack[getSizeInventory()];
 
         for (int i = 0; i < items.tagCount(); ++i) {
-            NBTTagCompound itemInSlot = (NBTTagCompound) items.tagAt(i);
+            NBTTagCompound itemInSlot = (NBTTagCompound) items.getCompoundTagAt(i);
             byte itemBytes = itemInSlot.getByte("Slot");
 
             if (itemBytes >= 0 && itemBytes < refineryItemStacks.length) {
@@ -103,11 +104,6 @@ public class TileEntityRefinery extends TileEntityMachine {
 
         ntbCompound.setTag("Items",
                            items);
-    }
-
-    @Override
-    public boolean isInvNameLocalized() {
-        return false;
     }
 
     @Override

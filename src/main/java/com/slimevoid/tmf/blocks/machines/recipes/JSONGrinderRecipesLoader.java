@@ -14,6 +14,12 @@ package com.slimevoid.tmf.blocks.machines.recipes;
 import java.util.HashMap;
 import java.util.Map;
 
+import argo.jdom.JdomParser;
+import argo.jdom.JsonNode;
+import argo.jdom.JsonRootNode;
+import argo.jdom.JsonStringNode;
+import argo.saj.InvalidSyntaxException;
+
 import com.slimevoid.tmf.core.TMFCore;
 import com.slimevoid.tmf.core.lib.JSONLoaderTMF;
 import com.slimevoid.tmf.core.lib.ResourceLib;
@@ -22,12 +28,6 @@ import com.slimevoid.tmf.items.minerals.ItemMineral;
 import com.slimevoid.tmf.items.minerals.ItemMineralDust;
 import com.slimevoid.tmf.items.minerals.ItemMineralIngot;
 import com.slimevoid.tmf.items.minerals.ItemMineralNugget;
-
-import argo.jdom.JdomParser;
-import argo.jdom.JsonNode;
-import argo.jdom.JsonRootNode;
-import argo.jdom.JsonStringNode;
-import argo.saj.InvalidSyntaxException;
 
 public class JSONGrinderRecipesLoader extends JSONLoaderTMF {
 

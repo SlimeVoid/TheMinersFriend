@@ -1,11 +1,10 @@
 package com.slimevoid.compatibility.thaumcraft;
 
-import com.slimevoid.tmf.core.helpers.ItemHelper;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+
+import com.slimevoid.tmf.core.helpers.ItemHelper;
 
 public class PlayerTickHandler {
 

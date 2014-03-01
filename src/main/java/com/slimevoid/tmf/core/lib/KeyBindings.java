@@ -21,21 +21,19 @@ import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
 
+import com.slimevoid.library.network.handlers.ClientPacketHandler;
 import com.slimevoid.tmf.client.tickhandlers.input.ToolBeltKeyBindingHandler;
 import com.slimevoid.tmf.core.helpers.ItemHelper;
 import com.slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.KeyBindingRegistry;
-import cpw.mods.fml.common.TickType;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class KeyBindings {
 
     private static Minecraft mc;
     // public static KeyBinding TOOL_BELT_KEY = new
     // KeyBinding(ItemLib.MINING_TOOLBELT, Keyboard.KEY_LSHIFT);
-    public static KeyBinding MINING_MODE_KEY = new KeyBinding(ItemLib.MINING_MODE, Keyboard.KEY_M);
+    public static KeyBinding MINING_MODE_KEY = new KeyBinding(ItemLib.MINING_MODE, Keyboard.KEY_M, "key.categories.misc");
 
     public static void registerKeyBindings() {
         mc = FMLClientHandler.instance().getClient();
@@ -61,7 +59,7 @@ public class KeyBindings {
                                                         true);
             if (toolBelt != null) {
                 PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.TOGGLE_MINING_MODE);
-                PacketDispatcher.sendPacketToServer(packet.getPacket());
+                ClientPacketHandler.listener.sendToServer(packet.getPacket());
             }
         }
     }
@@ -77,7 +75,7 @@ public class KeyBindings {
                 PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.CYCLE_TOOL_BELT);
                 packet.side = direction;
                 // packet.setToolBeltId(toolBelt.getItemDamage());
-                PacketDispatcher.sendPacketToServer(packet.getPacket());
+                ClientPacketHandler.listener.sendToServer(packet.getPacket());
             }
         }
     }

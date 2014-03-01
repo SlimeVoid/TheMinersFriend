@@ -1,12 +1,5 @@
 package com.slimevoid.tmf.items.tools.inventory;
 
-import com.slimevoid.compatibility.tinkersconstruct.TinkersConstructStatic;
-import com.slimevoid.tmf.core.helpers.ItemHelper;
-import com.slimevoid.tmf.core.lib.DataLib;
-import com.slimevoid.tmf.core.lib.ItemLib;
-import com.slimevoid.tmf.core.lib.NBTLib;
-import com.slimevoid.tmf.core.lib.PacketLib;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -14,6 +7,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
+
+import com.slimevoid.compatibility.tinkersconstruct.TinkersConstructStatic;
+import com.slimevoid.tmf.core.helpers.ItemHelper;
+import com.slimevoid.tmf.core.lib.DataLib;
+import com.slimevoid.tmf.core.lib.ItemLib;
+import com.slimevoid.tmf.core.lib.NBTLib;
+import com.slimevoid.tmf.core.lib.PacketLib;
 
 public class InventoryMiningToolBelt implements IInventory {
     World            world;
@@ -50,14 +50,17 @@ public class InventoryMiningToolBelt implements IInventory {
         return this.miningTools;
     }
 
+    @Override
     public int getSizeInventory() {
         return DataLib.TOOL_BELT_MAX_SIZE;
     }
 
+    @Override
     public ItemStack getStackInSlot(int slot) {
         return slot >= 0 && slot < this.miningTools.length ? this.miningTools[slot] : null;
     }
 
+    @Override
     public ItemStack decrStackSize(int slot, int stacksize) {
         if (this.miningTools[slot] != null) {
             ItemStack stackInSlot;
@@ -81,10 +84,12 @@ public class InventoryMiningToolBelt implements IInventory {
         }
     }
 
+    @Override
     public ItemStack getStackInSlotOnClosing(int slot) {
         return this.miningTools[slot];
     }
 
+    @Override
     public void setInventorySlotContents(int slot, ItemStack itemstack) {
         if (itemstack != null
             && itemstack.stackSize > this.getInventoryStackLimit()) {
@@ -95,10 +100,12 @@ public class InventoryMiningToolBelt implements IInventory {
         this.onInventoryChanged();
     }
 
-    public String getInvName() {
+    @Override
+    public String getInventoryName() {
         return ItemLib.MINING_TOOLBELT;
     }
 
+    @Override
     public int getInventoryStackLimit() {
         return 64;
     }
@@ -108,7 +115,12 @@ public class InventoryMiningToolBelt implements IInventory {
         this.readFromNBT(heldItem.getTagCompound());
     }
 
-    public void onInventoryChanged() {
+    private void onInventoryChanged() {
+        this.markDirty();
+    }
+
+    @Override
+    public void markDirty() {
         ItemStack heldItem = this.entityliving.getHeldItem();
 
         if (ItemHelper.isToolBelt(heldItem)) {
@@ -117,14 +129,17 @@ public class InventoryMiningToolBelt implements IInventory {
         }
     }
 
+    @Override
     public boolean isUseableByPlayer(EntityPlayer entityplayer) {
         return true;
     }
 
-    public void openChest() {
+    @Override
+    public void openInventory() {
     }
 
-    public void closeChest() {
+    @Override
+    public void closeInventory() {
     }
 
     public void toggleMiningMode() {
@@ -134,21 +149,24 @@ public class InventoryMiningToolBelt implements IInventory {
                                         this.mode);
     }
 
-    public boolean isInvNameLocalized() {
+    @Override
+    public boolean hasCustomInventoryName() {
         return false;
     }
 
+    @Override
     public boolean isItemValidForSlot(int i, ItemStack itemstack) {
         return !ItemHelper.isItemBlock(itemstack)
                && !ItemHelper.isToolBelt(itemstack);
     }
 
     public void readFromNBT(NBTTagCompound nbttagcompound) {
-        NBTTagList toolsTag = nbttagcompound.getTagList(NBTLib.TOOLS);
+        NBTTagList toolsTag = nbttagcompound.getTagList(NBTLib.TOOLS,
+                                                        10);
         this.miningTools = new ItemStack[this.getSizeInventory()];
 
         for (int i = 0; i < toolsTag.tagCount(); ++i) {
-            NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.tagAt(i);
+            NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.getCompoundTagAt(i);
             byte slot = tagCompound.getByte(NBTLib.SLOT);
 
             if (slot >= 0 && slot < this.miningTools.length) {

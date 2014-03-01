@@ -11,9 +11,10 @@
  */
 package com.slimevoid.tmf.core.lib;
 
+import net.minecraft.util.ResourceLocation;
+
 import com.slimevoid.tmf.core.TheMinersFriend;
 
-import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.client.FMLClientHandler;
 
 public class ResourceLib {

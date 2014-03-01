@@ -11,10 +11,10 @@
  */
 package com.slimevoid.tmf.items.tools.inventory;
 
-import com.slimevoid.tmf.core.helpers.ItemHelper;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+
+import com.slimevoid.tmf.core.helpers.ItemHelper;
 
 public class SlotUtilityBelt extends SlotMiningToolBelt {
 

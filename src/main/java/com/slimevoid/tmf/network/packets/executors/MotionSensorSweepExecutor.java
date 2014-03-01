@@ -11,15 +11,15 @@
  */
 package com.slimevoid.tmf.network.packets.executors;
 
-import com.slimevoid.tmf.api.IMotionSensor;
-import com.slimevoid.tmf.core.lib.SoundLib;
-import com.slimevoid.tmf.network.packets.PacketMotionSensor;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import slimevoidlib.IPacketExecutor;
-import slimevoidlib.network.PacketUpdate;
+
+import com.slimevoid.library.IPacketExecutor;
+import com.slimevoid.library.network.PacketUpdate;
+import com.slimevoid.tmf.api.IMotionSensor;
+import com.slimevoid.tmf.core.lib.SoundLib;
+import com.slimevoid.tmf.network.packets.PacketMotionSensor;
 
 public class MotionSensorSweepExecutor implements IPacketExecutor {
 

@@ -11,12 +11,12 @@
  */
 package com.slimevoid.tmf.tickhandlers;
 
-import java.util.EnumSet;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityFallingSand;
+import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -24,16 +24,11 @@ import net.minecraft.world.World;
 
 import com.slimevoid.tmf.core.lib.ArmorLib;
 
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
-public class MiningHelmetTickHandler implements ITickHandler {
-
-    @Override
-    public void tickStart(EnumSet<TickType> type, Object... tickData) {
-        if (type.equals(EnumSet.of(TickType.PLAYER))) {
-        }
-    }
+public class MiningHelmetTickHandler {
 
     private void checkForFallingBlocks(EntityPlayer entityplayer, World world) {
         ItemStack miningHelm = ArmorLib.getPlayerHelm(entityplayer,
@@ -51,11 +46,11 @@ public class MiningHelmetTickHandler implements ITickHandler {
             int count = 0;
             if (entities.size() > 0) {
                 for (Entity entity : entities) {
-                    if (entity instanceof EntityFallingSand) {
-                        EntityFallingSand entityfalling = (EntityFallingSand) entity;
+                    if (entity instanceof EntityFallingBlock) {
+                        EntityFallingBlock entityfalling = (EntityFallingBlock) entity;
                         if (!entityplayer.capabilities.isCreativeMode
                             && !world.isRemote) {
-                            entityplayer.dropItem(entityfalling.blockID,
+                            entityplayer.dropItem(Item.getItemFromBlock(entityfalling.func_145805_f()),
                                                   1);
                         }
                         count++;
@@ -69,24 +64,13 @@ public class MiningHelmetTickHandler implements ITickHandler {
         }
     }
 
-    @Override
-    public void tickEnd(EnumSet<TickType> type, Object... tickData) {
-        if (type.equals(EnumSet.of(TickType.PLAYER))) {
-            EntityPlayer entityplayer = (EntityPlayer) tickData[0];
+    @SubscribeEvent
+    public void onPlayerUpdate(PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            EntityPlayer entityplayer = event.player;
             World world = entityplayer.worldObj;
             checkForFallingBlocks(entityplayer,
                                   world);
         }
     }
-
-    @Override
-    public EnumSet<TickType> ticks() {
-        return EnumSet.of(TickType.PLAYER);
-    }
-
-    @Override
-    public String getLabel() {
-        return "MinersHelmetHandler";
-    }
-
 }

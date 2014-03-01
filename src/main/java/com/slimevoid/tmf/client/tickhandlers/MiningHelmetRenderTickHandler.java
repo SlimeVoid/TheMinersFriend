@@ -11,8 +11,6 @@
  */
 package com.slimevoid.tmf.client.tickhandlers;
 
-import java.util.EnumSet;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,36 +21,32 @@ import org.lwjgl.opengl.GL11;
 import com.slimevoid.tmf.core.lib.ArmorLib;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
 
-public class MiningHelmetRenderTickHandler implements ITickHandler {
+public class MiningHelmetRenderTickHandler {
     private final Minecraft mc;
 
     public MiningHelmetRenderTickHandler() {
         this.mc = FMLClientHandler.instance().getClient();
     }
 
-    @Override
-    public void tickStart(EnumSet<TickType> type, Object... tickData) {
-        if (type.equals(EnumSet.of(TickType.CLIENT))
-            || type.equals(EnumSet.of(TickType.RENDER))
-
-        ) {
+    @SubscribeEvent
+    public void onRenderEvent(RenderTickEvent event) {
+        if (event.phase == TickEvent.Phase.START) {
             EntityPlayer entityplayer = mc.thePlayer;
             World world = mc.theWorld;
             if (entityplayer != null && world != null) {
-                if (type.equals(EnumSet.of(TickType.RENDER))) {
-                    this.onRenderTick(entityplayer,
-                                      world);
-                }
+                this.onRenderTick(entityplayer,
+                                  world);
             }
         }
     }
 
     private void onRenderTick(EntityPlayer entityplayer, World world) {
         ItemStack miningHelmet = ArmorLib.getPlayerHelm(entityplayer,
-                                                  world);
+                                                        world);
         if (miningHelmet != null) {
             doRenderMinersLamp(entityplayer,
                                world);
@@ -64,21 +58,6 @@ public class MiningHelmetRenderTickHandler implements ITickHandler {
         GL11.glPushMatrix();
         // TODO :: Render Lamp
         GL11.glPopMatrix();
-    }
-
-    @Override
-    public void tickEnd(EnumSet<TickType> type, Object... tickData) {
-    }
-
-    @Override
-    public EnumSet<TickType> ticks() {
-        return EnumSet.of(TickType.CLIENT,
-                          TickType.RENDER);
-    }
-
-    @Override
-    public String getLabel() {
-        return "Miners Helmet Rendering";
     }
 
 }

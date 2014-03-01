@@ -18,8 +18,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Mouse;
@@ -74,10 +74,10 @@ public class GuiGeologicalEquipment extends GuiContainer {
                                    var7 + 1,
                                    16);
 
-        fontRenderer.drawString("Level: " + geoEquip.yCoord,
-                                sizeX + 81,
-                                sizeY + 15,
-                                0x404040);
+        fontRendererObj.drawString("Level: " + geoEquip.yCoord,
+                                   sizeX + 81,
+                                   sizeY + 15,
+                                   0x404040);
 
         drawResultList(sizeX + 62,
                        sizeY + 32,
@@ -95,10 +95,10 @@ public class GuiGeologicalEquipment extends GuiContainer {
                              sizeX + 77,
                              sizeY + 135);
 
-        fontRenderer.drawString("Level: " + level,
-                                sizeX + 102,
-                                sizeY + 36,
-                                0x404040);
+        fontRendererObj.drawString("Level: " + level,
+                                   sizeX + 102,
+                                   sizeY + 36,
+                                   0x404040);
 
         drawLevel(sizeX + 98,
                   sizeY + 51,
@@ -136,8 +136,8 @@ public class GuiGeologicalEquipment extends GuiContainer {
             // Blend colors
             int color = 0xff000000;
             for (int c : colorMap) {
-                if (c == getBlockColor(Block.oreCoal)) {
-                    color = getBlockColor(Block.oreCoal);
+                if (c == getBlockColor(Blocks.coal_ore)) {
+                    color = getBlockColor(Blocks.coal_ore);
                     break;
                 }
                 color += c / colorMap.size();
@@ -261,7 +261,7 @@ public class GuiGeologicalEquipment extends GuiContainer {
             IInventory inv = new IInventory() {
                 @Override
                 public ItemStack getStackInSlot(int i) {
-                    return new ItemStack(Block.blocksList[i]);
+                    return null;// new ItemStack(Block.blocksList[i]);
                 }
 
                 @Override
@@ -284,7 +284,7 @@ public class GuiGeologicalEquipment extends GuiContainer {
                 }
 
                 @Override
-                public String getInvName() {
+                public String getInventoryName() {
                     return null;
                 }
 
@@ -294,7 +294,7 @@ public class GuiGeologicalEquipment extends GuiContainer {
                 }
 
                 @Override
-                public void onInventoryChanged() {
+                public void markDirty() {
                 }
 
                 @Override
@@ -303,15 +303,15 @@ public class GuiGeologicalEquipment extends GuiContainer {
                 }
 
                 @Override
-                public void openChest() {
+                public void openInventory() {
                 }
 
                 @Override
-                public void closeChest() {
+                public void closeInventory() {
                 }
 
                 @Override
-                public boolean isInvNameLocalized() {
+                public boolean hasCustomInventoryName() {
                     return false;
                 }
 
@@ -320,8 +320,9 @@ public class GuiGeologicalEquipment extends GuiContainer {
                     return false;
                 }
             };
-            Slot slot = new Slot(inv, block.blockID, x, y);
-            this.drawSlotInventory(slot);
+            // Slot slot = new Slot(inv, block.blockID, x, y);
+            // private void func_146977_a(Slot p_146977_1_)
+            // this.drawSlotInventory(slot);
         } else {
             drawRect(x,
                      y,
@@ -336,6 +337,6 @@ public class GuiGeologicalEquipment extends GuiContainer {
 
         if (block instanceof BlockOre) return 0xffff0000;
 
-        return block.blockMaterial.materialMapColor.colorValue | 0xff000000;
+        return block.getMaterial().getMaterialMapColor().colorValue | 0xff000000;
     }
 }

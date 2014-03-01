@@ -11,9 +11,8 @@
  */
 package com.slimevoid.tmf.core.lib;
 
+import com.slimevoid.library.util.json.JSONLoader;
 import com.slimevoid.tmf.core.TMFCore;
-
-import slimevoidlib.util.json.JSONLoader;
 
 public abstract class JSONLoaderTMF extends JSONLoader {
 

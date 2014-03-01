@@ -2,16 +2,14 @@ package com.slimevoid.compatibility.thaumcraft.client;
 
 import java.util.EnumSet;
 
-import com.slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
-import com.slimevoid.tmf.core.helpers.ItemHelper;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import thaumcraft.client.lib.GraphicsTicker;
+
+import com.slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
+import com.slimevoid.tmf.core.helpers.ItemHelper;
+
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
 
 public class WandGuiTickHandler extends GraphicsTicker implements ITickHandler {
 

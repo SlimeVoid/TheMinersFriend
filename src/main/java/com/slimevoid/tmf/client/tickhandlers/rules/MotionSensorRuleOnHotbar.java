@@ -11,12 +11,12 @@
  */
 package com.slimevoid.tmf.client.tickhandlers.rules;
 
-import com.slimevoid.tmf.api.IMotionSensorRule;
-import com.slimevoid.tmf.items.tools.ItemMotionSensor;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import com.slimevoid.tmf.api.IMotionSensorRule;
+import com.slimevoid.tmf.items.tools.ItemMotionSensor;
 
 public class MotionSensorRuleOnHotbar implements IMotionSensorRule {
 

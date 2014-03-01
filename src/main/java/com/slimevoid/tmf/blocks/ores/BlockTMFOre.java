@@ -11,18 +11,18 @@
  */
 package com.slimevoid.tmf.blocks.ores;
 
-import com.slimevoid.tmf.core.lib.BlockLib;
-import com.slimevoid.tmf.core.lib.CoreLib;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
+
+import com.slimevoid.tmf.core.lib.BlockLib;
+import com.slimevoid.tmf.core.lib.CoreLib;
 
 public class BlockTMFOre extends BlockOre {
 
     public int spawnLevel, spawnRate, spawnSize;
 
-    public BlockTMFOre(int id, int spawnLevel, int spawnRate, int spawnSize) {
-        super(id);
+    public BlockTMFOre(int blockId, int spawnLevel, int spawnRate, int spawnSize) {
+        super();
         this.spawnLevel = spawnLevel;
         this.spawnRate = spawnRate;
         this.spawnSize = spawnSize;
@@ -30,9 +30,9 @@ public class BlockTMFOre extends BlockOre {
     }
 
     @Override
-    public Block setUnlocalizedName(String name) {
+    public Block setBlockName(String name) {
         this.textureName = name;
-        return super.setUnlocalizedName(name);
+        return super.setBlockName(name);
     }
 
     @Override

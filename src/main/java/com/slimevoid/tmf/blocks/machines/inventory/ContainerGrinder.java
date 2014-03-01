@@ -11,18 +11,18 @@
  */
 package com.slimevoid.tmf.blocks.machines.inventory;
 
-import com.slimevoid.tmf.blocks.machines.recipes.RefineryRecipes;
-import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import com.slimevoid.tmf.blocks.machines.recipes.RefineryRecipes;
+import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
+
 public class ContainerGrinder extends ContainerMachine {
 
     public ContainerGrinder(InventoryPlayer playerInventory, TileEntityGrinder grinder) {
-        super(playerInventory, grinder, grinder.worldObj, 0, 84);
+        super(playerInventory, grinder, grinder.getWorldObj(), 0, 84);
     }
 
     @Override

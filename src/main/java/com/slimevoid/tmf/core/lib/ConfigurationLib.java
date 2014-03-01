@@ -13,10 +13,10 @@ package com.slimevoid.tmf.core.lib;
 
 import java.io.File;
 
-import net.minecraftforge.common.Configuration;
-import slimevoidlib.data.Logger;
-import slimevoidlib.util.xml.XMLLoader;
+import net.minecraftforge.common.config.Configuration;
 
+import com.slimevoid.library.data.Logger;
+import com.slimevoid.library.util.xml.XMLLoader;
 import com.slimevoid.tmf.blocks.machines.EnumMachine;
 import com.slimevoid.tmf.core.LoggerTMF;
 import com.slimevoid.tmf.core.TMFCore;
@@ -30,6 +30,8 @@ public class ConfigurationLib {
     // CONFIG
     public static Configuration configuration;
 
+    private static final String CATEGORY_BLOCK                   = "block";
+    private static final String CATEGORY_ITEM                    = "item";
     private final static String CATEGORY_LAUNCH_OPTIONS          = "launch options";
     private static final String CATEGORY_MOTION_SENSOR           = "motion sensor";
     private static final String CATEGORY_MACHINES                = "machines";
@@ -125,7 +127,7 @@ public class ConfigurationLib {
     }
 
     private static void loadMiningHelmet() {
-        TMFCore.blockMiningLampID = Integer.valueOf(configuration.get(Configuration.CATEGORY_BLOCK,
+        TMFCore.blockMiningLampID = Integer.valueOf(configuration.get(CATEGORY_BLOCK,
                                                                       BlockLib.BLOCK_MINING_LAMP,
                                                                       TMFCore.blockMiningLampID).getInt());
         TMFCore.miningHelmetIronId = Integer.valueOf(configuration.get(CATEGORY_ARMOR,
@@ -143,10 +145,10 @@ public class ConfigurationLib {
     }
 
     private static void loadToolBelt() {
-        TMFCore.miningToolBeltId = Integer.valueOf(configuration.get(Configuration.CATEGORY_ITEM,
+        TMFCore.miningToolBeltId = Integer.valueOf(configuration.get(CATEGORY_ITEM,
                                                                      "toolBelt",
                                                                      15005).getInt());
-        TMFCore.utilityBeltId = Integer.valueOf(configuration.get(Configuration.CATEGORY_ITEM,
+        TMFCore.utilityBeltId = Integer.valueOf(configuration.get(CATEGORY_ITEM,
                                                                   "utilityBelt",
                                                                   15006).getInt());
         miningModeExhaustion = Float.parseFloat(configuration.get(CATEGORY_LAUNCH_OPTIONS,

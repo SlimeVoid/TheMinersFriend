@@ -11,10 +11,12 @@
  */
 package com.slimevoid.tmf.core.creativetabs;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+
 import com.slimevoid.tmf.core.TMFCore;
 import com.slimevoid.tmf.core.lib.CoreLib;
 
-import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -31,7 +33,7 @@ public class CreativeTabTMF extends CreativeTabs {
     /**
      * the itemID for the item to be displayed on the tab
      */
-    public int getTabIconItemIndex() {
-        return TMFCore.miningToolBelt.itemID;
+    public Item getTabIconItem() {
+        return TMFCore.miningToolBelt;
     }
 }

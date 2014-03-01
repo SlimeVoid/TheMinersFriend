@@ -15,10 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import net.minecraft.item.ItemStack;
+
 import com.slimevoid.tmf.items.ItemTMF;
 import com.slimevoid.tmf.items.minerals.ItemMineralDust;
-
-import net.minecraft.item.ItemStack;
 
 public class GrinderRecipes {
     private static final GrinderRecipes grinderBase = new GrinderRecipes();

@@ -11,16 +11,16 @@
  */
 package com.slimevoid.tmf.items.tools;
 
-import com.slimevoid.tmf.items.ItemTMF;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import com.slimevoid.tmf.items.ItemTMF;
+
 public class ItemMotionSensor extends ItemTMF {
 
-    public ItemMotionSensor(int itemID) {
-        super(itemID);
+    public ItemMotionSensor(int id) {
+        super(id);
         this.setMaxStackSize(1);
         this.setNoRepair();
     }

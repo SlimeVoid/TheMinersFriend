@@ -1,9 +1,9 @@
 package com.slimevoid.compatibility.lib.packets;
 
+import net.minecraft.world.World;
+
 import com.slimevoid.tmf.core.lib.PacketLib;
 import com.slimevoid.tmf.network.packets.PacketMining;
-
-import net.minecraft.world.World;
 
 public class PacketCompatibility extends PacketMining {
 

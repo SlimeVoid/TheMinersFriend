@@ -14,19 +14,20 @@ package com.slimevoid.tmf.blocks.machines.tileentities;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.World;
+
 import com.slimevoid.tmf.blocks.machines.EnumMachine;
 import com.slimevoid.tmf.core.TheMinersFriend;
 import com.slimevoid.tmf.core.lib.BlockLib;
 import com.slimevoid.tmf.core.lib.GuiLib;
 import com.slimevoid.tmf.fuel.IFuelHandlerTMF;
 import com.slimevoid.tmf.items.minerals.ItemMineral;
-
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.world.World;
 
 public class TileEntityGeologicalEquipment extends TileEntityMachine {
     /**
@@ -156,9 +157,9 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
     }
 
     public Block getBlockAt(World world, int x, int y, int z) {
-        return Block.blocksList[world.getBlockId(x,
-                                                 y,
-                                                 z)];
+        return world.getBlock(x,
+                              y,
+                              z);
     }
 
     public Block getSurveyResult(int depth, int cell) {
@@ -211,27 +212,29 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
     public void readFromNBT(NBTTagCompound nbtCompound) {
         super.readFromNBT(nbtCompound);
 
-        NBTTagList items = nbtCompound.getTagList("Items");
+        NBTTagList items = nbtCompound.getTagList("Items",
+                                                  10);
         if (items.tagCount() > 0) {
-            NBTTagCompound itemInSlot = (NBTTagCompound) items.tagAt(0);
+            NBTTagCompound itemInSlot = (NBTTagCompound) items.getCompoundTagAt(0);
             fuelStack = ItemStack.loadItemStackFromNBT(itemInSlot);
         }
 
         surveyData = new HashMap<Integer, Block[]>();
-        NBTTagList survey = nbtCompound.getTagList("Survey");
+        NBTTagList survey = nbtCompound.getTagList("Survey",
+                                                   0);
         for (int i = 0; i < survey.tagCount(); ++i) {
-            NBTTagList depthTag = (NBTTagList) survey.tagAt(i);
+            NBTBase depthTag = (NBTBase) survey.getCompoundTagAt(i);
 
-            NBTTagCompound depthData = (NBTTagCompound) depthTag.tagAt(0);
+            NBTTagCompound depthData = (NBTTagCompound) ((NBTTagList) depthTag).getCompoundTagAt(0);
             int depth = depthData.getInteger("Depth");
 
             for (int j = 1; j <= 9; j++) {
-                NBTTagCompound block = (NBTTagCompound) depthTag.tagAt(j);
-                int blockId = block.getInteger("Block");
+                NBTTagCompound block = (NBTTagCompound) ((NBTTagList) depthTag).getCompoundTagAt(j);
+                String blockId = block.getString("Block");
 
-                if (blockId >= 0) addSurveyData(depth,
-                                                j - 1,
-                                                Block.blocksList[blockId]);
+                if (!blockId.equals("null")) addSurveyData(depth,
+                                                           j - 1,
+                                                           Block.getBlockFromName(blockId));
             }
         }
 
@@ -267,8 +270,8 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
                         blockId.setInteger("Block",
                                            -1);
                     } else {
-                        blockId.setInteger("Block",
-                                           surveyData.get(depth)[idx].blockID);
+                        blockId.setString("Block",
+                                          surveyData.get(depth)[idx].getUnlocalizedName());
                     }
                     depthTag.appendTag(blockId);
                 }
@@ -282,11 +285,6 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
                                currentLevel);
         nbtCompound.setInteger("CurrentLevelIdx",
                                currentLevelIdx);
-    }
-
-    @Override
-    public boolean isInvNameLocalized() {
-        return false;
     }
 
     @Override

@@ -18,10 +18,10 @@ import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
 
+import com.slimevoid.library.blocks.BlockBase;
 import com.slimevoid.tmf.blocks.machines.EnumMachine;
 import com.slimevoid.tmf.core.lib.ConfigurationLib;
 
-import slimevoidlib.blocks.BlockBase;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class BlockMachineRenderingHandler implements
@@ -184,7 +184,7 @@ public class BlockMachineRenderingHandler implements
     }
 
     @Override
-    public boolean shouldRender3DInInventory() {
+    public boolean shouldRender3DInInventory(int modelId) {
         return true;
     }
 

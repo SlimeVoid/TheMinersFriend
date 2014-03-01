@@ -13,17 +13,16 @@ package com.slimevoid.compatibility.thaumcraft.client;
 
 import java.util.EnumSet;
 
-import com.slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
-import com.slimevoid.tmf.core.helpers.ItemHelper;
-import com.slimevoid.tmf.items.tools.ItemMiningToolBelt;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
-import thaumcraft.common.lib.TCKeyHandler;
+
+import com.slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
+import com.slimevoid.tmf.core.helpers.ItemHelper;
+import com.slimevoid.tmf.items.tools.ItemMiningToolBelt;
+
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.TickType;
 
 public class ThaumcraftKeyBindingHandler extends TCKeyHandler {
 

@@ -11,6 +11,10 @@
  */
 package com.slimevoid.tmf.blocks.machines;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.util.IIcon;
+
+import com.slimevoid.library.tileentity.TileEntityBase;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
@@ -21,9 +25,6 @@ import com.slimevoid.tmf.core.TMFCore;
 import com.slimevoid.tmf.core.lib.BlockLib;
 import com.slimevoid.tmf.core.lib.CoreLib;
 
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.util.Icon;
-import slimevoidlib.tileentity.TileEntityBase;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public enum EnumMachine {
@@ -39,7 +40,7 @@ public enum EnumMachine {
     private boolean                         hasState;
     private ISimpleBlockRenderingHandler    renderHandler;
     private Class<? extends TileEntityBase> _class;
-    private Icon[]                          iconList;
+    private IIcon[]                         iconList;
 
     EnumMachine(String name, Class<? extends TileEntityBase> tileClass, boolean hasState) {
         this(name, tileClass, null, hasState);
@@ -51,7 +52,7 @@ public enum EnumMachine {
         this.renderHandler = renderHandler;
         this.hasState = hasState;
         int icons = hasState ? 12 : 6;
-        this.iconList = new Icon[icons];
+        this.iconList = new IIcon[icons];
     }
 
     public int getId() {
@@ -78,14 +79,14 @@ public enum EnumMachine {
         return this.hasState;
     }
 
-    public Icon getIcon(int side) {
+    public IIcon getIcon(int side) {
         if (side >= 0 && side < this.iconList.length) {
             return this.iconList[side];
         }
         return null;
     }
 
-    public void registerIcons(IconRegister iconRegister) {
+    public void registerIcons(IIconRegister iconRegister) {
         String stateString = "";
         if (this.hasState) {
             stateString = "_idle";

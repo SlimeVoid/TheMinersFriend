@@ -11,11 +11,11 @@
  */
 package com.slimevoid.tmf.core.lib;
 
-import com.slimevoid.tmf.client.sounds.TrackerSounds;
+import net.minecraftforge.common.MinecraftForge;
+
 import com.slimevoid.tmf.client.tickhandlers.input.ToolBeltMouseWheelHandler;
 import com.slimevoid.tmf.core.events.MiningToolBeltAttributeModifiers;
 
-import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -23,7 +23,6 @@ public class EventLib {
 
     @SideOnly(Side.CLIENT)
     public static void registerClientEvents() {
-        MinecraftForge.EVENT_BUS.register(new TrackerSounds());
         MinecraftForge.EVENT_BUS.register(new ToolBeltMouseWheelHandler());
     }
 

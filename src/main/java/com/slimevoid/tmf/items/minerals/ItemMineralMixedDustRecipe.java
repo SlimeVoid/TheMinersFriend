@@ -11,12 +11,12 @@
  */
 package com.slimevoid.tmf.items.minerals;
 
-import com.slimevoid.tmf.core.TMFCore;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+
+import com.slimevoid.tmf.core.TMFCore;
 
 public class ItemMineralMixedDustRecipe implements IRecipe {
 
@@ -67,8 +67,8 @@ public class ItemMineralMixedDustRecipe implements IRecipe {
         if (a != null && b != null) {
             // Mix the dusts
             int size = 1;
-            if (a.itemID == TMFCore.dustMixedId
-                && b.itemID == TMFCore.dustMixedId) size = 2;
+            if (a.getItem().equals(TMFCore.dustMixed)
+                && b.getItem().equals(TMFCore.dustMixed)) size = 2;
 
             item = new ItemStack(TMFCore.dustMixed, size);
             item.setItemDamage(ItemMineralMixedDust.mixDustMeta(ItemMineralMixedDust.getDustMeta(a),

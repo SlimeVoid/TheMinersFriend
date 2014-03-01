@@ -11,13 +11,13 @@
  */
 package com.slimevoid.tmf.blocks.machines.inventory;
 
-import com.slimevoid.tmf.fuel.IFuelHandlerTMF;
-import com.slimevoid.tmf.items.minerals.ItemMineralDust;
-import com.slimevoid.tmf.items.minerals.ItemMineralMixedDust;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
+import com.slimevoid.tmf.fuel.IFuelHandlerTMF;
+import com.slimevoid.tmf.items.minerals.ItemMineralDust;
+import com.slimevoid.tmf.items.minerals.ItemMineralMixedDust;
 
 public class SlotTMFFuel extends Slot {
     private int     minFuelLevel;

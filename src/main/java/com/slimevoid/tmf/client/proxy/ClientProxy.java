@@ -13,7 +13,16 @@ package com.slimevoid.tmf.client.proxy;
 
 import java.io.File;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+
 import com.slimevoid.compatibility.TMFCompatibility;
+import com.slimevoid.library.core.SlimevoidCore;
+import com.slimevoid.library.util.helpers.BlockHelper;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
@@ -48,16 +57,8 @@ import com.slimevoid.tmf.proxy.CommonProxy;
 import com.slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import com.slimevoid.tmf.tickhandlers.ToolBeltTickHandler;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import slimevoidlib.core.SlimevoidCore;
-import slimevoidlib.util.helpers.BlockHelper;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -113,16 +114,11 @@ public class ClientProxy extends CommonProxy {
             MotionSensorTickHandler motionSensor = new MotionSensorTickHandler(ConfigurationLib.motionSensorMaxEntityDistance, ConfigurationLib.motionSensorMaxGameTicks, ConfigurationLib.motionSensorDrawRight);
             motionSensor.addRule(new MotionSensorRuleOnHotbar());
             motionSensor.addRule(new MotionSensorRuleInToolbelt());
-            TickRegistry.registerTickHandler(motionSensor,
-                                             Side.CLIENT);
-
-            TickRegistry.registerTickHandler(new MiningHelmetTickHandler(),
-                                             Side.CLIENT);
-            TickRegistry.registerTickHandler(new MiningHelmetRenderTickHandler(),
-                                             Side.CLIENT);
+            MinecraftForge.EVENT_BUS.register(motionSensor);
+            MinecraftForge.EVENT_BUS.register(new MiningHelmetTickHandler());
+            MinecraftForge.EVENT_BUS.register(new MiningHelmetRenderTickHandler());
         }
-        TickRegistry.registerTickHandler(new ToolBeltTickHandler(),
-                                         Side.CLIENT);
+        MinecraftForge.EVENT_BUS.register(new ToolBeltTickHandler());
         TMFCompatibility.registerTickHandlers();
     }
 

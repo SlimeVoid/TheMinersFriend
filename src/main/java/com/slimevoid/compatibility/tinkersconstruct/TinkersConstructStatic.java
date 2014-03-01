@@ -1,9 +1,9 @@
 package com.slimevoid.compatibility.tinkersconstruct;
 
-import com.slimevoid.tmf.core.helpers.ItemHelper;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
+import com.slimevoid.tmf.core.helpers.ItemHelper;
 
 public class TinkersConstructStatic {
 

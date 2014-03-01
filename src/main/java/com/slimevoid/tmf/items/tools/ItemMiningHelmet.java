@@ -12,12 +12,11 @@
 package com.slimevoid.tmf.items.tools;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumArmorMaterial;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import slimevoidlib.blocks.BlockTransientLight;
 
+import com.slimevoid.library.blocks.BlockTransientLight;
 import com.slimevoid.tmf.core.TMFCore;
 import com.slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 
@@ -26,20 +25,20 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMiningHelmet extends ItemMiningArmor {
 
-    public ItemMiningHelmet(int itemID, EnumArmorMaterial material, int renderIndex) {
-        super(itemID, material, renderIndex, 0);
+    public ItemMiningHelmet(int itemId, ArmorMaterial material, int renderIndex, String name, String texture) {
+        super(itemId, material, renderIndex, 0, name, texture);
         this.setCreativeTab(CreativeTabTMF.tabTMF);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public Icon getIconFromDamageForRenderPass(int damage, int renderPass) {
+    public IIcon getIconFromDamageForRenderPass(int damage, int renderPass) {
         return renderPass == 1 ? this.itemIcon : super.getIconFromDamageForRenderPass(damage,
                                                                                       renderPass);
     }
 
     @Override
-    public Icon getIconFromDamage(int par1) {
+    public IIcon getIconFromDamage(int par1) {
         return this.itemIcon;
     }
 
@@ -51,7 +50,7 @@ public class ItemMiningHelmet extends ItemMiningArmor {
         // System.out.println(entityplayer.posY + " | " + (y - 1));
         int z = MathHelper.floor_double(entityplayer.posZ);
         // System.out.println(entityplayer.posZ + " | " + z);
-        BlockTransientLight.setBlock(TMFCore.blockMiningLamp.blockID,
+        BlockTransientLight.setBlock(TMFCore.blockMiningLamp,
                                      x,
                                      y,
                                      z,

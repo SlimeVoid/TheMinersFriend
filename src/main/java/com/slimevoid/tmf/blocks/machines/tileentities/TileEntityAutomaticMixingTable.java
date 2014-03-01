@@ -13,19 +13,19 @@ package com.slimevoid.tmf.blocks.machines.tileentities;
 
 import java.util.ArrayList;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import com.slimevoid.tmf.blocks.machines.EnumMachine;
 import com.slimevoid.tmf.core.TheMinersFriend;
 import com.slimevoid.tmf.core.lib.BlockLib;
 import com.slimevoid.tmf.core.lib.GuiLib;
 import com.slimevoid.tmf.items.minerals.ItemMineralDust;
 import com.slimevoid.tmf.items.minerals.ItemMineralMixedDust;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 
 public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 
@@ -85,11 +85,12 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
     public void readFromNBT(NBTTagCompound nbtCompound) {
         super.readFromNBT(nbtCompound);
 
-        NBTTagList items = nbtCompound.getTagList("Items");
+        NBTTagList items = nbtCompound.getTagList("Items",
+                                                  10);
         stacks = new ItemStack[getSizeInventory()];
 
         for (int i = 0; i < items.tagCount(); ++i) {
-            NBTTagCompound itemInSlot = (NBTTagCompound) items.tagAt(i);
+            NBTTagCompound itemInSlot = (NBTTagCompound) items.getCompoundTagAt(i);
             byte itemBytes = itemInSlot.getByte("Slot");
 
             if (itemBytes >= 0 && itemBytes < stacks.length) {
@@ -116,11 +117,6 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 
         nbtCompound.setTag("Items",
                            items);
-    }
-
-    @Override
-    public boolean isInvNameLocalized() {
-        return false;
     }
 
     @Override
@@ -201,7 +197,7 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 
             // Output
             if (stacks[1] == null) {
-                stacks[1] = new ItemStack(stacks[0].itemID, 1, stacks[0].getItemDamage());
+                stacks[1] = new ItemStack(stacks[0].getItem(), 1, stacks[0].getItemDamage());
             } else {
                 stacks[1].stackSize++;
             }

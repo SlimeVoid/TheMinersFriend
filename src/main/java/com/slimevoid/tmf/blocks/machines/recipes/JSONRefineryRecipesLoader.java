@@ -14,17 +14,17 @@ package com.slimevoid.tmf.blocks.machines.recipes;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.slimevoid.tmf.blocks.ores.BlockTMFOre;
-import com.slimevoid.tmf.core.TMFCore;
-import com.slimevoid.tmf.core.lib.JSONLoaderTMF;
-import com.slimevoid.tmf.core.lib.ResourceLib;
-import com.slimevoid.tmf.items.minerals.ItemMineral;
-
 import argo.jdom.JdomParser;
 import argo.jdom.JsonNode;
 import argo.jdom.JsonRootNode;
 import argo.jdom.JsonStringNode;
 import argo.saj.InvalidSyntaxException;
+
+import com.slimevoid.tmf.blocks.ores.BlockTMFOre;
+import com.slimevoid.tmf.core.TMFCore;
+import com.slimevoid.tmf.core.lib.JSONLoaderTMF;
+import com.slimevoid.tmf.core.lib.ResourceLib;
+import com.slimevoid.tmf.items.minerals.ItemMineral;
 
 public class JSONRefineryRecipesLoader extends JSONLoaderTMF {
 

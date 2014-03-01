@@ -1,24 +1,24 @@
 package com.slimevoid.tmf.tickhandlers;
 
-import java.util.EnumSet;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 import com.slimevoid.tmf.core.helpers.ItemHelper;
 import com.slimevoid.tmf.core.lib.ConfigurationLib;
 import com.slimevoid.tmf.items.tools.ItemMiningToolBelt;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
-public class ToolBeltTickHandler implements ITickHandler {
+public class ToolBeltTickHandler {
 
-    @Override
-    public void tickStart(EnumSet<TickType> type, Object... tickData) {
-        if (type.equals(EnumSet.of(TickType.PLAYER))) {
-            EntityPlayer entityplayer = (EntityPlayer) tickData[0];
+    @SubscribeEvent
+    public void onPlayerUpdate(PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.START) {
+            EntityPlayer entityplayer = event.player;
             World world = entityplayer.worldObj;
             ItemStack heldItem = entityplayer.getHeldItem();
             if (ItemHelper.isToolBelt(heldItem)) {
@@ -76,20 +76,6 @@ public class ToolBeltTickHandler implements ITickHandler {
     private boolean isHoldingAndUsingToolBelt(ItemStack heldItem, ItemStack itemInUse) {
         return ItemHelper.isToolBelt(heldItem)
                && ItemHelper.isToolBelt(itemInUse);
-    }
-
-    @Override
-    public void tickEnd(EnumSet<TickType> type, Object... tickData) {
-    }
-
-    @Override
-    public EnumSet<TickType> ticks() {
-        return EnumSet.of(TickType.PLAYER);
-    }
-
-    @Override
-    public String getLabel() {
-        return "The Miners Friend Player Tick Handler";
     }
 
 }

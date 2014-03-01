@@ -11,15 +11,15 @@
  */
 package com.slimevoid.tmf.client.tickhandlers.rules;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+
 import com.slimevoid.tmf.api.IMotionSensorRule;
 import com.slimevoid.tmf.core.helpers.ItemHelper;
 import com.slimevoid.tmf.core.lib.DataLib;
 import com.slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import com.slimevoid.tmf.items.tools.ItemMotionSensor;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 public class MotionSensorRuleInToolbelt implements IMotionSensorRule {
 

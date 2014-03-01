@@ -18,36 +18,37 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import slimevoidlib.data.Logger;
 
+import com.slimevoid.library.data.Logger;
 import com.slimevoid.tmf.core.LoggerTMF;
+import com.slimevoid.tmf.items.tools.ItemMiningArmor;
 import com.slimevoid.tmf.items.tools.ItemMiningHelmet;
 
 public class ArmorLib {
 
-    private static HashMap<Integer, String> armorTextures = new HashMap<Integer, String>();
+    private static HashMap<ItemMiningArmor, String> armorTextures = new HashMap<ItemMiningArmor, String>();
 
     public static String getArmorTextureFromItemStack(ItemStack itemstack) {
-        return getArmorTextureFromItemID(itemstack.itemID);
+        return getArmorTextureFromItem(itemstack.getItem());
     }
 
-    public static String getArmorTextureFromItemID(int itemID) {
-        if (armorTextures.containsKey(itemID)) {
-            return armorTextures.get(itemID);
+    public static String getArmorTextureFromItem(Item item) {
+        if (armorTextures.containsKey(item)) {
+            return armorTextures.get(item);
         } else {
             LoggerTMF.getInstance("ArmorLib").write(true,
                                                     "Failed to get Texture file for ID ["
-                                                            + itemID + "]",
+                                                            + item + "]",
                                                     Logger.LogLevel.DEBUG);
         }
         return "";
     }
 
-    public static String registerArmorTexture(Item item, String textureFile) {
-        if (!armorTextures.containsKey(item.itemID)) {
-            armorTextures.put(item.itemID,
+    public static String registerArmorTexture(ItemMiningArmor item, String textureFile) {
+        if (!armorTextures.containsKey(item)) {
+            armorTextures.put(item,
                               textureFile);
-            return getArmorTextureFromItemID(item.itemID);
+            return getArmorTextureFromItem(item);
         } else {
             LoggerTMF.getInstance("ArmorLib").write(true,
                                                     "Texture file for item ["

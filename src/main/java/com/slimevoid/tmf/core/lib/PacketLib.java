@@ -11,10 +11,15 @@
  */
 package com.slimevoid.tmf.core.lib;
 
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.world.World;
+
 import com.slimevoid.compatibility.lib.packets.PacketCompatibilityHandler;
-import com.slimevoid.compatibility.thaumcraft.Thaumcraft;
-import com.slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
-import com.slimevoid.tmf.client.network.ClientPacketHandler;
+import com.slimevoid.library.network.handlers.ClientPacketHandler;
+import com.slimevoid.library.network.handlers.ServerPacketHandler;
+import com.slimevoid.library.util.helpers.PacketHelper;
 import com.slimevoid.tmf.client.network.handlers.ClientPacketMiningToolBeltHandler;
 import com.slimevoid.tmf.client.network.packets.executors.ClientMiningModeActivatedExecutor;
 import com.slimevoid.tmf.client.network.packets.executors.ClientMiningModeDeactivatedExecutor;
@@ -29,13 +34,6 @@ import com.slimevoid.tmf.network.packets.executors.MotionSensorSweepExecutor;
 import com.slimevoid.tmf.network.packets.executors.ToolBeltCycleToolExecutor;
 import com.slimevoid.tmf.network.packets.executors.ToolBeltOpenGuiExecutor;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraft.world.World;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -75,7 +73,8 @@ public class PacketLib {
 
     @SideOnly(Side.CLIENT)
     public static void registerClientPacketExecutors() {
-        ClientPacketHandler.init();
+
+        ClientPacketHandler handler = new ClientPacketHandler();
 
         // MINING TOOL BELT
         ClientPacketMiningToolBeltHandler clientToolBeltHandler = new ClientPacketMiningToolBeltHandler();
@@ -85,14 +84,18 @@ public class PacketLib {
                                                     new ClientMiningModeActivatedExecutor());
         clientToolBeltHandler.registerPacketHandler(CommandLib.MINING_MODE_DEACTIVATED,
                                                     new ClientMiningModeDeactivatedExecutor());
-        ClientPacketHandler.registerPacketHandler(PacketLib.MINING_TOOL_BELT,
-                                                  clientToolBeltHandler);
+        handler.registerPacketHandler(PacketLib.MINING_TOOL_BELT,
+                                      clientToolBeltHandler);
+
+        PacketHelper.registerClientPacketHandler(CoreLib.MOD_CHANNEL,
+                                                 handler);
+
     }
 
     public static void sendToolBeltMessage(World world, EntityPlayer entityplayer, String command) {
         PacketMiningToolBelt packet = new PacketMiningToolBelt(command);
-        PacketDispatcher.sendPacketToPlayer(packet.getPacket(),
-                                            (Player) entityplayer);
+        ServerPacketHandler.listener.sendTo(packet.getPacket(),
+                                            (EntityPlayerMP) entityplayer);
     }
 
     public static void sendActivateMessage(World world, EntityPlayer entityplayer) {
@@ -110,8 +113,8 @@ public class PacketLib {
     public static void sendToolBeltSelectMessage(World world, EntityPlayer entityplayer, int toolBeltId) {
         PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.MESSAGE_TOOL_SELECT);
         // packet.setToolBeltId(toolBeltId);
-        PacketDispatcher.sendPacketToPlayer(packet.getPacket(),
-                                            (Player) entityplayer);
+        ServerPacketHandler.listener.sendTo(packet.getPacket(),
+                                            (EntityPlayerMP) entityplayer);
     }
 
     public static void sendMiningModeMessage(World world, EntityLivingBase entityliving, boolean mode) {
@@ -129,14 +132,15 @@ public class PacketLib {
 
     public static void sendToolBeltGuiRequest(World world, EntityPlayer entityplayer) {
         PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.OPEN_TOOLBELT_GUI);
-        PacketDispatcher.sendPacketToServer(packet.getPacket());
+        ClientPacketHandler.listener.sendToServer(packet.getPacket());
     }
 
-    public static void tryAlternativeHandling(INetworkManager manager, Packet250CustomPayload packet, Player player) {
-        if (packet.channel.equals(Thaumcraft.MOD_CHANNEL)) {
-            ThaumcraftStatic.handlePacket(manager,
-                                          packet,
-                                          player);
-        }
-    }
+    // public static void tryAlternativeHandling(INetworkManager manager,
+    // Packet250CustomPayload packet, Player player) {
+    // if (packet.channel.equals(Thaumcraft.MOD_CHANNEL)) {
+    // ThaumcraftStatic.handlePacket(manager,
+    // packet,
+    // player);
+    // }
+    // }
 }

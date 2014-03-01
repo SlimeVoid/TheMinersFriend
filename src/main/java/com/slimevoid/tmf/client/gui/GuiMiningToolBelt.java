@@ -39,7 +39,7 @@ public class GuiMiningToolBelt extends GuiContainer {
     public void initGui() {
         super.initGui();
 
-        int motionSensorButtonLength = this.fontRenderer.getStringWidth("Settings");
+        int motionSensorButtonLength = this.fontRendererObj.getStringWidth("Settings");
         GuiButton motionSensorSettings = new GuiButton(GuiLib.MOTION_SENSOR_SETTINGS_BUTTONID, (this.width / 2)
                                                                                                - (motionSensorButtonLength / 2), (this.height / 2), motionSensorButtonLength + 6, 20, "Settings");
         this.buttonList.add(motionSensorSettings);
@@ -107,7 +107,7 @@ public class GuiMiningToolBelt extends GuiContainer {
     }
 
     private void drawSelectedSlotString(int slot, int x, int y) {
-        this.drawCenteredString(fontRenderer,
+        this.drawCenteredString(fontRendererObj,
                                 "Slot[" + slot + "] Selected",
                                 50,
                                 100,

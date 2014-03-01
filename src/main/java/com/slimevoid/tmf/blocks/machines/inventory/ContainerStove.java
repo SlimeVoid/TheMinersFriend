@@ -11,19 +11,19 @@
  */
 package com.slimevoid.tmf.blocks.machines.inventory;
 
-import com.slimevoid.tmf.blocks.machines.recipes.RefineryRecipes;
-import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityMachine;
-import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityStove;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import com.slimevoid.tmf.blocks.machines.recipes.RefineryRecipes;
+import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityMachine;
+import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityStove;
+
 public class ContainerStove extends ContainerMachine {
 
     public ContainerStove(InventoryPlayer playerInventory, TileEntityStove tileStove) {
-        super(playerInventory, tileStove, tileStove.worldObj, 0, 84);
+        super(playerInventory, tileStove, tileStove.getWorldObj(), 0, 84);
     }
 
     @Override

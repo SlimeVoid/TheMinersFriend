@@ -11,9 +11,9 @@
  */
 package com.slimevoid.tmf.fuel;
 
-import com.slimevoid.tmf.items.minerals.ItemMineral;
-
 import net.minecraft.item.ItemStack;
+
+import com.slimevoid.tmf.items.minerals.ItemMineral;
 
 public class MineralFuelHandler implements IFuelHandlerTMF {
 

@@ -20,9 +20,8 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -46,9 +45,9 @@ public class ItemRendererToolBelt implements IItemRenderer {
     }
 
     public static void init() {
-        MinecraftForgeClient.registerItemRenderer(TMFCore.miningToolBelt.itemID,
+        MinecraftForgeClient.registerItemRenderer(TMFCore.miningToolBelt,
                                                   new ItemRendererToolBelt(FMLClientHandler.instance().getClient()));
-        MinecraftForgeClient.registerItemRenderer(TMFCore.utilityBelt.itemID,
+        MinecraftForgeClient.registerItemRenderer(TMFCore.utilityBelt,
                                                   new ItemRendererToolBelt(FMLClientHandler.instance().getClient()));
     }
 
@@ -194,11 +193,11 @@ public class ItemRendererToolBelt implements IItemRenderer {
                             0,
                             texturemanager);
             for (int x = 1; x < itemstack.getItem().getRenderPasses(itemstack.getItemDamage()); x++) {
-                int i1 = Item.itemsList[itemstack.itemID].getColorFromItemStack(itemstack,
-                                                                                x);
-                float f11 = (float) (i1 >> 16 & 255) / 255.0F;
-                float f13 = (float) (i1 >> 8 & 255) / 255.0F;
-                float f14 = (float) (i1 & 255) / 255.0F;
+                int i1 = itemstack.getItem().getColorFromItemStack(itemstack,
+                                                                   x);
+                float f11 = (i1 >> 16 & 255) / 255.0F;
+                float f13 = (i1 >> 8 & 255) / 255.0F;
+                float f14 = (i1 & 255) / 255.0F;
                 GL11.glColor4f(1.0F * f11,
                                1.0F * f13,
                                1.0F * f14,
@@ -218,8 +217,8 @@ public class ItemRendererToolBelt implements IItemRenderer {
 
     private void renderItem(EntityLivingBase entityliving, ItemStack itemstack, int index, TextureManager texturemanager) {
         GL11.glPushMatrix();
-        Icon icon = entityliving.getItemIcon(itemstack,
-                                             index);
+        IIcon icon = entityliving.getItemIcon(itemstack,
+                                              index);
 
         if (icon == null) {
             GL11.glPopMatrix();

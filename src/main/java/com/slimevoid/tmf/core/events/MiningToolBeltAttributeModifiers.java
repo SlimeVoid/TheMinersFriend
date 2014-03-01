@@ -14,21 +14,22 @@ package com.slimevoid.tmf.core.events;
 import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+
+import com.slimevoid.library.core.SlimevoidCore;
+import com.slimevoid.library.data.Logger.LogLevel;
 import com.slimevoid.tmf.core.helpers.ItemHelper;
 import com.slimevoid.tmf.core.lib.CoreLib;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import slimevoidlib.core.SlimevoidCore;
-import slimevoidlib.data.Logger.LogLevel;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class MiningToolBeltAttributeModifiers {
 
     private HashMap<EntityLivingBase, ItemStack> previousTool = new HashMap<EntityLivingBase, ItemStack>();
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void onLivingUpdate(LivingUpdateEvent event) {
         EntityLivingBase entity = event.entityLiving;
         ItemStack heldItem = entity.getHeldItem();
@@ -48,8 +49,7 @@ public class MiningToolBeltAttributeModifiers {
             } catch (ConcurrentModificationException c) {
                 SlimevoidCore.console(CoreLib.MOD_ID,
                                       "Phew, that was close! onLivingUpdate could not update "
-                                              + entity.getEntityName()
-                                              + "'s previous item.",
+                                              + entity + "'s previous item.",
                                       LogLevel.WARNING.ordinal());
             }
         }

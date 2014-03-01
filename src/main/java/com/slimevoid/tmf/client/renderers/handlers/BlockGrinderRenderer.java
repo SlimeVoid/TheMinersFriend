@@ -13,7 +13,7 @@ package com.slimevoid.tmf.client.renderers.handlers;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
@@ -44,11 +44,11 @@ public class BlockGrinderRenderer implements ISimpleBlockRenderingHandler {
         GL11.glScalef(1.35F,
                       1.35F,
                       1.35F);
-        TileEntityRenderer.instance.renderTileEntityAt(tile,
-                                                       -0.3D,
-                                                       -0.3D,
-                                                       -0.3D,
-                                                       0.0F);
+        TileEntityRendererDispatcher.instance.renderTileEntityAt(tile,
+                                                                 -0.3D,
+                                                                 -0.3D,
+                                                                 -0.3D,
+                                                                 0.0F);
         GL11.glPopMatrix();
     }
 
@@ -58,7 +58,7 @@ public class BlockGrinderRenderer implements ISimpleBlockRenderingHandler {
     }
 
     @Override
-    public boolean shouldRender3DInInventory() {
+    public boolean shouldRender3DInInventory(int modelId) {
         return true;
     }
 
