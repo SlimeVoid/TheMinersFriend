@@ -11,13 +11,14 @@
  */
 package com.slimevoid.tmf.items.tools.inventory;
 
+import com.slimevoid.library.util.helpers.ContainerHelper;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import slimevoidlib.util.helpers.ContainerHelper;
 
 public class ContainerMiningToolBelt extends Container {
 

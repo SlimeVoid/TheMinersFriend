@@ -13,6 +13,7 @@ package com.slimevoid.tmf.blocks.machines.tileentities;
 
 import java.util.ArrayList;
 
+import com.slimevoid.library.blocks.BlockBase;
 import com.slimevoid.tmf.blocks.machines.EnumMachine;
 import com.slimevoid.tmf.blocks.machines.recipes.GrinderRecipes;
 import com.slimevoid.tmf.core.TheMinersFriend;
@@ -24,7 +25,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
-import slimevoidlib.blocks.BlockBase;
 
 public class TileEntityGrinder extends TileEntityMachine {
     /**

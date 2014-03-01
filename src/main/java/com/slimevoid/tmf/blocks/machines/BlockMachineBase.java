@@ -11,6 +11,7 @@
  */
 package com.slimevoid.tmf.blocks.machines;
 
+import com.slimevoid.library.blocks.BlockBase;
 import com.slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import com.slimevoid.tmf.core.lib.ConfigurationLib;
 
@@ -18,7 +19,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.Icon;
-import slimevoidlib.blocks.BlockBase;
 
 public class BlockMachineBase extends BlockBase {
 

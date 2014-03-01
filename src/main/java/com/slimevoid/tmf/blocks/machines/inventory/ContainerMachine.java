@@ -11,13 +11,13 @@
  */
 package com.slimevoid.tmf.blocks.machines.inventory;
 
+import com.slimevoid.library.inventory.ContainerBase;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityMachine;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
-import slimevoidlib.inventory.ContainerBase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

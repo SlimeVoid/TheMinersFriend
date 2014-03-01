@@ -11,14 +11,14 @@
  */
 package com.slimevoid.tmf.client.network.packets.executors;
 
+import com.slimevoid.library.IPacketExecutor;
+import com.slimevoid.library.network.PacketUpdate;
 import com.slimevoid.tmf.core.lib.MessageLib;
 import com.slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import slimevoidlib.IPacketExecutor;
-import slimevoidlib.network.PacketUpdate;
 
 public class ClientMiningModeActivatedExecutor implements IPacketExecutor {
 

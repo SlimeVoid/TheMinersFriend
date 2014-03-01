@@ -16,14 +16,14 @@ import java.io.DataInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.slimevoid.library.data.Logger;
+import com.slimevoid.library.network.handlers.SubPacketHandler;
 import com.slimevoid.tmf.core.LoggerTMF;
 import com.slimevoid.tmf.core.lib.CoreLib;
 import com.slimevoid.tmf.core.lib.PacketLib;
 
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
-import slimevoidlib.data.Logger;
-import slimevoidlib.network.handlers.SubPacketHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 

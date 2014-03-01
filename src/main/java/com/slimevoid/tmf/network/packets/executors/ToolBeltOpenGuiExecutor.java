@@ -11,6 +11,8 @@
  */
 package com.slimevoid.tmf.network.packets.executors;
 
+import com.slimevoid.library.IPacketExecutor;
+import com.slimevoid.library.network.PacketUpdate;
 import com.slimevoid.tmf.core.TheMinersFriend;
 import com.slimevoid.tmf.core.helpers.ItemHelper;
 import com.slimevoid.tmf.core.lib.GuiLib;
@@ -19,8 +21,6 @@ import com.slimevoid.tmf.network.packets.PacketMiningToolBelt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import slimevoidlib.IPacketExecutor;
-import slimevoidlib.network.PacketUpdate;
 
 public class ToolBeltOpenGuiExecutor implements IPacketExecutor {
 

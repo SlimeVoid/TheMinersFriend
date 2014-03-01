@@ -17,10 +17,9 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import com.slimevoid.library.tileentity.TileEntityBase;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import com.slimevoid.tmf.client.renderers.models.ModelGrinder;
-
-import slimevoidlib.tileentity.TileEntityBase;
 
 public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer {
 

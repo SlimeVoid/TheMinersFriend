@@ -11,10 +11,9 @@
  */
 package com.slimevoid.tmf.network.handlers;
 
+import com.slimevoid.library.network.handlers.SubPacketHandler;
 import com.slimevoid.tmf.network.packets.PacketMining;
 import com.slimevoid.tmf.network.packets.PacketMiningToolBelt;
-
-import slimevoidlib.network.handlers.SubPacketHandler;
 
 public class PacketMiningToolBeltHandler extends SubPacketHandler {
 

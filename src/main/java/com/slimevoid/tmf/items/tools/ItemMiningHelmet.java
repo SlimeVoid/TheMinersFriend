@@ -16,8 +16,8 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import slimevoidlib.blocks.BlockTransientLight;
 
+import com.slimevoid.library.blocks.BlockTransientLight;
 import com.slimevoid.tmf.core.TMFCore;
 import com.slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 

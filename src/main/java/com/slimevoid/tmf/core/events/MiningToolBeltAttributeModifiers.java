@@ -14,6 +14,8 @@ package com.slimevoid.tmf.core.events;
 import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 
+import com.slimevoid.library.core.SlimevoidCore;
+import com.slimevoid.library.data.Logger.LogLevel;
 import com.slimevoid.tmf.core.helpers.ItemHelper;
 import com.slimevoid.tmf.core.lib.CoreLib;
 
@@ -21,8 +23,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import slimevoidlib.core.SlimevoidCore;
-import slimevoidlib.data.Logger.LogLevel;
 
 public class MiningToolBeltAttributeModifiers {
 

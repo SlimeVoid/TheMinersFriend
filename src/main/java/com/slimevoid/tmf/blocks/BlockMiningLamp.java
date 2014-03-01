@@ -6,8 +6,8 @@ import java.util.Random;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import slimevoidlib.blocks.BlockTransientLight;
 
+import com.slimevoid.library.blocks.BlockTransientLight;
 import com.slimevoid.tmf.core.lib.ArmorLib;
 
 public class BlockMiningLamp extends BlockTransientLight {

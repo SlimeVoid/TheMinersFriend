@@ -14,6 +14,8 @@ package com.slimevoid.tmf.client.proxy;
 import java.io.File;
 
 import com.slimevoid.compatibility.TMFCompatibility;
+import com.slimevoid.library.core.SlimevoidCore;
+import com.slimevoid.library.util.helpers.BlockHelper;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
@@ -53,8 +55,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import slimevoidlib.core.SlimevoidCore;
-import slimevoidlib.util.helpers.BlockHelper;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;

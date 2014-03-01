@@ -12,11 +12,10 @@
 package com.slimevoid.tmf.core;
 
 import com.slimevoid.compatibility.TMFCompatibility;
+import com.slimevoid.library.ICommonProxy;
+import com.slimevoid.library.core.SlimevoidCore;
 import com.slimevoid.tmf.core.lib.ConfigurationLib;
 import com.slimevoid.tmf.core.lib.CoreLib;
-
-import slimevoidlib.ICommonProxy;
-import slimevoidlib.core.SlimevoidCore;
 
 public class TMFInit {
     private static boolean initialized = false;

@@ -1,7 +1,7 @@
 package com.slimevoid.compatibility.lib.packets;
 
-import slimevoidlib.network.PacketUpdate;
-import slimevoidlib.network.handlers.SubPacketHandler;
+import com.slimevoid.library.network.PacketUpdate;
+import com.slimevoid.library.network.handlers.SubPacketHandler;
 
 public class PacketCompatibilityHandler extends SubPacketHandler {
 

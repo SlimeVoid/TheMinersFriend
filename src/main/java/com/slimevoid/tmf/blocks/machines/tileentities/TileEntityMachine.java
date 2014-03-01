@@ -11,6 +11,8 @@
  */
 package com.slimevoid.tmf.blocks.machines.tileentities;
 
+import com.slimevoid.library.tileentity.TileEntityBase;
+import com.slimevoid.library.util.helpers.SlimevoidHelper;
 import com.slimevoid.tmf.core.TMFCore;
 import com.slimevoid.tmf.fuel.IFuelHandlerTMF;
 import com.slimevoid.tmf.items.minerals.ItemMineral;
@@ -26,8 +28,6 @@ import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
-import slimevoidlib.tileentity.TileEntityBase;
-import slimevoidlib.util.helpers.SlimevoidHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

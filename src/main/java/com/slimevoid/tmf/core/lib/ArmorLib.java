@@ -18,8 +18,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import slimevoidlib.data.Logger;
 
+import com.slimevoid.library.data.Logger;
 import com.slimevoid.tmf.core.LoggerTMF;
 import com.slimevoid.tmf.items.tools.ItemMiningHelmet;
 

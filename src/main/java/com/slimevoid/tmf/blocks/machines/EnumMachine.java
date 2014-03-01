@@ -11,6 +11,7 @@
  */
 package com.slimevoid.tmf.blocks.machines;
 
+import com.slimevoid.library.tileentity.TileEntityBase;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
@@ -23,7 +24,6 @@ import com.slimevoid.tmf.core.lib.CoreLib;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.util.Icon;
-import slimevoidlib.tileentity.TileEntityBase;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public enum EnumMachine {

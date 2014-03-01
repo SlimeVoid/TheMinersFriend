@@ -15,10 +15,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import com.slimevoid.library.network.PacketPayload;
+import com.slimevoid.library.network.PacketUpdate;
 import com.slimevoid.tmf.core.lib.CoreLib;
-
-import slimevoidlib.network.PacketPayload;
-import slimevoidlib.network.PacketUpdate;
 
 /**
  * Extend for new packets

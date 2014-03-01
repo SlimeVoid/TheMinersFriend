@@ -18,12 +18,12 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import slimevoidlib.blocks.BlockBase;
-import slimevoidlib.items.ItemBlockBase;
-import slimevoidlib.util.FileReader;
-import slimevoidlib.util.json.JSONLoader;
-import slimevoidlib.util.xml.XMLRecipeLoader;
 
+import com.slimevoid.library.blocks.BlockBase;
+import com.slimevoid.library.items.ItemBlockBase;
+import com.slimevoid.library.util.FileReader;
+import com.slimevoid.library.util.json.JSONLoader;
+import com.slimevoid.library.util.xml.XMLRecipeLoader;
 import com.slimevoid.tmf.blocks.BlockMiningLamp;
 import com.slimevoid.tmf.blocks.machines.BlockMachineBase;
 import com.slimevoid.tmf.blocks.machines.EnumMachine;

@@ -16,14 +16,13 @@ import net.minecraft.client.model.ModelBase;
 
 import org.lwjgl.opengl.GL11;
 
+import com.slimevoid.library.render.ModelSlimevoidObject;
+import com.slimevoid.library.render.WavefrontOBJModelLoader;
+import com.slimevoid.library.render.WavefrontOBJModelLoader.FaceMissingTextureException;
 import com.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import com.slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
 import com.slimevoid.tmf.core.lib.ModelLib;
 import com.slimevoid.tmf.core.lib.ResourceLib;
-
-import slimevoidlib.render.ModelSlimevoidObject;
-import slimevoidlib.render.WavefrontOBJModelLoader;
-import slimevoidlib.render.WavefrontOBJModelLoader.FaceMissingTextureException;
 
 public class ModelGrinder extends ModelBase {
     public ModelSlimevoidObject staticModel;

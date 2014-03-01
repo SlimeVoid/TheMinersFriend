@@ -11,13 +11,13 @@
  */
 package com.slimevoid.tmf.client.sounds;
 
+import com.slimevoid.library.data.Logger;
 import com.slimevoid.tmf.core.LoggerTMF;
 import com.slimevoid.tmf.core.lib.ConfigurationLib;
 import com.slimevoid.tmf.core.lib.SoundLib;
 
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
-import slimevoidlib.data.Logger;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TrackerSounds {

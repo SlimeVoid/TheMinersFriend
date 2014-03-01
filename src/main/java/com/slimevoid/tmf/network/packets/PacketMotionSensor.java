@@ -11,11 +11,11 @@
  */
 package com.slimevoid.tmf.network.packets;
 
+import com.slimevoid.library.network.PacketPayload;
 import com.slimevoid.tmf.api.IMotionSensor;
 import com.slimevoid.tmf.core.lib.PacketLib;
 
 import net.minecraft.entity.Entity;
-import slimevoidlib.network.PacketPayload;
 
 public class PacketMotionSensor extends PacketMiningEntity implements
         IMotionSensor {
