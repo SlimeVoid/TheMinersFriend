@@ -5,8 +5,8 @@ set packagedir="%programdir%\Packages"
 set repodir="%programdir%\Git"
 set forgedir="%programdir%\Forge"
 set mcpdir="%forgedir%\mcp"
-set slimevoidlib="%repodir%\SlimevoidLibrary"
-set tmf="%repodir%\TheMinersFriend"
+set slimevoidlib="%repodir%\SlimevoidLibrary\src\main\java"
+set tmf="%repodir%\TheMinersFriend\src\main"
 set tcapi="%repodir%\Thaumcraft"
 set myst="%repodir%\Mystcraft"
 cd %mcpdir%
@@ -29,8 +29,8 @@ if exist "%mcpdir%\src-work" GOTO :COPYEC
 GOTO :ECFAIL
 
 :COPYEC
-xcopy "%slimevoidlib%\SV-common\*.*" "%mcpdir%\src\minecraft" /S
-xcopy "%tmf%\TMF-source\*.*" "%mcpdir%\src\minecraft" /S
+xcopy "%slimevoidlib%\*.*" "%mcpdir%\src\minecraft" /S
+xcopy "%tmf%\java\*.*" "%mcpdir%\src\minecraft" /S
 xcopy "%tcapi%\*.*" "%mcpdir%\src\minecraft" /S
 xcopy "%myst%\*.*" "%mcpdir%\src\minecraft" /S
 pause
@@ -45,10 +45,10 @@ if exist "%packagedir%\TheMinersFriend" (
 del "%packagedir%\TheMinersFriend\*.*" /S /Q
 rmdir "%packagedir%\TheMinersFriend" /S /Q
 )
-mkdir "%packagedir%\TheMinersFriend\slimevoid\tmf"
-xcopy "%mcpdir%\reobf\minecraft\slimevoid\tmf\*.*" "%packagedir%\TheMinersFriend\slimevoid\tmf\" /S
-xcopy "%mcpdir%\reobf\minecraft\slimevoid\compatibility\*.*" "%packagedir%\TheMinersFriend\slimevoid\compatibility\" /S
-xcopy "%tmf%\TMF-resources\*.*" "%packagedir%\TheMinersFriend\" /S
+mkdir "%packagedir%\TheMinersFriend\com\slimevoid\tmf"
+xcopy "%mcpdir%\reobf\minecraft\com\slimevoid\tmf\*.*" "%packagedir%\TheMinersFriend\com\slimevoid\tmf\" /S
+xcopy "%mcpdir%\reobf\minecraft\com\slimevoid\compatibility\*.*" "%packagedir%\TheMinersFriend\com\slimevoid\compatibility\" /S
+xcopy "%tmf%\resources\*.*" "%packagedir%\TheMinersFriend\" /S
 echo "The Miners Friend Packaged Successfully
 pause
 ren "%mcpdir%\src" src-old
