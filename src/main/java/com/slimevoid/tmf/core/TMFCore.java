@@ -192,7 +192,7 @@ public class TMFCore {
     public static int       blockMachineBaseId;
     public static BlockBase blockMachineBase;
 
-    public static int       blockMiningLampID = 3840;
+    public static int       blockMiningLampID = 3000;
     public static Block     blockMiningLamp;
 
     public static void registerMachines() {
