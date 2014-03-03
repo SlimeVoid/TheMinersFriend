@@ -152,7 +152,7 @@ public class TileEntityGrinder extends TileEntityMachine {
             ItemStack mineralItem = grinderItemStacks[0];
 
             if (GrinderRecipes.grinding().isMineralAllowed(mineralItem)) {
-                ItemStack smelted = GrinderRecipes.grinding().getRefiningResult(mineralItem.itemID);
+                ItemStack smelted = GrinderRecipes.grinding().getRefiningResult(mineralItem);
                 if (smelted != null && smelted.stackSize > 0) {
                     if (grinderItemStacks[2] == null) {
                         grinderItemStacks[2] = smelted.copy();
@@ -176,7 +176,7 @@ public class TileEntityGrinder extends TileEntityMachine {
         ItemStack mineralItem = grinderItemStacks[0];
 
         if (GrinderRecipes.grinding().isMineralAllowed(mineralItem)) {
-            ItemStack smelted = GrinderRecipes.grinding().getRefiningResult(mineralItem.itemID);
+            ItemStack smelted = GrinderRecipes.grinding().getRefiningResult(mineralItem);
             if (smelted != null) {
                 if (grinderItemStacks[2] == null) return true;
                 if (grinderItemStacks[2] != null

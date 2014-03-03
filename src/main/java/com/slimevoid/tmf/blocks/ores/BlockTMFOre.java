@@ -26,6 +26,8 @@ public class BlockTMFOre extends BlockOre {
         this.spawnLevel = spawnLevel;
         this.spawnRate = spawnRate;
         this.spawnSize = spawnSize;
+        this.setHarvestLevel("pickaxe",
+                             2);
         BlockLib.registerTMFOre(this);
     }
 
@@ -37,6 +39,6 @@ public class BlockTMFOre extends BlockOre {
 
     @Override
     public String getTextureName() {
-        return CoreLib.MOD_RESOURCES + ":" + this.textureName;
+        return CoreLib.MOD_ID + ":" + this.textureName;
     }
 }

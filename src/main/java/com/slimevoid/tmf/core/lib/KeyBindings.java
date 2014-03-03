@@ -11,22 +11,22 @@
  */
 package com.slimevoid.tmf.core.lib;
 
-import java.util.EnumSet;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 import org.lwjgl.input.Keyboard;
 
-import com.slimevoid.library.network.handlers.ClientPacketHandler;
+import com.slimevoid.library.util.helpers.PacketHelper;
 import com.slimevoid.tmf.client.tickhandlers.input.ToolBeltKeyBindingHandler;
 import com.slimevoid.tmf.core.helpers.ItemHelper;
 import com.slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.client.registry.ClientRegistry;
 
 public class KeyBindings {
 
@@ -37,14 +37,13 @@ public class KeyBindings {
 
     public static void registerKeyBindings() {
         mc = FMLClientHandler.instance().getClient();
-        KeyBindingRegistry.registerKeyBinding(new ToolBeltKeyBindingHandler(new KeyBinding[] {
-        // TOOL_BELT_KEY,
-        MINING_MODE_KEY }, new boolean[] { false }));
+        ClientRegistry.registerKeyBinding(MINING_MODE_KEY);
+        MinecraftForge.EVENT_BUS.register(new ToolBeltKeyBindingHandler());
     }
 
-    public static void doKeyUp(EnumSet<TickType> types, KeyBinding kb) {
+    public static void checkTMFInput() {
         if (FMLClientHandler.instance().getClient().currentScreen == null) {
-            if (kb.equals(MINING_MODE_KEY)) {
+            if (MINING_MODE_KEY.isPressed()) {
                 doMiningModeKeyUp();
             }
         }
@@ -59,7 +58,7 @@ public class KeyBindings {
                                                         true);
             if (toolBelt != null) {
                 PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.TOGGLE_MINING_MODE);
-                ClientPacketHandler.listener.sendToServer(packet.getPacket());
+                PacketHelper.sendToServer(packet);
             }
         }
     }
@@ -75,7 +74,7 @@ public class KeyBindings {
                 PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.CYCLE_TOOL_BELT);
                 packet.side = direction;
                 // packet.setToolBeltId(toolBelt.getItemDamage());
-                ClientPacketHandler.listener.sendToServer(packet.getPacket());
+                PacketHelper.sendToServer(packet);
             }
         }
     }

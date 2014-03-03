@@ -28,7 +28,7 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import com.slimevoid.library.network.handlers.ClientPacketHandler;
+import com.slimevoid.library.util.helpers.PacketHelper;
 import com.slimevoid.tmf.api.IMotionSensorRule;
 import com.slimevoid.tmf.core.lib.CommandLib;
 import com.slimevoid.tmf.core.lib.ResourceLib;
@@ -492,11 +492,11 @@ public class MotionSensorTickHandler {
     }
 
     private void playSoundSweep(EntityPlayer entityplayer, World world) {
-        ClientPacketHandler.listener.sendToServer((new PacketMotionSensor(CommandLib.PLAY_MOTION_SWEEP, entityplayer, (int) entityplayer.posX, (int) entityplayer.posY, (int) entityplayer.posZ, 1.0F)).getPacket());
+        PacketHelper.sendToServer(new PacketMotionSensor(CommandLib.PLAY_MOTION_SWEEP, entityplayer, (int) entityplayer.posX, (int) entityplayer.posY, (int) entityplayer.posZ, 1.0F));
     }
 
     private void playSoundPing(EntityPlayer entityplayer, World world, double distSq2d) {
-        ClientPacketHandler.listener.sendToServer((new PacketMotionSensor(CommandLib.PLAY_MOTION_PING, entityplayer, (int) entityplayer.posX, (int) entityplayer.posY, (int) entityplayer.posZ, getPingPitch(distSq2d))).getPacket());
+        PacketHelper.sendToServer(new PacketMotionSensor(CommandLib.PLAY_MOTION_PING, entityplayer, (int) entityplayer.posX, (int) entityplayer.posY, (int) entityplayer.posZ, getPingPitch(distSq2d)));
     }
 
     private float getPingPitch(double distSq2d) {

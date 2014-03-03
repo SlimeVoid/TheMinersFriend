@@ -13,7 +13,7 @@ package com.slimevoid.tmf.core.lib;
 
 public class SoundLib {
 
-    private static String  RESOURCE_PREFIX = CoreLib.MOD_RESOURCES + ":";
+    private static String  RESOURCE_PREFIX = CoreLib.MOD_ID + ":";
 
     public static String[] trackerFiles    = {
             RESOURCE_PREFIX + "trackersweep.ogg",

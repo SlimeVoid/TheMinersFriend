@@ -11,36 +11,20 @@
  */
 package com.slimevoid.tmf.client.tickhandlers.input;
 
-import java.util.EnumSet;
-
-import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import com.slimevoid.tmf.core.lib.KeyBindings;
 
-public class ToolBeltKeyBindingHandler extends KeyHandler {
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-    public ToolBeltKeyBindingHandler(KeyBinding[] keyBindings, boolean[] repeatings) {
-        super(keyBindings, repeatings);
-    }
+public class ToolBeltKeyBindingHandler {
 
-    @Override
-    public String getLabel() {
-        return "ToolBeltKeyBindings";
-    }
-
-    @Override
-    public void keyDown(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat) {
-    }
-
-    @Override
-    public void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd) {
-        if (tickEnd) KeyBindings.doKeyUp(types,
-                                         kb);
-    }
-
-    @Override
-    public EnumSet<TickType> ticks() {
-        return EnumSet.of(TickType.CLIENT);
+    @SubscribeEvent
+    public void keyInput(LivingUpdateEvent event) {
+        if (event.entityLiving instanceof EntityPlayerSP) {
+            KeyBindings.checkTMFInput();
+        }
     }
 
 }

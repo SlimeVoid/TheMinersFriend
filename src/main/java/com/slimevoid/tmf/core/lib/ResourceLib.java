@@ -20,10 +20,10 @@ import cpw.mods.fml.client.FMLClientHandler;
 public class ResourceLib {
 
     private static final String          ASSET_PREFIX          = "assets/"
-                                                                 + CoreLib.MOD_RESOURCES
+                                                                 + CoreLib.MOD_ID
                                                                  + "/";
 
-    private static final String          TEXTURE_PREFIX        = CoreLib.MOD_RESOURCES
+    private static final String          TEXTURE_PREFIX        = CoreLib.MOD_ID
                                                                  + ":";
     private static final String          PATH_PREFIX           = "textures/";
 
@@ -58,25 +58,25 @@ public class ResourceLib {
     // public static final String ITEM_SPRITE_PATH = GUI_PREFIX + "items.png";
     public static final String           GUI_TOOLBELT_PATH     = GUI_PREFIX
                                                                  + "toolbeltGui.png";
-    public static final ResourceLocation GUI_TOOLBELT          = new ResourceLocation(CoreLib.MOD_RESOURCES, GUI_TOOLBELT_PATH);
+    public static final ResourceLocation GUI_TOOLBELT          = new ResourceLocation(CoreLib.MOD_ID, GUI_TOOLBELT_PATH);
     public static final String           GUI_UTILITYBELT_PATH  = GUI_PREFIX
                                                                  + "utilityBeltGui.png";
-    public static final ResourceLocation GUI_UTILITYBELT       = new ResourceLocation(CoreLib.MOD_RESOURCES, GUI_UTILITYBELT_PATH);
+    public static final ResourceLocation GUI_UTILITYBELT       = new ResourceLocation(CoreLib.MOD_ID, GUI_UTILITYBELT_PATH);
     public static final String           GUI_GEOEQUIP_PATH     = GUI_PREFIX
                                                                  + "geoequip.png";
-    public static final ResourceLocation GUI_GEOEQUIP          = new ResourceLocation(CoreLib.MOD_RESOURCES, GUI_GEOEQUIP_PATH);
+    public static final ResourceLocation GUI_GEOEQUIP          = new ResourceLocation(CoreLib.MOD_ID, GUI_GEOEQUIP_PATH);
     public static final String           GUI_GRINDER_PATH      = GUI_PREFIX
                                                                  + "grinder.png";
-    public static final ResourceLocation GUI_GRINDER           = new ResourceLocation(CoreLib.MOD_RESOURCES, GUI_GRINDER_PATH);
+    public static final ResourceLocation GUI_GRINDER           = new ResourceLocation(CoreLib.MOD_ID, GUI_GRINDER_PATH);
     public static final String           GUI_REFINERY_PATH     = GUI_PREFIX
                                                                  + "refinery.png";
-    public static final ResourceLocation GUI_REFINERY          = new ResourceLocation(CoreLib.MOD_RESOURCES, GUI_REFINERY_PATH);
+    public static final ResourceLocation GUI_REFINERY          = new ResourceLocation(CoreLib.MOD_ID, GUI_REFINERY_PATH);
     public static final String           GUI_AUTOMIXTABLE_PATH = GUI_PREFIX
                                                                  + "automixtable.png";
-    public static final ResourceLocation GUI_AUTOMIXTABLE      = new ResourceLocation(CoreLib.MOD_RESOURCES, GUI_AUTOMIXTABLE_PATH);
+    public static final ResourceLocation GUI_AUTOMIXTABLE      = new ResourceLocation(CoreLib.MOD_ID, GUI_AUTOMIXTABLE_PATH);
     public static final String           GUI_STOVE_PATH        = GUI_PREFIX
                                                                  + "stove.png";
-    public static final ResourceLocation GUI_STOVE             = new ResourceLocation(CoreLib.MOD_RESOURCES, GUI_STOVE_PATH);        ;
+    public static final ResourceLocation GUI_STOVE             = new ResourceLocation(CoreLib.MOD_ID, GUI_STOVE_PATH);        ;
 
     private static final String          MACHINE_PREFIX        = ASSET_PREFIX
                                                                  + PATH_PREFIX
@@ -91,15 +91,15 @@ public class ResourceLib {
 
     private static final String          TRACKER_BG_PATH       = TRACKER_PREFIX
                                                                  + "trackerBG.png";
-    public static final ResourceLocation TRACKER_BG            = new ResourceLocation(CoreLib.MOD_RESOURCES, TRACKER_BG_PATH);
+    public static final ResourceLocation TRACKER_BG            = new ResourceLocation(CoreLib.MOD_ID, TRACKER_BG_PATH);
 
     private static final String          TRACKER_CONTACT_PATH  = TRACKER_PREFIX
                                                                  + "contact.png";
-    public static final ResourceLocation TRACKER_CONTACT       = new ResourceLocation(CoreLib.MOD_RESOURCES, TRACKER_CONTACT_PATH);
+    public static final ResourceLocation TRACKER_CONTACT       = new ResourceLocation(CoreLib.MOD_ID, TRACKER_CONTACT_PATH);
 
     private static final String          TRACKER_SWEEP_PATH    = TRACKER_PREFIX
                                                                  + "trackerSweep.png";
-    public static final ResourceLocation TRACKER_SWEEP         = new ResourceLocation(CoreLib.MOD_RESOURCES, TRACKER_SWEEP_PATH);
+    public static final ResourceLocation TRACKER_SWEEP         = new ResourceLocation(CoreLib.MOD_ID, TRACKER_SWEEP_PATH);
 
     private static final String          RESOURCE_PREFIX       = ASSET_PREFIX
                                                                  + "resources/";

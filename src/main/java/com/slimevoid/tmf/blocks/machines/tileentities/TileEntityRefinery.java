@@ -155,7 +155,7 @@ public class TileEntityRefinery extends TileEntityMachine {
         if (canSmelt()) {
             ItemStack oreItem = refineryItemStacks[0];
             if (RefineryRecipes.refining().isOreAllowed(oreItem)) {
-                ItemStack[] smelted = RefineryRecipes.refining().getRefiningResults(oreItem.itemID);
+                ItemStack[] smelted = RefineryRecipes.refining().getRefiningResults(oreItem);
 
                 if (smelted != null && smelted.length == 3) {
                     if (smelted[0] != null && smelted[0].stackSize > 0) {
@@ -197,7 +197,7 @@ public class TileEntityRefinery extends TileEntityMachine {
 
         ItemStack oreItem = refineryItemStacks[0];
         if (RefineryRecipes.refining().isOreAllowed(oreItem)) {
-            RefineryRecipe[] recipes = RefineryRecipes.refining().getRefineryRecipes(oreItem.itemID);
+            RefineryRecipe[] recipes = RefineryRecipes.refining().getRefineryRecipes(oreItem);
 
             if (recipes != null && recipes.length == 3) {
                 boolean ok = true;

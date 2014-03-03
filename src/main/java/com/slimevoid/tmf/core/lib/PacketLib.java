@@ -24,7 +24,6 @@ import com.slimevoid.tmf.client.network.handlers.ClientPacketMiningToolBeltHandl
 import com.slimevoid.tmf.client.network.packets.executors.ClientMiningModeActivatedExecutor;
 import com.slimevoid.tmf.client.network.packets.executors.ClientMiningModeDeactivatedExecutor;
 import com.slimevoid.tmf.client.network.packets.executors.ClientMiningToolSelectedExecutor;
-import com.slimevoid.tmf.network.CommonPacketHandler;
 import com.slimevoid.tmf.network.handlers.PacketMiningToolBeltHandler;
 import com.slimevoid.tmf.network.handlers.PacketMotionSensorHandler;
 import com.slimevoid.tmf.network.packets.PacketMiningToolBelt;
@@ -44,11 +43,11 @@ public class PacketLib {
     public static final int MINING_TOOL_BELT = 2;
 
     public static void registerPacketExecutors() {
-        CommonPacketHandler.init();
 
+        ServerPacketHandler handler = new ServerPacketHandler();
         // MOD COMPATIBILITY
-        CommonPacketHandler.registerPacketHandler(MOD_COMPAT,
-                                                  new PacketCompatibilityHandler());
+        handler.registerPacketHandler(MOD_COMPAT,
+                                      new PacketCompatibilityHandler());
 
         // MOTION SENSOR
         PacketMotionSensorHandler packetMotionSensorHandler = new PacketMotionSensorHandler();
@@ -56,8 +55,8 @@ public class PacketLib {
                                                         new MotionSensorSweepExecutor());
         packetMotionSensorHandler.registerPacketHandler(CommandLib.PLAY_MOTION_PING,
                                                         new MotionSensorPingExecutor());
-        CommonPacketHandler.registerPacketHandler(MOTION_SENSOR,
-                                                  packetMotionSensorHandler);
+        handler.registerPacketHandler(MOTION_SENSOR,
+                                      packetMotionSensorHandler);
 
         // MINING TOOL BELT
         PacketMiningToolBeltHandler packetMiningToolBeltHandler = new PacketMiningToolBeltHandler();
@@ -67,8 +66,11 @@ public class PacketLib {
                                                           new MiningModeExecutor());
         packetMiningToolBeltHandler.registerPacketHandler(CommandLib.OPEN_TOOLBELT_GUI,
                                                           new ToolBeltOpenGuiExecutor());
-        CommonPacketHandler.registerPacketHandler(MINING_TOOL_BELT,
-                                                  packetMiningToolBeltHandler);
+        handler.registerPacketHandler(MINING_TOOL_BELT,
+                                      packetMiningToolBeltHandler);
+
+        PacketHelper.registerPacketHandler(CoreLib.MOD_CHANNEL,
+                                           handler);
     }
 
     @SideOnly(Side.CLIENT)
@@ -94,8 +96,8 @@ public class PacketLib {
 
     public static void sendToolBeltMessage(World world, EntityPlayer entityplayer, String command) {
         PacketMiningToolBelt packet = new PacketMiningToolBelt(command);
-        ServerPacketHandler.listener.sendTo(packet.getPacket(),
-                                            (EntityPlayerMP) entityplayer);
+        PacketHelper.sendToPlayer(packet,
+                                  (EntityPlayerMP) entityplayer);
     }
 
     public static void sendActivateMessage(World world, EntityPlayer entityplayer) {
@@ -113,8 +115,8 @@ public class PacketLib {
     public static void sendToolBeltSelectMessage(World world, EntityPlayer entityplayer, int toolBeltId) {
         PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.MESSAGE_TOOL_SELECT);
         // packet.setToolBeltId(toolBeltId);
-        ServerPacketHandler.listener.sendTo(packet.getPacket(),
-                                            (EntityPlayerMP) entityplayer);
+        PacketHelper.sendToPlayer(packet,
+                                  (EntityPlayerMP) entityplayer);
     }
 
     public static void sendMiningModeMessage(World world, EntityLivingBase entityliving, boolean mode) {
@@ -132,7 +134,7 @@ public class PacketLib {
 
     public static void sendToolBeltGuiRequest(World world, EntityPlayer entityplayer) {
         PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.OPEN_TOOLBELT_GUI);
-        ClientPacketHandler.listener.sendToServer(packet.getPacket());
+        PacketHelper.sendToServer(packet);
     }
 
     // public static void tryAlternativeHandling(INetworkManager manager,

@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.slimevoid.tmf.blocks.ores.BlockTMFOre;
@@ -34,23 +36,27 @@ public class RefineryRecipes {
     }
 
     public boolean isOreAllowed(ItemStack ore) {
-        return ore != null && refiningMap.containsKey(ore.itemID);
+        return ore != null && refiningMap.containsKey(ore.getItem());
+    }
+
+    public boolean isOreAllowed(Item ore) {
+        return ore != null && refiningMap.containsKey(Item.getIdFromItem(ore));
     }
 
     public void addRefinement(BlockTMFOre ore, int min, int max, ItemMineral mineral) {
-        if (mineral.itemID == TMFCore.mineralAcxium.itemID) {
+        if (mineral.getUnlocalizedName().equals(TMFCore.mineralAcxium.getUnlocalizedName())) {
             addRefinement(ore,
                           min,
                           max,
                           mineral,
                           0);
-        } else if (mineral.itemID == TMFCore.mineralBisogen.itemID) {
+        } else if (mineral.getUnlocalizedName().equals(TMFCore.mineralBisogen.getUnlocalizedName())) {
             addRefinement(ore,
                           min,
                           max,
                           mineral,
                           1);
-        } else if (mineral.itemID == TMFCore.mineralCydrine.itemID) {
+        } else if (mineral.getUnlocalizedName().equals(TMFCore.mineralCydrine.getUnlocalizedName())) {
             addRefinement(ore,
                           min,
                           max,
@@ -66,14 +72,18 @@ public class RefineryRecipes {
         recipe.mineral = mineral;
         recipe.slotId = slotId;
 
-        if (!refiningMap.containsKey(ore.blockID)) refiningMap.put(ore.blockID,
-                                                                   new ArrayList<RefineryRecipe>());
+        if (!refiningMap.containsKey(Block.getIdFromBlock(ore))) refiningMap.put(Block.getIdFromBlock(ore),
+                                                                                 new ArrayList<RefineryRecipe>());
 
-        refiningMap.get(ore.blockID).add(recipe);
+        refiningMap.get(Block.getIdFromBlock(ore)).add(recipe);
     }
 
-    public ItemStack[] getRefiningResults(BlockTMFOre ore) {
-        return getRefiningResults(ore.blockID);
+    public ItemStack[] getRefiningResults(ItemStack ore) {
+        return getRefiningResults(Block.getBlockFromItem(ore.getItem()));
+    }
+
+    public ItemStack[] getRefiningResults(Block ore) {
+        return getRefiningResults(Block.getIdFromBlock(ore));
     }
 
     public ItemStack[] getRefiningResults(int oreId) {
@@ -89,8 +99,12 @@ public class RefineryRecipes {
         return out;
     }
 
-    public RefineryRecipe[] getRefineryRecipes(BlockTMFOre ore) {
-        return getRefineryRecipes(ore.blockID);
+    public RefineryRecipe[] getRefineryRecipes(ItemStack ore) {
+        return getRefineryRecipes(Block.getBlockFromItem(ore.getItem()));
+    }
+
+    public RefineryRecipe[] getRefineryRecipes(Block ore) {
+        return getRefineryRecipes(Block.getIdFromBlock(ore));
     }
 
     public RefineryRecipe[] getRefineryRecipes(int oreId) {

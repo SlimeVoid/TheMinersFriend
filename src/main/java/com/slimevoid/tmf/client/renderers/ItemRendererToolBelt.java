@@ -59,6 +59,9 @@ public class ItemRendererToolBelt implements IItemRenderer {
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
         ItemStack tool = ItemHelper.getSelectedTool(item);
+        if (tool == null) {
+            return false;
+        }
         if (tool != null) {
             IItemRenderer renderer = this.getRendererForTool(tool,
                                                              type);

@@ -18,7 +18,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 
 import com.slimevoid.library.blocks.BlockBase;
 import com.slimevoid.library.items.ItemBlockBase;
@@ -119,6 +118,11 @@ public class TMFCore {
     public static void registerToolBelt() {
         miningToolBelt = new ItemMiningToolBelt(miningToolBeltId).setUnlocalizedName(ItemLib.MINING_TOOLBELT).setTextureName(ResourceLib.MINING_TOOLBELT);
         utilityBelt = new ItemMiningToolBelt(utilityBeltId).setUnlocalizedName(ItemLib.UTILITY_BELT).setTextureName(ResourceLib.UTILITY_BELT);
+
+        GameRegistry.registerItem(miningToolBelt,
+                                  ItemLib.MINING_TOOLBELT);
+        GameRegistry.registerItem(utilityBelt,
+                                  ItemLib.UTILITY_BELT);
     }
 
     private static void registerTools() {
@@ -131,10 +135,22 @@ public class TMFCore {
         miningHelmetIron = new ItemMiningHelmet(miningHelmetIronId, ArmorMaterial.IRON, 2, ItemLib.MINING_HELMET_IRON, ResourceLib.MINING_HELMET_IRON);
         miningHelmetGold = new ItemMiningHelmet(miningHelmetGoldId, ArmorMaterial.GOLD, 4, ItemLib.MINING_HELMET_GOLD, ResourceLib.MINING_HELMET_GOLD);
         miningHelmetDiamond = new ItemMiningHelmet(miningHelmetDiamondId, ArmorMaterial.DIAMOND, 3, ItemLib.MINING_HELMET_DIAMOND, ResourceLib.MINING_HELMET_DIAMOND);
+
+        GameRegistry.registerItem(miningHelmetLamp,
+                                  ItemLib.MINING_HELMET_LAMP);
+        GameRegistry.registerItem(miningHelmetIron,
+                                  ItemLib.MINING_HELMET_IRON);
+        GameRegistry.registerItem(miningHelmetGold,
+                                  ItemLib.MINING_HELMET_GOLD);
+        GameRegistry.registerItem(miningHelmetDiamond,
+                                  ItemLib.MINING_HELMET_DIAMOND);
     }
 
     private static void registerMotionSensor() {
         motionSensor = new ItemMotionSensor(motionSensorId).setUnlocalizedName(ItemLib.MOTION_SENSOR).setTextureName(ResourceLib.MOTION_SENSOR);
+
+        GameRegistry.registerItem(motionSensor,
+                                  ItemLib.MOTION_SENSOR);
     }
 
     private static void registerIngots() {
@@ -144,12 +160,33 @@ public class TMFCore {
         ingotAcxium = new ItemMineralIngot(ingotAcxiumId).setUnlocalizedName(ItemLib.INGOT_ACXIUM).setTextureName(ResourceLib.INGOT_ACXIUM);
         ingotBisogen = new ItemMineralIngot(ingotBisogenId).setUnlocalizedName(ItemLib.INGOT_BISOGEN).setTextureName(ResourceLib.INGOT_BISOGEN);
         ingotCydrine = new ItemMineralIngot(ingotCydrineId).setUnlocalizedName(ItemLib.INGOT_CYDRINE).setTextureName(ResourceLib.INGOT_CYDRINE);
+
+        GameRegistry.registerItem(nuggetAcxium,
+                                  ItemLib.NUGGET_ACXIUM);
+        GameRegistry.registerItem(nuggetBisogen,
+                                  ItemLib.NUGGET_BISOGEN);
+        GameRegistry.registerItem(nuggetCydrine,
+                                  ItemLib.NUGGET_CYDRINE);
+
+        GameRegistry.registerItem(ingotAcxium,
+                                  ItemLib.INGOT_ACXIUM);
+        GameRegistry.registerItem(ingotBisogen,
+                                  ItemLib.INGOT_BISOGEN);
+        GameRegistry.registerItem(ingotCydrine,
+                                  ItemLib.INGOT_CYDRINE);
     }
 
     private static void registerMinerals() {
         mineralAcxium = new ItemMineral(mineralAcxiumId).setBurnTime(2400).setUnlocalizedName(ItemLib.MINERAL_ACXIUM).setTextureName(ResourceLib.MINERAL_ACXIUM);
         mineralBisogen = new ItemMineral(mineralBisogenId).setBurnSpeed(150).setUnlocalizedName(ItemLib.MINERAL_BISOGEN).setTextureName(ResourceLib.MINERAL_BISOGEN);
         mineralCydrine = new ItemMineral(mineralCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.MINERAL_CYDRINE).setTextureName(ResourceLib.MINERAL_CYDRINE);
+
+        GameRegistry.registerItem(mineralAcxium,
+                                  ItemLib.MINERAL_ACXIUM);
+        GameRegistry.registerItem(mineralBisogen,
+                                  ItemLib.MINERAL_BISOGEN);
+        GameRegistry.registerItem(mineralCydrine,
+                                  ItemLib.MINERAL_CYDRINE);
     }
 
     private static void registerDusts() {
@@ -157,6 +194,15 @@ public class TMFCore {
         dustBisogen = new ItemMineralDust(dustBisogenId).setBurnSpeed(100).setUnlocalizedName(ItemLib.DUST_BISOGEN).setTextureName(ResourceLib.DUST_BISOGEN);
         dustCydrine = new ItemMineralDust(dustCydrineId).setBurnWidth(1).setUnlocalizedName(ItemLib.DUST_CYDRINE).setTextureName(ResourceLib.DUST_CYDRINE);
         dustMixed = new ItemMineralMixedDust(dustMixedId).setUnlocalizedName(ItemLib.DUST_MIXED).setTextureName(ResourceLib.DUST_MIXED);
+
+        GameRegistry.registerItem(dustAcxium,
+                                  ItemLib.DUST_ACXIUM);
+        GameRegistry.registerItem(dustBisogen,
+                                  ItemLib.DUST_BISOGEN);
+        GameRegistry.registerItem(dustCydrine,
+                                  ItemLib.DUST_CYDRINE);
+        GameRegistry.registerItem(dustMixed,
+                                  ItemLib.DUST_MIXED);
 
         ItemMineralMixedDust.script = FileReader.readFile(ResourceLib.DUST_LIB_PATH);
         ItemMineralMixedDust.script_burnTime = "getBurnTime()";
@@ -185,6 +231,19 @@ public class TMFCore {
         partBisogenGear = new ItemMachinePart(partBisogenGearId).setUnlocalizedName(ItemLib.PART_BISOGEN_GEAR).setTextureName(ResourceLib.PART_BISOGEN_GEAR);
         partCydrineMotor = new ItemMachinePart(partCydrineMotorId).setUnlocalizedName(ItemLib.PART_CYDRINE_MOTOR).setTextureName(ResourceLib.PART_CYDRINE_MOTOR);
         partCydriumSensor = new ItemMachinePart(partCydriumSensorId).setUnlocalizedName(ItemLib.PART_CYDRIUM_SENSOR).setTextureName(ResourceLib.PART_CYDRIUM_SENSOR);
+
+        GameRegistry.registerItem(partAcxiumCore,
+                                  ItemLib.PART_ACXIUM_CORE);
+        GameRegistry.registerItem(partAcxogenScreen,
+                                  ItemLib.PART_ACXOGEN_SCREEN);
+        GameRegistry.registerItem(partAlloyCasing,
+                                  ItemLib.PART_ALLOY_CASING);
+        GameRegistry.registerItem(partBisogenGear,
+                                  ItemLib.PART_BISOGEN_GEAR);
+        GameRegistry.registerItem(partCydrineMotor,
+                                  ItemLib.PART_CYDRINE_MOTOR);
+        GameRegistry.registerItem(partCydriumSensor,
+                                  ItemLib.PART_CYDRIUM_SENSOR);
     }
 
     // ======== FUEL REGISTRATION ========
@@ -248,22 +307,6 @@ public class TMFCore {
                                    BlockLib.ORE_DERNITE);
         GameRegistry.registerBlock(egioclaseOre,
                                    BlockLib.ORE_EGIOCLASE);
-
-        MinecraftForge.setBlockHarvestLevel(arkiteOre,
-                                            "pickaxe",
-                                            2);
-        MinecraftForge.setBlockHarvestLevel(bistiteOre,
-                                            "pickaxe",
-                                            2);
-        MinecraftForge.setBlockHarvestLevel(crokereOre,
-                                            "pickaxe",
-                                            2);
-        MinecraftForge.setBlockHarvestLevel(derniteOre,
-                                            "pickaxe",
-                                            2);
-        MinecraftForge.setBlockHarvestLevel(egioclaseOre,
-                                            "pickaxe",
-                                            2);
 
         GameRegistry.registerWorldGenerator(new WorldGeneration(),
                                             100);

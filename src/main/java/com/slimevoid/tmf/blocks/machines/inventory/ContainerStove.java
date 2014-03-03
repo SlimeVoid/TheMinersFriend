@@ -69,7 +69,7 @@ public class ContainerStove extends ContainerMachine {
                 // places it into the inventory is possible since its in the
                 // player inventory
             } else if (slot != 1 && slot != 0) {
-                ItemStack[] results = RefineryRecipes.refining().getRefiningResults(stackInSlot.itemID);
+                ItemStack[] results = RefineryRecipes.refining().getRefiningResults(stackInSlot);
                 if (results != null && results.length > 0) {
                     if (!this.mergeItemStack(stackInSlot,
                                              0,

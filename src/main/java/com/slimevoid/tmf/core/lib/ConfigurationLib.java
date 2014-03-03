@@ -13,6 +13,8 @@ package com.slimevoid.tmf.core.lib;
 
 import java.io.File;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
 
 import com.slimevoid.library.data.Logger;
@@ -262,16 +264,16 @@ public class ConfigurationLib {
     public static void loadXMLVariables() {
 
         XMLLoader.addXmlVariable("$miningToolBelt",
-                                 TMFCore.miningToolBelt.itemID);
+                                 Item.getIdFromItem(TMFCore.miningToolBelt));
 
         XMLLoader.addXmlVariable("$utilityBelt",
-                                 TMFCore.utilityBelt.itemID);
+                                 Item.getIdFromItem(TMFCore.utilityBelt));
 
         if (loadMachines) {
             /* MACHINES */
 
             XMLLoader.addXmlVariable("$machine",
-                                     TMFCore.blockMachineBase.blockID);
+                                     Block.getIdFromBlock(TMFCore.blockMachineBase));
             XMLLoader.addXmlVariable("$refinery",
                                      EnumMachine.REFINERY.getId());
             XMLLoader.addXmlVariable("$grinder",
@@ -286,84 +288,84 @@ public class ConfigurationLib {
             /* ORES */
 
             XMLLoader.addXmlVariable("$arkiteOre",
-                                     TMFCore.arkiteOre.blockID);
+                                     Block.getIdFromBlock(TMFCore.arkiteOre));
             XMLLoader.addXmlVariable("$bistiteOre",
-                                     TMFCore.bistiteOre.blockID);
+                                     Block.getIdFromBlock(TMFCore.bistiteOre));
             XMLLoader.addXmlVariable("$crokereOre",
-                                     TMFCore.crokereOre.blockID);
+                                     Block.getIdFromBlock(TMFCore.crokereOre));
             XMLLoader.addXmlVariable("$derniteOre",
-                                     TMFCore.derniteOre.blockID);
+                                     Block.getIdFromBlock(TMFCore.derniteOre));
             XMLLoader.addXmlVariable("$egioclaseOre",
-                                     TMFCore.egioclaseOre.blockID);
+                                     Block.getIdFromBlock(TMFCore.egioclaseOre));
         }
 
         if (loadItems) {
             /* MINERALS */
 
             XMLLoader.addXmlVariable("$mineralAcxium",
-                                     TMFCore.mineralAcxium.itemID);
+                                     Item.getIdFromItem(TMFCore.mineralAcxium));
             XMLLoader.addXmlVariable("$mineralBisogen",
-                                     TMFCore.mineralBisogen.itemID);
+                                     Item.getIdFromItem(TMFCore.mineralBisogen));
             XMLLoader.addXmlVariable("$mineralCydrine",
-                                     TMFCore.mineralCydrine.itemID);
+                                     Item.getIdFromItem(TMFCore.mineralCydrine));
 
             /* INGOTS */
 
             XMLLoader.addXmlVariable("$nuggetAcxium",
-                                     TMFCore.nuggetAcxium.itemID);
+                                     Item.getIdFromItem(TMFCore.nuggetAcxium));
             XMLLoader.addXmlVariable("$nuggetBisogen",
-                                     TMFCore.nuggetBisogen.itemID);
+                                     Item.getIdFromItem(TMFCore.nuggetBisogen));
             XMLLoader.addXmlVariable("$nuggetCydrine",
-                                     TMFCore.nuggetCydrine.itemID);
+                                     Item.getIdFromItem(TMFCore.nuggetCydrine));
 
             XMLLoader.addXmlVariable("$ingotAcxium",
-                                     TMFCore.ingotAcxium.itemID);
+                                     Item.getIdFromItem(TMFCore.ingotAcxium));
             XMLLoader.addXmlVariable("$ingotBisogen",
-                                     TMFCore.ingotBisogen.itemID);
+                                     Item.getIdFromItem(TMFCore.ingotBisogen));
             XMLLoader.addXmlVariable("$ingotCydrine",
-                                     TMFCore.ingotCydrine.itemID);
+                                     Item.getIdFromItem(TMFCore.ingotCydrine));
 
             /* PARTS */
 
             XMLLoader.addXmlVariable("$partAcxiumCore",
-                                     TMFCore.partAcxiumCore.itemID);
+                                     Item.getIdFromItem(TMFCore.partAcxiumCore));
             XMLLoader.addXmlVariable("$partAlloyCasing",
-                                     TMFCore.partAlloyCasing.itemID);
+                                     Item.getIdFromItem(TMFCore.partAlloyCasing));
             XMLLoader.addXmlVariable("$partAcxogenScreen",
-                                     TMFCore.partAcxogenScreen.itemID);
+                                     Item.getIdFromItem(TMFCore.partAcxogenScreen));
             XMLLoader.addXmlVariable("$partBisogenGear",
-                                     TMFCore.partBisogenGear.itemID);
+                                     Item.getIdFromItem(TMFCore.partBisogenGear));
             XMLLoader.addXmlVariable("$partCydrineMotor",
-                                     TMFCore.partCydrineMotor.itemID);
+                                     Item.getIdFromItem(TMFCore.partCydrineMotor));
             XMLLoader.addXmlVariable("$partCydriumSensor",
-                                     TMFCore.partCydriumSensor.itemID);
+                                     Item.getIdFromItem(TMFCore.partCydriumSensor));
 
             /* DUSTS */
 
             XMLLoader.addXmlVariable("$dustAcxium",
-                                     TMFCore.dustAcxium.itemID);
+                                     Item.getIdFromItem(TMFCore.dustAcxium));
             XMLLoader.addXmlVariable("$dustBisogen",
-                                     TMFCore.dustBisogen.itemID);
+                                     Item.getIdFromItem(TMFCore.dustBisogen));
             XMLLoader.addXmlVariable("$dustCydrine",
-                                     TMFCore.dustCydrine.itemID);
+                                     Item.getIdFromItem(TMFCore.dustCydrine));
             XMLLoader.addXmlVariable("$dustMixed",
-                                     TMFCore.dustMixed.itemID);
+                                     Item.getIdFromItem(TMFCore.dustMixed));
 
             /* TOOLS */
 
             XMLLoader.addXmlVariable("$ironMinersHelmet",
-                                     TMFCore.miningHelmetIron.itemID);
+                                     Item.getIdFromItem(TMFCore.miningHelmetIron));
             XMLLoader.addXmlVariable("$goldMinersHelmet",
-                                     TMFCore.miningHelmetGold.itemID);
+                                     Item.getIdFromItem(TMFCore.miningHelmetGold));
             XMLLoader.addXmlVariable("$diamondMinersHelmet",
-                                     TMFCore.miningHelmetDiamond.itemID);
+                                     Item.getIdFromItem(TMFCore.miningHelmetDiamond));
             XMLLoader.addXmlVariable("$helmetLamp",
-                                     TMFCore.miningHelmetLamp.itemID);
+                                     Item.getIdFromItem(TMFCore.miningHelmetLamp));
             XMLLoader.addXmlVariable("$helmetLamp",
-                                     TMFCore.miningHelmetLamp.itemID);
+                                     Item.getIdFromItem(TMFCore.miningHelmetLamp));
 
             XMLLoader.addXmlVariable("$motionSensor",
-                                     TMFCore.motionSensor.itemID);
+                                     Item.getIdFromItem(TMFCore.motionSensor));
         }
 
         /* VANILLA PARTS */

@@ -60,7 +60,7 @@ public enum EnumMachine {
     }
 
     public String getTextureName() {
-        return CoreLib.MOD_RESOURCES + ":" + this.machineName;
+        return CoreLib.MOD_ID + ":" + this.machineName;
     }
 
     public String getUnlocalizedName() {

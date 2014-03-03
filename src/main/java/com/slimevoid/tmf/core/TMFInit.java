@@ -20,13 +20,12 @@ import com.slimevoid.tmf.core.lib.CoreLib;
 public class TMFInit {
     private static boolean initialized = false;
 
-    public static void initialize(ICommonProxy proxy) {
+    public static void postInitialize(ICommonProxy proxy) {
         if (initialized) return;
         initialized = true;
-        load();
     }
 
-    public static void load() {
+    public static void preInitialize() {
         SlimevoidCore.console(CoreLib.MOD_ID,
                               "Registering Miner's Tool Belt...");
         TMFCore.registerToolBelt();
@@ -50,6 +49,9 @@ public class TMFInit {
         }
 
         TheMinersFriend.proxy.registerRenderInformation();
+    }
+
+    public static void initialize() {
 
         TheMinersFriend.proxy.registerTickHandlers();
 

@@ -11,12 +11,8 @@
  */
 package com.slimevoid.tmf.core;
 
-import com.slimevoid.compatibility.thaumcraft.Thaumcraft;
 import com.slimevoid.library.ICommonProxy;
-import com.slimevoid.tmf.client.network.ClientPacketHandler;
 import com.slimevoid.tmf.core.lib.CoreLib;
-import com.slimevoid.tmf.network.CommonPacketHandler;
-import com.slimevoid.tmf.network.TMFConnectionHandler;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -31,16 +27,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
         name = CoreLib.MOD_NAME,
         version = CoreLib.MOD_VERSION,
         dependencies = CoreLib.MOD_DEPENDENCIES)
-@NetworkMod(
-        clientSideRequired = true,
-        serverSideRequired = false,
-        clientPacketHandlerSpec = @SidedPacketHandler(
-                channels = { CoreLib.MOD_CHANNEL },
-                packetHandler = ClientPacketHandler.class),
-        serverPacketHandlerSpec = @SidedPacketHandler(
-                channels = { CoreLib.MOD_CHANNEL, Thaumcraft.MOD_CHANNEL },
-                packetHandler = CommonPacketHandler.class),
-        connectionHandler = TMFConnectionHandler.class)
 public class TheMinersFriend {
     @SidedProxy(
             clientSide = CoreLib.PROXY_CLIENT,
@@ -54,15 +40,17 @@ public class TheMinersFriend {
     public void TheMinersFriendPreInit(FMLPreInitializationEvent event) {
         proxy.registerConfigurationProperties(event.getSuggestedConfigurationFile());
         proxy.preInit();
+        TMFInit.preInitialize();
     }
 
     @EventHandler
     public void TheMinersFriendInit(FMLInitializationEvent event) {
-        TMFInit.initialize(proxy);
+        TMFInit.initialize();
         proxy.registerEventHandlers();
     }
 
     @EventHandler
     public void TheMinersFriendPostInit(FMLPostInitializationEvent event) {
+        TMFInit.postInitialize(proxy);
     }
 }
