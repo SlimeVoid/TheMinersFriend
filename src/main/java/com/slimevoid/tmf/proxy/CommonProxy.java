@@ -117,11 +117,19 @@ public class CommonProxy implements ICommonProxy {
 
     @Override
     public void preInit() {
+    }
+
+    @Override
+    public void init() {
         NetworkRegistry.INSTANCE.registerGuiHandler(TheMinersFriend.instance,
                                                     this);
         PacketLib.registerPacketExecutors();
 
         TMFCompatibility.registerPacketExecutors();
+    }
+
+    @Override
+    public void postInit() {
     }
 
     @Override

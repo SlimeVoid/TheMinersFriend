@@ -69,7 +69,7 @@ public class PacketLib {
         handler.registerPacketHandler(MINING_TOOL_BELT,
                                       packetMiningToolBeltHandler);
 
-        PacketHelper.registerListener(CoreLib.MOD_CHANNEL,
+        PacketHelper.registerServerHandler(CoreLib.MOD_CHANNEL,
                                            handler);
     }
 
@@ -89,8 +89,8 @@ public class PacketLib {
         handler.registerPacketHandler(PacketLib.MINING_TOOL_BELT,
                                       clientToolBeltHandler);
 
-        PacketHelper.registerClientListener(CoreLib.MOD_CHANNEL,
-                                                 handler);
+        PacketHelper.registerClientHandler(CoreLib.MOD_CHANNEL,
+                                           handler);
 
     }
 

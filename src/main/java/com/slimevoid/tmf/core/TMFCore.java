@@ -34,7 +34,6 @@ import com.slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import com.slimevoid.tmf.core.lib.BlockLib;
 import com.slimevoid.tmf.core.lib.ConfigurationLib;
 import com.slimevoid.tmf.core.lib.ItemLib;
-import com.slimevoid.tmf.core.lib.LocalizationLib;
 import com.slimevoid.tmf.core.lib.ResourceLib;
 import com.slimevoid.tmf.core.world.WorldGeneration;
 import com.slimevoid.tmf.fuel.MineralFuelHandler;
@@ -310,11 +309,6 @@ public class TMFCore {
 
         GameRegistry.registerWorldGenerator(new WorldGeneration(),
                                             100);
-    }
-
-    // ======== NAME REGISTRATION ========
-    public static void registerNames() {
-        LocalizationLib.registerLanguages();
     }
 
     // ======= RECIPE REGISTRATION =======

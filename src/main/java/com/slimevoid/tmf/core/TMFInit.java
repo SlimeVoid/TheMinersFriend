@@ -12,18 +12,12 @@
 package com.slimevoid.tmf.core;
 
 import com.slimevoid.compatibility.TMFCompatibility;
-import com.slimevoid.library.ICommonProxy;
 import com.slimevoid.library.core.SlimevoidCore;
 import com.slimevoid.tmf.core.lib.ConfigurationLib;
 import com.slimevoid.tmf.core.lib.CoreLib;
 
 public class TMFInit {
     private static boolean initialized = false;
-
-    public static void postInitialize(ICommonProxy proxy) {
-        if (initialized) return;
-        initialized = true;
-    }
 
     public static void preInitialize() {
         SlimevoidCore.console(CoreLib.MOD_ID,
@@ -61,10 +55,6 @@ public class TMFInit {
         TMFCompatibility.registerBlockAndItemInformation();
 
         SlimevoidCore.console(CoreLib.MOD_ID,
-                              "Registering names...");
-        TMFCore.registerNames();
-
-        SlimevoidCore.console(CoreLib.MOD_ID,
                               "Registering XML variables...");
 
         ConfigurationLib.loadXMLVariables();
@@ -76,5 +66,11 @@ public class TMFInit {
         SlimevoidCore.console(CoreLib.MOD_ID,
                               "Registering fuels...");
         TMFCore.registerFuels();
+    }
+
+    public static void postInitialize() {
+        if (initialized) return;
+        initialized = true;
+        TheMinersFriend.proxy.registerEventHandlers();
     }
 }
