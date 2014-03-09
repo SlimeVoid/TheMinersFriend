@@ -21,7 +21,6 @@ import net.minecraftforge.common.MinecraftForge;
 
 import com.slimevoid.compatibility.TMFCompatibility;
 import com.slimevoid.library.ICommonProxy;
-import com.slimevoid.library.IPacketHandling;
 import com.slimevoid.library.core.SlimevoidCore;
 import com.slimevoid.library.util.helpers.SlimevoidHelper;
 import com.slimevoid.tmf.blocks.machines.inventory.ContainerAutomaticMixingTable;
@@ -154,11 +153,6 @@ public class CommonProxy implements ICommonProxy {
     @Override
     public String getMinecraftDir() {
         return ".";
-    }
-
-    @Override
-    public IPacketHandling getPacketHandler() {
-        return null;
     }
 
     @Override
