@@ -17,14 +17,14 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import com.slimevoid.library.IPacketExecutor;
-import com.slimevoid.library.network.PacketUpdate;
+import com.slimevoid.library.network.SlimevoidPayload;
 import com.slimevoid.tmf.core.lib.MessageLib;
 import com.slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
 public class ClientMiningModeDeactivatedExecutor implements IPacketExecutor {
 
     @Override
-    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+    public void execute(SlimevoidPayload packet, World world, EntityPlayer entityplayer) {
         if (packet instanceof PacketMiningToolBelt) {
             PacketMiningToolBelt packetMT = (PacketMiningToolBelt) packet;
             String message = StatCollector.translateToLocal(MessageLib.MINING_MODE_DEACTIVATED);

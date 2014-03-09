@@ -17,10 +17,8 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
 
 import com.slimevoid.compatibility.lib.packets.PacketCompatibilityHandler;
-import com.slimevoid.library.network.handlers.ClientPacketHandler;
-import com.slimevoid.library.network.handlers.ServerPacketHandler;
+import com.slimevoid.library.network.handlers.PacketPipeline;
 import com.slimevoid.library.util.helpers.PacketHelper;
-import com.slimevoid.tmf.client.network.handlers.ClientPacketMiningToolBeltHandler;
 import com.slimevoid.tmf.client.network.packets.executors.ClientMiningModeActivatedExecutor;
 import com.slimevoid.tmf.client.network.packets.executors.ClientMiningModeDeactivatedExecutor;
 import com.slimevoid.tmf.client.network.packets.executors.ClientMiningToolSelectedExecutor;
@@ -38,13 +36,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class PacketLib {
 
-    public static final int MOD_COMPAT       = 0;
-    public static final int MOTION_SENSOR    = 1;
-    public static final int MINING_TOOL_BELT = 2;
+    public static final int      MOD_COMPAT       = 0;
+    public static final int      MOTION_SENSOR    = 1;
+    public static final int      MINING_TOOL_BELT = 2;
+
+    public static PacketPipeline handler          = new PacketPipeline();
 
     public static void registerPacketExecutors() {
 
-        ServerPacketHandler handler = new ServerPacketHandler();
         // MOD COMPATIBILITY
         handler.registerPacketHandler(MOD_COMPAT,
                                       new PacketCompatibilityHandler());
@@ -68,29 +67,18 @@ public class PacketLib {
                                                           new ToolBeltOpenGuiExecutor());
         handler.registerPacketHandler(MINING_TOOL_BELT,
                                       packetMiningToolBeltHandler);
-
-        PacketHelper.registerServerHandler(CoreLib.MOD_CHANNEL,
-                                           handler);
     }
 
     @SideOnly(Side.CLIENT)
     public static void registerClientPacketExecutors() {
 
-        ClientPacketHandler handler = new ClientPacketHandler();
-
         // MINING TOOL BELT
-        ClientPacketMiningToolBeltHandler clientToolBeltHandler = new ClientPacketMiningToolBeltHandler();
-        clientToolBeltHandler.registerPacketHandler(CommandLib.MESSAGE_TOOL_SELECT,
-                                                    new ClientMiningToolSelectedExecutor());
-        clientToolBeltHandler.registerPacketHandler(CommandLib.MINING_MODE_ACTIVATED,
-                                                    new ClientMiningModeActivatedExecutor());
-        clientToolBeltHandler.registerPacketHandler(CommandLib.MINING_MODE_DEACTIVATED,
-                                                    new ClientMiningModeDeactivatedExecutor());
-        handler.registerPacketHandler(PacketLib.MINING_TOOL_BELT,
-                                      clientToolBeltHandler);
-
-        PacketHelper.registerClientHandler(CoreLib.MOD_CHANNEL,
-                                           handler);
+        handler.getPacketHandler(MINING_TOOL_BELT).registerClientPacketHandler(CommandLib.MESSAGE_TOOL_SELECT,
+                                                                               new ClientMiningToolSelectedExecutor());
+        handler.getPacketHandler(MINING_TOOL_BELT).registerClientPacketHandler(CommandLib.MINING_MODE_ACTIVATED,
+                                                                               new ClientMiningModeActivatedExecutor());
+        handler.getPacketHandler(MINING_TOOL_BELT).registerClientPacketHandler(CommandLib.MINING_MODE_DEACTIVATED,
+                                                                               new ClientMiningModeDeactivatedExecutor());
 
     }
 

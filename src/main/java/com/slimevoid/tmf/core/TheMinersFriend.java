@@ -14,6 +14,7 @@ package com.slimevoid.tmf.core;
 import com.slimevoid.library.ICommonProxy;
 import com.slimevoid.library.util.helpers.PacketHelper;
 import com.slimevoid.tmf.core.lib.CoreLib;
+import com.slimevoid.tmf.core.lib.PacketLib;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -46,8 +47,10 @@ public class TheMinersFriend {
 
     @EventHandler
     public void TheMinersFriendInit(FMLInitializationEvent event) {
-        PacketHelper.registerListener(CoreLib.MOD_CHANNEL);
         proxy.init();
+
+        PacketHelper.registerHandler(CoreLib.MOD_CHANNEL,
+                                     PacketLib.handler);
         TMFInit.initialize();
     }
 

@@ -11,12 +11,8 @@
  */
 package com.slimevoid.tmf.network.packets;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-
 import com.slimevoid.library.network.PacketPayload;
-import com.slimevoid.library.network.PacketUpdate;
+import com.slimevoid.library.network.SlimevoidPayload;
 import com.slimevoid.tmf.core.lib.CoreLib;
 
 /**
@@ -25,21 +21,7 @@ import com.slimevoid.tmf.core.lib.CoreLib;
  * @author Eurymachus
  * 
  */
-public abstract class PacketMining extends PacketUpdate {
-
-    private String command;
-
-    @Override
-    public void writeData(DataOutputStream data) throws IOException {
-        super.writeData(data);
-        data.writeUTF(this.command);
-    }
-
-    @Override
-    public void readData(DataInputStream data) throws IOException {
-        super.readData(data);
-        this.command = data.readUTF();
-    }
+public abstract class PacketMining extends SlimevoidPayload {
 
     /**
      * Constructor for Default Mining Packets
@@ -72,26 +54,5 @@ public abstract class PacketMining extends PacketUpdate {
     public String toString() {
         return this.getCommand() + "(" + xPosition + "," + yPosition + ","
                + zPosition + ")";
-    }
-
-    /**
-     * Retrieves the command String corresponding to the executor
-     * 
-     * @return Returns command
-     */
-    @Override
-    public String getCommand() {
-        return this.command;
-    }
-
-    /**
-     * Sets the command in the packet
-     * 
-     * @param command
-     *            The command to be added
-     */
-    @Override
-    public void setCommand(String command) {
-        this.command = command;
     }
 }

@@ -11,7 +11,7 @@ import net.minecraftforge.common.DimensionManager;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import com.slimevoid.compatibility.Mods;
-import com.slimevoid.library.network.handlers.ServerPacketHandler;
+import com.slimevoid.library.network.handlers.PacketPipeline;
 import com.slimevoid.tmf.core.helpers.ItemHelper;
 import com.slimevoid.tmf.items.tools.ItemMiningToolBelt;
 
@@ -104,7 +104,7 @@ public class ThaumcraftStatic {
         if (Mods.THAUMCRAFT.getCompat().isLoaded) {
             ByteArrayDataInput data = ByteStreams.newDataInput(packet.data.clone());
             byte packetId = data.readByte();
-            if (packetId == ServerPacketHandler.SEND_FOCUS_CHANGE_TO_SERVER) {
+            if (packetId == PacketPipeline.SEND_FOCUS_CHANGE_TO_SERVER) {
                 handleFocusChangePacket(data);
             }
         }
