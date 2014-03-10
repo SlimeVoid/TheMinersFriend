@@ -12,7 +12,7 @@
 package com.slimevoid.tmf.network.packets;
 
 import com.slimevoid.library.network.PacketPayload;
-import com.slimevoid.library.network.SlimevoidPayload;
+import com.slimevoid.library.network.PacketUpdate;
 import com.slimevoid.tmf.core.lib.CoreLib;
 
 /**
@@ -21,7 +21,7 @@ import com.slimevoid.tmf.core.lib.CoreLib;
  * @author Eurymachus
  * 
  */
-public abstract class PacketMining extends SlimevoidPayload {
+public abstract class PacketMining extends PacketUpdate {
 
     /**
      * Constructor for Default Mining Packets

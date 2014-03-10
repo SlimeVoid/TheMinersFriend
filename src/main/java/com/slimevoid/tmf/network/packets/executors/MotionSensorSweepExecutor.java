@@ -16,7 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 import com.slimevoid.library.IPacketExecutor;
-import com.slimevoid.library.network.SlimevoidPayload;
+import com.slimevoid.library.network.PacketUpdate;
 import com.slimevoid.tmf.api.IMotionSensor;
 import com.slimevoid.tmf.core.lib.SoundLib;
 import com.slimevoid.tmf.network.packets.PacketMotionSensor;
@@ -24,7 +24,7 @@ import com.slimevoid.tmf.network.packets.PacketMotionSensor;
 public class MotionSensorSweepExecutor implements IPacketExecutor {
 
     @Override
-    public void execute(SlimevoidPayload packet, World world, EntityPlayer entityplayer) {
+    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         if (packet instanceof PacketMotionSensor) {
             PacketMotionSensor packetMS = (PacketMotionSensor) packet;
             Entity entity = packetMS.getEntity(world);

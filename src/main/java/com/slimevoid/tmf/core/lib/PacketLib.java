@@ -50,20 +50,20 @@ public class PacketLib {
 
         // MOTION SENSOR
         PacketMotionSensorHandler packetMotionSensorHandler = new PacketMotionSensorHandler();
-        packetMotionSensorHandler.registerPacketHandler(CommandLib.PLAY_MOTION_SWEEP,
+        packetMotionSensorHandler.registerServerExecutor(CommandLib.PLAY_MOTION_SWEEP,
                                                         new MotionSensorSweepExecutor());
-        packetMotionSensorHandler.registerPacketHandler(CommandLib.PLAY_MOTION_PING,
+        packetMotionSensorHandler.registerServerExecutor(CommandLib.PLAY_MOTION_PING,
                                                         new MotionSensorPingExecutor());
         handler.registerPacketHandler(MOTION_SENSOR,
                                       packetMotionSensorHandler);
 
         // MINING TOOL BELT
         PacketMiningToolBeltHandler packetMiningToolBeltHandler = new PacketMiningToolBeltHandler();
-        packetMiningToolBeltHandler.registerPacketHandler(CommandLib.CYCLE_TOOL_BELT,
+        packetMiningToolBeltHandler.registerServerExecutor(CommandLib.CYCLE_TOOL_BELT,
                                                           new ToolBeltCycleToolExecutor());
-        packetMiningToolBeltHandler.registerPacketHandler(CommandLib.TOGGLE_MINING_MODE,
+        packetMiningToolBeltHandler.registerServerExecutor(CommandLib.TOGGLE_MINING_MODE,
                                                           new MiningModeExecutor());
-        packetMiningToolBeltHandler.registerPacketHandler(CommandLib.OPEN_TOOLBELT_GUI,
+        packetMiningToolBeltHandler.registerServerExecutor(CommandLib.OPEN_TOOLBELT_GUI,
                                                           new ToolBeltOpenGuiExecutor());
         handler.registerPacketHandler(MINING_TOOL_BELT,
                                       packetMiningToolBeltHandler);
@@ -73,11 +73,11 @@ public class PacketLib {
     public static void registerClientPacketExecutors() {
 
         // MINING TOOL BELT
-        handler.getPacketHandler(MINING_TOOL_BELT).registerClientPacketHandler(CommandLib.MESSAGE_TOOL_SELECT,
+        handler.getPacketHandler(MINING_TOOL_BELT).registerClientExecutor(CommandLib.MESSAGE_TOOL_SELECT,
                                                                                new ClientMiningToolSelectedExecutor());
-        handler.getPacketHandler(MINING_TOOL_BELT).registerClientPacketHandler(CommandLib.MINING_MODE_ACTIVATED,
+        handler.getPacketHandler(MINING_TOOL_BELT).registerClientExecutor(CommandLib.MINING_MODE_ACTIVATED,
                                                                                new ClientMiningModeActivatedExecutor());
-        handler.getPacketHandler(MINING_TOOL_BELT).registerClientPacketHandler(CommandLib.MINING_MODE_DEACTIVATED,
+        handler.getPacketHandler(MINING_TOOL_BELT).registerClientExecutor(CommandLib.MINING_MODE_DEACTIVATED,
                                                                                new ClientMiningModeDeactivatedExecutor());
 
     }

@@ -16,14 +16,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.slimevoid.library.IPacketExecutor;
-import com.slimevoid.library.network.SlimevoidPayload;
+import com.slimevoid.library.network.PacketUpdate;
 import com.slimevoid.tmf.core.helpers.ItemHelper;
 import com.slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
 public class MiningModeExecutor implements IPacketExecutor {
 
     @Override
-    public void execute(SlimevoidPayload packet, World world, EntityPlayer entityplayer) {
+    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         if (packet instanceof PacketMiningToolBelt) {
             ItemStack itemstack = entityplayer.getHeldItem();
             if (ItemHelper.isToolBelt(itemstack)) {

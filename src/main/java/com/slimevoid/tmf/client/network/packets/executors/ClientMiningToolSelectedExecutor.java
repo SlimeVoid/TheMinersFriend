@@ -15,13 +15,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 import com.slimevoid.library.IPacketExecutor;
-import com.slimevoid.library.network.SlimevoidPayload;
+import com.slimevoid.library.network.PacketUpdate;
 import com.slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
 public class ClientMiningToolSelectedExecutor implements IPacketExecutor {
 
     @Override
-    public void execute(SlimevoidPayload packet, World world, EntityPlayer entityplayer) {
+    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         if (packet instanceof PacketMiningToolBelt) {
             // PacketMiningToolBelt packetMT = (PacketMiningToolBelt) packet;
             // InventoryMiningToolBelt data = null;
