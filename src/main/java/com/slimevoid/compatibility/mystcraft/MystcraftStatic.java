@@ -1,5 +1,6 @@
 package com.slimevoid.compatibility.mystcraft;
 
+import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
 import com.slimevoid.compatibility.Mods;
@@ -19,7 +20,7 @@ public class MystcraftStatic {
     }
 
     public static boolean checkBookStandOrLectern(World world, int x, int y, int z) {
-        int blockID = world.getBlockId(x,
+        Block blockID = world.getBlock(x,
                                        y,
                                        z);
         boolean flag = false;

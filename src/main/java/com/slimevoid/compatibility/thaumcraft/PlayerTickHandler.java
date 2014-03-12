@@ -6,9 +6,11 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import com.slimevoid.tmf.core.helpers.ItemHelper;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 public class PlayerTickHandler {
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void LivingUpdate(LivingUpdateEvent event) {
         if (event.entity instanceof EntityPlayer) {
             EntityPlayer entityplayer = (EntityPlayer) event.entity;

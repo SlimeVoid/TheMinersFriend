@@ -4,9 +4,9 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.slimevoid.compatibility.MasterCompatibility;
-import com.slimevoid.compatibility.thaumcraft.client.ThaumcraftKeyBindingHandler;
 import com.slimevoid.compatibility.thaumcraft.client.WandGuiTickHandler;
 
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -26,9 +26,9 @@ public class Thaumcraft extends MasterCompatibility {
     @SideOnly(Side.CLIENT)
     @Override
     public void registerKeyBindings() {
-        KeyBinding[] key = new KeyBinding[] { new KeyBinding("Change ToolBelt Wand Focus", 33) };
+        KeyBinding key = new KeyBinding("Change ToolBelt Wand Focus", 33, "key.categories.misc");
         boolean[] repeat = new boolean[] { false };
-        KeyBindingRegistry.registerKeyBinding(new ThaumcraftKeyBindingHandler(key, repeat));
+        ClientRegistry.registerKeyBinding(key);
     }
 
     @Override
@@ -37,8 +37,7 @@ public class Thaumcraft extends MasterCompatibility {
 
     @Override
     public void registerTickHandlers() {
-        TickRegistry.registerTickHandler(new WandGuiTickHandler(),
-                                         Side.CLIENT);
+        MinecraftForge.EVENT_BUS.register(new WandGuiTickHandler());
     }
 
     @Override
