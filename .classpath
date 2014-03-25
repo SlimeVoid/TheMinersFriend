@@ -12,5 +12,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/TinkersConstruct"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CollaborativeMod"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Mystcraft"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/WirelessRedstone-FML"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
