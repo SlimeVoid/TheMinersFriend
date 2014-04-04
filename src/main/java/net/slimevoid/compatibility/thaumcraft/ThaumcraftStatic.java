@@ -1,22 +1,17 @@
 package net.slimevoid.compatibility.thaumcraft;
 
-import ibxm.Player;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.NetworkManager;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
-import net.slimevoid.compatibility.Mods;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
-import net.slimevoid.tmf.core.lib.PacketLib;
 import net.slimevoid.tmf.items.tools.ItemMiningToolBelt;
-import thaumcraft.api.IRepairable;
-import thaumcraft.api.IRepairableExtended;
+//import thaumcraft.api.IRepairable;
+//import thaumcraft.api.IRepairableExtended;
 
 import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteStreams;
 
 public class ThaumcraftStatic {
 
@@ -29,8 +24,10 @@ public class ThaumcraftStatic {
 
     public static boolean isWandInToolBelt(ItemStack itemstack) {
         ItemStack tool = ItemHelper.getSelectedTool(itemstack);
-        return tool != null && tool.getItem() != null
-               && tool.getItem() instanceof ItemWandCasting;
+        boolean flag = false;
+        // flag = tool != null && tool.getItem() != null
+        // && tool.getItem() instanceof ItemWandCasting;
+        return flag;
     }
 
     public static void doChangeFocus(World world, EntityPlayer entityplayer, String focus) {
@@ -38,10 +35,10 @@ public class ThaumcraftStatic {
         ItemStack tool = ItemHelper.getSelectedTool(heldItem);
         if (isWand(tool)) {
             ItemStack toolCopy = tool.copy();
-            WandManager.changeFocus(tool,
-                                    world,
-                                    entityplayer,
-                                    focus);
+            // WandManager.changeFocus(tool,
+            // world,
+            // entityplayer,
+            // focus);
             ((ItemMiningToolBelt) heldItem.getItem()).updateToolInToolBelt(world,
                                                                            entityplayer,
                                                                            heldItem,
@@ -67,13 +64,13 @@ public class ThaumcraftStatic {
     }
 
     public static void doElementalSwordUpdate(EntityPlayer entityplayer, ItemStack tool) {
-        if (tool != null && tool.getItem() instanceof ItemElementalSword) {
-            entityplayer.motionY += 0.08D;
+        // if (tool != null && tool.getItem() instanceof ItemElementalSword) {
+        // entityplayer.motionY += 0.08D;
 
-            if (entityplayer.motionY > 0.5D) {
-                entityplayer.motionY = 0.2D;
-            }
-        }
+        // if (entityplayer.motionY > 0.5D) {
+        // entityplayer.motionY = 0.2D;
+        // }
+        // }
     }
 
     public static boolean doRepair(ItemStack itemstack, EntityPlayer entityplayer, int level) {
@@ -81,19 +78,19 @@ public class ThaumcraftStatic {
         ItemStack tool = ItemHelper.getSelectedTool(itemstack);
         ItemStack toolCopy = ItemStack.copyItemStack(tool);
         if (tool != null && tool.getItem() != null) {
-            if (tool.getItem() instanceof IRepairable) {
-                if (tool.getItem() instanceof IRepairableExtended) {
-                    if (((IRepairableExtended) tool.getItem()).doRepair(tool,
-                                                                        entityplayer,
-                                                                        level)) {
-                        tool.damageItem(-level,
-                                        entityplayer);
-                    }
-                } else {
-                    tool.damageItem(-level,
-                                    entityplayer);
-                }
-            }
+            // if (tool.getItem() instanceof IRepairable) {
+            // if (tool.getItem() instanceof IRepairableExtended) {
+            // if (((IRepairableExtended) tool.getItem()).doRepair(tool,
+            // entityplayer,
+            // level)) {
+            // tool.damageItem(-level,
+            // entityplayer);
+            // }
+            // } else {
+            tool.damageItem(-level,
+                            entityplayer);
+            // }
+            // }
         }
         toolBelt.updateToolInToolBelt(entityplayer.getEntityWorld(),
                                       entityplayer,
@@ -103,14 +100,19 @@ public class ThaumcraftStatic {
         return false;
     }
 
-    public static void handlePacket(NetworkManager manager, Packet250CustomPayload packet, Player player) {
-        if (Mods.THAUMCRAFT.getCompat().isLoaded) {
-            ByteArrayDataInput data = ByteStreams.newDataInput(packet.data.clone());
-            byte packetId = data.readByte();
-            if (packetId == PacketLib.SEND_FOCUS_CHANGE_TO_SERVER) {
-                handleFocusChangePacket(data);
-            }
-        }
+    public static void handlePacket(/*
+                                     * NetworkManager manager,
+                                     * Packet250CustomPayload packet, Player
+                                     * player
+                                     */) {
+        // if (Mods.THAUMCRAFT.getCompat().isLoaded) {
+        // ByteArrayDataInput data =
+        // ByteStreams.newDataInput(packet.data.clone());
+        // byte packetId = data.readByte();
+        // if (packetId == PacketLib.SEND_FOCUS_CHANGE_TO_SERVER) {
+        // handleFocusChangePacket(data);
+        // }
+        // }
     }
 
     private static String readString(ByteArrayDataInput dat) {

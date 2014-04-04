@@ -15,7 +15,7 @@ public class CoreLib {
 
     public static final String MOD_ID           = "tmf";
     public static final String MOD_NAME         = "The Miner's Friend";
-    public static final String MOD_VERSION      = "0.1.0.0";
+    public static final String MOD_VERSION      = "@VERSION@";
     public static final String MOD_DEPENDENCIES = "required-after:SlimevoidLib";
     public static final String MOD_CHANNEL      = "TMF";
     public static final String PROXY_CLIENT     = "net.slimevoid.tmf.client.proxy.ClientProxy";

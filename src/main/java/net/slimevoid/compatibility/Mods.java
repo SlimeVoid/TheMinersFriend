@@ -1,14 +1,14 @@
 package net.slimevoid.compatibility;
 
-import net.slimevoid.compatibility.mystcraft.Mystcraft;
-import net.slimevoid.compatibility.thaumcraft.Thaumcraft;
+//import net.slimevoid.compatibility.mystcraft.Mystcraft;
+//import net.slimevoid.compatibility.thaumcraft.Thaumcraft;
 import net.slimevoid.compatibility.tinkersconstruct.TinkersConstruct;
 
 public enum Mods {
 
-    THAUMCRAFT(new Thaumcraft()),
-    TINKERS(new TinkersConstruct()),
-    MYSTCRAFT(new Mystcraft());
+    // THAUMCRAFT(new Thaumcraft()),
+    // MYSTCRAFT(new Mystcraft()),
+    TINKERS(new TinkersConstruct());
 
     private MasterCompatibility compat;
 

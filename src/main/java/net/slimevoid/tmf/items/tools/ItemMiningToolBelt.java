@@ -13,8 +13,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import thaumcraft.api.IRepairable;
-import thaumcraft.api.IRepairableExtended;
 import net.slimevoid.compatibility.mystcraft.MystcraftStatic;
 import net.slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
 import net.slimevoid.compatibility.tinkersconstruct.TinkersConstructStatic;
@@ -29,8 +27,10 @@ import net.slimevoid.tmf.items.ItemTMF;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
-        IRepairableExtended {
+public class ItemMiningToolBelt extends ItemTMF /*
+                                                 * implements IRepairable,
+                                                 * IRepairableExtended
+                                                 */{
     public ItemMiningToolBelt(int id) {
         super(id);
         this.setMaxStackSize(1);
@@ -882,7 +882,7 @@ public class ItemMiningToolBelt extends ItemTMF implements IRepairable,
         return tool != null && tool.getItem() != null ? tool.getItem().getContainerItem(tool) : null;
     }
 
-    @Override
+    // @Override
     public boolean doRepair(ItemStack itemstack, EntityPlayer entityplayer, int level) {
         return ThaumcraftStatic.doRepair(itemstack,
                                          entityplayer,
