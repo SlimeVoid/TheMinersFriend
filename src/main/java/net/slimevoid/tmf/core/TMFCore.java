@@ -272,16 +272,6 @@ public class TMFCore {
                                    BlockLib.BLOCK_MACHINE_BASE);
 
         EnumMachine.registerMachines();
-
-        // REFINERY
-        JSONLoader.registerJSONLoader(new JSONRefineryRecipesLoader());
-
-        // GRINDER
-        JSONLoader.registerJSONLoader(new JSONGrinderRecipesLoader());
-
-        // GEOLOGICAL EQUIPMENT
-
-        // AUTOMATIC MIXING TABLE
     }
 
     public static void registerOres() {
@@ -331,6 +321,16 @@ public class TMFCore {
                                      new ItemStack(nuggetCydrine, 1),
                                      3);
         }
+
+        // REFINERY
+        JSONLoader.registerJSONLoader(new JSONRefineryRecipesLoader());
+
+        // GRINDER
+        JSONLoader.registerJSONLoader(new JSONGrinderRecipesLoader());
+
+        // GEOLOGICAL EQUIPMENT
+
+        // AUTOMATIC MIXING TABLE
     }
 
     private static void registerArmorRecipes() {

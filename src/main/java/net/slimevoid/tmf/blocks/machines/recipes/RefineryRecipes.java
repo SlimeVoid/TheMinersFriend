@@ -35,7 +35,7 @@ public class RefineryRecipes {
     }
 
     public boolean isOreAllowed(ItemStack ore) {
-        return ore != null && refiningMap.containsKey(ore.getItem());
+        return ore != null && this.isOreAllowed(ore.getItem());
     }
 
     public boolean isOreAllowed(Item ore) {
@@ -43,19 +43,19 @@ public class RefineryRecipes {
     }
 
     public void addRefinement(BlockTMFOre ore, int min, int max, ItemMineral mineral) {
-        if (mineral.getUnlocalizedName().equals(TMFCore.mineralAcxium.getUnlocalizedName())) {
+        if (mineral == TMFCore.mineralAcxium) {
             addRefinement(ore,
                           min,
                           max,
                           mineral,
                           0);
-        } else if (mineral.getUnlocalizedName().equals(TMFCore.mineralBisogen.getUnlocalizedName())) {
+        } else if (mineral == TMFCore.mineralBisogen) {
             addRefinement(ore,
                           min,
                           max,
                           mineral,
                           1);
-        } else if (mineral.getUnlocalizedName().equals(TMFCore.mineralCydrine.getUnlocalizedName())) {
+        } else if (mineral == TMFCore.mineralCydrine) {
             addRefinement(ore,
                           min,
                           max,
