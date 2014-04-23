@@ -94,9 +94,9 @@ public enum EnumMachine {
         this.iconList[1] = iconRegister.registerIcon(this.getTextureName()
                                                      + stateString + "_top");
         this.iconList[2] = iconRegister.registerIcon(this.getTextureName()
-                                                     + stateString + "_front");
-        this.iconList[3] = iconRegister.registerIcon(this.getTextureName()
                                                      + stateString + "_side");
+        this.iconList[3] = iconRegister.registerIcon(this.getTextureName()
+                                                     + stateString + "_front");
         this.iconList[4] = iconRegister.registerIcon(this.getTextureName()
                                                      + stateString + "_side");
         this.iconList[5] = iconRegister.registerIcon(this.getTextureName()
@@ -110,10 +110,10 @@ public enum EnumMachine {
                                                          + stateString + "_top");
             this.iconList[8] = iconRegister.registerIcon(this.getTextureName()
                                                          + stateString
-                                                         + "_front");
+                                                         + "_side");
             this.iconList[9] = iconRegister.registerIcon(this.getTextureName()
                                                          + stateString
-                                                         + "_side");
+                                                         + "_front");
             this.iconList[10] = iconRegister.registerIcon(this.getTextureName()
                                                           + stateString
                                                           + "_side");

@@ -1,5 +1,5 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under
+6 * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version. This program is distributed in the hope that it will be
@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.slimevoid.library.tileentity.TileEntityBase;
 import net.slimevoid.library.util.helpers.SlimevoidHelper;
@@ -220,6 +221,7 @@ public abstract class TileEntityMachine extends TileEntityBase implements
 
     public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
         this.isActive = isBurning;
+        this.updateBlock();
     }
 
     public int getItemBurnTime(ItemStack stack) {
