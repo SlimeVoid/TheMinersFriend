@@ -2,6 +2,7 @@
 build
 .gradle
 upload.bat
+src/api
 
 # eclipse stuff
 .classpath
