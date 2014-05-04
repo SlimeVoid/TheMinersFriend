@@ -31,7 +31,7 @@ def slimevoidVersion = '2.0.4.6'
 def mc = '1.7.2-10.12.1.1060'
 def pack = 'tmf'
 def github = 'TheMinersFriend'
-version = '0.1.0.3'
+version = '0.1.0.2'
 group = 'net.slimevoid'
 archivesBaseName = 'TheMinersFriend'
 
