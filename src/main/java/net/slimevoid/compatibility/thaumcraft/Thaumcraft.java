@@ -4,6 +4,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.slimevoid.compatibility.MasterCompatibility;
 import net.slimevoid.compatibility.thaumcraft.client.ThaumcraftKeyBindingHandler;
 import net.slimevoid.compatibility.thaumcraft.client.WandGuiTickHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -23,7 +24,7 @@ public class Thaumcraft extends MasterCompatibility {
     @SideOnly(Side.CLIENT)
     @Override
     public void registerKeyBindings() {
-        MinecraftForge.EVENT_BUS.register(new ThaumcraftKeyBindingHandler());
+        FMLCommonHandler.instance().bus().register(new ThaumcraftKeyBindingHandler());
     }
 
     @Override
@@ -32,7 +33,7 @@ public class Thaumcraft extends MasterCompatibility {
 
     @Override
     public void registerTickHandlers() {
-        MinecraftForge.EVENT_BUS.register(new WandGuiTickHandler());
+        FMLCommonHandler.instance().bus().register(new WandGuiTickHandler());
     }
 
     @Override

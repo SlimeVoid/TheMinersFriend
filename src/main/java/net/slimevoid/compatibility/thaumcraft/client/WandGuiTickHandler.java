@@ -24,18 +24,20 @@ public class WandGuiTickHandler extends ClientTickEventsFML {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void renderTick(TickEvent.RenderTickEvent event) {
-        if (event.phase == TickEvent.Phase.START) {
+        if (event.phase != TickEvent.Phase.START) {
             EntityPlayer player = FMLClientHandler.instance().getClientPlayerEntity();
             if (player != null && mc.inGameHasFocus && Minecraft.isGuiEnabled()) {
-                ItemStack heldItem = player.inventory.getCurrentItem();
-                ItemStack tool = ItemHelper.getSelectedTool(heldItem);
-                if (ThaumcraftStatic.isWand(tool)) {
-                    ItemStack heldCopy = heldItem.copy();
-                    player.inventory.setInventorySlotContents(player.inventory.currentItem,
-                                                              tool);
-                    super.renderTick(event);
-                    player.inventory.setInventorySlotContents(player.inventory.currentItem,
-                                                              heldCopy);
+                if (ItemHelper.isToolBelt(player.getHeldItem())) {
+                    ItemStack heldItem = player.inventory.getCurrentItem();
+                    ItemStack tool = ItemHelper.getSelectedTool(heldItem);
+                    if (ThaumcraftStatic.isWand(tool)) {
+                        ItemStack heldCopy = heldItem.copy();
+                        player.inventory.setInventorySlotContents(player.inventory.currentItem,
+                                                                  tool);
+                        super.renderTick(event);
+                        player.inventory.setInventorySlotContents(player.inventory.currentItem,
+                                                                  heldCopy);
+                    }
                 }
             }
         }

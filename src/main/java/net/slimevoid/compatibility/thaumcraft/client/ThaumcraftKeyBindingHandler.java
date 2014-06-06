@@ -19,7 +19,6 @@ import net.slimevoid.tmf.core.helpers.ItemHelper;
 import net.slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import thaumcraft.common.lib.events.KeyHandler;
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
@@ -30,63 +29,62 @@ public class ThaumcraftKeyBindingHandler extends KeyHandler {
 
     static int       currentItem = -1;
     static ItemStack heldCopy    = null;
-    static boolean   localKeyPressed;
+    private boolean  keyPressed  = false;
 
     public ThaumcraftKeyBindingHandler() {
-        ClientRegistry.registerKeyBinding(this.key);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent event) {
-        if (event.phase == Phase.START) {
-            if (this.key.getIsKeyPressed()) {
-                if (FMLClientHandler.instance().getClient().inGameHasFocus) {
-                    if (!localKeyPressed) {
-                        Minecraft mc = Minecraft.getMinecraft();
-                        EntityClientPlayerMP player = mc.thePlayer;
+        if (event.side != Side.SERVER) {
+            if (event.phase == Phase.START) {
+                Minecraft mc = Minecraft.getMinecraft();
+                EntityClientPlayerMP player = mc.thePlayer;
+                if (ThaumcraftStatic.isWand(player.getHeldItem())
+                    && heldCopy == null) {
+                    super.playerTick(event);
+                    return;
+                }
+                if (this.key.getIsKeyPressed()) {
+                    if (FMLClientHandler.instance().getClient().inGameHasFocus) {
+                        if (!keyPressed) {
 
-                        if (heldCopy == null && currentItem == -1
-                            && !radialLock && player != null
-                            && player.getHeldItem() != null) {
-                            ItemStack heldItem = player.getHeldItem();
-                            ItemStack tool = ItemHelper.getSelectedTool(heldItem);
-                            if (ThaumcraftStatic.isWand(tool)) {
-                                radialActive = true;
-                                heldCopy = heldItem.copy();
-                                currentItem = player.inventory.currentItem;
-                                player.inventory.setInventorySlotContents(currentItem,
-                                                                          tool);
-                                super.playerTick(event);
+                            if (heldCopy == null && currentItem == -1
+                                && !radialLock && player != null
+                                && player.getHeldItem() != null) {
+                                ItemStack heldItem = player.getHeldItem();
+                                ItemStack tool = ItemHelper.getSelectedTool(heldItem);
+                                if (ThaumcraftStatic.isWand(tool)) {
+                                    heldCopy = heldItem.copy();
+                                    currentItem = player.inventory.currentItem;
+                                    player.inventory.setInventorySlotContents(currentItem,
+                                                                              tool);
+                                    super.playerTick(event);
+                                }
                             }
                         }
                     }
-
-                    localKeyPressed = true;
-                }
-            } else {
-                if (heldCopy != null) {
-                    Minecraft mc = Minecraft.getMinecraft();
-                    EntityClientPlayerMP player = mc.thePlayer;
-                    ItemStack itemstack = player.inventory.getStackInSlot(currentItem);
-                    if (!ItemHelper.isToolBelt(itemstack)) {
-                        ItemStack wandCopy = ItemStack.copyItemStack(player.inventory.getStackInSlot(currentItem));
-                        ItemStack tool = ItemHelper.getSelectedTool(heldCopy);
-                        ((ItemMiningToolBelt) heldCopy.getItem()).updateToolInToolBelt(player.getEntityWorld(),
-                                                                                       player,
-                                                                                       heldCopy,
-                                                                                       tool,
-                                                                                       wandCopy);
-                        player.inventory.setInventorySlotContents(currentItem,
-                                                                  heldCopy);
+                } else {
+                    if (heldCopy != null) {
+                        ItemStack itemstack = player.inventory.getStackInSlot(currentItem);
+                        if (!ItemHelper.isToolBelt(itemstack)) {
+                            ItemStack wandCopy = ItemStack.copyItemStack(player.inventory.getStackInSlot(currentItem));
+                            ItemStack tool = ItemHelper.getSelectedTool(heldCopy);
+                            ((ItemMiningToolBelt) heldCopy.getItem()).updateToolInToolBelt(player.getEntityWorld(),
+                                                                                           player,
+                                                                                           heldCopy,
+                                                                                           tool,
+                                                                                           wandCopy);
+                            player.inventory.setInventorySlotContents(currentItem,
+                                                                      heldCopy);
+                        }
                     }
                     super.playerTick(event);
-                    radialActive = false;
-                    radialLock = false;
                     heldCopy = null;
                     currentItem = -1;
                 }
-                localKeyPressed = false;
             }
         }
     }
