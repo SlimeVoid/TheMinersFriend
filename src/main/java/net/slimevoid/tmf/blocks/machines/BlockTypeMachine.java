@@ -12,6 +12,7 @@
 package net.slimevoid.tmf.blocks.machines;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.slimevoid.library.IEnumBlockType;
 import net.slimevoid.library.tileentity.TileEntityBase;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
@@ -41,7 +42,7 @@ public enum BlockTypeMachine implements IEnumBlockType{
 
     BlockTypeMachine(String name, Class<? extends TileEntityBase> tileClass, boolean hasState) {
         this.machineName = name;
-        this._class = tileClass;
+        this.setTileData(tileClass);
         this.hasState = hasState;
         int icons = hasState ? 12 : 6;
         //this.iconList = new IIcon[icons];
@@ -59,6 +60,7 @@ public enum BlockTypeMachine implements IEnumBlockType{
     @Override
     public void setTileData(Class<? extends TileEntityBase> tileEntityClass) {
         this._class = tileEntityClass;
+        GameRegistry.registerTileEntity(tileEntityClass, this.getName());
     }
 
     @Override

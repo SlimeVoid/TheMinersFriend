@@ -1,0 +1,9 @@
+{
+"parent": "tmf:block/cube_front",
+  "textures": {
+    "top": "tmf:blocks/tmf.machine.refinery_idle_top",
+    "bottom": "tmf:blocks/tmf.machine.refinery_idle_bottom",
+    "front": "tmf:blocks/tmf.machine.refinery_idle_front",
+    "side": "tmf:blocks/tmf.machine.refinery_idle_side"
+  }
+}

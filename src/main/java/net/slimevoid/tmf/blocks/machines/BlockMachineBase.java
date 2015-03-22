@@ -13,42 +13,31 @@ package net.slimevoid.tmf.blocks.machines;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.slimevoid.library.IEnumBlockType;
 import net.slimevoid.library.blocks.BlockBase;
+import net.slimevoid.library.blocks.BlockSimpleBase;
+import net.slimevoid.library.blocks.BlockStates;
+import net.slimevoid.library.items.ItemBlockBase;
 import net.slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import net.slimevoid.tmf.core.lib.ConfigurationLib;
 
-public class BlockMachineBase extends BlockBase {
+import java.util.List;
+
+public class BlockMachineBase extends BlockSimpleBase {
 
     protected static PropertyEnum VARIANT = PropertyEnum.create("variant", BlockTypeMachine.class);
-
-//    @Override
-//    public void registerIcons(IIconRegister IIconRegister) {
-//        for (int i = 0; i < this.tileEntityMap.length; i++) {
-//            EnumMachine machine = EnumMachine.getMachine(i);
-//            if (machine != null) {
-//                machine.registerIcons(IIconRegister);
-//            }
-//        }
-//    }
+    public static PropertyBool ACTIVE = PropertyBool.create("active");
 
     public BlockMachineBase() {
         super(Material.rock);
     }
-
-//    @Override
-//    public IIcon getIcon(int side, int metadata) {
-//        IIcon icon = null;
-//        EnumMachine machine = EnumMachine.getMachine(metadata);
-//        if (machine != null) {
-//            icon = machine.getIcon(side);
-//        }
-//        return icon != null ? icon : this.blockIcon;
-//    }
 
     @Override
     public CreativeTabs getCreativeTab() {
@@ -56,28 +45,21 @@ public class BlockMachineBase extends BlockBase {
     }
 
     @Override
-    protected IBlockState getInitialState() {
-        return this.blockState.getBaseState().withProperty(VARIANT, getDefaultBlockType()).withProperty(FACING, EnumFacing.NORTH);
+    public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+        if (item instanceof ItemBlockBase) {
+            for (int i = 0; i < ((ItemBlockBase) item).getValidItemBlocks().size(); i++) {
+                list.add(new ItemStack(item, 1, i));
+            }
+        }
     }
 
     @Override
-    protected PropertyEnum getBlockTypeProperty() {
-        return VARIANT;
+    public boolean isOpaqueCube() {
+        return true;
     }
 
-    @Override
-    protected IProperty[] getPropertyList() {
-        return new IProperty[] {FACING, VARIANT};
-    }
-
-    @Override
-    protected Comparable<? extends IEnumBlockType> getDefaultBlockType() {
-        return BlockTypeMachine.REFINERY;
-    }
-
-    @Override
-    protected Comparable<? extends IEnumBlockType> getBlockType(int meta) {
-        return BlockTypeMachine.getMachine(meta);
+    public boolean isCube() {
+        return true;
     }
 
     @Override
@@ -85,28 +67,29 @@ public class BlockMachineBase extends BlockBase {
         return ConfigurationLib.renderMachineId;
     }
 
-//    @Override
-//    public IIcon[] registerBottomIcons(IIconRegister iconRegister) {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
-//
-//    @Override
-//    public IIcon[] registerTopIcons(IIconRegister iconRegister) {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
-//
-//    @Override
-//    public IIcon[] registerFrontIcons(IIconRegister iconRegister) {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
-//
-//    @Override
-//    public IIcon[] registerSideIcons(IIconRegister iconRegister) {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
+    @Override
+    protected void setActualDefaultState() {
+        this.setDefaultState(this.getInitialState(this.blockState.getBaseState().withProperty(BlockStates.FACING, EnumFacing.NORTH).withProperty(this.getBlockTypeProperty(), this.getDefaultBlockType())));
+    }
+
+    protected IBlockState getInitialState(IBlockState state) {
+        return state.withProperty(ACTIVE, false);
+    }
+
+    protected PropertyEnum getBlockTypeProperty() {
+        return VARIANT;
+    }
+
+    protected IProperty[] getPropertyList() {
+        return new IProperty[] {ACTIVE, BlockStates.FACING, VARIANT};
+    }
+
+    protected Comparable<? extends IEnumBlockType> getDefaultBlockType() {
+        return BlockTypeMachine.REFINERY;
+    }
+
+    protected Comparable<? extends IEnumBlockType> getBlockType(int meta) {
+        return BlockTypeMachine.getMachine(meta);
+    }
 
 }

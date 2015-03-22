@@ -19,6 +19,7 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.library.blocks.BlockBase;
+import net.slimevoid.library.blocks.BlockSimpleBase;
 import net.slimevoid.library.data.Logger;
 import net.slimevoid.library.util.xml.XMLLoader;
 import net.slimevoid.tmf.blocks.machines.BlockTypeMachine;
@@ -51,7 +52,7 @@ public class ConfigurationLib {
     public static int           motionSensorMaxGameTicks;
     @SideOnly(Side.CLIENT)
     public static boolean       motionSensorDrawRight;
-    public static int           renderMachineId                  = 0;
+    public static int           renderMachineId                  = 3;
     public static boolean       motionSensorPlaySounds;
 
     public static float         miningModeExhaustion             = 0.075F;
@@ -114,7 +115,7 @@ public class ConfigurationLib {
 
     // MACHINES
     public static int       blockMachineBaseId;
-    public static BlockBase blockMachineBase;
+    public static BlockSimpleBase blockMachineBase;
 
     public static int       blockMiningLampID = 3840;
     public static Block     blockMiningLamp;
