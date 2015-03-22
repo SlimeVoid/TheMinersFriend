@@ -12,7 +12,7 @@
 package net.slimevoid.tmf.fuel;
 
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.IFuelHandler;
+import net.minecraftforge.fml.common.IFuelHandler;
 
 public interface IFuelHandlerTMF extends IFuelHandler {
     public int getBurnSpeed(ItemStack fuel);

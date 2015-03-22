@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public abstract class ItemMiningArmor extends ItemArmor {
 
@@ -16,7 +16,7 @@ public abstract class ItemMiningArmor extends ItemArmor {
             MinecraftForge.EVENT_BUS.register(this);
         }
         this.setUnlocalizedName(name);
-        this.setTextureName(texture);
+        //this.setTextureName(texture);
     }
 
     @SubscribeEvent

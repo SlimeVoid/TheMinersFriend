@@ -26,7 +26,7 @@ public class ItemMineralDust extends ItemMineral {
 
     @Override
     public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-        return EnumAction.eat;
+        return EnumAction.EAT;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ItemMineralDust extends ItemMineral {
     }
 
     @Override
-    public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
+    public ItemStack onItemUseFinish(ItemStack stack, World world, EntityPlayer player) {
         --stack.stackSize;
         player.getFoodStats().addStats(0,
                                        0);

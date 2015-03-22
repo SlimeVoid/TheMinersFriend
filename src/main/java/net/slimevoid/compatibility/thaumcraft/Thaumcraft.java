@@ -1,12 +1,11 @@
 package net.slimevoid.compatibility.thaumcraft;
 
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.compatibility.MasterCompatibility;
 //import net.slimevoid.compatibility.thaumcraft.client.ThaumcraftKeyBindingHandler;
-//import net.slimevoid.compatibility.thaumcraft.client.WandGuiTickHandler;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+//import net.slimevoid.compatibility.thaumcraft.client.WandGuiTickHandler;«
 
 public class Thaumcraft extends MasterCompatibility {
 

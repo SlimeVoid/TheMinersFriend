@@ -3,13 +3,13 @@ package net.slimevoid.tmf.tickhandlers;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
 import net.slimevoid.tmf.core.lib.ConfigurationLib;
 import net.slimevoid.tmf.items.tools.ItemMiningToolBelt;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class ToolBeltTickHandler {
 
@@ -26,9 +26,9 @@ public class ToolBeltTickHandler {
                  */
                 if (entityplayer.isUsingItem()) {
                     ItemStack itemInUse = (ItemStack) ReflectionHelper.getPrivateValue(EntityPlayer.class,
-                                                                                       entityplayer,
-                                                                                       ItemHelper.getItemInUseFieldId(world,
-                                                                                                                      entityplayer));
+                            entityplayer,
+                            ItemHelper.getItemInUseFieldId(world,
+                                    entityplayer));
                     if (!(heldItem == itemInUse)) {
                         if (isHoldingAndUsingToolBelt(heldItem,
                                                       itemInUse)

@@ -21,7 +21,7 @@ import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 public class ContainerGrinder extends ContainerMachine {
 
     public ContainerGrinder(InventoryPlayer playerInventory, TileEntityGrinder grinder) {
-        super(playerInventory, grinder, grinder.getWorldObj(), 0, 84);
+        super(playerInventory, grinder, grinder.getWorld(), 0, 84);
     }
 
     @Override

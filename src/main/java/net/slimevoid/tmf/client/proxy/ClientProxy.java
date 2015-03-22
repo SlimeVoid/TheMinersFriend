@@ -16,9 +16,12 @@ import java.io.File;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.compatibility.TMFCompatibility;
 import net.slimevoid.library.core.SlimevoidCore;
 import net.slimevoid.library.util.helpers.BlockHelper;
@@ -33,9 +36,7 @@ import net.slimevoid.tmf.client.gui.GuiGrinder;
 import net.slimevoid.tmf.client.gui.GuiMiningToolBelt;
 import net.slimevoid.tmf.client.gui.GuiRefinery;
 import net.slimevoid.tmf.client.gui.GuiStove;
-import net.slimevoid.tmf.client.renderers.BlockMachineRenderingHandler;
 import net.slimevoid.tmf.client.renderers.ItemRendererToolBelt;
-import net.slimevoid.tmf.client.renderers.TileEntitySpecialRendererGrinder;
 import net.slimevoid.tmf.client.tickhandlers.MiningHelmetRenderTickHandler;
 import net.slimevoid.tmf.client.tickhandlers.MotionSensorTickHandler;
 import net.slimevoid.tmf.client.tickhandlers.rules.MotionSensorRuleInToolbelt;
@@ -55,10 +56,6 @@ import net.slimevoid.tmf.items.tools.inventory.SlotUtilityBelt;
 import net.slimevoid.tmf.proxy.CommonProxy;
 import net.slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import net.slimevoid.tmf.tickhandlers.ToolBeltTickHandler;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
@@ -100,9 +97,9 @@ public class ClientProxy extends CommonProxy {
         ItemRendererToolBelt.init();
 
         if (ConfigurationLib.loadMachines) {
-            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGrinder.class,
-                                                         new TileEntitySpecialRendererGrinder());
-            RenderingRegistry.registerBlockHandler(new BlockMachineRenderingHandler());
+            //ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGrinder.class,
+            //                                             new TileEntitySpecialRendererGrinder());
+            //RenderingRegistry.registerBlockHandler(new BlockMachineRenderingHandler());
         }
     }
 
@@ -131,6 +128,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        BlockPos pos = new BlockPos(x, y, z);
         switch (ID) {
         case GuiLib.GUIID_TOOL_BELT:
             InventoryMiningToolBelt toolBelt = new InventoryMiningToolBelt(world, player, player.getHeldItem());
@@ -154,9 +152,7 @@ public class ClientProxy extends CommonProxy {
             };
         case GuiLib.GUIID_REFINERY:
             TileEntityRefinery tileRefinery = (TileEntityRefinery) BlockHelper.getTileEntity(world,
-                                                                                             x,
-                                                                                             y,
-                                                                                             z,
+                                                                                             pos,
                                                                                              TileEntityRefinery.class);
             if (tileRefinery != null) {
                 return new GuiRefinery(player, tileRefinery);
@@ -164,9 +160,7 @@ public class ClientProxy extends CommonProxy {
             return null;
         case GuiLib.GUIID_GRINDER:
             TileEntityGrinder tileGrinder = (TileEntityGrinder) BlockHelper.getTileEntity(world,
-                                                                                          x,
-                                                                                          y,
-                                                                                          z,
+                                                                                          pos,
                                                                                           TileEntityGrinder.class);
             if (tileGrinder != null) {
                 return new GuiGrinder(player, tileGrinder);
@@ -174,9 +168,7 @@ public class ClientProxy extends CommonProxy {
             return null;
         case GuiLib.GUIID_GEOEQUIP:
             TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) BlockHelper.getTileEntity(world,
-                                                                                                                   x,
-                                                                                                                   y,
-                                                                                                                   z,
+                                                                                                                   pos,
                                                                                                                    TileEntityGeologicalEquipment.class);
             if (tileGeoEquip != null) {
                 return new GuiGeologicalEquipment(player, tileGeoEquip);
@@ -184,9 +176,7 @@ public class ClientProxy extends CommonProxy {
             return null;
         case GuiLib.GUIID_MIXINGTABLE:
             TileEntityAutomaticMixingTable tileMixTable = (TileEntityAutomaticMixingTable) BlockHelper.getTileEntity(world,
-                                                                                                                     x,
-                                                                                                                     y,
-                                                                                                                     z,
+                                                                                                                     pos,
                                                                                                                      TileEntityAutomaticMixingTable.class);
             if (tileMixTable != null) {
                 return new GuiAutomaticMixingTable(player, tileMixTable);
@@ -194,9 +184,7 @@ public class ClientProxy extends CommonProxy {
             return null;
         case GuiLib.GUIID_STOVE:
             TileEntityStove tileStove = (TileEntityStove) BlockHelper.getTileEntity(world,
-                                                                                    x,
-                                                                                    y,
-                                                                                    z,
+                                                                                    pos,
                                                                                     TileEntityStove.class);
             if (tileStove != null) {
                 return new GuiStove(player, tileStove);

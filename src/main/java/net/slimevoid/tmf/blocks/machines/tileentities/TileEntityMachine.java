@@ -16,16 +16,15 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.library.tileentity.TileEntityBase;
 import net.slimevoid.library.util.helpers.SlimevoidHelper;
 import net.slimevoid.tmf.core.TMFCore;
 import net.slimevoid.tmf.fuel.IFuelHandlerTMF;
 import net.slimevoid.tmf.items.minerals.ItemMineral;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class TileEntityMachine extends TileEntityBase implements
         ISidedInventory {
@@ -51,23 +50,19 @@ public abstract class TileEntityMachine extends TileEntityBase implements
 
     public boolean isActive;
 
-    @Override
-    public IIcon getBlockTexture(int x, int y, int z, int metadata, int side) {
-        side = this.getRotatedSide(side);
-        side = this.isActive ? side + 6 : side;
-        return TMFCore.blockMachineBase.getIcon(side,
-                                                metadata);
-    }
+//    @Override
+//    public IIcon getBlockTexture(BlockPos pos, int metadata, int side) {
+//        side = this.getRotatedSide(side);
+//        side = this.isActive ? side + 6 : side;
+//        return TMFCore.blockMachineBase.getIcon(side,
+//                                                metadata);
+//    }
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return worldObj.getTileEntity(xCoord,
-                                      yCoord,
-                                      zCoord) != this ? false : SlimevoidHelper.isUseableByPlayer(this.worldObj,
+        return worldObj.getTileEntity(this.getPos()) != this ? false : SlimevoidHelper.isUseableByPlayer(this.worldObj,
                                                                                                   player,
-                                                                                                  this.xCoord,
-                                                                                                  this.yCoord,
-                                                                                                  this.zCoord,
+                                                                                                  this.getPos(),
                                                                                                   0.5D,
                                                                                                   0.5D,
                                                                                                   0.5D,
@@ -147,8 +142,8 @@ public abstract class TileEntityMachine extends TileEntityBase implements
     }
 
     @Override
-    public void updateEntity() {
-        super.updateEntity();
+    public void update() {
+        super.update();
         this.updateMachine();
     }
 
@@ -189,10 +184,8 @@ public abstract class TileEntityMachine extends TileEntityBase implements
             if (wasBurning != isBurning()) {
                 inventoryChanged = true;
                 updateMachineBlockState(isBurning(),
-                                        worldObj,
-                                        xCoord,
-                                        yCoord,
-                                        zCoord);
+                                        this.getWorld(),
+                                        this.getPos());
             }
         }
 
@@ -219,7 +212,7 @@ public abstract class TileEntityMachine extends TileEntityBase implements
 
     public abstract void setCurrentFuelStack(ItemStack stack);
 
-    public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
+    public void updateMachineBlockState(boolean isBurning, World world, BlockPos pos) {
         this.isActive = isBurning;
         this.updateBlock();
     }
@@ -279,18 +272,14 @@ public abstract class TileEntityMachine extends TileEntityBase implements
     public void onInventoryChanged() {
         super.onInventoryChanged();
         this.onInventoryHasChanged(this.worldObj,
-                                   this.xCoord,
-                                   this.yCoord,
-                                   this.zCoord);
+                                   this.getPos());
     }
 
     /**
      * If we need to send information to the client it should be done here
      */
     @Override
-    protected void onInventoryHasChanged(World world, int x, int y, int z) {
-        world.markBlockForUpdate(x,
-                                 y,
-                                 z);
+    protected void onInventoryHasChanged(World world, BlockPos pos) {
+        world.markBlockForUpdate(pos);
     }
 }

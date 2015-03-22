@@ -15,10 +15,10 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.library.inventory.ContainerBase;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityMachine;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class ContainerMachine extends ContainerBase {
     protected int lastCookTime     = 0;
@@ -31,8 +31,8 @@ public abstract class ContainerMachine extends ContainerBase {
     }
 
     @Override
-    public void addCraftingToCrafters(ICrafting crafting) {
-        super.addCraftingToCrafters(crafting);
+    public void onCraftGuiOpened(ICrafting crafting) {
+        super.onCraftGuiOpened(crafting);
         if (this.hasProgressBar()) {
             crafting.sendProgressBarUpdate(this,
                                            0,

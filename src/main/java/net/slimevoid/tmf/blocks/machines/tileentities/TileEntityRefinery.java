@@ -13,11 +13,13 @@ package net.slimevoid.tmf.blocks.machines.tileentities;
 
 import java.util.ArrayList;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import net.slimevoid.tmf.blocks.machines.EnumMachine;
 import net.slimevoid.tmf.blocks.machines.recipes.RefineryRecipes;
 import net.slimevoid.tmf.blocks.machines.recipes.RefineryRecipes.RefineryRecipe;
@@ -32,13 +34,14 @@ public class TileEntityRefinery extends TileEntityMachine {
     private ItemStack[] refineryItemStacks = new ItemStack[5];
 
     @Override
-    public boolean onBlockActivated(EntityPlayer player) {
-        player.openGui(TheMinersFriend.instance,
-                       GuiLib.GUIID_REFINERY,
-                       this.worldObj,
-                       this.xCoord,
-                       this.yCoord,
-                       this.zCoord);
+    public boolean onBlockActivated(IBlockState blockState, EntityPlayer entityplayer, EnumFacing side, float xHit, float yHit, float zHit) {
+        entityplayer.openGui(
+                TheMinersFriend.instance,
+                GuiLib.GUIID_REFINERY,
+                this.getWorld(),
+                this.getPos().getX(),
+                this.getPos().getY(),
+                this.getPos().getZ());
 
         return true;
     }
@@ -111,9 +114,29 @@ public class TileEntityRefinery extends TileEntityMachine {
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide(int side) {
-        if (ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) return new int[] { 1 };
-        if (ForgeDirection.getOrientation(side) == ForgeDirection.UP) return new int[] { 0 };
+    public int getField(int id) {
+        return 0;
+    }
+
+    @Override
+    public void setField(int id, int value) {
+
+    }
+
+    @Override
+    public int getFieldCount() {
+        return 0;
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public int[] getSlotsForFace(EnumFacing side) {
+        if (side == EnumFacing.DOWN) return new int[] { 1 };
+        if (side == EnumFacing.UP) return new int[] { 0 };
 
         int maxSize = 0;
         int maxSizeSlot = 2;
@@ -140,12 +163,12 @@ public class TileEntityRefinery extends TileEntityMachine {
     }
 
     @Override
-    public boolean canInsertItem(int slot, ItemStack itemstack, int side) {
+    public boolean canInsertItem(int slot, ItemStack itemstack, EnumFacing side) {
         return true;
     }
 
     @Override
-    public boolean canExtractItem(int slot, ItemStack itemstack, int side) {
+    public boolean canExtractItem(int slot, ItemStack itemstack, EnumFacing side) {
         return true;
     }
 
@@ -255,5 +278,10 @@ public class TileEntityRefinery extends TileEntityMachine {
                 harvestList.add(itemstack);
             }
         }
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return null;
     }
 }

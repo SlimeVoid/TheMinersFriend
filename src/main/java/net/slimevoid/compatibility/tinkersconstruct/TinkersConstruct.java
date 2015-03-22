@@ -1,8 +1,8 @@
 package net.slimevoid.compatibility.tinkersconstruct;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.compatibility.MasterCompatibility;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class TinkersConstruct extends MasterCompatibility {
 

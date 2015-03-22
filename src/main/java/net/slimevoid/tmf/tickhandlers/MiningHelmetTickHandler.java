@@ -21,10 +21,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.slimevoid.tmf.core.lib.ArmorLib;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
 public class MiningHelmetTickHandler {
 
@@ -32,13 +32,13 @@ public class MiningHelmetTickHandler {
         ItemStack miningHelm = ArmorLib.getPlayerHelm(entityplayer,
                                                       world);
         if (miningHelm != null) {
-            AxisAlignedBB box = AxisAlignedBB.getBoundingBox(entityplayer.posX,
-                                                             entityplayer.posY,
-                                                             entityplayer.posZ,
-                                                             entityplayer.posX,
-                                                             entityplayer.posY
-                                                                     + entityplayer.getEyeHeight(),
-                                                             entityplayer.posZ);
+            AxisAlignedBB box = AxisAlignedBB.fromBounds(entityplayer.posX,
+                                                         entityplayer.posY,
+                                                         entityplayer.posZ,
+                                                         entityplayer.posX,
+                                                         entityplayer.posY
+                                                                 + entityplayer.getEyeHeight(),
+                                                         entityplayer.posZ);
             List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(entityplayer,
                                                                                box);
             int count = 0;
@@ -48,7 +48,7 @@ public class MiningHelmetTickHandler {
                         EntityFallingBlock entityfalling = (EntityFallingBlock) entity;
                         if (!entityplayer.capabilities.isCreativeMode
                             && !world.isRemote) {
-                            entityplayer.dropItem(Item.getItemFromBlock(entityfalling.func_145805_f()),
+                            entityplayer.dropItem(Item.getItemFromBlock(entityfalling.getBlock().getBlock()),
                                                   1);
                         }
                         count++;

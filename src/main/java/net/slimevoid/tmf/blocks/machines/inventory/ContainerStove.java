@@ -22,7 +22,7 @@ import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityStove;
 public class ContainerStove extends ContainerMachine {
 
     public ContainerStove(InventoryPlayer playerInventory, TileEntityStove tileStove) {
-        super(playerInventory, tileStove, tileStove.getWorldObj(), 0, 84);
+        super(playerInventory, tileStove, tileStove.getWorld(), 0, 84);
     }
 
     @Override

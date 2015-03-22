@@ -21,7 +21,7 @@ import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 public class ContainerRefinery extends ContainerMachine {
 
     public ContainerRefinery(InventoryPlayer playerInventory, TileEntityRefinery refinery) {
-        super(playerInventory, refinery, refinery.getWorldObj(), 0, 84);
+        super(playerInventory, refinery, refinery.getWorld(), 0, 84);
     }
 
     @Override

@@ -22,7 +22,7 @@ import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityMachine;
 public class ContainerAutomaticMixingTable extends ContainerMachine {
 
     public ContainerAutomaticMixingTable(InventoryPlayer playerInventory, TileEntityAutomaticMixingTable autoMixTable) {
-        super(playerInventory, autoMixTable, autoMixTable.getWorldObj(), 0, 84);
+        super(playerInventory, autoMixTable, autoMixTable.getWorld(), 0, 84);
     }
 
     @Override

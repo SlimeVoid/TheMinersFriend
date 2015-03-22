@@ -16,14 +16,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.slimevoid.library.IPacketExecutor;
 import net.slimevoid.library.network.PacketUpdate;
+import net.slimevoid.library.network.executor.PacketExecutor;
 import net.slimevoid.tmf.api.IMotionSensor;
 import net.slimevoid.tmf.core.lib.SoundLib;
 import net.slimevoid.tmf.network.packets.PacketMotionSensor;
 
-public class MotionSensorPingExecutor implements IPacketExecutor {
+public class MotionSensorPingExecutor extends PacketExecutor {
 
     @Override
-    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+    public PacketUpdate execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         if (packet instanceof PacketMotionSensor) {
             PacketMotionSensor packetMS = (PacketMotionSensor) packet;
             Entity entity = packetMS.getEntity(world);
@@ -34,6 +35,7 @@ public class MotionSensorPingExecutor implements IPacketExecutor {
                                         ((IMotionSensor) packetMS).getDist2sq());
             }
         }
+        return null;
     }
 
 }

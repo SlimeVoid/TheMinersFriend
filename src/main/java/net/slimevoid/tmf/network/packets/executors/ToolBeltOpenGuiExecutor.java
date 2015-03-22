@@ -16,15 +16,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.slimevoid.library.IPacketExecutor;
 import net.slimevoid.library.network.PacketUpdate;
+import net.slimevoid.library.network.executor.PacketExecutor;
 import net.slimevoid.tmf.core.TheMinersFriend;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
 import net.slimevoid.tmf.core.lib.GuiLib;
 import net.slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
-public class ToolBeltOpenGuiExecutor implements IPacketExecutor {
+public class ToolBeltOpenGuiExecutor extends PacketExecutor {
 
     @Override
-    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+    public PacketUpdate execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         if (packet instanceof PacketMiningToolBelt) {
             ItemStack itemstack = entityplayer.getHeldItem();
             if (ItemHelper.isToolBelt(itemstack)) {
@@ -36,6 +37,7 @@ public class ToolBeltOpenGuiExecutor implements IPacketExecutor {
                                      (int) entityplayer.posZ);
             }
         }
+        return null;
     }
 
 }

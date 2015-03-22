@@ -20,7 +20,7 @@ public class BlockTMFOre extends BlockOre {
 
     public int spawnLevel, spawnRate, spawnSize;
 
-    public BlockTMFOre(int blockId, int spawnLevel, int spawnRate, int spawnSize) {
+    public BlockTMFOre(int spawnLevel, int spawnRate, int spawnSize) {
         super();
         this.spawnLevel = spawnLevel;
         this.spawnRate = spawnRate;
@@ -31,13 +31,13 @@ public class BlockTMFOre extends BlockOre {
     }
 
     @Override
-    public Block setBlockName(String name) {
-        this.textureName = name;
-        return super.setBlockName(name);
+    public Block setUnlocalizedName(String name) {
+        //this.textureName = name;
+        return super.setUnlocalizedName(name);
     }
 
-    @Override
-    public String getTextureName() {
-        return CoreLib.MOD_ID + ":" + this.textureName;
-    }
+//    @Override
+//    public String getTextureName() {
+//        return CoreLib.MOD_ID + ":" + this.textureName;
+//    }
 }

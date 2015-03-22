@@ -16,8 +16,10 @@ import java.io.File;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.slimevoid.compatibility.TMFCompatibility;
 import net.slimevoid.library.ICommonProxy;
 import net.slimevoid.library.core.SlimevoidCore;
@@ -41,12 +43,12 @@ import net.slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import net.slimevoid.tmf.items.tools.inventory.SlotUtilityBelt;
 import net.slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import net.slimevoid.tmf.tickhandlers.ToolBeltTickHandler;
-import cpw.mods.fml.common.network.NetworkRegistry;
 
 public class CommonProxy implements ICommonProxy {
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        BlockPos pos = new BlockPos(x, y, z);
         switch (ID) {
         case GuiLib.GUIID_TOOL_BELT:
             InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, player, player.getHeldItem());
@@ -64,9 +66,7 @@ public class CommonProxy implements ICommonProxy {
             };
         case GuiLib.GUIID_REFINERY:
             TileEntity tileRef = SlimevoidHelper.getBlockTileEntity(world,
-                                                                    x,
-                                                                    y,
-                                                                    z);
+                                                                    pos);
             if (tileRef instanceof TileEntityRefinery) {
                 TileEntityRefinery tileRefinery = (TileEntityRefinery) tileRef;
                 return new ContainerRefinery(player.inventory, tileRefinery);
@@ -74,9 +74,7 @@ public class CommonProxy implements ICommonProxy {
             return null;
         case GuiLib.GUIID_GRINDER:
             TileEntity tileGrind = SlimevoidHelper.getBlockTileEntity(world,
-                                                                      x,
-                                                                      y,
-                                                                      z);
+                                                                      pos);
             if (tileGrind instanceof TileEntityGrinder) {
                 TileEntityGrinder tileGrinder = (TileEntityGrinder) tileGrind;
                 return new ContainerGrinder(player.inventory, tileGrinder);
@@ -84,9 +82,7 @@ public class CommonProxy implements ICommonProxy {
             return null;
         case GuiLib.GUIID_GEOEQUIP:
             TileEntity tileGeo = SlimevoidHelper.getBlockTileEntity(world,
-                                                                    x,
-                                                                    y,
-                                                                    z);
+                                                                    pos);
             if (tileGeo instanceof TileEntityGeologicalEquipment) {
                 TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) tileGeo;
                 return new ContainerGeologicalEquipment(player.inventory, tileGeoEquip);
@@ -94,9 +90,7 @@ public class CommonProxy implements ICommonProxy {
             return null;
         case GuiLib.GUIID_MIXINGTABLE:
             TileEntity tileMix = SlimevoidHelper.getBlockTileEntity(world,
-                                                                    x,
-                                                                    y,
-                                                                    z);
+                                                                    pos);
             if (tileMix instanceof TileEntityAutomaticMixingTable) {
                 TileEntityAutomaticMixingTable tileMixTable = (TileEntityAutomaticMixingTable) tileMix;
                 return new ContainerAutomaticMixingTable(player.inventory, tileMixTable);
@@ -165,5 +159,10 @@ public class CommonProxy implements ICommonProxy {
     @Override
     public boolean isClient(World world) {
         return world.isRemote;
+    }
+
+    @Override
+    public void registerPacketHandlers() {
+
     }
 }

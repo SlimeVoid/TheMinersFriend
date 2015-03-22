@@ -21,7 +21,7 @@ import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipm
 public class ContainerGeologicalEquipment extends ContainerMachine {
 
     public ContainerGeologicalEquipment(InventoryPlayer playerInventory, TileEntityGeologicalEquipment geoEquip) {
-        super(playerInventory, geoEquip, geoEquip.getWorldObj(), 0, 0);
+        super(playerInventory, geoEquip, geoEquip.getWorld(), 0, 0);
         this.bindHotBarInventory(0,
                                  84);
     }

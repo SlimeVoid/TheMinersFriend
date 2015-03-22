@@ -26,12 +26,12 @@ repositories {
 apply plugin: 'maven'
 apply plugin: 'forge'
 apply plugin: 'eclipse'
-def slimevoidVersion = '2.0.4.6'
-def number = '0.1.0.3'
+def slimevoidVersion = '3.0.0.4-beta-1.8'
+def number = '0.2.0.0'
 def release = 'alpha'
-def mcversion = '1.7.2'
-def forge = '10.12.1.1060'
-def map = '0'
+def mcversion = '1.8'
+def forge = '11.14.1.1334'
+def map = 'snapshot_20150302'
 def mc = mcversion + '-' + forge
 def pack = 'tmf'
 def github = 'TheMinersFriend'
@@ -40,16 +40,20 @@ group = 'net.slimevoid'
 archivesBaseName = 'TheMinersFriend'
 
 dependencies {
-    compile 'net.slimevoid:SlimevoidLibrary:' + slimevoidVersion + ':dev'
-    compile 'net.sourceforge.argo:argo:3.10'
+    if (findProject(':SlimevoidLibrary') != null ) {
+        compile project(':SlimevoidLibrary')
+    } else {
+        compile 'net.slimevoid:SlimevoidLibrary:' + slimevoidVersion + ':dev'
+    }
 }
 
 minecraft {
     version = mc
-    if  (file('../run1.7').exists()) {
-        runDir = "../run1.7"
+    mappings = map
+    if  (file('../run').exists()) {
+        runDir = "../run"
     } else {
-        runDir = "run1.7"
+        runDir = "run"
     }
     replaceIn 'net/slimevoid/' + pack + '/core/lib/CoreLib.java'
     replace '@VERSION@', project.version

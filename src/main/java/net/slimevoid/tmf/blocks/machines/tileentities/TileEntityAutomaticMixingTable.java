@@ -13,12 +13,15 @@ package net.slimevoid.tmf.blocks.machines.tileentities;
 
 import java.util.ArrayList;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.slimevoid.tmf.blocks.machines.EnumMachine;
 import net.slimevoid.tmf.core.TheMinersFriend;
 import net.slimevoid.tmf.core.lib.BlockLib;
@@ -34,13 +37,14 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
     private ItemStack[] stacks = new ItemStack[11];
 
     @Override
-    public boolean onBlockActivated(EntityPlayer player) {
-        player.openGui(TheMinersFriend.instance,
-                       GuiLib.GUIID_MIXINGTABLE,
-                       this.worldObj,
-                       this.xCoord,
-                       this.yCoord,
-                       this.zCoord);
+    public boolean onBlockActivated(IBlockState state, EntityPlayer player, EnumFacing side, float xHit, float yHit, float zHit) {
+        player.openGui(
+                TheMinersFriend.instance,
+                GuiLib.GUIID_MIXINGTABLE,
+                this.worldObj,
+                this.getPos().getX(),
+                this.getPos().getY(),
+                this.getPos().getZ());
         return true;
     }
 
@@ -124,9 +128,29 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide(int side) {
-        if (ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) return new int[] { 1 };
-        if (ForgeDirection.getOrientation(side) == ForgeDirection.UP) return new int[] { 0 };
+    public int getField(int id) {
+        return 0;
+    }
+
+    @Override
+    public void setField(int id, int value) {
+
+    }
+
+    @Override
+    public int getFieldCount() {
+        return 0;
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public int[] getSlotsForFace(EnumFacing side) {
+        if (side == EnumFacing.DOWN) return new int[] { 1 };
+        if (side == EnumFacing.UP) return new int[] { 0 };
         for (int i = 2; i < stacks.length; i++) {
             if (stacks[i] != null && stacks[i].stackSize > 0) {
                 return new int[] { i };
@@ -136,12 +160,12 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
     }
 
     @Override
-    public boolean canInsertItem(int slot, ItemStack itemstack, int side) {
+    public boolean canInsertItem(int slot, ItemStack itemstack, EnumFacing side) {
         return true;
     }
 
     @Override
-    public boolean canExtractItem(int slot, ItemStack itemstack, int side) {
+    public boolean canExtractItem(int slot, ItemStack itemstack, EnumFacing side) {
         return true;
     }
 
@@ -265,7 +289,7 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
     }
 
     @Override
-    public void updateMachineBlockState(boolean isBurning, World world, int x, int y, int z) {
+    public void updateMachineBlockState(boolean isBurning, World world, BlockPos pos) {
         // DO NOTHING
     }
 
@@ -283,4 +307,8 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
         }
     }
 
+    @Override
+    public IChatComponent getDisplayName() {
+        return null;
+    }
 }

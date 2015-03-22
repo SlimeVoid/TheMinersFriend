@@ -1,7 +1,7 @@
 package net.slimevoid.compatibility;
 
+import net.minecraftforge.fml.common.Loader;
 import net.slimevoid.tmf.api.IModCompatibility;
-import cpw.mods.fml.common.Loader;
 
 public abstract class MasterCompatibility implements IModCompatibility {
 

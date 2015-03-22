@@ -141,4 +141,9 @@ public class ArmorRecipes implements IRecipe {
         return this.recipeOutput;
     }
 
+    @Override
+    public ItemStack[] getRemainingItems(InventoryCrafting inv) {
+        return new ItemStack[0];
+    }
+
 }

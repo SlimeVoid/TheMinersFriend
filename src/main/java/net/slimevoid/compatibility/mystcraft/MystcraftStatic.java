@@ -1,11 +1,13 @@
 package net.slimevoid.compatibility.mystcraft;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class MystcraftStatic {
 
-    public static boolean isBookStandOrLectern(World world, int x, int y, int z) {
+    public static boolean isBookStandOrLectern(World world, BlockPos pos) {
         // if (Mods.MYSTCRAFT.getCompat().isLoaded) {
         // return checkBookStandOrLectern(world,
         // x,
@@ -15,10 +17,8 @@ public class MystcraftStatic {
         return false;
     }
 
-    public static boolean checkBookStandOrLectern(World world, int x, int y, int z) {
-        Block blockID = world.getBlock(x,
-                                       y,
-                                       z);
+    public static boolean checkBookStandOrLectern(World world, BlockPos pos) {
+        IBlockState state = world.getBlockState(pos);
         boolean flag = false;
         // if (MystObjects.bookstand != null) {
         // SlimevoidCore.console(CoreLib.MOD_ID,

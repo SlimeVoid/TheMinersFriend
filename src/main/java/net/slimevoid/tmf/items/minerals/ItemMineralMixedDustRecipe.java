@@ -86,4 +86,9 @@ public class ItemMineralMixedDustRecipe implements IRecipe {
     public ItemStack getRecipeOutput() {
         return new ItemStack(TMFCore.dustMixed, 0xfff);
     }
+
+    @Override
+    public ItemStack[] getRemainingItems(InventoryCrafting inv) {
+        return new ItemStack[0];
+    }
 }

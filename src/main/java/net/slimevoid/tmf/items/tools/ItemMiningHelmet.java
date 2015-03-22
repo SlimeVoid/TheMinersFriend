@@ -12,14 +12,14 @@
 package net.slimevoid.tmf.items.tools;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.library.blocks.BlockTransientLight;
 import net.slimevoid.tmf.core.TMFCore;
 import net.slimevoid.tmf.core.creativetabs.CreativeTabTMF;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMiningHelmet extends ItemMiningArmor {
 
@@ -28,17 +28,17 @@ public class ItemMiningHelmet extends ItemMiningArmor {
         this.setCreativeTab(CreativeTabTMF.tabTMF);
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public IIcon getIconFromDamageForRenderPass(int damage, int renderPass) {
-        return renderPass == 1 ? this.itemIcon : super.getIconFromDamageForRenderPass(damage,
-                                                                                      renderPass);
-    }
+//    @SideOnly(Side.CLIENT)
+//    @Override
+//    public IIcon getIconFromDamageForRenderPass(int damage, int renderPass) {
+//        return renderPass == 1 ? this.itemIcon : super.getIconFromDamageForRenderPass(damage,
+//                                                                                      renderPass);
+//    }
 
-    @Override
-    public IIcon getIconFromDamage(int par1) {
-        return this.itemIcon;
-    }
+//    @Override
+//    public IIcon getIconFromDamage(int par1) {
+//        return this.itemIcon;
+//    }
 
     @Override
     protected void onPlayerUpdate(World world, EntityPlayer entityplayer) {
@@ -48,11 +48,10 @@ public class ItemMiningHelmet extends ItemMiningArmor {
         // System.out.println(entityplayer.posY + " | " + (y - 1));
         int z = MathHelper.floor_double(entityplayer.posZ);
         // System.out.println(entityplayer.posZ + " | " + z);
-        BlockTransientLight.setBlock(TMFCore.blockMiningLamp,
-                                     x,
-                                     y,
-                                     z,
-                                     world);
+        BlockTransientLight.setBlock(
+                world,
+                TMFCore.blockMiningLamp.getDefaultState(),
+                new BlockPos(x, y, z));
     }
 
     @Override

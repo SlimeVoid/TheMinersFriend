@@ -3,8 +3,8 @@ package net.slimevoid.compatibility.thaumcraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class PlayerTickHandler {
 

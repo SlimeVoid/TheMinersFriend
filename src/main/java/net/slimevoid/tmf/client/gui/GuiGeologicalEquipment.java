@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IChatComponent;
 import net.slimevoid.tmf.blocks.machines.inventory.ContainerGeologicalEquipment;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import net.slimevoid.tmf.core.lib.ResourceLib;
@@ -73,7 +74,7 @@ public class GuiGeologicalEquipment extends GuiContainer {
                                    var7 + 1,
                                    16);
 
-        fontRendererObj.drawString("Level: " + geoEquip.yCoord,
+        fontRendererObj.drawString("Level: " + geoEquip.getPos().getY(),
                                    sizeX + 81,
                                    sizeY + 15,
                                    0x404040);
@@ -107,7 +108,7 @@ public class GuiGeologicalEquipment extends GuiContainer {
     private int getLevel(int mouseX, int mouseY, int listX1, int listY1, int listX2, int listY2) {
         if (mouseX >= listX1 && mouseX <= listX2 && mouseY >= listY1
             && mouseY <= listY2) {
-            int length = geoEquip.yCoord;
+            int length = geoEquip.getPos().getY();
             float levelHeight = (float) (listY2 - listY1) / (float) length;
             for (int depth = length - 1; depth >= 0; depth--) {
                 if (mouseY >= listY1 + (int) (levelHeight * (length - depth))
@@ -120,7 +121,7 @@ public class GuiGeologicalEquipment extends GuiContainer {
     }
 
     private void drawResultList(int x1, int y1, int x2, int y2) {
-        int length = geoEquip.yCoord;
+        int length = geoEquip.getPos().getY();
         float levelHeight = (float) (y2 - y1) / (float) length;
         for (int depth = length - 1; depth > 0; depth--) {
             // Assemble colors
@@ -283,7 +284,7 @@ public class GuiGeologicalEquipment extends GuiContainer {
                 }
 
                 @Override
-                public String getInventoryName() {
+                public String getCommandSenderName() {
                     return null;
                 }
 
@@ -297,26 +298,51 @@ public class GuiGeologicalEquipment extends GuiContainer {
                 }
 
                 @Override
-                public boolean isUseableByPlayer(EntityPlayer var1) {
+                public boolean isUseableByPlayer(EntityPlayer entityplayer) {
                     return false;
                 }
 
                 @Override
-                public void openInventory() {
+                public void openInventory(EntityPlayer entityplayer) {
                 }
 
                 @Override
-                public void closeInventory() {
+                public void closeInventory(EntityPlayer entityplayer) {
                 }
 
                 @Override
-                public boolean hasCustomInventoryName() {
+                public boolean hasCustomName() {
                     return false;
+                }
+
+                @Override
+                public IChatComponent getDisplayName() {
+                    return null;
                 }
 
                 @Override
                 public boolean isItemValidForSlot(int i, ItemStack itemstack) {
                     return false;
+                }
+
+                @Override
+                public int getField(int id) {
+                    return 0;
+                }
+
+                @Override
+                public void setField(int id, int value) {
+
+                }
+
+                @Override
+                public int getFieldCount() {
+                    return 0;
+                }
+
+                @Override
+                public void clear() {
+
                 }
             };
             // Slot slot = new Slot(inv, block.blockID, x, y);

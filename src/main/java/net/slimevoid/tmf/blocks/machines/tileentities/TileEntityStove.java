@@ -13,12 +13,14 @@ package net.slimevoid.tmf.blocks.machines.tileentities;
 
 import java.util.ArrayList;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import net.slimevoid.tmf.blocks.machines.EnumMachine;
 import net.slimevoid.tmf.core.TheMinersFriend;
 import net.slimevoid.tmf.core.lib.BlockLib;
@@ -33,13 +35,15 @@ public class TileEntityStove extends TileEntityMachine {
     private int         itemToSmelt     = 0;
 
     @Override
-    public boolean onBlockActivated(EntityPlayer player) {
-        player.openGui(TheMinersFriend.instance,
-                       GuiLib.GUIID_STOVE,
-                       this.worldObj,
-                       this.xCoord,
-                       this.yCoord,
-                       this.zCoord);
+    public boolean onBlockActivated(IBlockState blockState, EntityPlayer entityplayer, EnumFacing side, float xHit, float yHit, float zHit) {
+        entityplayer.openGui(
+                TheMinersFriend.instance,
+                GuiLib.GUIID_STOVE,
+                this.getWorld(),
+                this.getPos().getX(),
+                this.getPos().getY(),
+                this.getPos().getZ()
+        );
 
         return true;
     }
@@ -115,30 +119,50 @@ public class TileEntityStove extends TileEntityMachine {
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide(int side) {
+    public int getField(int id) {
+        return 0;
+    }
+
+    @Override
+    public void setField(int id, int value) {
+
+    }
+
+    @Override
+    public int getFieldCount() {
+        return 0;
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public int[] getSlotsForFace(EnumFacing side) {
         int[] itemsToSmelt = new int[] { 0, 1, 2, 3, 4, 5 };
         int[] smeltedItems = new int[] { 6, 7, 8, 9, 10, 11 };
-        if (ForgeDirection.getOrientation(side) == ForgeDirection.UP) return itemsToSmelt;
-        if (ForgeDirection.getOrientation(side) == ForgeDirection.DOWN) return smeltedItems;
-        if (ForgeDirection.getOrientation(this.getRotatedSide(side)) == ForgeDirection.EAST) return smeltedItems;
+        if (side == EnumFacing.UP) return itemsToSmelt;
+        if (side == EnumFacing.DOWN) return smeltedItems;
+        if (EnumFacing.getFront(this.getRotation()) == EnumFacing.EAST) return smeltedItems;
         return itemsToSmelt;
     }
 
     @Override
-    public boolean canInsertItem(int slot, ItemStack itemstack, int side) {
+    public boolean canInsertItem(int slot, ItemStack itemstack, EnumFacing side) {
         return slot >= 0 && slot < 6;
     }
 
     @Override
-    public boolean canExtractItem(int slot, ItemStack itemstack, int side) {
-        return ForgeDirection.getOrientation(this.getRotatedSide(side)) == ForgeDirection.EAST
+    public boolean canExtractItem(int slot, ItemStack itemstack, EnumFacing side) {
+        return EnumFacing.getFront(this.getRotation()) == EnumFacing.EAST
                && slot >= 6 && slot < 12;
     }
 
     @Override
     public void smeltItem() {
         if (canSmelt()) {
-            ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.stoveItemStacks[this.itemToSmelt]);
+            ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.stoveItemStacks[this.itemToSmelt]);
             for (int i = 6; i < 12; i++) {
                 if (this.stoveItemStacks[i] == null) {
                     this.stoveItemStacks[i] = itemstack.copy();
@@ -158,7 +182,7 @@ public class TileEntityStove extends TileEntityMachine {
     @Override
     protected boolean canSmelt() {
         if (this.stoveItemStacks[this.itemToSmelt] == null) return false;
-        ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.stoveItemStacks[this.itemToSmelt]);
+        ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.stoveItemStacks[this.itemToSmelt]);
         if (itemstack == null) return false;
         for (int i = 6; i < 12; i++) {
             if (this.stoveItemStacks[i] == null) {
@@ -226,11 +250,10 @@ public class TileEntityStove extends TileEntityMachine {
 
             if (wasBurning != isBurning()) {
                 inventoryChanged = true;
-                updateMachineBlockState(isBurning(),
-                                        worldObj,
-                                        xCoord,
-                                        yCoord,
-                                        zCoord);
+                updateMachineBlockState(
+                        isBurning(),
+                        this.getWorld(),
+                        this.getPos());
             }
         }
 
@@ -246,5 +269,10 @@ public class TileEntityStove extends TileEntityMachine {
                 harvestList.add(itemstack);
             }
         }
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return null;
     }
 }
