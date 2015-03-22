@@ -16,6 +16,7 @@ import java.util.Map;
 
 import net.slimevoid.tmf.blocks.ores.BlockTMFOre;
 import net.slimevoid.tmf.core.TMFCore;
+import net.slimevoid.tmf.core.lib.ConfigurationLib;
 import net.slimevoid.tmf.core.lib.JSONLoaderTMF;
 import net.slimevoid.tmf.core.lib.ResourceLib;
 import net.slimevoid.tmf.items.minerals.ItemMineral;
@@ -37,22 +38,22 @@ public class JSONRefineryRecipesLoader extends JSONLoaderTMF {
 
     static {
         oreMap.put("arkite",
-                   (BlockTMFOre) TMFCore.arkiteOre);
+                   (BlockTMFOre) ConfigurationLib.arkiteOre);
         oreMap.put("bistite",
-                   (BlockTMFOre) TMFCore.bistiteOre);
+                   (BlockTMFOre) ConfigurationLib.bistiteOre);
         oreMap.put("crokere",
-                   (BlockTMFOre) TMFCore.crokereOre);
+                   (BlockTMFOre) ConfigurationLib.crokereOre);
         oreMap.put("dernite",
-                   (BlockTMFOre) TMFCore.derniteOre);
+                   (BlockTMFOre) ConfigurationLib.derniteOre);
         oreMap.put("egioclase",
-                   (BlockTMFOre) TMFCore.egioclaseOre);
+                   (BlockTMFOre) ConfigurationLib.egioclaseOre);
 
         mineralMap.put("acxium",
-                       (ItemMineral) TMFCore.mineralAcxium);
+                       (ItemMineral) ConfigurationLib.mineralAcxium);
         mineralMap.put("bisogen",
-                       (ItemMineral) TMFCore.mineralBisogen);
+                       (ItemMineral) ConfigurationLib.mineralBisogen);
         mineralMap.put("cydrine",
-                       (ItemMineral) TMFCore.mineralCydrine);
+                       (ItemMineral) ConfigurationLib.mineralCydrine);
     }
 
     @Override

@@ -13,8 +13,8 @@ package net.slimevoid.tmf.client.tickhandlers.input;
 
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.slimevoid.tmf.core.lib.KeyBindings;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ToolBeltKeyBindingHandler {
 

@@ -12,8 +12,8 @@
 package net.slimevoid.tmf.core.lib;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.slimevoid.tmf.core.TheMinersFriend;
-import cpw.mods.fml.client.FMLClientHandler;
 
 public class ResourceLib {
 

@@ -15,13 +15,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.slimevoid.tmf.blocks.machines.EnumMachine;
+import net.slimevoid.tmf.blocks.machines.BlockTypeMachine;
 import net.slimevoid.tmf.core.TheMinersFriend;
 import net.slimevoid.tmf.core.lib.BlockLib;
 import net.slimevoid.tmf.core.lib.GuiLib;
@@ -60,25 +63,26 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
      * 
      * Idea is to store each level (Integer) with Array of blocks of scanSize
      */
-    private HashMap<Integer, Block[]> surveyData;
+    private HashMap<Integer, IBlockState[]> surveyData;
 
     private boolean                   hasOre;
 
     public TileEntityGeologicalEquipment() {
         super();
-        this.surveyData = new HashMap<Integer, Block[]>();
+        this.surveyData = new HashMap<Integer, IBlockState[]>();
         this.hasOre = false;
         currentLevelIdx = 9;
     }
 
     @Override
-    public boolean onBlockActivated(EntityPlayer player) {
-        player.openGui(TheMinersFriend.instance,
-                       GuiLib.GUIID_GEOEQUIP,
-                       this.worldObj,
-                       this.xCoord,
-                       this.yCoord,
-                       this.zCoord);
+    public boolean onBlockActivated(IBlockState blockState, EntityPlayer entityplayer, EnumFacing side, float xHit, float yHit, float zHit) {
+        entityplayer.openGui(
+                TheMinersFriend.instance,
+                GuiLib.GUIID_GEOEQUIP,
+                this.worldObj,
+                this.getPos().getX(),
+                this.getPos().getY(),
+                this.getPos().getZ());
 
         return true;
     }
@@ -86,17 +90,17 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
     private void gotoNextLevel() {
         currentLevelIdx = 0;
         if (currentLevel == 0) {
-            currentLevel = this.yCoord - 1;
+            currentLevel = this.getPos().getY() - 1;
         } else {
             currentLevel--;
         }
     }
 
     public void scan(int depth, int idx) {
-        Block block = getBlockAt(worldObj,
-                                 xCoord + indexToRelativeX(idx),
-                                 depth,
-                                 zCoord + indexToRelativeZ(idx));
+        IBlockState block = getBlockAt(worldObj,
+                new BlockPos(this.getPos().getX() + indexToRelativeX(idx),
+                        depth,
+                        this.getPos().getZ() + indexToRelativeZ(idx)));
 
         if (block != null) {
             addSurveyData(depth,
@@ -143,31 +147,29 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
         }
     }
 
-    public void addSurveyData(int depth, int idx, Block block) {
+    public void addSurveyData(int depth, int idx, IBlockState block) {
         if ((worldObj != null && depth >= worldObj.getHeight())
             || (depth - this.maxScanDepth) <= 0) return;
 
         if (!surveyData.containsKey(depth)) {
             surveyData.put(depth,
-                           new Block[9]);
+                           new IBlockState[9]);
         }
 
         surveyData.get(depth)[idx] = block;
     }
 
-    public Block getBlockAt(World world, int x, int y, int z) {
-        return world.getBlock(x,
-                              y,
-                              z);
+    public IBlockState getBlockAt(World world, BlockPos pos) {
+        return world.getBlockState(pos);
     }
 
-    public Block getSurveyResult(int depth, int cell) {
-        Block[] map = getSurveyResult(depth);
+    public IBlockState getSurveyResult(int depth, int cell) {
+        IBlockState[] map = getSurveyResult(depth);
         if (map != null && map.length >= cell) return map[cell];
         return null;
     }
 
-    public Block[] getSurveyResult(int depth) {
+    public IBlockState[] getSurveyResult(int depth) {
         return surveyData.get(depth);
     }
 
@@ -175,7 +177,7 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
         return hasOre;
     }
 
-    public Block[] getBlocksAt(int level) {
+    public IBlockState[] getBlocksAt(int level) {
         if (surveyData.containsKey(level)) {
             return surveyData.get(level);
         }
@@ -218,7 +220,7 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
             fuelStack = ItemStack.loadItemStackFromNBT(itemInSlot);
         }
 
-        surveyData = new HashMap<Integer, Block[]>();
+        surveyData = new HashMap<Integer, IBlockState[]>();
         NBTTagList survey = nbtCompound.getTagList("Survey",
                                                    0);
         for (int i = 0; i < survey.tagCount(); ++i) {
@@ -229,11 +231,13 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
 
             for (int j = 1; j <= 9; j++) {
                 NBTTagCompound block = (NBTTagCompound) ((NBTTagList) depthTag).getCompoundTagAt(j);
-                String blockId = block.getString("Block");
+                Integer blockId = block.getInteger("Block");
 
-                if (!blockId.equals("null")) addSurveyData(depth,
-                                                           j - 1,
-                                                           Block.getBlockFromName(blockId));
+                if (!(blockId == -1)) addSurveyData(
+                        depth,
+                        j - 1,
+                        Block.getStateById(blockId)
+                );
             }
         }
 
@@ -269,8 +273,8 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
                         blockId.setInteger("Block",
                                            -1);
                     } else {
-                        blockId.setString("Block",
-                                          surveyData.get(depth)[idx].getUnlocalizedName());
+                        blockId.setInteger("Block",
+                                          Block.getStateId(surveyData.get(depth)[idx]));
                     }
                     depthTag.appendTag(blockId);
                 }
@@ -292,7 +296,7 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide(int side) {
+    public int[] getSlotsForFace(EnumFacing side) {
         // if (ForgeDirection.getOrientation(side) == ForgeDirection.DOWN)
         // return new int[] { 1 };
         // if (ForgeDirection.getOrientation(side) == ForgeDirection.UP) return
@@ -301,12 +305,12 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
     }
 
     @Override
-    public boolean canInsertItem(int slot, ItemStack itemstack, int side) {
+    public boolean canInsertItem(int slot, ItemStack itemstack, EnumFacing side) {
         return true;
     }
 
     @Override
-    public boolean canExtractItem(int slot, ItemStack itemstack, int side) {
+    public boolean canExtractItem(int slot, ItemStack itemstack, EnumFacing side) {
         return true;
     }
 
@@ -366,19 +370,17 @@ public class TileEntityGeologicalEquipment extends TileEntityMachine {
     }
 
     @Override
-    public void onInventoryHasChanged(World world, int x, int y, int z) {
+    public void onInventoryHasChanged(World world, BlockPos pos) {
         /*
          * Sends block to client for update Automatically updates the associated
          * GUI should it be open
          */
-        world.markBlockForUpdate(x,
-                                 y,
-                                 z);
+        world.markBlockForUpdate(pos);
     }
 
     @Override
     public int getExtendedBlockID() {
-        return EnumMachine.GEOEQUIP.getId();
+        return BlockTypeMachine.GEOEQUIP.getId();
     }
 
     @Override

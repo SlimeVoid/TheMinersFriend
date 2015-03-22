@@ -16,15 +16,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.MouseEvent;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
 import net.slimevoid.tmf.core.lib.CommandLib;
 import net.slimevoid.tmf.core.lib.KeyBindings;
 import net.slimevoid.tmf.core.lib.PacketLib;
 
 import org.lwjgl.input.Keyboard;
-
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ToolBeltMouseWheelHandler {
 

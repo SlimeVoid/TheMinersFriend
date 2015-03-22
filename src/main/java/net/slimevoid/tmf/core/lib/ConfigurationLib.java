@@ -16,14 +16,15 @@ import java.io.File;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.slimevoid.library.blocks.BlockBase;
 import net.slimevoid.library.data.Logger;
 import net.slimevoid.library.util.xml.XMLLoader;
-import net.slimevoid.tmf.blocks.machines.EnumMachine;
+import net.slimevoid.tmf.blocks.machines.BlockTypeMachine;
 import net.slimevoid.tmf.core.LoggerTMF;
 import net.slimevoid.tmf.core.TMFCore;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.slimevoid.tmf.items.tools.ItemMiningArmor;
 
 public class ConfigurationLib {
 
@@ -50,11 +51,73 @@ public class ConfigurationLib {
     public static int           motionSensorMaxGameTicks;
     @SideOnly(Side.CLIENT)
     public static boolean       motionSensorDrawRight;
-    public static int           renderMachineId                  = RenderingRegistry.getNextAvailableRenderId();
+    public static int           renderMachineId                  = 0;
     public static boolean       motionSensorPlaySounds;
 
     public static float         miningModeExhaustion             = 0.075F;
+
     public static final String  COMMENT_MOTION_SENSOR_DRAW_RIGHT = "Set this to false to draw the motion sensor on the left.";
+
+    public static String          loggerLevel = "INFO";
+
+    // TOOLS
+    public static int             miningHelmetLampId, miningHelmetIronId,
+            miningHelmetGoldId, miningHelmetDiamondId;
+    public static ItemMiningArmor miningHelmetIron, miningHelmetGold,
+            miningHelmetDiamond;
+
+    public static Item            miningHelmetLamp;
+
+    public static Item            motionSensor;
+    public static int             motionSensorId;
+
+    public static Item            miningToolBelt;
+    public static int             miningToolBeltId;
+
+    public static Item            utilityBelt;
+    public static int             utilityBeltId;
+
+    // MINERALS
+    public static Item            mineralAcxium, mineralBisogen,
+            mineralCydrine;
+    public static int             mineralAcxiumId, mineralBisogenId,
+            mineralCydrineId;
+
+    // NUGGETS
+    public static Item            nuggetAcxium, nuggetBisogen, nuggetCydrine;
+    public static int             nuggetAcxiumId, nuggetBisogenId,
+            nuggetCydrineId;
+
+    // INGOTS
+    public static Item            ingotAcxium, ingotBisogen, ingotCydrine;
+    public static int             ingotAcxiumId, ingotBisogenId,
+            ingotCydrineId;
+
+    // MINERAL DUSTS
+    public static Item            dustAcxium, dustBisogen, dustCydrine,
+            dustMixed;
+    public static int             dustAcxiumId, dustBisogenId, dustCydrineId,
+            dustMixedId;
+
+    // MACHINE PARTS
+    public static Item            partAcxiumCore, partAlloyCasing,
+            partAcxogenScreen, partBisogenGear, partCydrineMotor,
+            partCydriumSensor;
+    public static int             partAcxiumCoreId, partAlloyCasingId,
+            partAcxogenScreenId, partBisogenGearId, partCydrineMotorId,
+            partCydriumSensorId;
+    // ORES
+    public static int       arkiteOreId, bistiteOreId, crokereOreId,
+            derniteOreId, egioclaseOreId;
+    public static Block     arkiteOre, bistiteOre, crokereOre, derniteOre,
+            egioclaseOre;
+
+    // MACHINES
+    public static int       blockMachineBaseId;
+    public static BlockBase blockMachineBase;
+
+    public static int       blockMiningLampID = 3840;
+    public static Block     blockMiningLamp;
 
     @SideOnly(Side.CLIENT)
     public static void ClientConfig() {
@@ -121,34 +184,34 @@ public class ConfigurationLib {
     }
 
     private static void loadMotionSensorCommon() {
-        TMFCore.motionSensorId = Integer.valueOf(configuration.get(CATEGORY_MOTION_SENSOR,
+        motionSensorId = Integer.valueOf(configuration.get(CATEGORY_MOTION_SENSOR,
                                                                    "motionSensor",
                                                                    15003).getInt());
     }
 
     private static void loadMiningHelmet() {
-        TMFCore.blockMiningLampID = Integer.valueOf(configuration.get(CATEGORY_BLOCK,
+        blockMiningLampID = Integer.valueOf(configuration.get(CATEGORY_BLOCK,
                                                                       BlockLib.BLOCK_MINING_LAMP,
-                                                                      TMFCore.blockMiningLampID).getInt());
-        TMFCore.miningHelmetIronId = Integer.valueOf(configuration.get(CATEGORY_ARMOR,
+                                                                      blockMiningLampID).getInt());
+        miningHelmetIronId = Integer.valueOf(configuration.get(CATEGORY_ARMOR,
                                                                        "ironMinersHelmet",
                                                                        15000).getInt());
-        TMFCore.miningHelmetGoldId = Integer.valueOf(configuration.get(CATEGORY_ARMOR,
+        miningHelmetGoldId = Integer.valueOf(configuration.get(CATEGORY_ARMOR,
                                                                        "goldMinersHelmet",
                                                                        15001).getInt());
-        TMFCore.miningHelmetDiamondId = Integer.valueOf(configuration.get(CATEGORY_ARMOR,
+        miningHelmetDiamondId = Integer.valueOf(configuration.get(CATEGORY_ARMOR,
                                                                           "diamondMinersHelmet",
                                                                           15002).getInt());
-        TMFCore.miningHelmetLampId = Integer.valueOf(configuration.get(CATEGORY_ARMOR,
+        miningHelmetLampId = Integer.valueOf(configuration.get(CATEGORY_ARMOR,
                                                                        "helmetLamp",
                                                                        15004).getInt());
     }
 
     private static void loadToolBelt() {
-        TMFCore.miningToolBeltId = Integer.valueOf(configuration.get(CATEGORY_ITEM,
+        miningToolBeltId = Integer.valueOf(configuration.get(CATEGORY_ITEM,
                                                                      "toolBelt",
                                                                      15005).getInt());
-        TMFCore.utilityBeltId = Integer.valueOf(configuration.get(CATEGORY_ITEM,
+        utilityBeltId = Integer.valueOf(configuration.get(CATEGORY_ITEM,
                                                                   "utilityBelt",
                                                                   15006).getInt());
         miningModeExhaustion = Float.parseFloat(configuration.get(CATEGORY_LAUNCH_OPTIONS,
@@ -157,213 +220,213 @@ public class ConfigurationLib {
     }
 
     private static void loadMinerals() {
-        TMFCore.mineralAcxiumId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
+        mineralAcxiumId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
                                                                     "mineralAcxium",
                                                                     15010).getInt());
-        TMFCore.mineralBisogenId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
+        mineralBisogenId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
                                                                      "mineralBisogen",
                                                                      15011).getInt());
-        TMFCore.mineralCydrineId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
+        mineralCydrineId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
                                                                      "mineralCydrine",
                                                                      15012).getInt());
     }
 
     private static void loadIngots() {
-        TMFCore.nuggetAcxiumId = Integer.valueOf(configuration.get(CATEGORY_ORES,
+        nuggetAcxiumId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                    "nuggetAcxium",
                                                                    15013).getInt());
-        TMFCore.nuggetBisogenId = Integer.valueOf(configuration.get(CATEGORY_ORES,
+        nuggetBisogenId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                     "nuggetBisogen",
                                                                     15014).getInt());
-        TMFCore.nuggetCydrineId = Integer.valueOf(configuration.get(CATEGORY_ORES,
+        nuggetCydrineId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                     "nuggetCydrine",
                                                                     15015).getInt());
 
-        TMFCore.ingotAcxiumId = Integer.valueOf(configuration.get(CATEGORY_ORES,
+        ingotAcxiumId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                   "ingotAcxium",
                                                                   15016).getInt());
-        TMFCore.ingotBisogenId = Integer.valueOf(configuration.get(CATEGORY_ORES,
+        ingotBisogenId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                    "ingotBisogen",
                                                                    15017).getInt());
-        TMFCore.ingotCydrineId = Integer.valueOf(configuration.get(CATEGORY_ORES,
+        ingotCydrineId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                    "ingotCydrine",
                                                                    15018).getInt());
     }
 
     private static void loadParts() {
-        TMFCore.partAcxiumCoreId = Integer.valueOf(configuration.get(CATEGORY_PARTS,
+        partAcxiumCoreId = Integer.valueOf(configuration.get(CATEGORY_PARTS,
                                                                      "partAcxiumCore",
                                                                      15025).getInt());
-        TMFCore.partAcxogenScreenId = Integer.valueOf(configuration.get(CATEGORY_PARTS,
+        partAcxogenScreenId = Integer.valueOf(configuration.get(CATEGORY_PARTS,
                                                                         "partAcxogenScreen",
                                                                         15026).getInt());
-        TMFCore.partAlloyCasingId = Integer.valueOf(configuration.get(CATEGORY_PARTS,
+        partAlloyCasingId = Integer.valueOf(configuration.get(CATEGORY_PARTS,
                                                                       "partAlloyCasing",
                                                                       15027).getInt());
-        TMFCore.partBisogenGearId = Integer.valueOf(configuration.get(CATEGORY_PARTS,
+        partBisogenGearId = Integer.valueOf(configuration.get(CATEGORY_PARTS,
                                                                       "partBisogenGear",
                                                                       15028).getInt());
-        TMFCore.partCydrineMotorId = Integer.valueOf(configuration.get(CATEGORY_PARTS,
+        partCydrineMotorId = Integer.valueOf(configuration.get(CATEGORY_PARTS,
                                                                        "partCydrineMotor",
                                                                        15029).getInt());
-        TMFCore.partCydriumSensorId = Integer.valueOf(configuration.get(CATEGORY_PARTS,
+        partCydriumSensorId = Integer.valueOf(configuration.get(CATEGORY_PARTS,
                                                                         "partCydriumSensor",
                                                                         15030).getInt());
     }
 
     private static void loadDusts() {
-        TMFCore.dustAcxiumId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
+        dustAcxiumId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
                                                                  "dustAcxium",
                                                                  15020).getInt());
-        TMFCore.dustBisogenId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
+        dustBisogenId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
                                                                   "dustBisogen",
                                                                   15021).getInt());
-        TMFCore.dustCydrineId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
+        dustCydrineId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
                                                                   "dustCydrine",
                                                                   15022).getInt());
-        TMFCore.dustMixedId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
+        dustMixedId = Integer.valueOf(configuration.get(CATEGORY_FUEL,
                                                                 "dustMixed",
                                                                 15023).getInt());
     }
 
     private static void loadOres() {
-        TMFCore.arkiteOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
+        arkiteOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                 "arkiteOre",
                                                                 3515).getInt());
-        TMFCore.bistiteOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
+        bistiteOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                  "bistiteOre",
                                                                  3516).getInt());
-        TMFCore.crokereOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
+        crokereOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                  "crokereOre",
                                                                  3517).getInt());
-        TMFCore.derniteOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
+        derniteOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                  "derniteOre",
                                                                  3518).getInt());
-        TMFCore.egioclaseOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
+        egioclaseOreId = Integer.valueOf(configuration.get(CATEGORY_ORES,
                                                                    "egioclaseOre",
                                                                    3519).getInt());
     }
 
     private static void loadMachines() {
-        TMFCore.blockMachineBaseId = Integer.valueOf(configuration.get(CATEGORY_MACHINES,
+        blockMachineBaseId = Integer.valueOf(configuration.get(CATEGORY_MACHINES,
                                                                        "blockMachine",
                                                                        1100).getInt());
 
     }
 
     private static void loadLogger() {
-        TMFCore.loggerLevel = String.valueOf(configuration.get(Configuration.CATEGORY_GENERAL,
+        loggerLevel = String.valueOf(configuration.get(Configuration.CATEGORY_GENERAL,
                                                                "loggerLevel",
-                                                               TMFCore.loggerLevel).getString());
+                                                               loggerLevel).getString());
 
-        LoggerTMF.getInstance(Logger.filterClassName(TMFCore.class.toString())).setFilterLevel(TMFCore.loggerLevel);
+        LoggerTMF.getInstance(Logger.filterClassName(TMFCore.class.toString())).setFilterLevel(loggerLevel);
     }
 
     public static void loadXMLVariables() {
 
         XMLLoader.addXmlVariable("$miningToolBelt",
-                                 Item.getIdFromItem(TMFCore.miningToolBelt));
+                                 Item.getIdFromItem(miningToolBelt));
 
         XMLLoader.addXmlVariable("$utilityBelt",
-                                 Item.getIdFromItem(TMFCore.utilityBelt));
+                                 Item.getIdFromItem(utilityBelt));
 
         if (loadMachines) {
             /* MACHINES */
 
             XMLLoader.addXmlVariable("$machine",
-                                     Block.getIdFromBlock(TMFCore.blockMachineBase));
+                                     Block.getIdFromBlock(blockMachineBase));
             XMLLoader.addXmlVariable("$refinery",
-                                     EnumMachine.REFINERY.getId());
+                                     BlockTypeMachine.REFINERY.getId());
             XMLLoader.addXmlVariable("$grinder",
-                                     EnumMachine.GRINDER.getId());
+                                     BlockTypeMachine.GRINDER.getId());
             XMLLoader.addXmlVariable("$geoEquip",
-                                     EnumMachine.GEOEQUIP.getId());
+                                     BlockTypeMachine.GEOEQUIP.getId());
             XMLLoader.addXmlVariable("$autoMixTable",
-                                     EnumMachine.AUTOMIXTABLE.getId());
+                                     BlockTypeMachine.AUTOMIXTABLE.getId());
         }
 
         if (loadOres) {
             /* ORES */
 
             XMLLoader.addXmlVariable("$arkiteOre",
-                                     Block.getIdFromBlock(TMFCore.arkiteOre));
+                                     Block.getIdFromBlock(arkiteOre));
             XMLLoader.addXmlVariable("$bistiteOre",
-                                     Block.getIdFromBlock(TMFCore.bistiteOre));
+                                     Block.getIdFromBlock(bistiteOre));
             XMLLoader.addXmlVariable("$crokereOre",
-                                     Block.getIdFromBlock(TMFCore.crokereOre));
+                                     Block.getIdFromBlock(crokereOre));
             XMLLoader.addXmlVariable("$derniteOre",
-                                     Block.getIdFromBlock(TMFCore.derniteOre));
+                                     Block.getIdFromBlock(derniteOre));
             XMLLoader.addXmlVariable("$egioclaseOre",
-                                     Block.getIdFromBlock(TMFCore.egioclaseOre));
+                                     Block.getIdFromBlock(egioclaseOre));
         }
 
         if (loadItems) {
             /* MINERALS */
 
             XMLLoader.addXmlVariable("$mineralAcxium",
-                                     Item.getIdFromItem(TMFCore.mineralAcxium));
+                                     Item.getIdFromItem(mineralAcxium));
             XMLLoader.addXmlVariable("$mineralBisogen",
-                                     Item.getIdFromItem(TMFCore.mineralBisogen));
+                                     Item.getIdFromItem(mineralBisogen));
             XMLLoader.addXmlVariable("$mineralCydrine",
-                                     Item.getIdFromItem(TMFCore.mineralCydrine));
+                                     Item.getIdFromItem(mineralCydrine));
 
             /* INGOTS */
 
             XMLLoader.addXmlVariable("$nuggetAcxium",
-                                     Item.getIdFromItem(TMFCore.nuggetAcxium));
+                                     Item.getIdFromItem(nuggetAcxium));
             XMLLoader.addXmlVariable("$nuggetBisogen",
-                                     Item.getIdFromItem(TMFCore.nuggetBisogen));
+                                     Item.getIdFromItem(nuggetBisogen));
             XMLLoader.addXmlVariable("$nuggetCydrine",
-                                     Item.getIdFromItem(TMFCore.nuggetCydrine));
+                                     Item.getIdFromItem(nuggetCydrine));
 
             XMLLoader.addXmlVariable("$ingotAcxium",
-                                     Item.getIdFromItem(TMFCore.ingotAcxium));
+                                     Item.getIdFromItem(ingotAcxium));
             XMLLoader.addXmlVariable("$ingotBisogen",
-                                     Item.getIdFromItem(TMFCore.ingotBisogen));
+                                     Item.getIdFromItem(ingotBisogen));
             XMLLoader.addXmlVariable("$ingotCydrine",
-                                     Item.getIdFromItem(TMFCore.ingotCydrine));
+                                     Item.getIdFromItem(ingotCydrine));
 
             /* PARTS */
 
             XMLLoader.addXmlVariable("$partAcxiumCore",
-                                     Item.getIdFromItem(TMFCore.partAcxiumCore));
+                                     Item.getIdFromItem(partAcxiumCore));
             XMLLoader.addXmlVariable("$partAlloyCasing",
-                                     Item.getIdFromItem(TMFCore.partAlloyCasing));
+                                     Item.getIdFromItem(partAlloyCasing));
             XMLLoader.addXmlVariable("$partAcxogenScreen",
-                                     Item.getIdFromItem(TMFCore.partAcxogenScreen));
+                                     Item.getIdFromItem(partAcxogenScreen));
             XMLLoader.addXmlVariable("$partBisogenGear",
-                                     Item.getIdFromItem(TMFCore.partBisogenGear));
+                                     Item.getIdFromItem(partBisogenGear));
             XMLLoader.addXmlVariable("$partCydrineMotor",
-                                     Item.getIdFromItem(TMFCore.partCydrineMotor));
+                                     Item.getIdFromItem(partCydrineMotor));
             XMLLoader.addXmlVariable("$partCydriumSensor",
-                                     Item.getIdFromItem(TMFCore.partCydriumSensor));
+                                     Item.getIdFromItem(partCydriumSensor));
 
             /* DUSTS */
 
             XMLLoader.addXmlVariable("$dustAcxium",
-                                     Item.getIdFromItem(TMFCore.dustAcxium));
+                                     Item.getIdFromItem(dustAcxium));
             XMLLoader.addXmlVariable("$dustBisogen",
-                                     Item.getIdFromItem(TMFCore.dustBisogen));
+                                     Item.getIdFromItem(dustBisogen));
             XMLLoader.addXmlVariable("$dustCydrine",
-                                     Item.getIdFromItem(TMFCore.dustCydrine));
+                                     Item.getIdFromItem(dustCydrine));
             XMLLoader.addXmlVariable("$dustMixed",
-                                     Item.getIdFromItem(TMFCore.dustMixed));
+                                     Item.getIdFromItem(dustMixed));
 
             /* TOOLS */
 
             XMLLoader.addXmlVariable("$ironMinersHelmet",
-                                     Item.getIdFromItem(TMFCore.miningHelmetIron));
+                                     Item.getIdFromItem(miningHelmetIron));
             XMLLoader.addXmlVariable("$goldMinersHelmet",
-                                     Item.getIdFromItem(TMFCore.miningHelmetGold));
+                                     Item.getIdFromItem(miningHelmetGold));
             XMLLoader.addXmlVariable("$diamondMinersHelmet",
-                                     Item.getIdFromItem(TMFCore.miningHelmetDiamond));
+                                     Item.getIdFromItem(miningHelmetDiamond));
             XMLLoader.addXmlVariable("$helmetLamp",
-                                     Item.getIdFromItem(TMFCore.miningHelmetLamp));
+                                     Item.getIdFromItem(miningHelmetLamp));
             XMLLoader.addXmlVariable("$helmetLamp",
-                                     Item.getIdFromItem(TMFCore.miningHelmetLamp));
+                                     Item.getIdFromItem(miningHelmetLamp));
 
             XMLLoader.addXmlVariable("$motionSensor",
-                                     Item.getIdFromItem(TMFCore.motionSensor));
+                                     Item.getIdFromItem(motionSensor));
         }
 
         /* VANILLA PARTS */

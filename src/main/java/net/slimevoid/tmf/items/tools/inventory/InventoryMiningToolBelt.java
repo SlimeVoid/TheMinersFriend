@@ -6,6 +6,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 import net.slimevoid.compatibility.tinkersconstruct.TinkersConstructStatic;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
@@ -33,7 +35,7 @@ public class InventoryMiningToolBelt implements IInventory {
         this.entityliving = entityliving;
 
         if (itemstack != null && itemstack.hasTagCompound()) {
-            this.readFromNBT(itemstack.stackTagCompound);
+            this.readFromNBT(itemstack.getTagCompound());
         }
     }
 
@@ -100,7 +102,7 @@ public class InventoryMiningToolBelt implements IInventory {
     }
 
     @Override
-    public String getInventoryName() {
+    public String getCommandSenderName() {
         return ItemLib.MINING_TOOLBELT;
     }
 
@@ -123,8 +125,8 @@ public class InventoryMiningToolBelt implements IInventory {
         ItemStack heldItem = this.entityliving.getHeldItem();
 
         if (ItemHelper.isToolBelt(heldItem)) {
-            heldItem.stackTagCompound = new NBTTagCompound();
-            this.writeToNBT(heldItem.stackTagCompound);
+            heldItem.setTagCompound(new NBTTagCompound());
+            this.writeToNBT(heldItem.getTagCompound());
         }
     }
 
@@ -134,11 +136,11 @@ public class InventoryMiningToolBelt implements IInventory {
     }
 
     @Override
-    public void openInventory() {
+    public void openInventory(EntityPlayer entityplayer) {
     }
 
     @Override
-    public void closeInventory() {
+    public void closeInventory(EntityPlayer entityplayer) {
     }
 
     public void toggleMiningMode() {
@@ -149,14 +151,39 @@ public class InventoryMiningToolBelt implements IInventory {
     }
 
     @Override
-    public boolean hasCustomInventoryName() {
-        return false;
+    public boolean hasCustomName() {
+        return true;
+    }
+
+    @Override
+    public IChatComponent getDisplayName() {
+        return new ChatComponentTranslation(this.getCommandSenderName());
     }
 
     @Override
     public boolean isItemValidForSlot(int i, ItemStack itemstack) {
         return !ItemHelper.isItemBlock(itemstack)
                && !ItemHelper.isToolBelt(itemstack);
+    }
+
+    @Override
+    public int getField(int id) {
+        return 0;
+    }
+
+    @Override
+    public void setField(int id, int value) {
+
+    }
+
+    @Override
+    public int getFieldCount() {
+        return 0;
+    }
+
+    @Override
+    public void clear() {
+
     }
 
     public void readFromNBT(NBTTagCompound nbttagcompound) {

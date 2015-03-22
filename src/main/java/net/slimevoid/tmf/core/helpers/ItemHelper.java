@@ -25,6 +25,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 import net.slimevoid.tmf.core.lib.CommandLib;
 import net.slimevoid.tmf.core.lib.DataLib;
 import net.slimevoid.tmf.core.lib.ItemLib;
@@ -32,8 +34,6 @@ import net.slimevoid.tmf.core.lib.NBTLib;
 import net.slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import net.slimevoid.tmf.items.tools.ItemMotionSensor;
 import net.slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 
 public class ItemHelper {
     /**
@@ -101,7 +101,7 @@ public class ItemHelper {
     /**
      * Check if a Player has a Tool Belt and return for convenience
      * 
-     * @param entityplayer
+     * @param entitylivingbase
      *            the Player to check
      * @param world
      *            the World of the Player

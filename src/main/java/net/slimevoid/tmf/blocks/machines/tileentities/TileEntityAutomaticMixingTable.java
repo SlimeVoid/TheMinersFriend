@@ -22,7 +22,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
-import net.slimevoid.tmf.blocks.machines.EnumMachine;
+import net.slimevoid.tmf.blocks.machines.BlockTypeMachine;
 import net.slimevoid.tmf.core.TheMinersFriend;
 import net.slimevoid.tmf.core.lib.BlockLib;
 import net.slimevoid.tmf.core.lib.GuiLib;
@@ -295,7 +295,7 @@ public class TileEntityAutomaticMixingTable extends TileEntityMachine {
 
     @Override
     public int getExtendedBlockID() {
-        return EnumMachine.AUTOMIXTABLE.getId();
+        return BlockTypeMachine.AUTOMIXTABLE.getId();
     }
 
     @Override

@@ -16,6 +16,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -126,9 +127,9 @@ public class GuiGeologicalEquipment extends GuiContainer {
         for (int depth = length - 1; depth > 0; depth--) {
             // Assemble colors
             List<Integer> colorMap = new ArrayList<Integer>();
-            Block[] blocks = geoEquip.getSurveyResult(depth);
+            IBlockState[] blocks = geoEquip.getSurveyResult(depth);
             if (blocks != null) {
-                for (Block block : blocks) {
+                for (IBlockState block : blocks) {
                     if (block != null) colorMap.add(getBlockColor(block));
                 }
             }
@@ -136,8 +137,8 @@ public class GuiGeologicalEquipment extends GuiContainer {
             // Blend colors
             int color = 0xff000000;
             for (int c : colorMap) {
-                if (c == getBlockColor(Blocks.coal_ore)) {
-                    color = getBlockColor(Blocks.coal_ore);
+                if (c == getBlockColor(Blocks.coal_ore.getDefaultState())) {
+                    color = getBlockColor(Blocks.coal_ore.getDefaultState());
                     break;
                 }
                 color += c / colorMap.size();
@@ -152,7 +153,7 @@ public class GuiGeologicalEquipment extends GuiContainer {
         }
     }
 
-    private void drawLevel(int x, int y, Block[] blocks) {
+    private void drawLevel(int x, int y, IBlockState[] blocks) {
         if (blocks != null && blocks.length == 9) {
             drawBlock(x + 18,
                       y + 18,
@@ -256,7 +257,7 @@ public class GuiGeologicalEquipment extends GuiContainer {
         }
     }
 
-    private void drawBlock(int x, int y, int width, int height, Block block) {
+    private void drawBlock(int x, int y, int width, int height, IBlockState block) {
         if (drawBlock && block != null) {
             IInventory inv = new IInventory() {
                 @Override
@@ -357,11 +358,11 @@ public class GuiGeologicalEquipment extends GuiContainer {
         }
     }
 
-    private int getBlockColor(Block block) {
+    private int getBlockColor(IBlockState block) {
         if (block == null) return 0xff000000;
 
-        if (block instanceof BlockOre) return 0xffff0000;
+        if (block.getBlock() instanceof BlockOre) return 0xffff0000;
 
-        return block.getMaterial().getMaterialMapColor().colorValue | 0xff000000;
+        return block.getBlock().getMaterial().getMaterialMapColor().colorValue | 0xff000000;
     }
 }

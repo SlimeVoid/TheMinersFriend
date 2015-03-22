@@ -19,8 +19,8 @@ import net.minecraft.world.World;
 
 public class ItemMineralDust extends ItemMineral {
 
-    public ItemMineralDust(int id) {
-        super(id);
+    public ItemMineralDust() {
+        super();
         this.setPotionEffect(PotionHelper.spiderEyeEffect);
     }
 

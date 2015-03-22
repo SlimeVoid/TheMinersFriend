@@ -16,12 +16,15 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.util.EnumFacing;
 import net.slimevoid.library.IEnumBlockType;
 import net.slimevoid.library.blocks.BlockBase;
 import net.slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import net.slimevoid.tmf.core.lib.ConfigurationLib;
 
 public class BlockMachineBase extends BlockBase {
+
+    protected static PropertyEnum VARIANT = PropertyEnum.create("variant", BlockTypeMachine.class);
 
 //    @Override
 //    public void registerIcons(IIconRegister IIconRegister) {
@@ -54,27 +57,27 @@ public class BlockMachineBase extends BlockBase {
 
     @Override
     protected IBlockState getInitialState() {
-        return null;
+        return this.blockState.getBaseState().withProperty(VARIANT, getDefaultBlockType()).withProperty(FACING, EnumFacing.NORTH);
     }
 
     @Override
     protected PropertyEnum getBlockTypeProperty() {
-        return null;
+        return VARIANT;
     }
 
     @Override
     protected IProperty[] getPropertyList() {
-        return new IProperty[0];
+        return new IProperty[] {FACING, VARIANT};
     }
 
     @Override
     protected Comparable<? extends IEnumBlockType> getDefaultBlockType() {
-        return null;
+        return BlockTypeMachine.REFINERY;
     }
 
     @Override
     protected Comparable<? extends IEnumBlockType> getBlockType(int meta) {
-        return null;
+        return BlockTypeMachine.getMachine(meta);
     }
 
     @Override

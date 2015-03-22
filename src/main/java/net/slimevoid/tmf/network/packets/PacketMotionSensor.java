@@ -12,21 +12,22 @@
 package net.slimevoid.tmf.network.packets;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.BlockPos;
 import net.slimevoid.library.network.PacketPayload;
 import net.slimevoid.tmf.api.IMotionSensor;
+import net.slimevoid.tmf.core.lib.CommandLib;
 import net.slimevoid.tmf.core.lib.PacketLib;
 
 public class PacketMotionSensor extends PacketMiningEntity implements
         IMotionSensor {
 
-    public PacketMotionSensor(String command, Entity entity, int x, int y, int z, float dist2sq) {
+    public PacketMotionSensor(String command, Entity entity, BlockPos pos, float dist2sq) {
         this();
         this.payload = new PacketPayload(1, 1, 0, 0);
         this.setCommand(command);
         this.setEntityId(entity.getEntityId());
-        this.setPosition(x,
-                         y,
-                         z,
+        this.setPosition(pos,
                          0);
         this.setDist2sq(dist2sq);
     }
@@ -46,4 +47,25 @@ public class PacketMotionSensor extends PacketMiningEntity implements
         return this.payload.getFloatPayload(0);
     }
 
+    public static class Ping extends PacketMotionSensor {
+
+        public Ping() {
+            super();
+        }
+
+        public Ping(EntityLivingBase entity, BlockPos pos, float dist2sq) {
+            super(CommandLib.PLAY_MOTION_PING, entity, pos, dist2sq);
+        }
+    }
+
+    public static class Sweep extends PacketMotionSensor {
+
+        public Sweep() {
+            super();
+        }
+
+        public Sweep(EntityLivingBase entity, BlockPos pos, float dist2sq) {
+            super(CommandLib.PLAY_MOTION_SWEEP, entity, pos, dist2sq);
+        }
+    }
 }

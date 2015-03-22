@@ -9,18 +9,18 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package net.slimevoid.tmf.client.network.packets.executors;
+package net.slimevoid.tmf.client.network.executors;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import net.slimevoid.library.IPacketExecutor;
 import net.slimevoid.library.network.PacketUpdate;
+import net.slimevoid.library.network.executor.PacketExecutor;
 import net.slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
-public class ClientMiningToolSelectedExecutor implements IPacketExecutor {
+public class ClientMiningToolSelectedExecutor extends PacketExecutor {
 
     @Override
-    public void execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
+    public PacketUpdate execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         if (packet instanceof PacketMiningToolBelt) {
             // PacketMiningToolBelt packetMT = (PacketMiningToolBelt) packet;
             // InventoryMiningToolBelt data = null;
@@ -39,6 +39,7 @@ public class ClientMiningToolSelectedExecutor implements IPacketExecutor {
             // FMLCommonHandler.instance().getFMLLogger().warning("Unknown toolbelt was updated, client out of sync!");
             // }
         }
+        return null;
     }
 
 }

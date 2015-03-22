@@ -16,7 +16,7 @@ import net.slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 
 public abstract class ItemTMF extends Item {
 
-    public ItemTMF(int id) {
+    public ItemTMF() {
         super();
         this.setCreativeTab(CreativeTabTMF.tabTMF);
     }

@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.slimevoid.tmf.core.TMFCore;
+import net.slimevoid.tmf.core.lib.ConfigurationLib;
 import net.slimevoid.tmf.core.lib.JSONLoaderTMF;
 import net.slimevoid.tmf.core.lib.ResourceLib;
 import net.slimevoid.tmf.items.ItemTMF;
@@ -40,30 +41,30 @@ public class JSONGrinderRecipesLoader extends JSONLoaderTMF {
 
     static {
         mineralMap.put("acxium",
-                       (ItemMineral) TMFCore.mineralAcxium);
+                       (ItemMineral) ConfigurationLib.mineralAcxium);
         mineralMap.put("bisogen",
-                       (ItemMineral) TMFCore.mineralBisogen);
+                       (ItemMineral) ConfigurationLib.mineralBisogen);
         mineralMap.put("cydrine",
-                       (ItemMineral) TMFCore.mineralCydrine);
+                       (ItemMineral) ConfigurationLib.mineralCydrine);
         mineralMap.put("acxiumNugget",
-                       (ItemMineralNugget) TMFCore.nuggetAcxium);
+                       (ItemMineralNugget) ConfigurationLib.nuggetAcxium);
         mineralMap.put("bisogenNugget",
-                       (ItemMineralNugget) TMFCore.nuggetBisogen);
+                       (ItemMineralNugget) ConfigurationLib.nuggetBisogen);
         mineralMap.put("cydrineNugget",
-                       (ItemMineralNugget) TMFCore.nuggetCydrine);
+                       (ItemMineralNugget) ConfigurationLib.nuggetCydrine);
         mineralMap.put("acxiumIngot",
-                       (ItemMineralIngot) TMFCore.ingotAcxium);
+                       (ItemMineralIngot) ConfigurationLib.ingotAcxium);
         mineralMap.put("bisogenIngot",
-                       (ItemMineralIngot) TMFCore.ingotBisogen);
+                       (ItemMineralIngot) ConfigurationLib.ingotBisogen);
         mineralMap.put("cydrineIngot",
-                       (ItemMineralIngot) TMFCore.ingotCydrine);
+                       (ItemMineralIngot) ConfigurationLib.ingotCydrine);
 
         dustMap.put("acxium",
-                    (ItemMineralDust) TMFCore.dustAcxium);
+                    (ItemMineralDust) ConfigurationLib.dustAcxium);
         dustMap.put("bisogen",
-                    (ItemMineralDust) TMFCore.dustBisogen);
+                    (ItemMineralDust) ConfigurationLib.dustBisogen);
         dustMap.put("cydrine",
-                    (ItemMineralDust) TMFCore.dustCydrine);
+                    (ItemMineralDust) ConfigurationLib.dustCydrine);
     }
 
     @Override

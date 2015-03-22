@@ -11,17 +11,15 @@
  */
 package net.slimevoid.tmf.core;
 
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.slimevoid.library.ICommonProxy;
 import net.slimevoid.library.util.helpers.PacketHelper;
 import net.slimevoid.tmf.core.lib.CoreLib;
 import net.slimevoid.tmf.core.lib.PacketLib;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(
         modid = CoreLib.MOD_ID,
@@ -34,28 +32,23 @@ public class TheMinersFriend {
             serverSide = CoreLib.PROXY_COMMON)
     public static ICommonProxy    proxy;
 
-    @Instance(CoreLib.MOD_ID)
+    @Mod.Instance(CoreLib.MOD_ID)
     public static TheMinersFriend instance;
 
-    @EventHandler
+    @Mod.EventHandler
     public void TheMinersFriendPreInit(FMLPreInitializationEvent event) {
         proxy.registerConfigurationProperties(event.getSuggestedConfigurationFile());
-        proxy.preInit();
-        TMFInit.preInitialize();
+        TMFCore.preInitialize();
     }
 
-    @EventHandler
+    @Mod.EventHandler
     public void TheMinersFriendInit(FMLInitializationEvent event) {
-        proxy.init();
-
-        PacketHelper.registerHandler(CoreLib.MOD_CHANNEL,
-                                     PacketLib.handler);
-        TMFInit.initialize();
+        TMFCore.initialize();
+        proxy.registerPacketHandlers();
     }
 
-    @EventHandler
+    @Mod.EventHandler
     public void TheMinersFriendPostInit(FMLPostInitializationEvent event) {
-        proxy.postInit();
-        TMFInit.postInitialize();
+        TMFCore.postInitialize();
     }
 }

@@ -11,7 +11,7 @@ public class TinkersConstructStatic {
 
     public static void handleNBT(ItemStack tool, NBTTagCompound nbttagcompound) {
         if (ItemHelper.isItemInfiTool(tool)) {
-            NBTTagCompound tag = tool.stackTagCompound.getCompoundTag(INFI_TOOL);
+            NBTTagCompound tag = tool.getTagCompound().getCompoundTag(INFI_TOOL);
             nbttagcompound.setTag(INFI_TOOL,
                                   tag);
         } else if (nbttagcompound.hasKey(INFI_TOOL)) {

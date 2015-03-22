@@ -18,14 +18,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.lwjgl.input.Keyboard;
 
 import net.slimevoid.library.util.helpers.PacketHelper;
 import net.slimevoid.tmf.client.tickhandlers.input.ToolBeltKeyBindingHandler;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
 import net.slimevoid.tmf.network.packets.PacketMiningToolBelt;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.ClientRegistry;
 
 public class KeyBindings {
 
@@ -56,8 +56,7 @@ public class KeyBindings {
                                                         world,
                                                         true);
             if (toolBelt != null) {
-                PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.TOGGLE_MINING_MODE);
-                PacketHelper.sendToServer(packet);
+                PacketLib.sendToolBeltToggle(world, entityplayer);
             }
         }
     }
@@ -70,10 +69,7 @@ public class KeyBindings {
                                                         world,
                                                         true);
             if (toolBelt != null) {
-                PacketMiningToolBelt packet = new PacketMiningToolBelt(CommandLib.CYCLE_TOOL_BELT);
-                packet.side = direction;
-                // packet.setToolBeltId(toolBelt.getItemDamage());
-                PacketHelper.sendToServer(packet);
+                PacketLib.sendToolBeltCycle(world, entityplayer, direction);
             }
         }
     }

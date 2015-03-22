@@ -22,6 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.slimevoid.tmf.blocks.ores.BlockTMFOre;
 import net.slimevoid.tmf.core.TMFCore;
+import net.slimevoid.tmf.core.lib.ConfigurationLib;
 import net.slimevoid.tmf.items.minerals.ItemMineral;
 
 public class RefineryRecipes {
@@ -43,19 +44,19 @@ public class RefineryRecipes {
     }
 
     public void addRefinement(BlockTMFOre ore, int min, int max, ItemMineral mineral) {
-        if (mineral == TMFCore.mineralAcxium) {
+        if (mineral == ConfigurationLib.mineralAcxium) {
             addRefinement(ore,
                           min,
                           max,
                           mineral,
                           0);
-        } else if (mineral == TMFCore.mineralBisogen) {
+        } else if (mineral == ConfigurationLib.mineralBisogen) {
             addRefinement(ore,
                           min,
                           max,
                           mineral,
                           1);
-        } else if (mineral == TMFCore.mineralCydrine) {
+        } else if (mineral == ConfigurationLib.mineralCydrine) {
             addRefinement(ore,
                           min,
                           max,

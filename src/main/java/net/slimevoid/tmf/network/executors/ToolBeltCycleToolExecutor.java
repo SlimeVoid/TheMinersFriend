@@ -9,12 +9,11 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package net.slimevoid.tmf.network.packets.executors;
+package net.slimevoid.tmf.network.executors;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.slimevoid.library.IPacketExecutor;
 import net.slimevoid.library.network.PacketUpdate;
 import net.slimevoid.library.network.executor.PacketExecutor;
 import net.slimevoid.tmf.core.helpers.ItemHelper;

@@ -12,184 +12,240 @@
 package net.slimevoid.tmf.client.renderers;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 
+import net.minecraftforge.client.model.ISmartBlockModel;
+import net.minecraftforge.client.model.ISmartItemModel;
 import org.lwjgl.opengl.GL11;
 
 import net.slimevoid.library.blocks.BlockBase;
-import net.slimevoid.tmf.blocks.machines.EnumMachine;
+import net.slimevoid.tmf.blocks.machines.BlockTypeMachine;
 import net.slimevoid.tmf.core.lib.ConfigurationLib;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
-public class BlockMachineRenderingHandler implements
-        ISimpleBlockRenderingHandler {
+import java.util.List;
 
-    private void renderInventoryBlock(BlockBase block, int metadata, float brightness, RenderBlocks renderer) {
+public class BlockMachineRenderingHandler implements ISmartBlockModel, ISmartItemModel{
 
-        Tessellator tessellator = Tessellator.instance;
-        block.setBlockBoundsForItemRender(metadata);
-        renderer.setRenderBoundsFromBlock(block);
-        GL11.glRotatef(90.0F,
-                       0.0F,
-                       1.0F,
-                       0.0F);
-        GL11.glTranslatef(-0.5F,
-                          -0.5F,
-                          -0.5F);
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F,
-                              -1.0F,
-                              0.0F);
-        renderer.renderFaceYNeg(block,
-                                0.0D,
-                                0.0D,
-                                0.0D,
-                                renderer.getBlockIconFromSideAndMetadata(block,
-                                                                         0,
-                                                                         metadata));
-        tessellator.draw();
+    private void renderInventoryBlock(BlockBase block, int metadata, float brightness, BlockRendererDispatcher renderer) {
 
-        if (renderer.useInventoryTint) {
-            int renderColor = block.getRenderColor(metadata);
-            float red = (renderColor >> 16 & 255) / 255.0F;
-            float green = (renderColor >> 8 & 255) / 255.0F;
-            float blue = (renderColor & 255) / 255.0F;
-            GL11.glColor4f(red * brightness,
-                           green * brightness,
-                           blue * brightness,
-                           1.0F);
-        }
+        Tessellator tessellator = Tessellator.getInstance();
+        block.setBlockBoundsForItemRender();
+        //renderer.setRenderBoundsFromBlock(block);
+        GL11.glRotatef(
+                90.0F,
+                0.0F,
+                1.0F,
+                0.0F);
+        GL11.glTranslatef(
+                -0.5F,
+                -0.5F,
+                -0.5F);
+        tessellator.getWorldRenderer().startDrawingQuads();
+        tessellator.getWorldRenderer().setNormal(
+                0.0F,
+                -1.0F,
+                0.0F);
+//        renderer.renderFaceYNeg(block,
+//                                0.0D,
+//                                0.0D,
+//                                0.0D,
+//                                renderer.getBlockIconFromSideAndMetadata(block,
+//                                                                         0,
+//                                                                         metadata));
+        tessellator.getWorldRenderer().finishDrawing();
 
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F,
-                              1.0F,
-                              0.0F);
-        renderer.renderFaceYPos(block,
-                                0.0D,
-                                0.0D,
-                                0.0D,
-                                renderer.getBlockIconFromSideAndMetadata(block,
-                                                                         1,
-                                                                         metadata));
-        tessellator.draw();
+//        if (renderer.useInventoryTint) {
+//            int renderColor = block.getRenderColor(metadata);
+//            float red = (renderColor >> 16 & 255) / 255.0F;
+//            float green = (renderColor >> 8 & 255) / 255.0F;
+//            float blue = (renderColor & 255) / 255.0F;
+//            GL11.glColor4f(red * brightness,
+//                           green * brightness,
+//                           blue * brightness,
+//                           1.0F);
+//        }
 
-        if (renderer.useInventoryTint) {
-            GL11.glColor4f(brightness,
-                           brightness,
-                           brightness,
-                           1.0F);
-        }
+        tessellator.getWorldRenderer().startDrawingQuads();
+        tessellator.getWorldRenderer().setNormal(
+                0.0F,
+                1.0F,
+                0.0F);
+//        renderer.renderFaceYPos(block,
+//                                0.0D,
+//                                0.0D,
+//                                0.0D,
+//                                renderer.getBlockIconFromSideAndMetadata(block,
+//                                                                         1,
+//                                                                         metadata));
+        tessellator.getWorldRenderer().finishDrawing();
 
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F,
-                              0.0F,
-                              -1.0F);
-        renderer.renderFaceZPos(block,
-                                0.0D,
-                                0.0D,
-                                0.0D,
-                                renderer.getBlockIconFromSideAndMetadata(block,
-                                                                         2,
-                                                                         metadata));
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F,
-                              0.0F,
-                              1.0F);
-        renderer.renderFaceZNeg(block,
-                                0.0D,
-                                0.0D,
-                                0.0D,
-                                renderer.getBlockIconFromSideAndMetadata(block,
-                                                                         3,
-                                                                         metadata));
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(-1.0F,
-                              0.0F,
-                              0.0F);
-        renderer.renderFaceXNeg(block,
-                                0.0D,
-                                0.0D,
-                                0.0D,
-                                renderer.getBlockIconFromSideAndMetadata(block,
-                                                                         4,
-                                                                         metadata));
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(1.0F,
-                              0.0F,
-                              0.0F);
-        renderer.renderFaceXPos(block,
-                                0.0D,
-                                0.0D,
-                                0.0D,
-                                renderer.getBlockIconFromSideAndMetadata(block,
-                                                                         5,
-                                                                         metadata));
-        tessellator.draw();
-        GL11.glTranslatef(0.5F,
-                          0.5F,
-                          0.5F);
+//        if (renderer.useInventoryTint) {
+//            GL11.glColor4f(brightness,
+//                           brightness,
+//                           brightness,
+//                           1.0F);
+//        }
+
+        tessellator.getWorldRenderer().startDrawingQuads();
+        tessellator.getWorldRenderer().setNormal(
+                0.0F,
+                0.0F,
+                -1.0F);
+//        renderer.renderFaceZPos(block,
+//                                0.0D,
+//                                0.0D,
+//                                0.0D,
+//                                renderer.getBlockIconFromSideAndMetadata(block,
+//                                                                         2,
+//                                                                         metadata));
+        tessellator.getWorldRenderer().finishDrawing();
+        tessellator.getWorldRenderer().startDrawingQuads();
+        tessellator.getWorldRenderer().setNormal(
+                0.0F,
+                0.0F,
+                1.0F);
+//        renderer.renderFaceZNeg(block,
+//                                0.0D,
+//                                0.0D,
+//                                0.0D,
+//                                renderer.getBlockIconFromSideAndMetadata(block,
+//                                                                         3,
+//                                                                         metadata));
+        tessellator.getWorldRenderer().finishDrawing();
+        tessellator.getWorldRenderer().startDrawingQuads();
+        tessellator.getWorldRenderer().setNormal(
+                -1.0F,
+                0.0F,
+                0.0F);
+//        renderer.renderFaceXNeg(block,
+//                                0.0D,
+//                                0.0D,
+//                                0.0D,
+//                                renderer.getBlockIconFromSideAndMetadata(block,
+//                                                                         4,
+//                                                                         metadata));
+        tessellator.getWorldRenderer().finishDrawing();
+        tessellator.getWorldRenderer().startDrawingQuads();
+        tessellator.getWorldRenderer().setNormal(
+                1.0F,
+                0.0F,
+                0.0F);
+//        renderer.renderFaceXPos(block,
+//                                0.0D,
+//                                0.0D,
+//                                0.0D,
+//                                renderer.getBlockIconFromSideAndMetadata(block,
+//                                                                         5,
+//                                                                         metadata));
+        tessellator.getWorldRenderer().finishDrawing();
+        GL11.glTranslatef(
+                0.5F,
+                0.5F,
+                0.5F);
     }
 
-    @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, BlockRendererDispatcher renderer) {
         if (modelID == ConfigurationLib.renderMachineId) {
             if (block instanceof BlockBase) {
                 BlockBase blockBase = (BlockBase) block;
-                EnumMachine machine = EnumMachine.getMachine(metadata);
+                BlockTypeMachine machine = BlockTypeMachine.getMachine(metadata);
                 if (machine != null) {
-                    if (machine.hasRenderHandler()) {
-                        machine.getRenderHandler().renderInventoryBlock(blockBase,
-                                                                        metadata,
-                                                                        modelID,
-                                                                        renderer);
-                    } else {
+//                    if (machine.hasRenderHandler()) {
+//                        machine.getRenderHandler().renderInventoryBlock(blockBase,
+//                                                                        metadata,
+//                                                                        modelID,
+//                                                                        renderer);
+//                    } else {
                         this.renderInventoryBlock(blockBase,
                                                   metadata,
                                                   1.0F,
                                                   renderer);
-                    }
+//                    }
                 }
             }
         }
     }
 
-    @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-        EnumMachine machine = EnumMachine.getMachine(world.getBlockMetadata(x,
-                                                                            y,
-                                                                            z));
+    public boolean renderWorldBlock(IBlockAccess world, BlockPos pos, IBlockState state, int modelId, BlockRendererDispatcher renderer) {
+        BlockTypeMachine machine = BlockTypeMachine.getMachine(state.getBlock().getMetaFromState(state));
         if (machine != null) {
-            if (machine.hasRenderHandler()) {
-                return machine.getRenderHandler().renderWorldBlock(world,
-                                                                   x,
-                                                                   y,
-                                                                   z,
-                                                                   block,
-                                                                   modelId,
-                                                                   renderer);
-            } else {
-                return renderer.renderStandardBlock(block,
-                                                    x,
-                                                    y,
-                                                    z);
-            }
+//            if (machine.hasRenderHandler()) {
+//                return machine.getRenderHandler().renderWorldBlock(world,
+//                                                                   x,
+//                                                                   y,
+//                                                                   z,
+//                                                                   block,
+//                                                                   modelId,
+//                                                                   renderer);
+//            } else {
+//                return renderer.renderStandardBlock(block,
+//                                                    x,
+//                                                    y,
+//                                                    z);
+//            }
         }
         return false;
     }
 
-    @Override
     public boolean shouldRender3DInInventory(int modelId) {
         return true;
     }
 
-    @Override
     public int getRenderId() {
         return ConfigurationLib.renderMachineId;
     }
 
+    @Override
+    public IBakedModel handleBlockState(IBlockState state) {
+        return null;
+    }
+
+    @Override
+    public IBakedModel handleItemState(ItemStack stack) {
+        return null;
+    }
+
+    @Override
+    public List getFaceQuads(EnumFacing p_177551_1_) {
+        return null;
+    }
+
+    @Override
+    public List getGeneralQuads() {
+        return null;
+    }
+
+    @Override
+    public boolean isAmbientOcclusion() {
+        return false;
+    }
+
+    @Override
+    public boolean isGui3d() {
+        return false;
+    }
+
+    @Override
+    public boolean isBuiltInRenderer() {
+        return false;
+    }
+
+    @Override
+    public TextureAtlasSprite getTexture() {
+        return null;
+    }
+
+    @Override
+    public ItemCameraTransforms getItemCameraTransforms() {
+        return null;
+    }
 }

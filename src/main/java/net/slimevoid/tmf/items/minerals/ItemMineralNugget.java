@@ -15,8 +15,8 @@ import net.slimevoid.tmf.items.ItemTMF;
 
 public class ItemMineralNugget extends ItemTMF {
 
-    public ItemMineralNugget(int id) {
-        super(id);
+    public ItemMineralNugget() {
+        super();
         this.setNoRepair();
     }
 

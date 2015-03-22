@@ -20,7 +20,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
-import net.slimevoid.tmf.blocks.machines.EnumMachine;
+import net.slimevoid.tmf.blocks.machines.BlockTypeMachine;
 import net.slimevoid.tmf.blocks.machines.recipes.RefineryRecipes;
 import net.slimevoid.tmf.blocks.machines.recipes.RefineryRecipes.RefineryRecipe;
 import net.slimevoid.tmf.core.TheMinersFriend;
@@ -268,7 +268,7 @@ public class TileEntityRefinery extends TileEntityMachine {
 
     @Override
     public int getExtendedBlockID() {
-        return EnumMachine.REFINERY.getId();
+        return BlockTypeMachine.REFINERY.getId();
     }
 
     @Override

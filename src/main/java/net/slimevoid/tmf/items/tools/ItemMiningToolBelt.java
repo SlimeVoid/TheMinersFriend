@@ -34,8 +34,8 @@ public class ItemMiningToolBelt extends ItemTMF /*
                                                  * implements IRepairable,
                                                  * IRepairableExtended
                                                  */{
-    public ItemMiningToolBelt(int id) {
-        super(id);
+    public ItemMiningToolBelt() {
+        super();
         this.setMaxStackSize(1);
         this.setFull3D();
     }

@@ -86,11 +86,11 @@ public class ClientProxy extends CommonProxy {
         SlimevoidCore.console(CoreLib.MOD_ID,
                               "Registering Renderers...");
         if (ConfigurationLib.loadItems) {
-            ArmorLib.registerArmorTexture(TMFCore.miningHelmetIron,
+            ArmorLib.registerArmorTexture(ConfigurationLib.miningHelmetIron,
                                           ResourceLib.IRON_MINING_HELMET);
-            ArmorLib.registerArmorTexture(TMFCore.miningHelmetGold,
+            ArmorLib.registerArmorTexture(ConfigurationLib.miningHelmetGold,
                                           ResourceLib.GOLD_MINING_HELMET);
-            ArmorLib.registerArmorTexture(TMFCore.miningHelmetDiamond,
+            ArmorLib.registerArmorTexture(ConfigurationLib.miningHelmetDiamond,
                                           ResourceLib.DIAMOND_MINING_HELMET);
         }
 

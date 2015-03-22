@@ -13,18 +13,19 @@ package net.slimevoid.tmf.core.world;
 
 import java.util.Random;
 
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraftforge.fml.common.IWorldGenerator;
 import net.slimevoid.tmf.blocks.ores.BlockTMFOre;
 import net.slimevoid.tmf.core.lib.BlockLib;
-import cpw.mods.fml.common.IWorldGenerator;
 
 public class WorldGeneration implements IWorldGenerator {
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-        switch (world.provider.dimensionId) {
+        switch (world.provider.getDimensionId()) {
         case -1:
             generateNether(world,
                            random,
@@ -55,12 +56,15 @@ public class WorldGeneration implements IWorldGenerator {
                 int xCoord = chunkX + random.nextInt(16);
                 int yCoord = random.nextInt(ore.spawnLevel);
                 int zCoord = chunkZ + random.nextInt(16);
-                WorldGenMinable minable = new WorldGenMinable(ore, ore.spawnSize);
+                WorldGenMinable minable = new WorldGenMinable(ore.getDefaultState(), ore.spawnSize);
                 minable.generate(world,
                                  random,
-                                 xCoord,
-                                 yCoord,
-                                 zCoord);
+                                 new BlockPos(
+                                         xCoord,
+                                    yCoord,
+                                    zCoord
+                                 )
+                );
             }
         }
     }

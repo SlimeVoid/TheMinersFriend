@@ -18,8 +18,8 @@ import net.slimevoid.tmf.items.ItemTMF;
 
 public class ItemMotionSensor extends ItemTMF {
 
-    public ItemMotionSensor(int id) {
-        super(id);
+    public ItemMotionSensor() {
+        super();
         this.setMaxStackSize(1);
         this.setNoRepair();
     }

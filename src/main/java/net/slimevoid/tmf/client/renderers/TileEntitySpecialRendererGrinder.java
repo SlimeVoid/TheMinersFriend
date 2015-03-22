@@ -28,7 +28,7 @@ public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer 
     }
 
     @Override
-    public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTickTime) {
+    public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTicks, int destroyStage) {
         ModelGrinder grinder = new ModelGrinder((TileEntityGrinder) tile);
 
         GL11.glPushMatrix();
@@ -42,7 +42,7 @@ public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer 
                           (float) z);
 
         int meta = 0;
-        if (tile.getWorldObj() != null) meta = ((TileEntityBase) tile).getRotation();
+        if (tile.getWorld() != null) meta = ((TileEntityBase) tile).getRotation();
 
         boolean dir = false;
         switch (meta) {

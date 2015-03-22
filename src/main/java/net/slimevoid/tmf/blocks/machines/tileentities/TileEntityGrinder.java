@@ -21,7 +21,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import net.slimevoid.library.blocks.BlockBase;
-import net.slimevoid.tmf.blocks.machines.EnumMachine;
+import net.slimevoid.tmf.blocks.machines.BlockTypeMachine;
 import net.slimevoid.tmf.blocks.machines.recipes.GrinderRecipes;
 import net.slimevoid.tmf.core.TheMinersFriend;
 import net.slimevoid.tmf.core.lib.BlockLib;
@@ -236,7 +236,7 @@ public class TileEntityGrinder extends TileEntityMachine {
 
     @Override
     public int getExtendedBlockID() {
-        return EnumMachine.GRINDER.getId();
+        return BlockTypeMachine.GRINDER.getId();
     }
 
     @Override

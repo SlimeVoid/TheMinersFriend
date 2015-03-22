@@ -12,22 +12,29 @@
 package net.slimevoid.tmf.client.renderers.handlers;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.BlockRendererDispatcher;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
-import net.slimevoid.tmf.blocks.machines.EnumMachine;
+import net.minecraftforge.client.model.ISmartBlockModel;
+import net.minecraftforge.client.model.ISmartItemModel;
+import net.slimevoid.tmf.blocks.machines.BlockTypeMachine;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import java.util.List;
 
-public class BlockGrinderRenderer implements ISimpleBlockRenderingHandler {
+public class BlockGrinderRenderer implements ISmartBlockModel, ISmartItemModel {
 
-    @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, BlockRendererDispatcher renderer) {
         TileEntityGrinder tile = new TileEntityGrinder();
-        tile.blockType = block;
+        // tile.blockType = block;
         GL11.glPushMatrix();
         GL11.glTranslatef(-0.2F,
                           0.0F,
@@ -51,19 +58,60 @@ public class BlockGrinderRenderer implements ISimpleBlockRenderingHandler {
         GL11.glPopMatrix();
     }
 
-    @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, BlockRendererDispatcher renderer) {
         return true;
     }
 
-    @Override
     public boolean shouldRender3DInInventory(int modelId) {
         return true;
     }
 
-    @Override
     public int getRenderId() {
-        return EnumMachine.GRINDER.getId();
+        return BlockTypeMachine.GRINDER.getId();
     }
 
+    @Override
+    public IBakedModel handleBlockState(IBlockState state) {
+        return null;
+    }
+
+    @Override
+    public IBakedModel handleItemState(ItemStack stack) {
+        return null;
+    }
+
+    @Override
+    public List getFaceQuads(EnumFacing p_177551_1_) {
+        return null;
+    }
+
+    @Override
+    public List getGeneralQuads() {
+        return null;
+    }
+
+    @Override
+    public boolean isAmbientOcclusion() {
+        return false;
+    }
+
+    @Override
+    public boolean isGui3d() {
+        return false;
+    }
+
+    @Override
+    public boolean isBuiltInRenderer() {
+        return false;
+    }
+
+    @Override
+    public TextureAtlasSprite getTexture() {
+        return null;
+    }
+
+    @Override
+    public ItemCameraTransforms getItemCameraTransforms() {
+        return null;
+    }
 }

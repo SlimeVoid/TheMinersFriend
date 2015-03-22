@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import net.slimevoid.tmf.core.TMFCore;
+import net.slimevoid.tmf.core.lib.ConfigurationLib;
 
 public class ItemMineralMixedDustRecipe implements IRecipe {
 
@@ -66,10 +67,10 @@ public class ItemMineralMixedDustRecipe implements IRecipe {
         if (a != null && b != null) {
             // Mix the dusts
             int size = 1;
-            if (a.getItem().equals(TMFCore.dustMixed)
-                && b.getItem().equals(TMFCore.dustMixed)) size = 2;
+            if (a.getItem().equals(ConfigurationLib.dustMixed)
+                && b.getItem().equals(ConfigurationLib.dustMixed)) size = 2;
 
-            item = new ItemStack(TMFCore.dustMixed, size);
+            item = new ItemStack(ConfigurationLib.dustMixed, size);
             item.setItemDamage(ItemMineralMixedDust.mixDustMeta(ItemMineralMixedDust.getDustMeta(a),
                                                                 ItemMineralMixedDust.getDustMeta(b)));
         }
@@ -84,7 +85,7 @@ public class ItemMineralMixedDustRecipe implements IRecipe {
 
     @Override
     public ItemStack getRecipeOutput() {
-        return new ItemStack(TMFCore.dustMixed, 0xfff);
+        return new ItemStack(ConfigurationLib.dustMixed, 0xfff);
     }
 
     @Override

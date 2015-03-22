@@ -15,8 +15,8 @@ import net.slimevoid.tmf.items.ItemTMF;
 
 public class ItemMachinePart extends ItemTMF {
 
-    public ItemMachinePart(int id) {
-        super(id);
+    public ItemMachinePart() {
+        super();
         this.setFull3D();
         this.setNoRepair();
     }

@@ -17,11 +17,11 @@ import java.util.HashMap;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.slimevoid.library.core.SlimevoidCore;
 import net.slimevoid.library.data.Logger.LogLevel;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
 import net.slimevoid.tmf.core.lib.CoreLib;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class MiningToolBeltAttributeModifiers {
 

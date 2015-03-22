@@ -12,10 +12,10 @@
 package net.slimevoid.tmf.core.lib;
 
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.tmf.client.tickhandlers.input.ToolBeltMouseWheelHandler;
 import net.slimevoid.tmf.core.events.MiningToolBeltAttributeModifiers;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class EventLib {
 

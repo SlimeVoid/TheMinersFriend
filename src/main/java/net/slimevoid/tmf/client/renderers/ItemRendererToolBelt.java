@@ -13,7 +13,6 @@ package net.slimevoid.tmf.client.renderers;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -21,17 +20,16 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.slimevoid.tmf.core.TMFCore;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
 
+import net.slimevoid.tmf.core.lib.ConfigurationLib;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-
-import cpw.mods.fml.client.FMLClientHandler;
 
 public class ItemRendererToolBelt implements IItemRenderer {
 
@@ -44,9 +42,9 @@ public class ItemRendererToolBelt implements IItemRenderer {
     }
 
     public static void init() {
-        MinecraftForgeClient.registerItemRenderer(TMFCore.miningToolBelt,
+        MinecraftForgeClient.registerItemRenderer(ConfigurationLib.miningToolBelt,
                                                   new ItemRendererToolBelt(FMLClientHandler.instance().getClient()));
-        MinecraftForgeClient.registerItemRenderer(TMFCore.utilityBelt,
+        MinecraftForgeClient.registerItemRenderer(ConfigurationLib.utilityBelt,
                                                   new ItemRendererToolBelt(FMLClientHandler.instance().getClient()));
     }
 
@@ -121,20 +119,20 @@ public class ItemRendererToolBelt implements IItemRenderer {
     private void renderDefaultItem(ItemRenderType type, ItemStack itemstack, Object... data) {
         if (type.equals(ItemRenderType.INVENTORY)) {
             doRenderInventoryItem(itemstack,
-                                  (RenderBlocks) data[0]);
+                                  data[0]);
         } else if (type.equals(ItemRenderType.EQUIPPED_FIRST_PERSON)) {
             this.doRenderEquippedFirstPerson(itemstack,
-                                             (RenderBlocks) data[0],
+                                             data[0],
                                              (EntityLivingBase) data[1]);
         } else {
             doRenderEquippedItem(itemstack,
-                                 (RenderBlocks) data[0],
+                                 data[0],
                                  (EntityLivingBase) data[1],
                                  type);
         }
     }
 
-    private void doRenderInventoryItem(ItemStack toolBelt, RenderBlocks renderBlocks) {
+    private void doRenderInventoryItem(ItemStack toolBelt, Object renderBlocks) {
         ItemStack itemstack = toolBelt;
         ItemStack tool = ItemHelper.getSelectedTool(toolBelt);
         if (tool != null) {
@@ -144,28 +142,27 @@ public class ItemRendererToolBelt implements IItemRenderer {
                                  renderBlocks);
     }
 
-    private void renderInventoryItem(ItemStack itemstack, RenderBlocks renderBlocks) {
+    private void renderInventoryItem(ItemStack itemstack, Object renderBlocks) {
         TextureManager textureManager = this.mc.getTextureManager();
         RenderItem itemRenderer = null;
-        if (RenderManager.instance.entityRenderMap.containsKey(EntityItem.class)) {
-            itemRenderer = (RenderItem) RenderManager.instance.entityRenderMap.get(EntityItem.class);
+        if (mc.getRenderManager().entityRenderMap.containsKey(EntityItem.class)) {
+            itemRenderer = (RenderItem) mc.getRenderManager().entityRenderMap.get(EntityItem.class);
         }
         if (itemRenderer != null) {
-            itemRenderer.renderItemIntoGUI(this.mc.fontRenderer,
-                                           textureManager,
-                                           itemstack,
-                                           0,
-                                           0);
-            itemRenderer.renderItemOverlayIntoGUI(this.mc.fontRenderer,
-                                                  textureManager,
-                                                  itemstack,
-                                                  0,
-                                                  0,
-                                                  (String) null);
+            itemRenderer.renderItemIntoGUI(
+                    itemstack,
+                    0,
+                    0);
+            itemRenderer.renderItemOverlayIntoGUI(
+                    this.mc.fontRendererObj,
+                    itemstack,
+                    0,
+                    0,
+                    (String) null);
         }
     }
 
-    private void doRenderEquippedFirstPerson(ItemStack toolBelt, RenderBlocks renderBlocks, EntityLivingBase entityLivingBase) {
+    private void doRenderEquippedFirstPerson(ItemStack toolBelt, Object renderBlocks, EntityLivingBase entityLivingBase) {
         ItemStack itemstack = toolBelt;
         ItemStack tool = ItemHelper.getSelectedTool(toolBelt);
         if (tool != null) {
@@ -176,7 +173,7 @@ public class ItemRendererToolBelt implements IItemRenderer {
                                   entityLivingBase);
     }
 
-    private void doRenderEquippedItem(ItemStack toolBelt, RenderBlocks renderBlocks, EntityLivingBase entityliving, ItemRenderType type) {
+    private void doRenderEquippedItem(ItemStack toolBelt, Object renderBlocks, EntityLivingBase entityliving, ItemRenderType type) {
         ItemStack itemstack = toolBelt;
         ItemStack tool = ItemHelper.getSelectedTool(toolBelt);
         if (tool != null) {
@@ -187,52 +184,52 @@ public class ItemRendererToolBelt implements IItemRenderer {
                                   entityliving);
     }
 
-    private void doRenderEquippedItem(ItemStack itemstack, RenderBlocks renderBlocks, EntityLivingBase entityliving) {
-        TextureManager texturemanager = this.mc.getTextureManager();
-        if (itemstack.getItem().requiresMultipleRenderPasses()) {
-            this.renderItem(entityliving,
-                            itemstack,
-                            0,
-                            texturemanager);
-            for (int x = 1; x < itemstack.getItem().getRenderPasses(itemstack.getItemDamage()); x++) {
-                int i1 = itemstack.getItem().getColorFromItemStack(itemstack,
-                                                                   x);
-                float f11 = (i1 >> 16 & 255) / 255.0F;
-                float f13 = (i1 >> 8 & 255) / 255.0F;
-                float f14 = (i1 & 255) / 255.0F;
-                GL11.glColor4f(1.0F * f11,
-                               1.0F * f13,
-                               1.0F * f14,
-                               1.0F);
-                this.renderItem(entityliving,
-                                itemstack,
-                                x,
-                                texturemanager);
-            }
-        } else {
-            this.renderItem(entityliving,
-                            itemstack,
-                            0,
-                            texturemanager);
-        }
+    private void doRenderEquippedItem(ItemStack itemstack, Object renderBlocks, EntityLivingBase entityliving) {
+//        TextureManager texturemanager = this.mc.getTextureManager();
+//        if (itemstack.getItem().requiresMultipleRenderPasses()) {
+//            this.renderItem(entityliving,
+//                            itemstack,
+//                            0,
+//                            texturemanager);
+//            for (int x = 1; x < itemstack.getItem().getRenderPasses(itemstack.getItemDamage()); x++) {
+//                int i1 = itemstack.getItem().getColorFromItemStack(itemstack,
+//                                                                   x);
+//                float f11 = (i1 >> 16 & 255) / 255.0F;
+//                float f13 = (i1 >> 8 & 255) / 255.0F;
+//                float f14 = (i1 & 255) / 255.0F;
+//                GL11.glColor4f(1.0F * f11,
+//                               1.0F * f13,
+//                               1.0F * f14,
+//                               1.0F);
+//                this.renderItem(entityliving,
+//                                itemstack,
+//                                x,
+//                                texturemanager);
+//            }
+//        } else {
+//            this.renderItem(entityliving,
+//                            itemstack,
+//                            0,
+//                            texturemanager);
+//        }
     }
 
     private void renderItem(EntityLivingBase entityliving, ItemStack itemstack, int index, TextureManager texturemanager) {
         GL11.glPushMatrix();
-        IIcon icon = entityliving.getItemIcon(itemstack,
-                                              index);
+//        IIcon icon = entityliving.getItemIcon(itemstack,
+//                                              index);
+//
+//        if (icon == null) {
+//            GL11.glPopMatrix();
+//            return;
+//        }
 
-        if (icon == null) {
-            GL11.glPopMatrix();
-            return;
-        }
-
-        texturemanager.bindTexture(texturemanager.getResourceLocation(itemstack.getItemSpriteNumber()));
-        Tessellator tessellator = Tessellator.instance;
-        float f = icon.getMinU();
-        float f1 = icon.getMaxU();
-        float f2 = icon.getMinV();
-        float f3 = icon.getMaxV();
+//        texturemanager.bindTexture(texturemanager.getResourceLocation(itemstack.getItemSpriteNumber()));
+        Tessellator tessellator = Tessellator.getInstance();
+//        float f = icon.getMinU();
+//        float f1 = icon.getMaxU();
+//        float f2 = icon.getMinV();
+//        float f3 = icon.getMaxV();
         float f4 = 0.0F;
         float f5 = 0.3F;
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -242,16 +239,16 @@ public class ItemRendererToolBelt implements IItemRenderer {
          * GL11.glRotatef( 335.0F, 0.0F, 0.0F, 1.0F); GL11.glTranslatef(
          * -0.9375F, -0.0625F, 0.0F);
          */
-        ItemRenderer.renderItemIn2D(tessellator,
-                                    f1,
-                                    f2,
-                                    f,
-                                    f3,
-                                    icon.getIconWidth(),
-                                    icon.getIconHeight(),
-                                    0.0625F);
+//        ItemRenderer.renderItemIn2D(tessellator,
+//                                    f1,
+//                                    f2,
+//                                    f,
+//                                    f3,
+//                                    icon.getIconWidth(),
+//                                    icon.getIconHeight(),
+//                                    0.0625F);
 
-        if (itemstack.hasEffect(index)) {
+        if (itemstack.hasEffect()) {
             GL11.glDepthFunc(GL11.GL_EQUAL);
             GL11.glDisable(GL11.GL_LIGHTING);
             texturemanager.bindTexture(RES_ITEM_GLINT);
@@ -277,14 +274,14 @@ public class ItemRendererToolBelt implements IItemRenderer {
                            0.0F,
                            0.0F,
                            1.0F);
-            ItemRenderer.renderItemIn2D(tessellator,
-                                        0.0F,
-                                        0.0F,
-                                        1.0F,
-                                        1.0F,
-                                        256,
-                                        256,
-                                        0.0625F);
+//            ItemRenderer.renderItemIn2D(tessellator,
+//                                        0.0F,
+//                                        0.0F,
+//                                        1.0F,
+//                                        1.0F,
+//                                        256,
+//                                        256,
+//                                        0.0625F);
             GL11.glPopMatrix();
             GL11.glPushMatrix();
             GL11.glScalef(f8,
@@ -298,14 +295,14 @@ public class ItemRendererToolBelt implements IItemRenderer {
                            0.0F,
                            0.0F,
                            1.0F);
-            ItemRenderer.renderItemIn2D(tessellator,
-                                        0.0F,
-                                        0.0F,
-                                        1.0F,
-                                        1.0F,
-                                        256,
-                                        256,
-                                        0.0625F);
+//            ItemRenderer.renderItemIn2D(tessellator,
+//                                        0.0F,
+//                                        0.0F,
+//                                        1.0F,
+//                                        1.0F,
+//                                        256,
+//                                        256,
+//                                        0.0625F);
             GL11.glPopMatrix();
             GL11.glMatrixMode(GL11.GL_MODELVIEW);
             GL11.glDisable(GL11.GL_BLEND);

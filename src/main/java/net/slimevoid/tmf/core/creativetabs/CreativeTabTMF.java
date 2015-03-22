@@ -13,10 +13,10 @@ package net.slimevoid.tmf.core.creativetabs;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.slimevoid.tmf.core.TMFCore;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.slimevoid.tmf.core.lib.ConfigurationLib;
 import net.slimevoid.tmf.core.lib.CoreLib;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class CreativeTabTMF extends CreativeTabs {
 
@@ -32,6 +32,6 @@ public class CreativeTabTMF extends CreativeTabs {
      * the itemID for the item to be displayed on the tab
      */
     public Item getTabIconItem() {
-        return TMFCore.miningToolBelt;
+        return ConfigurationLib.miningToolBelt;
     }
 }

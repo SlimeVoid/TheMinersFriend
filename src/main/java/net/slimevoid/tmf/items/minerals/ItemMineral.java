@@ -21,8 +21,8 @@ public class ItemMineral extends ItemTMF implements IFuelHandlerTMF {
     private int burnSpeed = 200;
     private int burnWidth = 1;
 
-    public ItemMineral(int id) {
-        super(id);
+    public ItemMineral() {
+        super();
         this.setNoRepair();
     }
 

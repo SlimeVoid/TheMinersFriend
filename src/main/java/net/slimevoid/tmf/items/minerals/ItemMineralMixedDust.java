@@ -17,6 +17,7 @@ import java.util.Map;
 import net.minecraft.item.ItemStack;
 import net.slimevoid.library.util.javascript.JSParser;
 import net.slimevoid.tmf.core.TMFCore;
+import net.slimevoid.tmf.core.lib.ConfigurationLib;
 import net.slimevoid.tmf.fuel.MixedDustNameRegistry;
 
 public class ItemMineralMixedDust extends ItemMineralDust {
@@ -25,8 +26,8 @@ public class ItemMineralMixedDust extends ItemMineralDust {
     public static String script_burnSpeed;
     public static String script_burnWidth;
 
-    public ItemMineralMixedDust(int id) {
-        super(id);
+    public ItemMineralMixedDust() {
+        super();
         /**
          * Set this to true since we will be storing item damage data for each
          * mixed dust
@@ -143,11 +144,11 @@ public class ItemMineralMixedDust extends ItemMineralDust {
     public static int getDustMeta(ItemStack dust) {
         if (dust.getItem() instanceof ItemMineralMixedDust) return dust.getItemDamage();
 
-        if (dust.getItem() == TMFCore.dustAcxium) return 256; // 0001 0000 0000
+        if (dust.getItem() == ConfigurationLib.dustAcxium) return 256; // 0001 0000 0000
 
-        if (dust.getItem() == TMFCore.dustBisogen) return 16; // 0000 0001 0000
+        if (dust.getItem() == ConfigurationLib.dustBisogen) return 16; // 0000 0001 0000
 
-        if (dust.getItem() == TMFCore.dustCydrine) return 1; // 0000 0000 0001
+        if (dust.getItem() == ConfigurationLib.dustCydrine) return 1; // 0000 0000 0001
 
         return 0;
     }

@@ -26,6 +26,12 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.slimevoid.tmf.core.lib.PacketLib;
 import org.lwjgl.opengl.GL11;
 
 import net.slimevoid.library.util.helpers.PacketHelper;
@@ -33,12 +39,6 @@ import net.slimevoid.tmf.api.IMotionSensorRule;
 import net.slimevoid.tmf.core.lib.CommandLib;
 import net.slimevoid.tmf.core.lib.ResourceLib;
 import net.slimevoid.tmf.network.packets.PacketMotionSensor;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MotionSensorTickHandler {
@@ -73,7 +73,7 @@ public class MotionSensorTickHandler {
     }
 
     @SubscribeEvent
-    public void onSensorClientTick(ClientTickEvent event) {
+    public void onSensorClientTick(TickEvent.ClientTickEvent event) {
         EntityPlayer entityplayer = mc.thePlayer;
         World world = mc.theWorld;
 
@@ -95,7 +95,7 @@ public class MotionSensorTickHandler {
     }
 
     @SubscribeEvent
-    public void onSensorRenderTick(RenderTickEvent event) {
+    public void onSensorRenderTick(TickEvent.RenderTickEvent event) {
         EntityPlayer entityplayer = mc.thePlayer;
         World world = mc.theWorld;
 
@@ -183,18 +183,18 @@ public class MotionSensorTickHandler {
     private void checkEntities(EntityPlayer entityplayer, World world) {
         movedEntities.clear();
 
-        AxisAlignedBB AABB = AxisAlignedBB.getBoundingBox(entityplayer.posX
-                                                                  - maxEntityDistance,
-                                                          entityplayer.posY
-                                                                  - maxEntityDistance,
-                                                          entityplayer.posZ
-                                                                  - maxEntityDistance,
-                                                          entityplayer.posX
-                                                                  + maxEntityDistance,
-                                                          entityplayer.posY
-                                                                  + maxEntityDistance,
-                                                          entityplayer.posZ
-                                                                  + maxEntityDistance);
+        AxisAlignedBB AABB = AxisAlignedBB.fromBounds(entityplayer.posX
+                        - maxEntityDistance,
+                entityplayer.posY
+                        - maxEntityDistance,
+                entityplayer.posZ
+                        - maxEntityDistance,
+                entityplayer.posX
+                        + maxEntityDistance,
+                entityplayer.posY
+                        + maxEntityDistance,
+                entityplayer.posZ
+                        + maxEntityDistance);
         List<Entity> closestEntities = world.getEntitiesWithinAABBExcludingEntity(entityplayer,
                                                                                   AABB);
 
@@ -245,9 +245,11 @@ public class MotionSensorTickHandler {
             }
 
             if (closestEntity != null) {
-                playSoundPing(entityplayer,
-                              world,
-                              closestDistSq2d);
+                PacketLib.playSoundPing(
+                        entityplayer,
+                        world,
+                        entityplayer.getPosition(),
+                        getPingPitch(closestDistSq2d));
             }
         }
     }
@@ -284,8 +286,10 @@ public class MotionSensorTickHandler {
     }
 
     private void onMotionSensorSensing(EntityPlayer entityplayer, World world) {
-        playSoundSweep(entityplayer,
-                       world);
+        PacketLib.playSoundSweep(
+                entityplayer,
+                world,
+                entityplayer.getPosition());
     }
 
     private void onRenderTick(EntityPlayer entityplayer) {
@@ -305,29 +309,33 @@ public class MotionSensorTickHandler {
         mc.renderEngine.bindTexture(texture);
         float scalex = 0.00390625F * 2;
         float scaley = 0.00390625F * 2;
-        Tessellator var9 = Tessellator.instance;
-        var9.startDrawingQuads();
-        var9.addVertexWithUV(x + 0,
-                             y + height,
-                             0,
-                             (u + 0) * scalex,
-                             (v + height) * scaley);
-        var9.addVertexWithUV(x + width,
-                             y + height,
-                             0,
-                             (u + width) * scalex,
-                             (v + height) * scaley);
-        var9.addVertexWithUV(x + width,
-                             y + 0,
-                             0,
-                             (u + width) * scalex,
-                             (v + 0) * scaley);
-        var9.addVertexWithUV(x + 0,
-                             y + 0,
-                             0,
-                             (u + 0) * scalex,
-                             (v + 0) * scaley);
-        var9.draw();
+        Tessellator var9 = Tessellator.getInstance();
+        var9.getWorldRenderer().startDrawingQuads();
+        var9.getWorldRenderer().addVertexWithUV(
+                x + 0,
+                y + height,
+                0,
+                (u + 0) * scalex,
+                (v + height) * scaley);
+        var9.getWorldRenderer().addVertexWithUV(
+                x + width,
+                y + height,
+                0,
+                (u + width) * scalex,
+                (v + height) * scaley);
+        var9.getWorldRenderer().addVertexWithUV(
+                x + width,
+                y + 0,
+                0,
+                (u + width) * scalex,
+                (v + 0) * scaley);
+        var9.getWorldRenderer().addVertexWithUV(
+                x + 0,
+                y + 0,
+                0,
+                (u + 0) * scalex,
+                (v + 0) * scaley);
+        var9.getWorldRenderer().finishDrawing();
     }
 
     private void renderHUD(EntityPlayer entityplayer) {
@@ -338,7 +346,7 @@ public class MotionSensorTickHandler {
         float opacity = 0.5f;
 
         GL11.glPushMatrix();
-        ScaledResolution sr = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+        ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
         GL11.glClear(256);
 
         GL11.glPushMatrix();
@@ -355,9 +363,9 @@ public class MotionSensorTickHandler {
                               0);
         }
         GL11.glRotatef((float) playerDeg,
-                       0,
-                       0,
-                       1.0f);
+                0,
+                0,
+                1.0f);
 
         renderSprite(-64,
                      -64,
@@ -406,7 +414,7 @@ public class MotionSensorTickHandler {
         float opacity = 0.5f;
 
         GL11.glPushMatrix();
-        ScaledResolution sr = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+        ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
         GL11.glClear(256);
 
         GL11.glPushMatrix();
@@ -456,7 +464,7 @@ public class MotionSensorTickHandler {
         float opacity = 0.5f;
 
         GL11.glPushMatrix();
-        ScaledResolution sr = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+        ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
         GL11.glClear(256);
 
         GL11.glPushMatrix();
@@ -488,14 +496,6 @@ public class MotionSensorTickHandler {
         // GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glPopMatrix();
         GL11.glPopMatrix();
-    }
-
-    private void playSoundSweep(EntityPlayer entityplayer, World world) {
-        PacketHelper.sendToServer(new PacketMotionSensor(CommandLib.PLAY_MOTION_SWEEP, entityplayer, (int) entityplayer.posX, (int) entityplayer.posY, (int) entityplayer.posZ, 1.0F));
-    }
-
-    private void playSoundPing(EntityPlayer entityplayer, World world, double distSq2d) {
-        PacketHelper.sendToServer(new PacketMotionSensor(CommandLib.PLAY_MOTION_PING, entityplayer, (int) entityplayer.posX, (int) entityplayer.posY, (int) entityplayer.posZ, getPingPitch(distSq2d)));
     }
 
     private float getPingPitch(double distSq2d) {

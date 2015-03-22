@@ -9,31 +9,25 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package net.slimevoid.tmf.network.packets.executors;
+package net.slimevoid.tmf.client.network.executors;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.slimevoid.library.IPacketExecutor;
 import net.slimevoid.library.network.PacketUpdate;
 import net.slimevoid.library.network.executor.PacketExecutor;
-import net.slimevoid.tmf.api.IMotionSensor;
-import net.slimevoid.tmf.core.lib.SoundLib;
-import net.slimevoid.tmf.network.packets.PacketMotionSensor;
+import net.slimevoid.tmf.core.lib.MessageLib;
+import net.slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
-public class MotionSensorSweepExecutor extends PacketExecutor {
+public class ClientMiningModeDeactivatedExecutor extends PacketExecutor {
 
     @Override
     public PacketUpdate execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
-        if (packet instanceof PacketMotionSensor) {
-            PacketMotionSensor packetMS = (PacketMotionSensor) packet;
-            Entity entity = packetMS.getEntity(world);
-            if (entity != null) {
-                world.playSoundAtEntity(entity,
-                                        SoundLib.TRACKER_SWEEP,
-                                        0.5F,
-                                        ((IMotionSensor) packetMS).getDist2sq());
-            }
+        if (packet instanceof PacketMiningToolBelt) {
+            PacketMiningToolBelt packetMT = (PacketMiningToolBelt) packet;
+            String message = StatCollector.translateToLocal(MessageLib.MINING_MODE_DEACTIVATED);
+            entityplayer.addChatMessage(new ChatComponentText(message));
         }
         return null;
     }

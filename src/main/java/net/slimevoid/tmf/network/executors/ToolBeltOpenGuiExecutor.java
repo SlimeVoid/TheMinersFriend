@@ -9,29 +9,34 @@
  * Lesser General Public License along with this program. If not, see
  * <http://www.gnu.org/licenses/>
  */
-package net.slimevoid.tmf.network.packets.executors;
+package net.slimevoid.tmf.network.executors;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.slimevoid.library.IPacketExecutor;
 import net.slimevoid.library.network.PacketUpdate;
 import net.slimevoid.library.network.executor.PacketExecutor;
+import net.slimevoid.tmf.core.TheMinersFriend;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
+import net.slimevoid.tmf.core.lib.GuiLib;
 import net.slimevoid.tmf.network.packets.PacketMiningToolBelt;
 
-public class MiningModeExecutor extends PacketExecutor {
+public class ToolBeltOpenGuiExecutor extends PacketExecutor {
 
     @Override
     public PacketUpdate execute(PacketUpdate packet, World world, EntityPlayer entityplayer) {
         if (packet instanceof PacketMiningToolBelt) {
             ItemStack itemstack = entityplayer.getHeldItem();
             if (ItemHelper.isToolBelt(itemstack)) {
-                ItemHelper.toggleMiningMode(world,
-                                            entityplayer,
-                                            itemstack);
+                entityplayer.openGui(TheMinersFriend.instance,
+                                     GuiLib.getBeltIdFromItemStack(itemstack),
+                                     world,
+                                     (int) entityplayer.posX,
+                                     (int) entityplayer.posY,
+                                     (int) entityplayer.posZ);
             }
         }
         return null;
     }
+
 }

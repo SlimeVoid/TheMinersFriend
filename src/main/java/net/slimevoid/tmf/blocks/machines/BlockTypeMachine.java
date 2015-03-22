@@ -11,18 +11,20 @@
  */
 package net.slimevoid.tmf.blocks.machines;
 
+import net.minecraft.tileentity.TileEntity;
+import net.slimevoid.library.IEnumBlockType;
 import net.slimevoid.library.tileentity.TileEntityBase;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityStove;
-import net.slimevoid.tmf.client.renderers.handlers.BlockGrinderRenderer;
 import net.slimevoid.tmf.core.TMFCore;
 import net.slimevoid.tmf.core.lib.BlockLib;
+import net.slimevoid.tmf.core.lib.ConfigurationLib;
 import net.slimevoid.tmf.core.lib.CoreLib;
 
-public enum EnumMachine {
+public enum BlockTypeMachine implements IEnumBlockType{
 
     REFINERY(BlockLib.BLOCK_REFINERY, TileEntityRefinery.class, true),
     GRINDER(BlockLib.BLOCK_GRINDER, TileEntityGrinder.class, true),
@@ -37,12 +39,45 @@ public enum EnumMachine {
     private Class<? extends TileEntityBase> _class;
     //private IIcon[]                         iconList;
 
-    EnumMachine(String name, Class<? extends TileEntityBase> tileClass, boolean hasState) {
+    BlockTypeMachine(String name, Class<? extends TileEntityBase> tileClass, boolean hasState) {
         this.machineName = name;
         this._class = tileClass;
         this.hasState = hasState;
         int icons = hasState ? 12 : 6;
         //this.iconList = new IIcon[icons];
+    }
+
+    public int getId() {
+        return this.getMeta();
+    }
+
+    @Override
+    public String getName() {
+        return this.machineName;
+    }
+
+    @Override
+    public void setTileData(Class<? extends TileEntityBase> tileEntityClass) {
+        this._class = tileEntityClass;
+    }
+
+    @Override
+    public int getMeta() {
+        return this.machineId;
+    }
+
+    @Override
+    public Class<? extends TileEntityBase> getTileEntityClass() {
+        return this._class;
+    }
+
+    @Override
+    public TileEntity createTileEntity() {
+        try {
+            return this.getTileEntityClass().newInstance();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 //    EnumMachine(String name, Class<? extends TileEntityBase> tileClass, ISimpleBlockRenderingHandler renderHandler, boolean hasState) {
@@ -53,18 +88,6 @@ public enum EnumMachine {
 //        int icons = hasState ? 12 : 6;
 //        this.iconList = new IIcon[icons];
 //    }
-
-    public int getId() {
-        return this.machineId;
-    }
-
-    public String getTextureName() {
-        return CoreLib.MOD_ID + ":" + this.machineName;
-    }
-
-    public String getUnlocalizedName() {
-        return this.machineName;
-    }
 
 //    public boolean hasRenderHandler() {
 //        return this.renderHandler != null;
@@ -124,14 +147,15 @@ public enum EnumMachine {
 //        }
 //    }
 
-    public static EnumMachine getMachine(int tileId) {
-        return tileId >= 0 && tileId < EnumMachine.values().length ? EnumMachine.values()[tileId] : null;
+    public static BlockTypeMachine getMachine(int tileId) {
+        return tileId >= 0 && tileId < BlockTypeMachine.values().length ? BlockTypeMachine.values()[tileId] : null;
     }
 
     public static void registerMachines() {
-        for (EnumMachine machine : EnumMachine.values()) {
-            TMFCore.blockMachineBase.addMapping(machine.machineId,
-                                                machine.machineName);
+        for (BlockTypeMachine machine : BlockTypeMachine.values()) {
+            ConfigurationLib.blockMachineBase.addMapping(
+                    machine.machineId,
+                    machine.machineName);
         }
     }
 

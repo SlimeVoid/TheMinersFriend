@@ -113,10 +113,7 @@ public class CommonProxy implements ICommonProxy {
     @Override
     public void init() {
         NetworkRegistry.INSTANCE.registerGuiHandler(TheMinersFriend.instance,
-                                                    this);
-        PacketLib.registerPacketExecutors();
-
-        TMFCompatibility.registerPacketExecutors();
+                this);
     }
 
     @Override
@@ -163,6 +160,8 @@ public class CommonProxy implements ICommonProxy {
 
     @Override
     public void registerPacketHandlers() {
+        PacketLib.registerPacketExecutors();
 
+        TMFCompatibility.registerPacketExecutors();
     }
 }

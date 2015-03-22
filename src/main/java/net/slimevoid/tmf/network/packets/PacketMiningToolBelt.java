@@ -12,6 +12,7 @@
 package net.slimevoid.tmf.network.packets;
 
 import net.minecraft.world.World;
+import net.slimevoid.tmf.core.lib.CommandLib;
 import net.slimevoid.tmf.core.lib.PacketLib;
 
 public class PacketMiningToolBelt extends PacketMining {
@@ -31,4 +32,21 @@ public class PacketMiningToolBelt extends PacketMining {
         return false;
     }
 
+    public static class Cycle extends PacketMiningToolBelt {
+        public Cycle() {
+            super(CommandLib.CYCLE_TOOL_BELT);
+        }
+    }
+
+    public static class Gui extends PacketMiningToolBelt {
+        public Gui() {
+            super(CommandLib.OPEN_TOOLBELT_GUI);
+        }
+    }
+
+    public static class Mode extends PacketMiningToolBelt {
+        public Mode() {
+            super(CommandLib.TOGGLE_MINING_MODE);
+        }
+    }
 }

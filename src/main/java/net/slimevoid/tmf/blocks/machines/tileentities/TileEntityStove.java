@@ -21,7 +21,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
-import net.slimevoid.tmf.blocks.machines.EnumMachine;
+import net.slimevoid.tmf.blocks.machines.BlockTypeMachine;
 import net.slimevoid.tmf.core.TheMinersFriend;
 import net.slimevoid.tmf.core.lib.BlockLib;
 import net.slimevoid.tmf.core.lib.GuiLib;
@@ -198,7 +198,7 @@ public class TileEntityStove extends TileEntityMachine {
 
     @Override
     public int getExtendedBlockID() {
-        return EnumMachine.STOVE.getId();
+        return BlockTypeMachine.STOVE.getId();
     }
 
     @Override

@@ -20,6 +20,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.library.blocks.BlockTransientLight;
 import net.slimevoid.tmf.core.TMFCore;
 import net.slimevoid.tmf.core.creativetabs.CreativeTabTMF;
+import net.slimevoid.tmf.core.lib.ConfigurationLib;
 
 public class ItemMiningHelmet extends ItemMiningArmor {
 
@@ -50,7 +51,7 @@ public class ItemMiningHelmet extends ItemMiningArmor {
         // System.out.println(entityplayer.posZ + " | " + z);
         BlockTransientLight.setBlock(
                 world,
-                TMFCore.blockMiningLamp.getDefaultState(),
+                ConfigurationLib.blockMiningLamp.getDefaultState(),
                 new BlockPos(x, y, z));
     }
 
