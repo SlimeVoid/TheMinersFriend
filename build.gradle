@@ -26,13 +26,16 @@ repositories {
 apply plugin: 'maven'
 apply plugin: 'forge'
 apply plugin: 'eclipse'
-
 def slimevoidVersion = '2.0.4.6'
+def number = '0.1.0.3'
+def release = 'alpha'
+def mcversion = '1.7.2'
 def forge = '10.12.1.1060'
-def mc = '1.7.2-' + forge
+def map = '0'
+def mc = mcversion + '-' + forge
 def pack = 'tmf'
 def github = 'TheMinersFriend'
-version = '0.1.0.2'
+version = number + '-' + release + '-' + mcversion
 group = 'net.slimevoid'
 archivesBaseName = 'TheMinersFriend'
 
@@ -43,25 +46,29 @@ dependencies {
 
 minecraft {
     version = mc
-    assetDir = 'eclipse/assets'
-    
+    if  (file('../run1.7').exists()) {
+        runDir = "../run1.7"
+    } else {
+        runDir = "run1.7"
+    }
     replaceIn 'net/slimevoid/' + pack + '/core/lib/CoreLib.java'
     replace '@VERSION@', project.version
-    replace 'MOD_DEPENDENCIES', 'BLANK_DEPENDENCIES'
-    replace 'ACTUAL_DEPENDENCIES ', 'MOD_DEPENDENCIES'
-    replace '@FORGEVERSION@', forge
-    replace '@SLIMEVERSION@', slimevoidVersion
+    replace 'required-after:SlimevoidLib', 'required-after:Forge@[' + forge + ',);required-after:SlimevoidLib@['+ slimevoidVersion + ',)'
 }
 
 processResources {
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
+
         // replace version and mcversion
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
+
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
