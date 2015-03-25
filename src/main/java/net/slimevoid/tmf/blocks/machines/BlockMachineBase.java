@@ -11,6 +11,7 @@
  */
 package net.slimevoid.tmf.blocks.machines;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -37,6 +38,22 @@ public class BlockMachineBase extends BlockSimpleBase {
 
     public BlockMachineBase() {
         super(Material.rock);
+        this.setHardness(2.0F);
+        this.setStepSound(Block.soundTypeStone);
+    }
+
+    @Override
+    public int getRenderType() {
+        return ConfigurationLib.renderMachineId;
+    }
+
+    @Override
+    public boolean isOpaqueCube() {
+        return true;
+    }
+
+    public boolean isCube() {
+        return true;
     }
 
     @Override
@@ -54,41 +71,23 @@ public class BlockMachineBase extends BlockSimpleBase {
     }
 
     @Override
-    public boolean isOpaqueCube() {
-        return true;
-    }
-
-    public boolean isCube() {
-        return true;
-    }
-
-    @Override
-    public int getRenderType() {
-        return ConfigurationLib.renderMachineId;
-    }
-
-    @Override
-    protected void setActualDefaultState() {
-        this.setDefaultState(this.getInitialState(this.blockState.getBaseState().withProperty(BlockStates.FACING, EnumFacing.NORTH).withProperty(this.getBlockTypeProperty(), this.getDefaultBlockType())));
-    }
-
-    protected IBlockState getInitialState(IBlockState state) {
+    public IBlockState getInitialState(IBlockState state) {
         return state.withProperty(ACTIVE, false);
     }
 
-    protected PropertyEnum getBlockTypeProperty() {
+    public PropertyEnum getBlockTypeProperty() {
         return VARIANT;
     }
 
-    protected IProperty[] getPropertyList() {
-        return new IProperty[] {ACTIVE, BlockStates.FACING, VARIANT};
+    public IProperty[] getPropertyList() {
+        return new IProperty[] {BlockStates.FACING, VARIANT, ACTIVE};
     }
 
-    protected Comparable<? extends IEnumBlockType> getDefaultBlockType() {
+    public Comparable<? extends IEnumBlockType> getDefaultBlockType() {
         return BlockTypeMachine.REFINERY;
     }
 
-    protected Comparable<? extends IEnumBlockType> getBlockType(int meta) {
+    public Comparable<? extends IEnumBlockType> getBlockType(int meta) {
         return BlockTypeMachine.getMachine(meta);
     }
 

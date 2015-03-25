@@ -11,21 +11,21 @@
  */
 package net.slimevoid.tmf.blocks.machines;
 
+import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.slimevoid.library.IEnumBlockType;
+import net.slimevoid.library.blocks.BlockSimpleBase;
 import net.slimevoid.library.tileentity.TileEntityBase;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityStove;
-import net.slimevoid.tmf.core.TMFCore;
 import net.slimevoid.tmf.core.lib.BlockLib;
 import net.slimevoid.tmf.core.lib.ConfigurationLib;
-import net.slimevoid.tmf.core.lib.CoreLib;
 
-public enum BlockTypeMachine implements IEnumBlockType{
+public enum BlockTypeMachine implements IEnumBlockType {
 
     REFINERY(BlockLib.BLOCK_REFINERY, TileEntityRefinery.class, true),
     GRINDER(BlockLib.BLOCK_GRINDER, TileEntityGrinder.class, true),
@@ -155,9 +155,7 @@ public enum BlockTypeMachine implements IEnumBlockType{
 
     public static void registerMachines() {
         for (BlockTypeMachine machine : BlockTypeMachine.values()) {
-            ConfigurationLib.blockMachineBase.addMapping(
-                    machine.machineId,
-                    machine.machineName);
+            ConfigurationLib.blockMachineBase.addMapping(machine.getId(), machine.getName());
         }
     }
 

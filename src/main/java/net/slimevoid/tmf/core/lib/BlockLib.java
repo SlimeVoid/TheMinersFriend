@@ -18,6 +18,8 @@ import net.slimevoid.tmf.blocks.ores.BlockTMFOre;
 
 public class BlockLib {
 
+    public static final int          BLOCK_REFINERY_ID  = 0;
+
     private static String            BLOCK_PREFIX       = "tmf.";
 
     public static final String       BLOCK_MINING_LAMP  = BLOCK_PREFIX

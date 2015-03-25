@@ -1,9 +1,5 @@
 {
   "variants": {
-    "facing=north,variant=tmf.machine.refinery": { "model": "tmf:tmf.machine.refinery" },
-    "facing=south,variant=tmf.machine.refinery": { "model": "tmf:tmf.machine.refinery", "y": 180 },
-    "facing=east,variant=tmf.machine.refinery": { "model": "tmf:tmf.machine.refinery", "y": 90 },
-    "facing=west,variant=tmf.machine.refinery": { "model": "tmf:tmf.machine.refinery", "y": 270 },
     "active=true,facing=north,variant=tmf.machine.refinery": { "model": "tmf:tmf.machine.refinery_active" },
     "active=true,facing=south,variant=tmf.machine.refinery": { "model": "tmf:tmf.machine.refinery_active", "y": 180 },
     "active=true,facing=east,variant=tmf.machine.refinery": { "model": "tmf:tmf.machine.refinery_active", "y": 90 },

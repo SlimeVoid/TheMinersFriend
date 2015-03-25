@@ -203,9 +203,13 @@ public class TMFCore {
 
         // MACHINE BASE
         ConfigurationLib.blockMachineBase = new BlockMachineBase();
-        GameRegistry.registerBlock(ConfigurationLib.blockMachineBase,
+        GameRegistry.registerBlock(ConfigurationLib.blockMachineBase.setUnlocalizedName(BlockLib.BLOCK_MACHINE_BASE),
                                    ItemBlockBase.class,
                                    BlockLib.BLOCK_MACHINE_BASE);
+
+        //ConfigurationLib.blockMachineBase.addMapping(
+        //        BlockLib.BLOCK_REFINERY_ID,
+        //        BlockLib.BLOCK_REFINERY);
 
         BlockTypeMachine.registerMachines();
     }
@@ -299,24 +303,24 @@ public class TMFCore {
 
         SlimevoidCore.console(CoreLib.MOD_ID,
                 "Registering Miner's Tool Belt...");
-        TMFCore.registerToolBelt();
+        registerToolBelt();
 
         if (ConfigurationLib.loadItems) {
             SlimevoidCore.console(CoreLib.MOD_ID,
                     "Registering items...");
-            TMFCore.registerItems();
+            registerItems();
         }
 
         if (ConfigurationLib.loadOres) {
             SlimevoidCore.console(CoreLib.MOD_ID,
                     "Registering ores...");
-            TMFCore.registerOres();
+            registerOres();
         }
 
         if (ConfigurationLib.loadMachines) {
             SlimevoidCore.console(CoreLib.MOD_ID,
                     "Registering machines...");
-            TMFCore.registerMachines();
+            registerMachines();
         }
 
         TheMinersFriend.proxy.registerRenderInformation();
@@ -342,11 +346,11 @@ public class TMFCore {
 
         SlimevoidCore.console(CoreLib.MOD_ID,
                 "Registering recipes...");
-        TMFCore.registerRecipes();
+        registerRecipes();
 
         SlimevoidCore.console(CoreLib.MOD_ID,
                 "Registering fuels...");
-        TMFCore.registerFuels();
+        registerFuels();
     }
 
     public static void postInitialize() {

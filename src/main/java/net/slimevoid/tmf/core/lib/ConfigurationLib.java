@@ -18,10 +18,9 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.slimevoid.library.blocks.BlockBase;
-import net.slimevoid.library.blocks.BlockSimpleBase;
 import net.slimevoid.library.data.Logger;
 import net.slimevoid.library.util.xml.XMLLoader;
+import net.slimevoid.tmf.blocks.machines.BlockMachineBase;
 import net.slimevoid.tmf.blocks.machines.BlockTypeMachine;
 import net.slimevoid.tmf.core.LoggerTMF;
 import net.slimevoid.tmf.core.TMFCore;
@@ -115,7 +114,7 @@ public class ConfigurationLib {
 
     // MACHINES
     public static int       blockMachineBaseId;
-    public static BlockSimpleBase blockMachineBase;
+    public static BlockMachineBase blockMachineBase;
 
     public static int       blockMiningLampID = 3840;
     public static Block     blockMiningLamp;

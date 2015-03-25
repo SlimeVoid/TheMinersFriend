@@ -25,6 +25,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.library.blocks.BlockBase;
+import net.slimevoid.library.blocks.BlockStates;
 import net.slimevoid.library.tileentity.TileEntityBase;
 import net.slimevoid.library.util.helpers.SlimevoidHelper;
 import net.slimevoid.tmf.blocks.machines.BlockMachineBase;
