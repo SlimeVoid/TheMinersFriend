@@ -1,14 +1,20 @@
 {
-	"trackersweep": {
-		"category": "master",
-		"sounds": [{
-			"name": "trackersweep",
-			"stream": false
-		}]},
-	"trackerping": {
-		"category": "master",
-		"sounds": [{
-			"name": "trackerping",
-			"steram": false
-		}]}
+  "trackersweep": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "trackersweep",
+        "stream": false
+      }
+    ]
+  },
+  "trackerping": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "trackerping",
+        "steram": false
+      }
+    ]
+  }
 } 

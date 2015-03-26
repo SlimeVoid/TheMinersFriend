@@ -20,8 +20,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.slimevoid.library.blocks.IEnumBlockType;
 import net.slimevoid.library.blocks.BlockSimpleBase;
+import net.slimevoid.library.blocks.IEnumBlockType;
 import net.slimevoid.library.blocks.state.BlockStates;
 import net.slimevoid.library.items.ItemBlockBase;
 import net.slimevoid.tmf.core.creativetabs.CreativeTabTMF;
@@ -78,7 +78,7 @@ public class BlockMachineBase extends BlockSimpleBase {
     }
 
     public IProperty[] getPropertyList() {
-        return new IProperty[] {BlockStates.FACING, VARIANT, ACTIVE};
+        return new IProperty[]{BlockStates.FACING, VARIANT, ACTIVE};
     }
 
     public Comparable<? extends IEnumBlockType> getDefaultBlockType() {

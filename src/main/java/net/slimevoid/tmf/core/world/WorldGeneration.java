@@ -11,8 +11,6 @@
  */
 package net.slimevoid.tmf.core.world;
 
-import java.util.Random;
-
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -21,29 +19,31 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import net.slimevoid.tmf.blocks.ores.BlockTMFOre;
 import net.slimevoid.tmf.core.lib.BlockLib;
 
+import java.util.Random;
+
 public class WorldGeneration implements IWorldGenerator {
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
         switch (world.provider.getDimensionId()) {
-        case -1:
-            generateNether(world,
-                           random,
-                           chunkX * 16,
-                           chunkZ * 16);
-            break;
-        case 1:
-            generateEnd(world,
+            case -1:
+                generateNether(world,
                         random,
                         chunkX * 16,
                         chunkZ * 16);
-            break;
-        default:
-            generateSurface(world,
-                            random,
-                            chunkX * 16,
-                            chunkZ * 16);
-            break;
+                break;
+            case 1:
+                generateEnd(world,
+                        random,
+                        chunkX * 16,
+                        chunkZ * 16);
+                break;
+            default:
+                generateSurface(world,
+                        random,
+                        chunkX * 16,
+                        chunkZ * 16);
+                break;
         }
     }
 
@@ -58,12 +58,12 @@ public class WorldGeneration implements IWorldGenerator {
                 int zCoord = chunkZ + random.nextInt(16);
                 WorldGenMinable minable = new WorldGenMinable(ore.getDefaultState(), ore.spawnSize);
                 minable.generate(world,
-                                 random,
-                                 new BlockPos(
-                                         xCoord,
-                                    yCoord,
-                                    zCoord
-                                 )
+                        random,
+                        new BlockPos(
+                                xCoord,
+                                yCoord,
+                                zCoord
+                        )
                 );
             }
         }

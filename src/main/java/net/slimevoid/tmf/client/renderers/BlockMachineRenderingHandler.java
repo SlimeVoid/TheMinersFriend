@@ -22,18 +22,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
-
 import net.minecraftforge.client.model.ISmartBlockModel;
 import net.minecraftforge.client.model.ISmartItemModel;
-import org.lwjgl.opengl.GL11;
-
 import net.slimevoid.library.blocks.BlockBase;
 import net.slimevoid.tmf.blocks.machines.BlockTypeMachine;
 import net.slimevoid.tmf.core.lib.ConfigurationLib;
+import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
-public class BlockMachineRenderingHandler implements ISmartBlockModel, ISmartItemModel{
+public class BlockMachineRenderingHandler implements ISmartBlockModel, ISmartItemModel {
 
     private void renderInventoryBlock(BlockBase block, int metadata, float brightness, BlockRendererDispatcher renderer) {
 
@@ -165,10 +163,10 @@ public class BlockMachineRenderingHandler implements ISmartBlockModel, ISmartIte
 //                                                                        modelID,
 //                                                                        renderer);
 //                    } else {
-                        this.renderInventoryBlock(blockBase,
-                                                  metadata,
-                                                  1.0F,
-                                                  renderer);
+                    this.renderInventoryBlock(blockBase,
+                            metadata,
+                            1.0F,
+                            renderer);
 //                    }
                 }
             }

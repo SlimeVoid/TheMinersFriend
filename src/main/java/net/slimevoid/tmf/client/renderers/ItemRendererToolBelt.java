@@ -12,10 +12,8 @@
 package net.slimevoid.tmf.client.renderers;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -24,17 +22,15 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.fml.client.FMLClientHandler;
-import net.slimevoid.tmf.core.TMFCore;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
-
 import net.slimevoid.tmf.core.lib.ConfigurationLib;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 public class ItemRendererToolBelt implements IItemRenderer {
 
-    private Minecraft                     mc;
-    private int                           zLevel         = 0;
+    private Minecraft mc;
+    private int zLevel = 0;
     private final static ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
 
     public ItemRendererToolBelt(Minecraft client) {
@@ -43,14 +39,14 @@ public class ItemRendererToolBelt implements IItemRenderer {
 
     public static void init() {
         MinecraftForgeClient.registerItemRenderer(ConfigurationLib.miningToolBelt,
-                                                  new ItemRendererToolBelt(FMLClientHandler.instance().getClient()));
+                new ItemRendererToolBelt(FMLClientHandler.instance().getClient()));
         MinecraftForgeClient.registerItemRenderer(ConfigurationLib.utilityBelt,
-                                                  new ItemRendererToolBelt(FMLClientHandler.instance().getClient()));
+                new ItemRendererToolBelt(FMLClientHandler.instance().getClient()));
     }
 
     private IItemRenderer getRendererForTool(ItemStack itemstack, ItemRenderType type) {
         return MinecraftForgeClient.getItemRenderer(itemstack,
-                                                    type);
+                type);
     }
 
     @Override
@@ -61,15 +57,15 @@ public class ItemRendererToolBelt implements IItemRenderer {
         }
         if (tool != null) {
             IItemRenderer renderer = this.getRendererForTool(tool,
-                                                             type);
+                    type);
             if (renderer != null) {
                 return renderer.handleRenderType(tool,
-                                                 type);
+                        type);
             }
         }
         if (type.equals(ItemRenderType.EQUIPPED)
-            || type.equals(ItemRenderType.INVENTORY)
-            || type.equals(ItemRenderType.EQUIPPED_FIRST_PERSON)) {
+                || type.equals(ItemRenderType.INVENTORY)
+                || type.equals(ItemRenderType.EQUIPPED_FIRST_PERSON)) {
             return true;
         }
         return false;
@@ -80,11 +76,11 @@ public class ItemRendererToolBelt implements IItemRenderer {
         ItemStack tool = ItemHelper.getSelectedTool(item);
         if (tool != null) {
             IItemRenderer renderer = this.getRendererForTool(tool,
-                                                             type);
+                    type);
             if (renderer != null) {
                 return renderer.shouldUseRenderHelper(type,
-                                                      tool,
-                                                      helper);
+                        tool,
+                        helper);
             }
         }
         return false;
@@ -93,11 +89,11 @@ public class ItemRendererToolBelt implements IItemRenderer {
     @Override
     public void renderItem(ItemRenderType type, ItemStack itemstack, Object... data) {
         if (!renderToolBeltItem(type,
-                                itemstack,
-                                data)) {
+                itemstack,
+                data)) {
             this.renderDefaultItem(type,
-                                   itemstack,
-                                   data);
+                    itemstack,
+                    data);
         }
     }
 
@@ -105,11 +101,11 @@ public class ItemRendererToolBelt implements IItemRenderer {
         ItemStack tool = ItemHelper.getSelectedTool(itemstack);
         if (tool != null) {
             IItemRenderer renderer = this.getRendererForTool(tool,
-                                                             type);
+                    type);
             if (renderer != null) {
                 renderer.renderItem(type,
-                                    tool,
-                                    data);
+                        tool,
+                        data);
                 return true;
             }
         }
@@ -119,16 +115,16 @@ public class ItemRendererToolBelt implements IItemRenderer {
     private void renderDefaultItem(ItemRenderType type, ItemStack itemstack, Object... data) {
         if (type.equals(ItemRenderType.INVENTORY)) {
             doRenderInventoryItem(itemstack,
-                                  data[0]);
+                    data[0]);
         } else if (type.equals(ItemRenderType.EQUIPPED_FIRST_PERSON)) {
             this.doRenderEquippedFirstPerson(itemstack,
-                                             data[0],
-                                             (EntityLivingBase) data[1]);
+                    data[0],
+                    (EntityLivingBase) data[1]);
         } else {
             doRenderEquippedItem(itemstack,
-                                 data[0],
-                                 (EntityLivingBase) data[1],
-                                 type);
+                    data[0],
+                    (EntityLivingBase) data[1],
+                    type);
         }
     }
 
@@ -139,7 +135,7 @@ public class ItemRendererToolBelt implements IItemRenderer {
             itemstack = tool;
         }
         this.renderInventoryItem(itemstack,
-                                 renderBlocks);
+                renderBlocks);
     }
 
     private void renderInventoryItem(ItemStack itemstack, Object renderBlocks) {
@@ -169,8 +165,8 @@ public class ItemRendererToolBelt implements IItemRenderer {
             itemstack = tool;
         }
         this.doRenderEquippedItem(itemstack,
-                                  renderBlocks,
-                                  entityLivingBase);
+                renderBlocks,
+                entityLivingBase);
     }
 
     private void doRenderEquippedItem(ItemStack toolBelt, Object renderBlocks, EntityLivingBase entityliving, ItemRenderType type) {
@@ -180,8 +176,8 @@ public class ItemRendererToolBelt implements IItemRenderer {
             itemstack = tool;
         }
         this.doRenderEquippedItem(itemstack,
-                                  renderBlocks,
-                                  entityliving);
+                renderBlocks,
+                entityliving);
     }
 
     private void doRenderEquippedItem(ItemStack itemstack, Object renderBlocks, EntityLivingBase entityliving) {
@@ -254,26 +250,26 @@ public class ItemRendererToolBelt implements IItemRenderer {
             texturemanager.bindTexture(RES_ITEM_GLINT);
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(GL11.GL_SRC_COLOR,
-                             GL11.GL_ONE);
+                    GL11.GL_ONE);
             float f7 = 0.76F;
             GL11.glColor4f(0.5F * f7,
-                           0.25F * f7,
-                           0.8F * f7,
-                           1.0F);
+                    0.25F * f7,
+                    0.8F * f7,
+                    1.0F);
             GL11.glMatrixMode(GL11.GL_TEXTURE);
             GL11.glPushMatrix();
             float f8 = 0.125F;
             GL11.glScalef(f8,
-                          f8,
-                          f8);
+                    f8,
+                    f8);
             float f9 = Minecraft.getSystemTime() % 3000L / 3000.0F * 8.0F;
             GL11.glTranslatef(f9,
-                              0.0F,
-                              0.0F);
+                    0.0F,
+                    0.0F);
             GL11.glRotatef(-50.0F,
-                           0.0F,
-                           0.0F,
-                           1.0F);
+                    0.0F,
+                    0.0F,
+                    1.0F);
 //            ItemRenderer.renderItemIn2D(tessellator,
 //                                        0.0F,
 //                                        0.0F,
@@ -285,16 +281,16 @@ public class ItemRendererToolBelt implements IItemRenderer {
             GL11.glPopMatrix();
             GL11.glPushMatrix();
             GL11.glScalef(f8,
-                          f8,
-                          f8);
+                    f8,
+                    f8);
             f9 = Minecraft.getSystemTime() % 4873L / 4873.0F * 8.0F;
             GL11.glTranslatef(-f9,
-                              0.0F,
-                              0.0F);
+                    0.0F,
+                    0.0F);
             GL11.glRotatef(10.0F,
-                           0.0F,
-                           0.0F,
-                           1.0F);
+                    0.0F,
+                    0.0F,
+                    1.0F);
 //            ItemRenderer.renderItemIn2D(tessellator,
 //                                        0.0F,
 //                                        0.0F,

@@ -11,11 +11,8 @@
  */
 package net.slimevoid.tmf.core;
 
-import java.io.File;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -37,18 +34,15 @@ import net.slimevoid.tmf.core.lib.*;
 import net.slimevoid.tmf.core.world.WorldGeneration;
 import net.slimevoid.tmf.fuel.MineralFuelHandler;
 import net.slimevoid.tmf.fuel.MixedDustNameRegistry;
-import net.slimevoid.tmf.items.minerals.ItemMineral;
-import net.slimevoid.tmf.items.minerals.ItemMineralDust;
-import net.slimevoid.tmf.items.minerals.ItemMineralIngot;
-import net.slimevoid.tmf.items.minerals.ItemMineralMixedDust;
-import net.slimevoid.tmf.items.minerals.ItemMineralMixedDustRecipe;
-import net.slimevoid.tmf.items.minerals.ItemMineralNugget;
+import net.slimevoid.tmf.items.minerals.*;
 import net.slimevoid.tmf.items.parts.ItemMachinePart;
 import net.slimevoid.tmf.items.tools.ItemMiningHelmet;
 import net.slimevoid.tmf.items.tools.ItemMiningLamp;
 import net.slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import net.slimevoid.tmf.items.tools.ItemMotionSensor;
 import net.slimevoid.tmf.items.tools.recipes.ArmorRecipes;
+
+import java.io.File;
 
 public class TMFCore {
 
@@ -68,7 +62,7 @@ public class TMFCore {
         GameRegistry.registerItem(ConfigurationLib.miningToolBelt,
                 ItemLib.MINING_TOOLBELT);
         GameRegistry.registerItem(ConfigurationLib.utilityBelt,
-                                  ItemLib.UTILITY_BELT);
+                ItemLib.UTILITY_BELT);
     }
 
     private static void registerTools() {
@@ -83,20 +77,20 @@ public class TMFCore {
         ConfigurationLib.miningHelmetDiamond = new ItemMiningHelmet(ConfigurationLib.miningHelmetDiamondId, ArmorMaterial.DIAMOND, 3, ItemLib.MINING_HELMET_DIAMOND, ResourceLib.MINING_HELMET_DIAMOND);
 
         GameRegistry.registerItem(ConfigurationLib.miningHelmetLamp,
-                                  ItemLib.MINING_HELMET_LAMP);
+                ItemLib.MINING_HELMET_LAMP);
         GameRegistry.registerItem(ConfigurationLib.miningHelmetIron,
-                                  ItemLib.MINING_HELMET_IRON);
+                ItemLib.MINING_HELMET_IRON);
         GameRegistry.registerItem(ConfigurationLib.miningHelmetGold,
-                                  ItemLib.MINING_HELMET_GOLD);
+                ItemLib.MINING_HELMET_GOLD);
         GameRegistry.registerItem(ConfigurationLib.miningHelmetDiamond,
-                                  ItemLib.MINING_HELMET_DIAMOND);
+                ItemLib.MINING_HELMET_DIAMOND);
     }
 
     private static void registerMotionSensor() {
         ConfigurationLib.motionSensor = new ItemMotionSensor().setUnlocalizedName(ItemLib.MOTION_SENSOR);
 
         GameRegistry.registerItem(ConfigurationLib.motionSensor,
-                                  ItemLib.MOTION_SENSOR);
+                ItemLib.MOTION_SENSOR);
     }
 
     private static void registerIngots() {
@@ -108,18 +102,18 @@ public class TMFCore {
         ConfigurationLib.ingotCydrine = new ItemMineralIngot().setUnlocalizedName(ItemLib.INGOT_CYDRINE);
 
         GameRegistry.registerItem(ConfigurationLib.nuggetAcxium,
-                                  ItemLib.NUGGET_ACXIUM);
+                ItemLib.NUGGET_ACXIUM);
         GameRegistry.registerItem(ConfigurationLib.nuggetBisogen,
-                                  ItemLib.NUGGET_BISOGEN);
+                ItemLib.NUGGET_BISOGEN);
         GameRegistry.registerItem(ConfigurationLib.nuggetCydrine,
-                                  ItemLib.NUGGET_CYDRINE);
+                ItemLib.NUGGET_CYDRINE);
 
         GameRegistry.registerItem(ConfigurationLib.ingotAcxium,
-                                  ItemLib.INGOT_ACXIUM);
+                ItemLib.INGOT_ACXIUM);
         GameRegistry.registerItem(ConfigurationLib.ingotBisogen,
-                                  ItemLib.INGOT_BISOGEN);
+                ItemLib.INGOT_BISOGEN);
         GameRegistry.registerItem(ConfigurationLib.ingotCydrine,
-                                  ItemLib.INGOT_CYDRINE);
+                ItemLib.INGOT_CYDRINE);
     }
 
     private static void registerMinerals() {
@@ -128,11 +122,11 @@ public class TMFCore {
         ConfigurationLib.mineralCydrine = new ItemMineral().setBurnWidth(1).setUnlocalizedName(ItemLib.MINERAL_CYDRINE);
 
         GameRegistry.registerItem(ConfigurationLib.mineralAcxium,
-                                  ItemLib.MINERAL_ACXIUM);
+                ItemLib.MINERAL_ACXIUM);
         GameRegistry.registerItem(ConfigurationLib.mineralBisogen,
-                                  ItemLib.MINERAL_BISOGEN);
+                ItemLib.MINERAL_BISOGEN);
         GameRegistry.registerItem(ConfigurationLib.mineralCydrine,
-                                  ItemLib.MINERAL_CYDRINE);
+                ItemLib.MINERAL_CYDRINE);
     }
 
     private static void registerDusts() {
@@ -142,13 +136,13 @@ public class TMFCore {
         ConfigurationLib.dustMixed = new ItemMineralMixedDust().setUnlocalizedName(ItemLib.DUST_MIXED);
 
         GameRegistry.registerItem(ConfigurationLib.dustAcxium,
-                                  ItemLib.DUST_ACXIUM);
+                ItemLib.DUST_ACXIUM);
         GameRegistry.registerItem(ConfigurationLib.dustBisogen,
-                                  ItemLib.DUST_BISOGEN);
+                ItemLib.DUST_BISOGEN);
         GameRegistry.registerItem(ConfigurationLib.dustCydrine,
-                                  ItemLib.DUST_CYDRINE);
+                ItemLib.DUST_CYDRINE);
         GameRegistry.registerItem(ConfigurationLib.dustMixed,
-                                  ItemLib.DUST_MIXED);
+                ItemLib.DUST_MIXED);
 
         ItemMineralMixedDust.script = FileReader.readFile(ResourceLib.DUST_LIB_PATH);
         ItemMineralMixedDust.script_burnTime = "getBurnTime()";
@@ -157,17 +151,17 @@ public class TMFCore {
 
         // TODO :: MixedDustNameRegistry : Move to or something
         MixedDustNameRegistry.addName(1,
-                                      1,
-                                      0,
-                                      "Monoaxogen");
+                1,
+                0,
+                "Monoaxogen");
         MixedDustNameRegistry.addName(1,
-                                      0,
-                                      1,
-                                      "Monoaxicyde");
+                0,
+                1,
+                "Monoaxicyde");
         MixedDustNameRegistry.addName(0,
-                                      1,
-                                      1,
-                                      "Monogencyde");
+                1,
+                1,
+                "Monogencyde");
     }
 
     private static void registerParts() {
@@ -179,17 +173,17 @@ public class TMFCore {
         ConfigurationLib.partCydriumSensor = new ItemMachinePart().setUnlocalizedName(ItemLib.PART_CYDRIUM_SENSOR);
 
         GameRegistry.registerItem(ConfigurationLib.partAcxiumCore,
-                                  ItemLib.PART_ACXIUM_CORE);
+                ItemLib.PART_ACXIUM_CORE);
         GameRegistry.registerItem(ConfigurationLib.partAcxogenScreen,
-                                  ItemLib.PART_ACXOGEN_SCREEN);
+                ItemLib.PART_ACXOGEN_SCREEN);
         GameRegistry.registerItem(ConfigurationLib.partAlloyCasing,
-                                  ItemLib.PART_ALLOY_CASING);
+                ItemLib.PART_ALLOY_CASING);
         GameRegistry.registerItem(ConfigurationLib.partBisogenGear,
-                                  ItemLib.PART_BISOGEN_GEAR);
+                ItemLib.PART_BISOGEN_GEAR);
         GameRegistry.registerItem(ConfigurationLib.partCydrineMotor,
-                                  ItemLib.PART_CYDRINE_MOTOR);
+                ItemLib.PART_CYDRINE_MOTOR);
         GameRegistry.registerItem(ConfigurationLib.partCydriumSensor,
-                                  ItemLib.PART_CYDRIUM_SENSOR);
+                ItemLib.PART_CYDRIUM_SENSOR);
     }
 
     // ======== FUEL REGISTRATION ========
@@ -204,8 +198,8 @@ public class TMFCore {
         // MACHINE BASE
         ConfigurationLib.blockMachineBase = new BlockMachineBase();
         GameRegistry.registerBlock(ConfigurationLib.blockMachineBase.setUnlocalizedName(BlockLib.BLOCK_MACHINE_BASE),
-                                   ItemBlockBase.class,
-                                   BlockLib.BLOCK_MACHINE_BASE);
+                ItemBlockBase.class,
+                BlockLib.BLOCK_MACHINE_BASE);
 
         //ConfigurationLib.blockMachineBase.addMapping(
         //        BlockLib.BLOCK_REFINERY_ID,
@@ -225,26 +219,26 @@ public class TMFCore {
         ConfigurationLib.egioclaseOre = new BlockTMFOre(5, 5, 5).setUnlocalizedName(BlockLib.ORE_EGIOCLASE).setHardness(3.0F).setResistance(5.0F).setStepSound(Block.soundTypeStone).setCreativeTab(CreativeTabTMF.tabTMF);
 
         GameRegistry.registerBlock(ConfigurationLib.arkiteOre,
-                                   BlockLib.ORE_ARKITE);
+                BlockLib.ORE_ARKITE);
         GameRegistry.registerBlock(ConfigurationLib.bistiteOre,
-                                   BlockLib.ORE_BISTITE);
+                BlockLib.ORE_BISTITE);
         GameRegistry.registerBlock(ConfigurationLib.crokereOre,
-                                   BlockLib.ORE_CROKERE);
+                BlockLib.ORE_CROKERE);
         GameRegistry.registerBlock(ConfigurationLib.derniteOre,
-                                   BlockLib.ORE_DERNITE);
+                BlockLib.ORE_DERNITE);
         GameRegistry.registerBlock(ConfigurationLib.egioclaseOre,
-                                   BlockLib.ORE_EGIOCLASE);
+                BlockLib.ORE_EGIOCLASE);
 
         GameRegistry.registerWorldGenerator(new WorldGeneration(),
-                                            100);
+                100);
     }
 
     // ======= RECIPE REGISTRATION =======
     public static void registerRecipes() {
         XMLRecipeLoader.registerDefaultsFromLocation(TMFCore.class,
-                                                     ResourceLib.RECIPE_PATH_XML);
+                ResourceLib.RECIPE_PATH_XML);
         XMLRecipeLoader.loadFolder(ResourceLib.RECIPE_PATH_XML,
-                                   new File(ResourceLib.RECIPE_STORE));
+                new File(ResourceLib.RECIPE_STORE));
 
         registerArmorRecipes();
 
@@ -252,14 +246,14 @@ public class TMFCore {
             GameRegistry.addRecipe(new ItemMineralMixedDustRecipe());
 
             GameRegistry.addSmelting(ConfigurationLib.mineralAcxium,
-                                     new ItemStack(ConfigurationLib.nuggetAcxium, 1),
-                                     1);
+                    new ItemStack(ConfigurationLib.nuggetAcxium, 1),
+                    1);
             GameRegistry.addSmelting(ConfigurationLib.mineralBisogen,
-                                     new ItemStack(ConfigurationLib.nuggetBisogen, 1),
-                                     2);
+                    new ItemStack(ConfigurationLib.nuggetBisogen, 1),
+                    2);
             GameRegistry.addSmelting(ConfigurationLib.mineralCydrine,
-                                     new ItemStack(ConfigurationLib.nuggetCydrine, 1),
-                                     3);
+                    new ItemStack(ConfigurationLib.nuggetCydrine, 1),
+                    3);
         }
 
         // REFINERY
@@ -274,24 +268,25 @@ public class TMFCore {
     }
 
     private static void registerArmorRecipes() {
-        ArmorRecipes armorRecipes = new ArmorRecipes(new ItemStack(ConfigurationLib.miningHelmetIron), new Object[] {
+        ArmorRecipes armorRecipes = new ArmorRecipes(new ItemStack(ConfigurationLib.miningHelmetIron), new Object[]{
                 new ItemStack(ConfigurationLib.miningHelmetLamp),
-                new ItemStack(Items.iron_helmet) });
+                new ItemStack(Items.iron_helmet)});
 
         GameRegistry.addRecipe(armorRecipes);
 
-        armorRecipes = new ArmorRecipes(new ItemStack(ConfigurationLib.miningHelmetGold), new Object[] {
+        armorRecipes = new ArmorRecipes(new ItemStack(ConfigurationLib.miningHelmetGold), new Object[]{
                 new ItemStack(ConfigurationLib.miningHelmetLamp),
-                new ItemStack(Items.golden_helmet) });
+                new ItemStack(Items.golden_helmet)});
 
         GameRegistry.addRecipe(armorRecipes);
 
-        armorRecipes = new ArmorRecipes(new ItemStack(ConfigurationLib.miningHelmetDiamond), new Object[] {
+        armorRecipes = new ArmorRecipes(new ItemStack(ConfigurationLib.miningHelmetDiamond), new Object[]{
                 new ItemStack(ConfigurationLib.miningHelmetLamp),
-                new ItemStack(Items.diamond_helmet) });
+                new ItemStack(Items.diamond_helmet)});
 
         GameRegistry.addRecipe(armorRecipes);
     }
+
     private static boolean initialized = false;
 
     public static void preInitialize() {

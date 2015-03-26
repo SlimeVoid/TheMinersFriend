@@ -16,11 +16,11 @@ buildscript {
 }
 
 repositories {
-	mavenCentral()
-	maven {
-		name 'slimevoid'
-		url 'http://hyda.slimevoid.net/maven/repos'
-	}
+    mavenCentral()
+    maven {
+        name 'slimevoid'
+        url 'http://hyda.slimevoid.net/maven/repos'
+    }
 }
 
 apply plugin: 'maven'
@@ -40,7 +40,7 @@ group = 'net.slimevoid'
 archivesBaseName = 'TheMinersFriend'
 
 dependencies {
-    if (findProject(':SlimevoidLibrary') != null ) {
+    if (findProject(':SlimevoidLibrary') != null) {
         compile project(':SlimevoidLibrary')
     } else {
         compile 'net.slimevoid:SlimevoidLibrary:' + slimevoidVersion + ':dev'
@@ -50,14 +50,14 @@ dependencies {
 minecraft {
     version = mc
     mappings = map
-    if  (file('../run').exists()) {
+    if (file('../run').exists()) {
         runDir = "../run"
     } else {
         runDir = "run"
     }
     replaceIn 'net/slimevoid/' + pack + '/core/lib/CoreLib.java'
     replace '@VERSION@', project.version
-    replace 'required-after:SlimevoidLib', 'required-after:Forge@[' + forge + ',);required-after:SlimevoidLib@['+ slimevoidVersion + ',)'
+    replace 'required-after:SlimevoidLib', 'required-after:Forge@[' + forge + ',);required-after:SlimevoidLib@[' + slimevoidVersion + ',)'
 }
 
 processResources {
@@ -70,7 +70,7 @@ processResources {
         include 'mcmod.info'
 
         // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
 
     // copy everything else, thats not the mcmod.info
@@ -86,19 +86,19 @@ sourceSets {
 }
 
 task sourceJar(type: Jar) {
-	from sourceSets.main.allSource
-	classifier = 'sources'
+    from sourceSets.main.allSource
+    classifier = 'sources'
 }
 
 task deobfJar(type: Jar) {
-	from sourceSets.main.output
-	classifier = 'dev'
+    from sourceSets.main.output
+    classifier = 'dev'
 }
 
-build.dependsOn sourceJar,deobfJar
+build.dependsOn sourceJar, deobfJar
 
 configurations {
-	deployJars
+    deployJars
 }
 
 dependencies {
@@ -106,14 +106,14 @@ dependencies {
 }
 
 artifacts {
-	archives sourceJar
-	archives deobfJar
+    archives sourceJar
+    archives deobfJar
 }
 
 uploadArchives {
-	dependsOn 'reobf'
+    dependsOn 'reobf'
     repositories.mavenDeployer {
-    	configuration = configurations.deployJars
+        configuration = configurations.deployJars
         if (project.hasProperty("slimevoidUsername")) {
             repository(url: 'scp://hyda.slimevoid.net/home/maven/www/repos') {
                 authentication(userName: slimevoidUsername, password: slimevoidPassword)

@@ -11,10 +11,6 @@
  */
 package net.slimevoid.tmf.client.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -26,14 +22,16 @@ import net.minecraft.util.IChatComponent;
 import net.slimevoid.tmf.blocks.machines.inventory.ContainerGeologicalEquipment;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
 import net.slimevoid.tmf.core.lib.ResourceLib;
-
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuiGeologicalEquipment extends GuiContainer {
     private TileEntityGeologicalEquipment geoEquip;
     // Set this to true to draw blocks instead of colors.
-    private boolean                       drawBlock = false;
+    private boolean drawBlock = false;
 
     public GuiGeologicalEquipment(EntityPlayer entityplayer, TileEntityGeologicalEquipment geoEquip) {
         super(new ContainerGeologicalEquipment(entityplayer.inventory, geoEquip));
@@ -43,78 +41,78 @@ public class GuiGeologicalEquipment extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
         GL11.glColor4f(1.0F,
-                       1.0F,
-                       1.0F,
-                       1.0F);
+                1.0F,
+                1.0F,
+                1.0F);
         mc.renderEngine.bindTexture(ResourceLib.GUI_GEOEQUIP);
         int sizeX = (width - xSize) / 2;
         int sizeY = (height - ySize) / 2;
         drawTexturedModalRect(sizeX,
-                              sizeY,
-                              0,
-                              0,
-                              xSize,
-                              ySize);
+                sizeY,
+                0,
+                0,
+                xSize,
+                ySize);
 
         int var7;
 
         if (geoEquip.isBurning()) {
             var7 = this.geoEquip.getBurnTimeRemainingScaled(12);
             this.drawTexturedModalRect(sizeX + 9,
-                                       sizeY + 52 + 12 - var7,
-                                       176,
-                                       12 - var7,
-                                       14,
-                                       var7 + 2);
+                    sizeY + 52 + 12 - var7,
+                    176,
+                    12 - var7,
+                    14,
+                    var7 + 2);
         }
         var7 = this.geoEquip.getCookProgressScaled(24);
         this.drawTexturedModalRect(sizeX + 31,
-                                   sizeY + 51,
-                                   176,
-                                   14,
-                                   var7 + 1,
-                                   16);
+                sizeY + 51,
+                176,
+                14,
+                var7 + 1,
+                16);
 
         fontRendererObj.drawString("Level: " + geoEquip.getPos().getY(),
-                                   sizeX + 81,
-                                   sizeY + 15,
-                                   0x404040);
+                sizeX + 81,
+                sizeY + 15,
+                0x404040);
 
         drawResultList(sizeX + 62,
-                       sizeY + 32,
-                       sizeX + 77,
-                       sizeY + 135);
+                sizeY + 32,
+                sizeX + 77,
+                sizeY + 135);
 
         int mouseX = Mouse.getEventX() * this.width / this.mc.displayWidth;
         int mouseY = this.height - Mouse.getEventY() * this.height
-                     / this.mc.displayHeight - 1;
+                / this.mc.displayHeight - 1;
 
         int level = getLevel(mouseX,
-                             mouseY,
-                             sizeX + 62,
-                             sizeY + 32,
-                             sizeX + 77,
-                             sizeY + 135);
+                mouseY,
+                sizeX + 62,
+                sizeY + 32,
+                sizeX + 77,
+                sizeY + 135);
 
         fontRendererObj.drawString("Level: " + level,
-                                   sizeX + 102,
-                                   sizeY + 36,
-                                   0x404040);
+                sizeX + 102,
+                sizeY + 36,
+                0x404040);
 
         drawLevel(sizeX + 98,
-                  sizeY + 51,
-                  geoEquip.getBlocksAt(level));
+                sizeY + 51,
+                geoEquip.getBlocksAt(level));
     }
 
     private int getLevel(int mouseX, int mouseY, int listX1, int listY1, int listX2, int listY2) {
         if (mouseX >= listX1 && mouseX <= listX2 && mouseY >= listY1
-            && mouseY <= listY2) {
+                && mouseY <= listY2) {
             int length = geoEquip.getPos().getY();
             float levelHeight = (float) (listY2 - listY1) / (float) length;
             for (int depth = length - 1; depth >= 0; depth--) {
                 if (mouseY >= listY1 + (int) (levelHeight * (length - depth))
-                    && mouseY <= listY1
-                                 + ((int) (levelHeight * (length - depth + 1)))) return depth;
+                        && mouseY <= listY1
+                        + ((int) (levelHeight * (length - depth + 1)))) return depth;
             }
         }
 
@@ -146,114 +144,114 @@ public class GuiGeologicalEquipment extends GuiContainer {
 
             // Draw color
             drawRect(x1,
-                     y1 + (int) (levelHeight * (length - depth)),
-                     x2,
-                     y1 + ((int) (levelHeight * (length - depth + 1))),
-                     color);
+                    y1 + (int) (levelHeight * (length - depth)),
+                    x2,
+                    y1 + ((int) (levelHeight * (length - depth + 1))),
+                    color);
         }
     }
 
     private void drawLevel(int x, int y, IBlockState[] blocks) {
         if (blocks != null && blocks.length == 9) {
             drawBlock(x + 18,
-                      y + 18,
-                      15,
-                      15,
-                      blocks[0]);
+                    y + 18,
+                    15,
+                    15,
+                    blocks[0]);
 
             drawBlock(x + 18,
-                      y,
-                      15,
-                      15,
-                      blocks[1]);
+                    y,
+                    15,
+                    15,
+                    blocks[1]);
             drawBlock(x + 18,
-                      y + 36,
-                      15,
-                      15,
-                      blocks[2]);
+                    y + 36,
+                    15,
+                    15,
+                    blocks[2]);
 
             drawBlock(x,
-                      y + 18,
-                      15,
-                      15,
-                      blocks[3]);
+                    y + 18,
+                    15,
+                    15,
+                    blocks[3]);
             drawBlock(x + 36,
-                      y + 18,
-                      15,
-                      15,
-                      blocks[4]);
+                    y + 18,
+                    15,
+                    15,
+                    blocks[4]);
 
             drawBlock(x,
-                      y,
-                      15,
-                      15,
-                      blocks[5]);
+                    y,
+                    15,
+                    15,
+                    blocks[5]);
             drawBlock(x,
-                      y + 36,
-                      15,
-                      15,
-                      blocks[6]);
+                    y + 36,
+                    15,
+                    15,
+                    blocks[6]);
 
             drawBlock(x + 36,
-                      y,
-                      15,
-                      15,
-                      blocks[7]);
+                    y,
+                    15,
+                    15,
+                    blocks[7]);
             drawBlock(x + 36,
-                      y + 36,
-                      15,
-                      15,
-                      blocks[8]);
+                    y + 36,
+                    15,
+                    15,
+                    blocks[8]);
         } else {
             drawBlock(x + 18,
-                      y + 18,
-                      15,
-                      15,
-                      null);
+                    y + 18,
+                    15,
+                    15,
+                    null);
 
             drawBlock(x + 18,
-                      y,
-                      15,
-                      15,
-                      null);
+                    y,
+                    15,
+                    15,
+                    null);
             drawBlock(x + 18,
-                      y + 36,
-                      15,
-                      15,
-                      null);
+                    y + 36,
+                    15,
+                    15,
+                    null);
 
             drawBlock(x,
-                      y + 18,
-                      15,
-                      15,
-                      null);
+                    y + 18,
+                    15,
+                    15,
+                    null);
             drawBlock(x + 36,
-                      y + 18,
-                      15,
-                      15,
-                      null);
+                    y + 18,
+                    15,
+                    15,
+                    null);
 
             drawBlock(x,
-                      y,
-                      15,
-                      15,
-                      null);
+                    y,
+                    15,
+                    15,
+                    null);
             drawBlock(x,
-                      y + 36,
-                      15,
-                      15,
-                      null);
+                    y + 36,
+                    15,
+                    15,
+                    null);
 
             drawBlock(x + 36,
-                      y,
-                      15,
-                      15,
-                      null);
+                    y,
+                    15,
+                    15,
+                    null);
             drawBlock(x + 36,
-                      y + 36,
-                      15,
-                      15,
-                      null);
+                    y + 36,
+                    15,
+                    15,
+                    null);
         }
     }
 
@@ -351,10 +349,10 @@ public class GuiGeologicalEquipment extends GuiContainer {
             // this.drawSlotInventory(slot);
         } else {
             drawRect(x,
-                     y,
-                     x + width,
-                     y + height,
-                     getBlockColor(block));
+                    y,
+                    x + width,
+                    y + height,
+                    getBlockColor(block));
         }
     }
 

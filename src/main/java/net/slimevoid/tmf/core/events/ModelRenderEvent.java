@@ -8,7 +8,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.tmf.client.renderers.models.ModelSmartGrinder;
 import net.slimevoid.tmf.core.lib.BlockLib;
 import net.slimevoid.tmf.core.lib.CoreLib;
-import net.slimevoid.tmf.core.lib.ResourceLib;
 
 /**
  * Created by Greg on 26/03/15.

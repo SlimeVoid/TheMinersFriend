@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <recipes>
-	<recipe outId="$motionSensor" stackSize="1">
-	    <layout>
-	        AAA
-	        CSC
-	        CCC
-	    </layout>
-	    <mapping id="$partAlloyCasing">C</mapping>
-	    <mapping id="$partAcxogenScreen">A</mapping>
-	    <mapping id="$partCydriumSensor">S</mapping>
-	</recipe>
+    <recipe outId="$motionSensor" stackSize="1">
+        <layout>
+            AAA
+            CSC
+            CCC
+        </layout>
+        <mapping id="$partAlloyCasing">C</mapping>
+        <mapping id="$partAcxogenScreen">A</mapping>
+        <mapping id="$partCydriumSensor">S</mapping>
+    </recipe>
 </recipes>

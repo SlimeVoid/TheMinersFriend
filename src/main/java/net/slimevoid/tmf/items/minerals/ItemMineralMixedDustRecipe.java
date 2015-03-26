@@ -15,7 +15,6 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
-import net.slimevoid.tmf.core.TMFCore;
 import net.slimevoid.tmf.core.lib.ConfigurationLib;
 
 public class ItemMineralMixedDustRecipe implements IRecipe {
@@ -42,7 +41,7 @@ public class ItemMineralMixedDustRecipe implements IRecipe {
         // Check if there are two dusts and
         // make sure the total dust level does not go over 9
         return (a != null && b != null && ItemMineralMixedDust.getTotalLevel(ItemMineralMixedDust.mixDustMeta(ItemMineralMixedDust.getDustMeta(a),
-                                                                                                              ItemMineralMixedDust.getDustMeta(b))) < 10);
+                ItemMineralMixedDust.getDustMeta(b))) < 10);
     }
 
     @Override
@@ -68,11 +67,11 @@ public class ItemMineralMixedDustRecipe implements IRecipe {
             // Mix the dusts
             int size = 1;
             if (a.getItem().equals(ConfigurationLib.dustMixed)
-                && b.getItem().equals(ConfigurationLib.dustMixed)) size = 2;
+                    && b.getItem().equals(ConfigurationLib.dustMixed)) size = 2;
 
             item = new ItemStack(ConfigurationLib.dustMixed, size);
             item.setItemDamage(ItemMineralMixedDust.mixDustMeta(ItemMineralMixedDust.getDustMeta(a),
-                                                                ItemMineralMixedDust.getDustMeta(b)));
+                    ItemMineralMixedDust.getDustMeta(b)));
         }
 
         return item;

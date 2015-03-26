@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <recipes>
-	<recipe outId="$utilityBelt" stackSize="1">
-	    <layout>
-	        LAL
-	        ICI
-	        LAL
-	    </layout>
-	    <mapping id="$item.leather">L</mapping>
-	    <mapping id="$ingotAcxium">A</mapping>
-	    <mapping id="$ingotCydrine">C</mapping>
-	    <mapping id="$item.ingotIron">I</mapping>
-	</recipe>
+    <recipe outId="$utilityBelt" stackSize="1">
+        <layout>
+            LAL
+            ICI
+            LAL
+        </layout>
+        <mapping id="$item.leather">L</mapping>
+        <mapping id="$ingotAcxium">A</mapping>
+        <mapping id="$ingotCydrine">C</mapping>
+        <mapping id="$item.ingotIron">I</mapping>
+    </recipe>
 </recipes>

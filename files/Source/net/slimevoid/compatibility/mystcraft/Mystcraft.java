@@ -1,8 +1,8 @@
 package net.slimevoid.compatibility.mystcraft;
 
-import net.slimevoid.compatibility.MasterCompatibility;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.slimevoid.compatibility.MasterCompatibility;
 
 public class Mystcraft extends MasterCompatibility {
 

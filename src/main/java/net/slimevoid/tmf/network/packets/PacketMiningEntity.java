@@ -22,7 +22,7 @@ public abstract class PacketMiningEntity extends PacketMining {
 
     public void setEntityId(int entityId) {
         this.payload.setIntPayload(0,
-                                   entityId);
+                entityId);
     }
 
     public int getEntityId() {

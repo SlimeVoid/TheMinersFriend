@@ -19,7 +19,6 @@ import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.slimevoid.tmf.core.lib.ArmorLib;
-
 import org.lwjgl.opengl.GL11;
 
 public class MiningHelmetRenderTickHandler {
@@ -36,17 +35,17 @@ public class MiningHelmetRenderTickHandler {
             World world = mc.theWorld;
             if (entityplayer != null && world != null) {
                 this.onRenderTick(entityplayer,
-                                  world);
+                        world);
             }
         }
     }
 
     private void onRenderTick(EntityPlayer entityplayer, World world) {
         ItemStack miningHelmet = ArmorLib.getPlayerHelm(entityplayer,
-                                                        world);
+                world);
         if (miningHelmet != null) {
             doRenderMinersLamp(entityplayer,
-                               world);
+                    world);
         }
     }
 

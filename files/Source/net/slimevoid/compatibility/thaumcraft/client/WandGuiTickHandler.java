@@ -1,13 +1,13 @@
 package net.slimevoid.compatibility.thaumcraft.client;
 
-import java.util.EnumSet;
-
+import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
-import cpw.mods.fml.client.FMLClientHandler;
+
+import java.util.EnumSet;
 
 public class WandGuiTickHandler extends GraphicsTicker implements ITickHandler {
 
@@ -20,17 +20,17 @@ public class WandGuiTickHandler extends GraphicsTicker implements ITickHandler {
             if (type.contains(TickType.RENDER)) {
 
                 if (player != null && mc.inGameHasFocus
-                    && Minecraft.isGuiEnabled()) {
+                        && Minecraft.isGuiEnabled()) {
                     ItemStack heldItem = player.inventory.getCurrentItem();
                     ItemStack tool = ItemHelper.getSelectedTool(heldItem);
                     if (ThaumcraftStatic.isWand(tool)) {
                         ItemStack heldCopy = heldItem.copy();
                         player.inventory.setInventorySlotContents(player.inventory.currentItem,
-                                                                  tool);
+                                tool);
                         super.tickEnd(type,
-                                      tickData);
+                                tickData);
                         player.inventory.setInventorySlotContents(player.inventory.currentItem,
-                                                                  heldCopy);
+                                heldCopy);
                     }
                 }
             }

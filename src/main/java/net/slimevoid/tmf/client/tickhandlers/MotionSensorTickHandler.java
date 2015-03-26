@@ -11,11 +11,6 @@
  */
 package net.slimevoid.tmf.client.tickhandlers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -25,37 +20,37 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.slimevoid.tmf.api.IMotionSensorRule;
 import net.slimevoid.tmf.core.lib.PacketLib;
+import net.slimevoid.tmf.core.lib.ResourceLib;
 import org.lwjgl.opengl.GL11;
 
-import net.slimevoid.library.util.helpers.PacketHelper;
-import net.slimevoid.tmf.api.IMotionSensorRule;
-import net.slimevoid.tmf.core.lib.CommandLib;
-import net.slimevoid.tmf.core.lib.ResourceLib;
-import net.slimevoid.tmf.network.packets.PacketMotionSensor;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @SideOnly(Side.CLIENT)
 public class MotionSensorTickHandler {
-    private final Minecraft            mc;
+    private final Minecraft mc;
 
-    private int                        maxEntityDistance;
+    private int maxEntityDistance;
 
-    private int                        motionTicks = 0;
-    private int                        maxTicks;
+    private int motionTicks = 0;
+    private int maxTicks;
 
     private Map<Entity, EntityPoint3f> closeEntities;
     private Map<Entity, EntityPoint3f> movedEntities;
-    private EntityPoint3f              lastPlayerPos;
+    private EntityPoint3f lastPlayerPos;
 
-    private boolean                    drawOnRight;
+    private boolean drawOnRight;
 
-    private List<IMotionSensorRule>    rules;
+    private List<IMotionSensorRule> rules;
 
     public MotionSensorTickHandler(int maxEntityDistance, int maxTicks, boolean drawOnRight) {
         this.mc = FMLClientHandler.instance().getClient();
@@ -78,10 +73,10 @@ public class MotionSensorTickHandler {
         World world = mc.theWorld;
 
         if (this.shouldTick(entityplayer,
-                            world)) {
+                world)) {
             GuiScreen guiScreen = this.mc.currentScreen;
             if (guiScreen == null) onTickInGame(entityplayer,
-                                                world);
+                    world);
         }
     }
 
@@ -89,7 +84,7 @@ public class MotionSensorTickHandler {
         boolean doTick = false;
         for (IMotionSensorRule rule : rules) {
             if (rule.doShowMotionSensor(entityplayer,
-                                        world)) doTick = true;
+                    world)) doTick = true;
         }
         return doTick;
     }
@@ -105,9 +100,9 @@ public class MotionSensorTickHandler {
 
     private static double get2dDistSq(Entity a, double x, double z) {
         return get2dDistSq(a.posX,
-                           a.posZ,
-                           x,
-                           z);
+                a.posZ,
+                x,
+                z);
     }
 
     private static double get2dDistSq(double x1, double z1, double x2, double z2) {
@@ -125,14 +120,14 @@ public class MotionSensorTickHandler {
 
     private static double getAngleRadians(Entity a, double x, double z) {
         return getAngleRadians(a.posX,
-                               a.posZ,
-                               x,
-                               z);
+                a.posZ,
+                x,
+                z);
     }
 
     private static double getAngleRadians(double x1, double z1, double x2, double z2) {
         return Math.atan2((x2 - x1),
-                          (z2 - z1));
+                (z2 - z1));
     }
 
     private static double deg2rad(double deg) {
@@ -146,12 +141,12 @@ public class MotionSensorTickHandler {
     private void onTickInGame(EntityPlayer entityplayer, World world) {
         if (motionTicks == Math.abs(maxTicks / 2)) {
             doTickMotionSensor(entityplayer,
-                               world);
+                    world);
         }
         motionTicks++;
         if (motionTicks >= maxTicks) {
             onMotionSensorSensing(entityplayer,
-                                  world);
+                    world);
             motionTicks = 0;
         }
     }
@@ -164,7 +159,7 @@ public class MotionSensorTickHandler {
         removeIrrelevantKnownEntities(entityplayer);
 
         checkEntities(entityplayer,
-                      world);
+                world);
     }
 
     private void removeIrrelevantKnownEntities(EntityPlayer entityplayer) {
@@ -196,7 +191,7 @@ public class MotionSensorTickHandler {
                 entityplayer.posZ
                         + maxEntityDistance);
         List<Entity> closestEntities = world.getEntitiesWithinAABBExcludingEntity(entityplayer,
-                                                                                  AABB);
+                AABB);
 
         if (closestEntities.size() > 0) {
             Entity closestEntity = null;
@@ -207,18 +202,18 @@ public class MotionSensorTickHandler {
 
             double playerAngle = deg2rad(playerDeg);
             if (playerAngle > Math.PI) playerAngle = (-2d * Math.PI)
-                                                     + playerAngle;
+                    + playerAngle;
 
             for (Entity entity : closestEntities) {
                 // Within circular distance
                 double distSq = entityplayer.getDistanceSqToEntity(entity);
                 if (distSq <= maxEntityDistance * maxEntityDistance) {
                     if (hasEntityMoved(entityplayer,
-                                       entity)) {
+                            entity)) {
                         double angle = getAngleRadians(entityplayer,
-                                                       closeEntities.get(entity).x,
-                                                       closeEntities.get(entity).z)
-                                       * -1;
+                                closeEntities.get(entity).x,
+                                closeEntities.get(entity).z)
+                                * -1;
 
                         angle = angle - playerAngle;
 
@@ -229,13 +224,13 @@ public class MotionSensorTickHandler {
 
                         if (angle > (-Math.PI / 2) && angle < (Math.PI / 2)) {
                             movedEntities.put(entity,
-                                              closeEntities.get(entity));
+                                    closeEntities.get(entity));
 
                             double distSq2d = get2dDistSqFrom3dDistSq(distSq,
-                                                                      entityplayer.posY,
-                                                                      entity.posY);
+                                    entityplayer.posY,
+                                    entity.posY);
                             if (closestEntity == null
-                                || distSq2d < closestDistSq2d) {
+                                    || distSq2d < closestDistSq2d) {
                                 closestEntity = entity;
                                 closestDistSq2d = distSq2d;
                             }
@@ -262,8 +257,8 @@ public class MotionSensorTickHandler {
             entityKnown = true;
 
             double distMovedSq = entity.getDistanceSq(closeEntities.get(entity).x,
-                                                      closeEntities.get(entity).y,
-                                                      closeEntities.get(entity).z);
+                    closeEntities.get(entity).y,
+                    closeEntities.get(entity).z);
             if (distMovedSq > 0) entityMoved = true;
         }
 
@@ -279,7 +274,7 @@ public class MotionSensorTickHandler {
             point.y = entity.posY;
             point.z = entity.posZ;
             closeEntities.put(entity,
-                              point);
+                    point);
         }
 
         return entityMoved || !entityKnown;
@@ -296,16 +291,16 @@ public class MotionSensorTickHandler {
         double motionTickProg = (double) motionTicks / (double) maxTicks;
         renderHUD(entityplayer);
         renderPings(entityplayer,
-                    motionTickProg);
+                motionTickProg);
         renderSweep(entityplayer,
-                    motionTickProg);
+                motionTickProg);
     }
 
     private void renderSprite(int x, int y, int u, int v, int width, int height, ResourceLocation texture, float alpha) {
         GL11.glColor4f(1.0F,
-                       1.0F,
-                       1.0F,
-                       alpha);
+                1.0F,
+                1.0F,
+                alpha);
         mc.renderEngine.bindTexture(texture);
         float scalex = 0.00390625F * 2;
         float scaley = 0.00390625F * 2;
@@ -355,12 +350,12 @@ public class MotionSensorTickHandler {
         // GL11.glDisable(GL11.GL_DEPTH_TEST);
         if (drawOnRight) {
             GL11.glTranslatef(sr.getScaledWidth() - 60,
-                              sr.getScaledHeight(),
-                              0);
+                    sr.getScaledHeight(),
+                    0);
         } else {
             GL11.glTranslatef(60,
-                              sr.getScaledHeight(),
-                              0);
+                    sr.getScaledHeight(),
+                    0);
         }
         GL11.glRotatef((float) playerDeg,
                 0,
@@ -368,13 +363,13 @@ public class MotionSensorTickHandler {
                 1.0f);
 
         renderSprite(-64,
-                     -64,
-                     0,
-                     0,
-                     128,
-                     128,
-                     ResourceLib.TRACKER_BG,
-                     1);
+                -64,
+                0,
+                0,
+                128,
+                128,
+                ResourceLib.TRACKER_BG,
+                1);
         // GL11.glEnable(GL11.GL_LIGHTING);
         // GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glPopMatrix();
@@ -390,13 +385,13 @@ public class MotionSensorTickHandler {
 
         for (Entity entity : movedEntities.keySet()) {
             double distSq2d = get2dDistSq(lastPlayerPos.x,
-                                          lastPlayerPos.z,
-                                          closeEntities.get(entity).x,
-                                          closeEntities.get(entity).z);
+                    lastPlayerPos.z,
+                    closeEntities.get(entity).x,
+                    closeEntities.get(entity).z);
             double angle = getAngleRadians(lastPlayerPos.x,
-                                           lastPlayerPos.z,
-                                           closeEntities.get(entity).x,
-                                           closeEntities.get(entity).z) * -1;
+                    lastPlayerPos.z,
+                    closeEntities.get(entity).x,
+                    closeEntities.get(entity).z) * -1;
 
             angle = angle - playerAngle;
             if (angle > Math.PI) angle = (-2d * Math.PI) + angle;
@@ -405,8 +400,8 @@ public class MotionSensorTickHandler {
             if (angle > Math.PI) angle -= 2d * Math.PI;
 
             renderPing(deltaTick,
-                       angle,
-                       distSq2d);
+                    angle,
+                    distSq2d);
         }
     }
 
@@ -424,36 +419,36 @@ public class MotionSensorTickHandler {
 
         if (drawOnRight) {
             GL11.glTranslatef(sr.getScaledWidth() - 60,
-                              sr.getScaledHeight(),
-                              0);
+                    sr.getScaledHeight(),
+                    0);
         } else {
             GL11.glTranslatef(60,
-                              sr.getScaledHeight(),
-                              0);
+                    sr.getScaledHeight(),
+                    0);
         }
         double angdeg = rad2deg(angle);
         angdeg = angdeg - 90;
 
         GL11.glRotatef((float) angdeg,
-                       0,
-                       0,
-                       1);
+                0,
+                0,
+                1);
 
         GL11.glTranslatef((float) Math.sqrt(distSq2d) * 3,
-                          0,
-                          0);
+                0,
+                0);
         GL11.glScalef(0.0625f,
-                      0.0625f,
-                      1);
+                0.0625f,
+                1);
 
         renderSprite(-64,
-                     -64,
-                     0,
-                     0,
-                     128,
-                     128,
-                     ResourceLib.TRACKER_CONTACT,
-                     (float) (0.4d + Math.log(3.2d - deltaTick * 3d) * 0.6d));
+                -64,
+                0,
+                0,
+                128,
+                128,
+                ResourceLib.TRACKER_CONTACT,
+                (float) (0.4d + Math.log(3.2d - deltaTick * 3d) * 0.6d));
         // GL11.glEnable(GL11.GL_LIGHTING);
         // GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glPopMatrix();
@@ -473,25 +468,25 @@ public class MotionSensorTickHandler {
         // GL11.glDisable(GL11.GL_DEPTH_TEST);
         if (drawOnRight) {
             GL11.glTranslatef(sr.getScaledWidth() - 60,
-                              sr.getScaledHeight(),
-                              0);
+                    sr.getScaledHeight(),
+                    0);
         } else {
             GL11.glTranslatef(60,
-                              sr.getScaledHeight(),
-                              0);
+                    sr.getScaledHeight(),
+                    0);
         }
         GL11.glScalef((float) deltaTick,
-                      (float) deltaTick,
-                      1);
+                (float) deltaTick,
+                1);
 
         renderSprite(-64,
-                     -64,
-                     0,
-                     0,
-                     128,
-                     128,
-                     ResourceLib.TRACKER_SWEEP,
-                     (float) (1d - deltaTick / 2d));
+                -64,
+                0,
+                0,
+                128,
+                128,
+                ResourceLib.TRACKER_SWEEP,
+                (float) (1d - deltaTick / 2d));
         // GL11.glEnable(GL11.GL_LIGHTING);
         // GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glPopMatrix();

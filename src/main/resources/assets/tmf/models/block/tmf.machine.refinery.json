@@ -1,5 +1,5 @@
 {
-"parent": "tmf:block/cube_front",
+  "parent": "tmf:block/cube_front",
   "textures": {
     "top": "tmf:blocks/tmf.machine.refinery_idle_top",
     "bottom": "tmf:blocks/tmf.machine.refinery_idle_bottom",

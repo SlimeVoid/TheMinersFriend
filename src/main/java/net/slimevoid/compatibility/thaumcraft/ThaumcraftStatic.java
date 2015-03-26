@@ -1,5 +1,6 @@
 package net.slimevoid.compatibility.thaumcraft;
 
+import com.google.common.io.ByteArrayDataInput;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -8,10 +9,9 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
 import net.slimevoid.tmf.items.tools.ItemMiningToolBelt;
+
 //import thaumcraft.api.IRepairable;
 //import thaumcraft.api.IRepairableExtended;
-
-import com.google.common.io.ByteArrayDataInput;
 
 public class ThaumcraftStatic {
 
@@ -19,7 +19,7 @@ public class ThaumcraftStatic {
 
     public static boolean isWand(ItemStack tool) {
         return tool != null && tool.getItem() != null
-               && tool.getItem().getUnlocalizedName().equals(ITEM_WAND_CASTING);
+                && tool.getItem().getUnlocalizedName().equals(ITEM_WAND_CASTING);
     }
 
     public static boolean isWandInToolBelt(ItemStack itemstack) {
@@ -40,10 +40,10 @@ public class ThaumcraftStatic {
             // entityplayer,
             // focus);
             ((ItemMiningToolBelt) heldItem.getItem()).updateToolInToolBelt(world,
-                                                                           entityplayer,
-                                                                           heldItem,
-                                                                           tool,
-                                                                           toolCopy);
+                    entityplayer,
+                    heldItem,
+                    tool,
+                    toolCopy);
         }
     }
 
@@ -57,8 +57,8 @@ public class ThaumcraftStatic {
             String focus = readString(data);
             if (player != null && player instanceof EntityPlayer) {
                 doChangeFocus(world,
-                              (EntityPlayer) player,
-                              focus);
+                        (EntityPlayer) player,
+                        focus);
             }
         }
     }
@@ -88,15 +88,15 @@ public class ThaumcraftStatic {
             // }
             // } else {
             tool.damageItem(-level,
-                            entityplayer);
+                    entityplayer);
             // }
             // }
         }
         toolBelt.updateToolInToolBelt(entityplayer.getEntityWorld(),
-                                      entityplayer,
-                                      itemstack,
-                                      tool,
-                                      toolCopy);
+                entityplayer,
+                itemstack,
+                tool,
+                toolCopy);
         return false;
     }
 

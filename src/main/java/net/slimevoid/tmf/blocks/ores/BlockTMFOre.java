@@ -14,7 +14,6 @@ package net.slimevoid.tmf.blocks.ores;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.slimevoid.tmf.core.lib.BlockLib;
-import net.slimevoid.tmf.core.lib.CoreLib;
 
 public class BlockTMFOre extends BlockOre {
 
@@ -26,7 +25,7 @@ public class BlockTMFOre extends BlockOre {
         this.spawnRate = spawnRate;
         this.spawnSize = spawnSize;
         this.setHarvestLevel("pickaxe",
-                             2);
+                2);
         BlockLib.registerTMFOre(this);
     }
 

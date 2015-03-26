@@ -27,7 +27,7 @@ public abstract class ItemMiningArmor extends ItemArmor {
             ItemStack armor = entityplayer.getCurrentArmor(3 - armorType);
             if (armor != null && armor.getItem() == this) {
                 this.onPlayerUpdate(entityplayer.worldObj,
-                                    entityplayer);
+                        entityplayer);
             }
         }
     }

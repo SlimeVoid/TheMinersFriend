@@ -27,8 +27,8 @@ public class ToolBeltModeExecutor extends PacketExecutor {
             ItemStack itemstack = entityplayer.getHeldItem();
             if (ItemHelper.isToolBelt(itemstack)) {
                 ItemHelper.toggleMiningMode(world,
-                                            entityplayer,
-                                            itemstack);
+                        entityplayer,
+                        itemstack);
             }
         }
         return null;

@@ -15,7 +15,7 @@ public class PlayerTickHandler {
             if (entityplayer.isBlocking()) {
                 ItemStack tool = ItemHelper.getSelectedTool(entityplayer.getHeldItem());
                 ThaumcraftStatic.doElementalSwordUpdate(entityplayer,
-                                                        tool);
+                        tool);
             }
         }
     }

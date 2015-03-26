@@ -17,7 +17,7 @@ import net.slimevoid.tmf.fuel.IFuelHandlerTMF;
 import net.slimevoid.tmf.items.ItemTMF;
 
 public class ItemMineral extends ItemTMF implements IFuelHandlerTMF {
-    private int burnTime  = 1600;
+    private int burnTime = 1600;
     private int burnSpeed = 200;
     private int burnWidth = 1;
 

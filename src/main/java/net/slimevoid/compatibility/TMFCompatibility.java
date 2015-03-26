@@ -9,8 +9,8 @@ public class TMFCompatibility {
         for (Mods mod : Mods.values()) {
             if (mod.getCompat().isLoaded) {
                 SlimevoidCore.console(CoreLib.MOD_ID,
-                                      "Registered Block and Item information for : "
-                                              + mod.getCompat().name);
+                        "Registered Block and Item information for : "
+                                + mod.getCompat().name);
                 mod.getCompat().registerBlockAndItemInformation();
             }
         }
@@ -20,8 +20,8 @@ public class TMFCompatibility {
         for (Mods mod : Mods.values()) {
             if (mod.getCompat().isLoaded) {
                 SlimevoidCore.console(CoreLib.MOD_ID,
-                                      "Registered Key Bindings for : "
-                                              + mod.getCompat().name);
+                        "Registered Key Bindings for : "
+                                + mod.getCompat().name);
                 mod.getCompat().registerKeyBindings();
             }
         }
@@ -31,8 +31,8 @@ public class TMFCompatibility {
         for (Mods mod : Mods.values()) {
             if (mod.getCompat().isLoaded) {
                 SlimevoidCore.console(CoreLib.MOD_ID,
-                                      "Registered Packet Executors for : "
-                                              + mod.getCompat().name);
+                        "Registered Packet Executors for : "
+                                + mod.getCompat().name);
                 mod.getCompat().registerPacketExecutors();
             }
         }
@@ -42,8 +42,8 @@ public class TMFCompatibility {
         for (Mods mod : Mods.values()) {
             if (mod.getCompat().isLoaded) {
                 SlimevoidCore.console(CoreLib.MOD_ID,
-                                      "Registered Tick Handlers for : "
-                                              + mod.getCompat().name);
+                        "Registered Tick Handlers for : "
+                                + mod.getCompat().name);
                 mod.getCompat().registerTickHandlers();
             }
         }
@@ -53,8 +53,8 @@ public class TMFCompatibility {
         for (Mods mod : Mods.values()) {
             if (mod.getCompat().isLoaded) {
                 SlimevoidCore.console(CoreLib.MOD_ID,
-                                      "Registered Event Handlers for : "
-                                              + mod.getCompat().name);
+                        "Registered Event Handlers for : "
+                                + mod.getCompat().name);
                 mod.getCompat().registerEventHandlers();
             }
         }

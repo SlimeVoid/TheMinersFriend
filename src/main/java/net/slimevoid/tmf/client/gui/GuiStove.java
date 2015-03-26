@@ -16,7 +16,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.slimevoid.tmf.blocks.machines.inventory.ContainerStove;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityStove;
 import net.slimevoid.tmf.core.lib.ResourceLib;
-
 import org.lwjgl.opengl.GL11;
 
 public class GuiStove extends GuiContainer {
@@ -33,18 +32,18 @@ public class GuiStove extends GuiContainer {
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
         // /int tex = mc.renderEngine.getTexture(ResourceLib.GUI_AUTOMIXTABLE);
         GL11.glColor4f(1.0F,
-                       1.0F,
-                       1.0F,
-                       1.0F);
+                1.0F,
+                1.0F,
+                1.0F);
         mc.renderEngine.bindTexture(ResourceLib.GUI_STOVE);
         int sizeX = (width - xSize) / 2;
         int sizeY = (height - ySize) / 2;
         drawTexturedModalRect(sizeX,
-                              sizeY,
-                              0,
-                              0,
-                              xSize,
-                              ySize);
+                sizeY,
+                0,
+                0,
+                xSize,
+                ySize);
 
     }
 }

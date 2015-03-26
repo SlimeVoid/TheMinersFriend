@@ -1,7 +1,51 @@
 {
-	"arkite":		{"acxium":[2,4],	"bisogen":[0], 		"cydrine":[0]},
-	"bistite":		{"acxium":[1,2],	"bisogen":[2,4],	"cydrine":[0]},
-	"crokere":		{"acxium":[2,4],	"bisogen":[1,2],	"cydrine":[1]},
-	"dernite":		{"acxium":[0],		"bisogen":[2,3],	"cydrine":[1,3]},
-	"egioclase":	{"acxium":[0],		"bisogen":[0],		"cydrine":[3,6]}
+  "arkite": {
+    "acxium": [
+      2,
+      4
+    ],
+    "bisogen": [0],
+    "cydrine": [0]
+  },
+  "bistite": {
+    "acxium": [
+      1,
+      2
+    ],
+    "bisogen": [
+      2,
+      4
+    ],
+    "cydrine": [0]
+  },
+  "crokere": {
+    "acxium": [
+      2,
+      4
+    ],
+    "bisogen": [
+      1,
+      2
+    ],
+    "cydrine": [1]
+  },
+  "dernite": {
+    "acxium": [0],
+    "bisogen": [
+      2,
+      3
+    ],
+    "cydrine": [
+      1,
+      3
+    ]
+  },
+  "egioclase": {
+    "acxium": [0],
+    "bisogen": [0],
+    "cydrine": [
+      3,
+      6
+    ]
+  }
 }

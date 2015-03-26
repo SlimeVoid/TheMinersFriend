@@ -28,7 +28,7 @@ public class TheMinersFriend {
     @SidedProxy(
             clientSide = CoreLib.PROXY_CLIENT,
             serverSide = CoreLib.PROXY_COMMON)
-    public static ICommonProxy    proxy;
+    public static ICommonProxy proxy;
 
     @Mod.Instance(CoreLib.MOD_ID)
     public static TheMinersFriend instance;

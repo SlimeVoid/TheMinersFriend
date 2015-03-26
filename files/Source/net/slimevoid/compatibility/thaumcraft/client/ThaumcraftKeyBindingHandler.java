@@ -11,8 +11,7 @@
  */
 package net.slimevoid.compatibility.thaumcraft.client;
 
-import java.util.EnumSet;
-
+import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;
@@ -20,13 +19,14 @@ import net.minecraft.item.ItemStack;
 import net.slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
 import net.slimevoid.tmf.items.tools.ItemMiningToolBelt;
-import cpw.mods.fml.client.FMLClientHandler;
+
+import java.util.EnumSet;
 
 public class ThaumcraftKeyBindingHandler extends TCKeyHandler {
 
-    static int       currentItem = -1;
-    static ItemStack heldCopy    = null;
-    static boolean   localKeyPressed;
+    static int currentItem = -1;
+    static ItemStack heldCopy = null;
+    static boolean localKeyPressed;
 
     public ThaumcraftKeyBindingHandler(KeyBinding[] keyBindings, boolean[] repeatings) {
         super(keyBindings, repeatings);
@@ -45,7 +45,7 @@ public class ThaumcraftKeyBindingHandler extends TCKeyHandler {
                 EntityClientPlayerMP player = mc.thePlayer;
 
                 if (heldCopy == null && currentItem == -1 && !radialLock
-                    && player != null && player.getHeldItem() != null) {
+                        && player != null && player.getHeldItem() != null) {
                     ItemStack heldItem = player.getHeldItem();
                     ItemStack tool = ItemHelper.getSelectedTool(heldItem);
                     if (ThaumcraftStatic.isWand(tool)) {
@@ -53,11 +53,11 @@ public class ThaumcraftKeyBindingHandler extends TCKeyHandler {
                         heldCopy = heldItem.copy();
                         currentItem = player.inventory.currentItem;
                         player.inventory.setInventorySlotContents(currentItem,
-                                                                  tool);
+                                tool);
                         super.keyDown(types,
-                                      kb,
-                                      true,
-                                      isRepeat);
+                                kb,
+                                true,
+                                isRepeat);
                     }
                 }
             }
@@ -76,16 +76,16 @@ public class ThaumcraftKeyBindingHandler extends TCKeyHandler {
                 ItemStack wandCopy = ItemStack.copyItemStack(player.inventory.getStackInSlot(currentItem));
                 ItemStack tool = ItemHelper.getSelectedTool(heldCopy);
                 ((ItemMiningToolBelt) heldCopy.getItem()).updateToolInToolBelt(player.getEntityWorld(),
-                                                                               player,
-                                                                               heldCopy,
-                                                                               tool,
-                                                                               wandCopy);
+                        player,
+                        heldCopy,
+                        tool,
+                        wandCopy);
                 player.inventory.setInventorySlotContents(currentItem,
-                                                          heldCopy);
+                        heldCopy);
             }
             super.keyUp(types,
-                        kb,
-                        tickEnd);
+                    kb,
+                    tickEnd);
             radialActive = false;
             radialLock = false;
             heldCopy = null;

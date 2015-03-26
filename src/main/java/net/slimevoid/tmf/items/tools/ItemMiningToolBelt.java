@@ -1,7 +1,5 @@
 package net.slimevoid.tmf.items.tools;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -23,17 +21,15 @@ import net.slimevoid.compatibility.thaumcraft.ThaumcraftStatic;
 import net.slimevoid.compatibility.tinkersconstruct.TinkersConstructStatic;
 import net.slimevoid.library.util.helpers.NBTHelper;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
-import net.slimevoid.tmf.core.lib.CommandLib;
-import net.slimevoid.tmf.core.lib.DataLib;
-import net.slimevoid.tmf.core.lib.MessageLib;
-import net.slimevoid.tmf.core.lib.NBTLib;
-import net.slimevoid.tmf.core.lib.PacketLib;
+import net.slimevoid.tmf.core.lib.*;
 import net.slimevoid.tmf.items.ItemTMF;
+
+import java.util.List;
 
 public class ItemMiningToolBelt extends ItemTMF /*
                                                  * implements IRepairable,
                                                  * IRepairableExtended
-                                                 */{
+                                                 */ {
     public ItemMiningToolBelt() {
         super();
         this.setMaxStackSize(1);
@@ -66,13 +62,13 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
             if (tool != null) {
                 flag = tool.getItem().itemInteractionForEntity(tool,
-                                                               entityplayer,
-                                                               entitylivingbase);
+                        entityplayer,
+                        entitylivingbase);
                 this.updateToolInToolBelt(entityplayer.getEntityWorld(),
-                                          entityplayer,
-                                          itemstack,
-                                          tool,
-                                          toolCopy);
+                        entityplayer,
+                        itemstack,
+                        tool,
+                        toolCopy);
             }
         }
 
@@ -118,7 +114,7 @@ public class ItemMiningToolBelt extends ItemTMF /*
     @Override
     public void setDamage(ItemStack itemstack, int damage) {
         this.setToolDamage(itemstack,
-                           damage);
+                damage);
     }
 
     protected void setToolDamage(ItemStack itemstack, int damage) {
@@ -127,7 +123,7 @@ public class ItemMiningToolBelt extends ItemTMF /*
         if (tool != null) {
             tool.setItemDamage(damage);
             this.updateToolBelt(itemstack,
-                                tool);
+                    tool);
         }
     }
 
@@ -139,10 +135,10 @@ public class ItemMiningToolBelt extends ItemTMF /*
             }
 
             this.doTickTools(itemstack,
-                             world,
-                             entity,
-                             tick,
-                             isHeld);
+                    world,
+                    entity,
+                    tick,
+                    isHeld);
         }
     }
 
@@ -153,15 +149,15 @@ public class ItemMiningToolBelt extends ItemTMF /*
             if (tool != null && tool.getItem() != null) {
                 ItemStack toolCopy = ItemStack.copyItemStack(tool);
                 tool.getItem().onUpdate(tool,
-                                        world,
-                                        entity,
-                                        tick,
-                                        isHeld);
+                        world,
+                        entity,
+                        tick,
+                        isHeld);
                 this.updateToolInToolBelt(world,
-                                          (EntityLivingBase) entity,
-                                          itemstack,
-                                          tool,
-                                          toolCopy);
+                        (EntityLivingBase) entity,
+                        itemstack,
+                        tool,
+                        toolCopy);
             }
         }
     }
@@ -169,40 +165,40 @@ public class ItemMiningToolBelt extends ItemTMF /*
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         return this.doItemRightClick(itemstack,
-                                     world,
-                                     entityplayer);
+                world,
+                entityplayer);
     }
 
     @Override
     public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ) {
         return this.doItemUse(itemstack,
-                              entityplayer,
-                              world,
-                              pos,
-                              facing,
-                              hitX,
-                              hitY,
-                              hitZ);
+                entityplayer,
+                world,
+                pos,
+                facing,
+                hitX,
+                hitY,
+                hitZ);
     }
 
     @Override
     public boolean onItemUseFirst(ItemStack itemstack, EntityPlayer entityplayer, World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ) {
         return !MystcraftStatic.isBookStandOrLectern(world,
-                                                     pos) ? this.doItemUseFirst(itemstack,
-                                                                              entityplayer,
-                                                                              world,
-                                                                              pos,
-                                                                              facing,
-                                                                              hitX,
-                                                                              hitY,
-                                                                              hitZ) : false;
+                pos) ? this.doItemUseFirst(itemstack,
+                entityplayer,
+                world,
+                pos,
+                facing,
+                hitX,
+                hitY,
+                hitZ) : false;
     }
 
     @Override
     public ItemStack onItemUseFinish(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         this.doFoodEaten(itemstack,
-                         world,
-                         entityplayer);
+                world,
+                entityplayer);
         return itemstack;
     }
 
@@ -218,18 +214,18 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
         if (tool != null) {
             tool = tool.useItemRightClick(world,
-                                          entityplayer);
+                    entityplayer);
 
             if (entityplayer.isUsingItem()) {
                 entityplayer.setItemInUse(itemstack,
-                                          tool.getMaxItemUseDuration());
+                        tool.getMaxItemUseDuration());
             }
 
             this.updateToolInToolBelt(world,
-                                      entityplayer,
-                                      itemstack,
-                                      tool,
-                                      toolCopy);
+                    entityplayer,
+                    itemstack,
+                    tool,
+                    toolCopy);
         }
         return itemstack;
     }
@@ -241,18 +237,18 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
         if (tool != null && tool.getItem() != null) {
             flag = tool.getItem().onItemUse(tool,
-                                            entityplayer,
-                                            world,
-                                            pos,
-                                            facing,
-                                            hitX,
-                                            hitY,
-                                            hitZ);
+                    entityplayer,
+                    world,
+                    pos,
+                    facing,
+                    hitX,
+                    hitY,
+                    hitZ);
             this.updateToolInToolBelt(world,
-                                      entityplayer,
-                                      itemstack,
-                                      tool,
-                                      toolCopy);
+                    entityplayer,
+                    itemstack,
+                    tool,
+                    toolCopy);
         }
         return flag;
     }
@@ -263,18 +259,18 @@ public class ItemMiningToolBelt extends ItemTMF /*
         boolean flag = false;
         if (tool != null && tool.getItem() != null) {
             flag = tool.getItem().onItemUseFirst(tool,
-                                                 entityplayer,
-                                                 world,
-                                                 pos,
-                                                 facing,
-                                                 hitX,
-                                                 hitY,
-                                                 hitZ);
+                    entityplayer,
+                    world,
+                    pos,
+                    facing,
+                    hitX,
+                    hitY,
+                    hitZ);
             this.updateToolInToolBelt(world,
-                                      entityplayer,
-                                      itemstack,
-                                      tool,
-                                      toolCopy);
+                    entityplayer,
+                    itemstack,
+                    tool,
+                    toolCopy);
         }
         return flag;
     }
@@ -287,10 +283,10 @@ public class ItemMiningToolBelt extends ItemTMF /*
             tool = tool.onItemUseFinish(world,
                     entityplayer);
             this.updateToolInToolBelt(world,
-                                      entityplayer,
-                                      itemstack,
-                                      tool,
-                                      toolCopy);
+                    entityplayer,
+                    itemstack,
+                    tool,
+                    toolCopy);
         }
     }
 
@@ -302,13 +298,13 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
         if (tool != null && tool.getItem() != null) {
             tool.getItem().onUsingTick(tool,
-                                       entityplayer,
-                                       count);
+                    entityplayer,
+                    count);
             this.updateToolInToolBelt(entityplayer.getEntityWorld(),
-                                      entityplayer,
-                                      itemstack,
-                                      tool,
-                                      toolCopy);
+                    entityplayer,
+                    itemstack,
+                    tool,
+                    toolCopy);
         }
     }
 
@@ -319,22 +315,22 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
         if (tool != null && tool.getItem() != null) {
             tool.getItem().onPlayerStoppedUsing(tool,
-                                                world,
-                                                entityplayer,
-                                                count);
+                    world,
+                    entityplayer,
+                    count);
             this.updateToolInToolBelt(world,
-                                      entityplayer,
-                                      itemstack,
-                                      tool,
-                                      toolCopy);
+                    entityplayer,
+                    itemstack,
+                    tool,
+                    toolCopy);
         }
     }
 
     @Override
     public boolean onLeftClickEntity(ItemStack itemstack, EntityPlayer entityplayer, Entity entity) {
         return this.doLeftClickEntity(itemstack,
-                                      entityplayer,
-                                      entity);
+                entityplayer,
+                entity);
     }
 
     private boolean doLeftClickEntity(ItemStack itemstack, EntityPlayer entityplayer, Entity entity) {
@@ -344,13 +340,13 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
         if (tool != null) {
             onLeftClickEntity = tool.getItem().onLeftClickEntity(tool,
-                                                                 entityplayer,
-                                                                 entity);
+                    entityplayer,
+                    entity);
             this.updateToolInToolBelt(entityplayer.getEntityWorld(),
-                                      entityplayer,
-                                      itemstack,
-                                      tool,
-                                      toolCopy);
+                    entityplayer,
+                    itemstack,
+                    tool,
+                    toolCopy);
         }
 
         return onLeftClickEntity;
@@ -359,8 +355,8 @@ public class ItemMiningToolBelt extends ItemTMF /*
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase mob, EntityLivingBase player) {
         return this.doHitEntity(stack,
-                                mob,
-                                player);
+                mob,
+                player);
     }
 
     private boolean doHitEntity(ItemStack itemstack, EntityLivingBase mob, EntityLivingBase entityplayer) {
@@ -370,13 +366,13 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
         if (tool != null && tool.getItem() != null) {
             hitEntity = tool.getItem().hitEntity(tool,
-                                                 mob,
-                                                 entityplayer);
+                    mob,
+                    entityplayer);
             this.updateToolInToolBelt(((EntityPlayer) entityplayer).getEntityWorld(),
-                                      entityplayer,
-                                      itemstack,
-                                      tool,
-                                      toolCopy);
+                    entityplayer,
+                    itemstack,
+                    tool,
+                    toolCopy);
         }
 
         return hitEntity;
@@ -385,25 +381,25 @@ public class ItemMiningToolBelt extends ItemTMF /*
     @Override
     public boolean onBlockDestroyed(ItemStack itemstack, World world, Block block, BlockPos pos, EntityLivingBase entityliving) {
         return this.doDestroyBlock(itemstack,
-                                   world,
-                                   block,
-                                   pos,
-                                   entityliving,
-                                   super.onBlockDestroyed(itemstack,
-                                                          world,
-                                                          block,
-                                                          pos,
-                                                          entityliving));
+                world,
+                block,
+                pos,
+                entityliving,
+                super.onBlockDestroyed(itemstack,
+                        world,
+                        block,
+                        pos,
+                        entityliving));
     }
 
     @Override
     public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer entityplayer) {
         return this.doStartBreakBlock(itemstack,
-                                      pos,
-                                      entityplayer,
-                                      super.onBlockStartBreak(itemstack,
-                                                              pos,
-                                                              entityplayer));
+                pos,
+                entityplayer,
+                super.onBlockStartBreak(itemstack,
+                        pos,
+                        entityplayer));
     }
 
     private boolean doStartBreakBlock(ItemStack itemstack, BlockPos pos, EntityPlayer entityplayer, boolean onBlockStartBreak) {
@@ -412,13 +408,13 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
         if (tool != null && tool.getItem() != null) {
             onBlockStartBreak = tool.getItem().onBlockStartBreak(tool,
-                                                                 pos,
-                                                                 entityplayer);
+                    pos,
+                    entityplayer);
             this.updateToolInToolBelt(entityplayer.getEntityWorld(),
-                                      entityplayer,
-                                      itemstack,
-                                      tool,
-                                      toolCopy);
+                    entityplayer,
+                    itemstack,
+                    tool,
+                    toolCopy);
         }
 
         return onBlockStartBreak;
@@ -430,15 +426,15 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
         if (tool != null && tool.getItem() != null) {
             onBlockDestroyed = tool.getItem().onBlockDestroyed(tool,
-                                                               world,
-                                                               block,
-                                                               pos,
-                                                               entitylivingbase);
+                    world,
+                    block,
+                    pos,
+                    entitylivingbase);
             this.updateToolInToolBelt(world,
-                                      entitylivingbase,
-                                      itemstack,
-                                      tool,
-                                      toolCopy);
+                    entitylivingbase,
+                    itemstack,
+                    tool,
+                    toolCopy);
         }
 
         return onBlockDestroyed;
@@ -447,7 +443,7 @@ public class ItemMiningToolBelt extends ItemTMF /*
     @Override
     public float getStrVsBlock(ItemStack itemstack, Block block) {
         return this.getDigSpeed(itemstack,
-                                block.getDefaultState());
+                block.getDefaultState());
     }
 
     @Override
@@ -457,12 +453,12 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
         if (tool != null && tool.getItem() != null) {
             strVsBlock = tool.getItem().getDigSpeed(tool,
-                                                    state);
+                    state);
         }
 
         return this.getStrengthFromTool(itemstack,
-                                        state,
-                                        strVsBlock);
+                state,
+                strVsBlock);
     }
 
     protected float getStrengthFromTool(ItemStack itemstack, IBlockState state, float originalSpeed) {
@@ -472,8 +468,8 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
             if (this.isMiningModeEnabled(itemstack)) {
                 tool = this.selectToolForBlock(itemstack,
-                                               state,
-                                               originalSpeed);
+                        state,
+                        originalSpeed);
                 multiplier = DataLib.MINING_MODE_STRENGTH;
             } else {
                 tool = this.getSelectedTool(itemstack);
@@ -482,7 +478,7 @@ public class ItemMiningToolBelt extends ItemTMF /*
             if (tool != null && tool.getItem() != null) {
                 // Generate break speed for that Tool vs. Block
                 float newSpeed = tool.getItem().getDigSpeed(tool,
-                                                            state);
+                        state);
                 return newSpeed > originalSpeed ? newSpeed * multiplier : originalSpeed;
             }
         }
@@ -502,7 +498,7 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
                 if (tool != null && tool.getItem() != null) {
                     float breakSpeed = tool.getItem().getDigSpeed(tool,
-                                                                  state);
+                            state);
 
                     if (breakSpeed > fastestSpeed) {
                         fastestSpeed = breakSpeed;
@@ -513,7 +509,7 @@ public class ItemMiningToolBelt extends ItemTMF /*
         }
 
         return selection == selectedSlot ? this.getSelectedTool(itemstack) : this.setSelectedTool(itemstack,
-                                                                                                  selection);
+                selection);
     }
 
     @Override
@@ -524,7 +520,7 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
             if (this.isMiningModeEnabled(itemstack)) {
                 return selectedToolCanHarvest ? true : this.isToolAvailable(block,
-                                                                            itemstack);
+                        itemstack);
             }
 
             if (tool != null) {
@@ -533,7 +529,7 @@ public class ItemMiningToolBelt extends ItemTMF /*
         }
 
         return super.canHarvestBlock(block,
-                                     itemstack);
+                itemstack);
     }
 
     private boolean isToolAvailable(Block block, ItemStack itemstack) {
@@ -561,7 +557,7 @@ public class ItemMiningToolBelt extends ItemTMF /*
             ItemStack[] tools = ItemHelper.getTools(toolBelt);
             tools[selectedSlot] = tool;
             this.refreshTools(toolBelt,
-                              tools);
+                    tools);
         }
     }
 
@@ -572,7 +568,7 @@ public class ItemMiningToolBelt extends ItemTMF /*
             if (tools[i] != null) {
                 NBTTagCompound tagCompound = new NBTTagCompound();
                 tagCompound.setByte(NBTLib.SLOT,
-                                    (byte) i);
+                        (byte) i);
                 tools[i].writeToNBT(tagCompound);
                 toolsTag.appendTag(tagCompound);
             }
@@ -585,20 +581,20 @@ public class ItemMiningToolBelt extends ItemTMF /*
     private void refreshToolBelt(ItemStack toolBelt) {
         ItemStack tool = this.getSelectedTool(toolBelt);
         this.updateMirroredTags(toolBelt.getTagCompound(),
-                                tool);
+                tool);
     }
 
     private void updateMirroredTags(NBTTagCompound nbttagcompound, ItemStack tool) {
         NBTTagList enchantments = null;
 
         if (tool != null && tool.hasTagCompound()
-            && tool.getEnchantmentTagList() != null) {
+                && tool.getEnchantmentTagList() != null) {
             enchantments = tool.getEnchantmentTagList();
         }
 
         if (enchantments != null) {
             nbttagcompound.setTag(NBTLib.ENCHANTMENTS,
-                                  enchantments);
+                    enchantments);
         } else if (nbttagcompound.hasKey(NBTLib.ENCHANTMENTS)) {
             nbttagcompound.removeTag(NBTLib.ENCHANTMENTS);
         }
@@ -606,7 +602,7 @@ public class ItemMiningToolBelt extends ItemTMF /*
         if (ItemHelper.isItemInfiTool(tool)) {
             NBTTagCompound tag = tool.getTagCompound().getCompoundTag(TinkersConstructStatic.INFI_TOOL);
             nbttagcompound.setTag(TinkersConstructStatic.INFI_TOOL,
-                                  tag);
+                    tag);
         } else if (nbttagcompound.hasKey(TinkersConstructStatic.INFI_TOOL)) {
             nbttagcompound.removeTag(TinkersConstructStatic.INFI_TOOL);
         }
@@ -614,22 +610,22 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
     public void updateToolInToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt, ItemStack tool, ItemStack toolCopy) {
         if (!ItemStack.areItemStacksEqual(tool,
-                                          toolCopy)) {
+                toolCopy)) {
             this.updateToolBelt(world,
-                                entityliving,
-                                toolBelt,
-                                tool);
+                    entityliving,
+                    toolBelt,
+                    tool);
         }
     }
 
     private void updateToolBelt(World world, EntityLivingBase entityliving, ItemStack toolBelt, ItemStack tool) {
         this.updateToolBelt(toolBelt,
-                            tool);
+                tool);
         if (entityliving instanceof EntityPlayer) {
             EntityPlayer entityplayer = (EntityPlayer) entityliving;
             ItemHelper.updateContainerInfo(world,
-                                           entityplayer,
-                                           toolBelt);
+                    entityplayer,
+                    toolBelt);
         }
     }
 
@@ -639,14 +635,14 @@ public class ItemMiningToolBelt extends ItemTMF /*
             itemstack.getTagCompound().setBoolean(NBTLib.MINING_MODE,
                     mode);
             PacketLib.sendMiningModeMessage(world,
-                                            entitylivingbase,
-                                            mode);
+                    entitylivingbase,
+                    mode);
         }
     }
 
     public boolean isMiningModeEnabled(ItemStack itemstack) {
         return itemstack.hasTagCompound()
-               && itemstack.getTagCompound().hasKey(NBTLib.MINING_MODE) ? itemstack.getTagCompound().getBoolean(NBTLib.MINING_MODE) : false;
+                && itemstack.getTagCompound().hasKey(NBTLib.MINING_MODE) ? itemstack.getTagCompound().getBoolean(NBTLib.MINING_MODE) : false;
     }
 
     public boolean doLeftClickBlock(PlayerInteractEvent event) {
@@ -698,7 +694,7 @@ public class ItemMiningToolBelt extends ItemTMF /*
 
     public ItemStack getSelectedTool(ItemStack itemstack) {
         return ItemHelper.isToolBelt(itemstack) ? this.getToolInSlot(itemstack,
-                                                                     this.getSelectedSlot(itemstack)) : null;
+                this.getSelectedSlot(itemstack)) : null;
     }
 
     private ItemStack setSelectedTool(ItemStack toolBelt, int selectedTool) {
@@ -724,7 +720,7 @@ public class ItemMiningToolBelt extends ItemTMF /*
             }
 
             return this.setSelectedTool(itemstack,
-                                        selectedTool);
+                    selectedTool);
         } else {
             return null;
         }
@@ -759,11 +755,11 @@ public class ItemMiningToolBelt extends ItemTMF /*
         int selectedSlot = this.getSelectedSlot(itemstack);
         ItemStack tool = ItemHelper.getSelectedTool(itemstack);
         String name = tool != null ? tool.getDisplayName() : "Slot "
-                                                             + selectedSlot
-                                                             + " - Empty";
+                + selectedSlot
+                + " - Empty";
         return StatCollector.translateToLocal(this.getUnlocalizedName()
-                                              + ".name")
-               + " : " + name;
+                + ".name")
+                + " : " + name;
     }
 
     /**
@@ -827,8 +823,8 @@ public class ItemMiningToolBelt extends ItemTMF /*
     public int getColorFromItemStack(ItemStack itemstack, int pass) {
         ItemStack tool = this.getSelectedTool(itemstack);
         return tool != null && tool.getItem() != null ? tool.getItem().getColorFromItemStack(tool,
-                                                                                             pass) : super.getColorFromItemStack(itemstack,
-                                                                                                                                 pass);
+                pass) : super.getColorFromItemStack(itemstack,
+                pass);
     }
 
     @Override
@@ -837,16 +833,16 @@ public class ItemMiningToolBelt extends ItemTMF /*
         ItemStack toolCopy = ItemStack.copyItemStack(tool);
         if (tool != null && tool.getItem() != null) {
             tool.getItem().onEntitySwing(entitylivingbase,
-                                         tool);
+                    tool);
             this.updateToolInToolBelt(entitylivingbase.worldObj,
-                                      entitylivingbase,
-                                      itemstack,
-                                      tool,
-                                      toolCopy);
+                    entitylivingbase,
+                    itemstack,
+                    tool,
+                    toolCopy);
         }
 
         return super.onEntitySwing(entitylivingbase,
-                                   itemstack);
+                itemstack);
     }
 
     @Override
@@ -858,7 +854,7 @@ public class ItemMiningToolBelt extends ItemTMF /*
     // @Override
     public boolean doRepair(ItemStack itemstack, EntityPlayer entityplayer, int level) {
         return ThaumcraftStatic.doRepair(itemstack,
-                                         entityplayer,
-                                         level);
+                entityplayer,
+                level);
     }
 }

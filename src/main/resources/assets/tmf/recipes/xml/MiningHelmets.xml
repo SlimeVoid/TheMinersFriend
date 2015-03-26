@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <recipes>
-	<recipe outId="$helmetLamp" stackSize="1">
-	    <layout>
-	        OLO
-	        LTL
-	        OLO
-	    </layout>
-	    <mapping id="$item.leather">L</mapping>
-	    <mapping id="$tile.torch">T</mapping>
-	</recipe>
-	
-	<recipe outId="$ironMinersHelmet" stackSize="1">
-	    <layout>
-	        X
-	        Y
-	    </layout>
-	    <mapping id="$helmetLamp">X</mapping>
-	    <mapping id="$item.helmetIron">Y</mapping>
-	</recipe>
-	
-	<recipe outId="$goldMinersHelmet" stackSize="1">
-	    <layout>
-	        X
-	        Y
-	    </layout>
-	    <mapping id="$helmetLamp">X</mapping>
-	    <mapping id="$item.helmetGold">Y</mapping>
-	</recipe>
-	
-	<recipe outId="$diamondMinersHelmet" stackSize="1">
-	    <layout>
-	        X
-	        Y
-	    </layout>
-	    <mapping id="$helmetLamp">X</mapping>
-	    <mapping id="$item.helmetDiamond">Y</mapping>
-	</recipe>
+    <recipe outId="$helmetLamp" stackSize="1">
+        <layout>
+            OLO
+            LTL
+            OLO
+        </layout>
+        <mapping id="$item.leather">L</mapping>
+        <mapping id="$tile.torch">T</mapping>
+    </recipe>
+
+    <recipe outId="$ironMinersHelmet" stackSize="1">
+        <layout>
+            X
+            Y
+        </layout>
+        <mapping id="$helmetLamp">X</mapping>
+        <mapping id="$item.helmetIron">Y</mapping>
+    </recipe>
+
+    <recipe outId="$goldMinersHelmet" stackSize="1">
+        <layout>
+            X
+            Y
+        </layout>
+        <mapping id="$helmetLamp">X</mapping>
+        <mapping id="$item.helmetGold">Y</mapping>
+    </recipe>
+
+    <recipe outId="$diamondMinersHelmet" stackSize="1">
+        <layout>
+            X
+            Y
+        </layout>
+        <mapping id="$helmetLamp">X</mapping>
+        <mapping id="$item.helmetDiamond">Y</mapping>
+    </recipe>
 </recipes>

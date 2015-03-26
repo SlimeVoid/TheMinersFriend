@@ -22,19 +22,15 @@ import net.slimevoid.library.util.helpers.PacketHelper;
 import net.slimevoid.tmf.client.network.executors.ClientMiningModeActivatedExecutor;
 import net.slimevoid.tmf.client.network.executors.ClientMiningModeDeactivatedExecutor;
 import net.slimevoid.tmf.client.network.executors.ClientMiningToolSelectedExecutor;
+import net.slimevoid.tmf.network.executors.*;
 import net.slimevoid.tmf.network.packets.PacketMiningToolBelt;
 import net.slimevoid.tmf.network.packets.PacketMotionSensor;
-import net.slimevoid.tmf.network.executors.ToolBeltModeExecutor;
-import net.slimevoid.tmf.network.executors.MotionSensorPingExecutor;
-import net.slimevoid.tmf.network.executors.MotionSensorSweepExecutor;
-import net.slimevoid.tmf.network.executors.ToolBeltCycleToolExecutor;
-import net.slimevoid.tmf.network.executors.ToolBeltOpenGuiExecutor;
 
 public class PacketLib {
 
-    public static final int      MOD_COMPAT       = 0;
-    public static final int      MOTION_SENSOR    = 1;
-    public static final int      MINING_TOOL_BELT = 2;
+    public static final int MOD_COMPAT = 0;
+    public static final int MOTION_SENSOR = 1;
+    public static final int MINING_TOOL_BELT = 2;
 
     public static void registerPacketExecutors() {
 
@@ -94,8 +90,8 @@ public class PacketLib {
 
     public static void sendActivateMessage(World world, EntityPlayer entityplayer) {
         sendToolBeltMessage(world,
-                            entityplayer,
-                            CommandLib.MINING_MODE_ACTIVATED);
+                entityplayer,
+                CommandLib.MINING_MODE_ACTIVATED);
     }
 
     public static void sendDeactivateMessage(World world, EntityPlayer entityplayer) {
@@ -116,10 +112,10 @@ public class PacketLib {
             EntityPlayer entityplayer = (EntityPlayer) entityliving;
             if (mode) {
                 sendActivateMessage(world,
-                                    entityplayer);
+                        entityplayer);
             } else {
                 sendDeactivateMessage(world,
-                                      entityplayer);
+                        entityplayer);
             }
         }
     }

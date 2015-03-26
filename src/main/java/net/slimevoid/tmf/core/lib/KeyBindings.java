@@ -17,15 +17,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import org.lwjgl.input.Keyboard;
-
-import net.slimevoid.library.util.helpers.PacketHelper;
 import net.slimevoid.tmf.client.tickhandlers.input.ToolBeltKeyBindingHandler;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
-import net.slimevoid.tmf.network.packets.PacketMiningToolBelt;
+import org.lwjgl.input.Keyboard;
 
 public class KeyBindings {
 
@@ -53,8 +49,8 @@ public class KeyBindings {
         EntityPlayer entityplayer = mc.thePlayer;
         if (world.isRemote) {
             ItemStack toolBelt = ItemHelper.getToolBelt(entityplayer,
-                                                        world,
-                                                        true);
+                    world,
+                    true);
             if (toolBelt != null) {
                 PacketLib.sendToolBeltToggle(world, entityplayer);
             }
@@ -66,8 +62,8 @@ public class KeyBindings {
         EntityPlayer entityplayer = mc.thePlayer;
         if (world.isRemote) {
             ItemStack toolBelt = ItemHelper.getToolBelt(entityplayer,
-                                                        world,
-                                                        true);
+                    world,
+                    true);
             if (toolBelt != null) {
                 PacketLib.sendToolBeltCycle(world, entityplayer, direction);
             }

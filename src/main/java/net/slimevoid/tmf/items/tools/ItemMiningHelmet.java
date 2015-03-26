@@ -15,10 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.library.blocks.BlockTransientLight;
-import net.slimevoid.tmf.core.TMFCore;
 import net.slimevoid.tmf.core.creativetabs.CreativeTabTMF;
 import net.slimevoid.tmf.core.lib.ConfigurationLib;
 

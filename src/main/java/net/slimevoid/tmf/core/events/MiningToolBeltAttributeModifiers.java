@@ -11,9 +11,6 @@
  */
 package net.slimevoid.tmf.core.events;
 
-import java.util.ConcurrentModificationException;
-import java.util.HashMap;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -22,6 +19,9 @@ import net.slimevoid.library.core.SlimevoidCore;
 import net.slimevoid.library.data.Logger.LogLevel;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
 import net.slimevoid.tmf.core.lib.CoreLib;
+
+import java.util.ConcurrentModificationException;
+import java.util.HashMap;
 
 public class MiningToolBeltAttributeModifiers {
 
@@ -34,7 +34,7 @@ public class MiningToolBeltAttributeModifiers {
         ItemStack tool = ItemHelper.getSelectedTool(heldItem);
         ItemStack previousTool = this.previousTool.containsKey(entity) ? this.previousTool.get(entity) : null;
         if (!ItemStack.areItemStacksEqual(previousTool,
-                                          tool)) {
+                tool)) {
             if (previousTool != null) {
                 event.entityLiving.getAttributeMap().removeAttributeModifiers(previousTool.getAttributeModifiers());
             }
@@ -43,12 +43,12 @@ public class MiningToolBeltAttributeModifiers {
             }
             try {
                 this.previousTool.put(entity,
-                                      tool == null ? null : tool.copy());
+                        tool == null ? null : tool.copy());
             } catch (ConcurrentModificationException c) {
                 SlimevoidCore.console(CoreLib.MOD_ID,
-                                      "Phew, that was close! onLivingUpdate could not update "
-                                              + entity + "'s previous item.",
-                                      LogLevel.WARNING.ordinal());
+                        "Phew, that was close! onLivingUpdate could not update "
+                                + entity + "'s previous item.",
+                        LogLevel.WARNING.ordinal());
             }
         }
     }

@@ -11,10 +11,10 @@
  */
 package net.slimevoid.tmf.fuel;
 
+import net.slimevoid.tmf.items.minerals.ItemMineralMixedDust;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import net.slimevoid.tmf.items.minerals.ItemMineralMixedDust;
 
 public class MixedDustNameRegistry {
     private static Map<String, String> nameMapping = new HashMap<String, String>();
@@ -29,30 +29,30 @@ public class MixedDustNameRegistry {
     public static void addName(int aL, int bL, int cL, String name) {
         synchronized (nameMapping) {
             nameMapping.put(getKey(aL,
-                                   bL,
-                                   cL),
-                            name);
+                            bL,
+                            cL),
+                    name);
         }
     }
 
     public static String getName(int meta) {
         return getName(ItemMineralMixedDust.getBurnTimeLevel(meta),
-                       ItemMineralMixedDust.getBurnSpeedLevel(meta),
-                       ItemMineralMixedDust.getBurnWidthLevel(meta));
+                ItemMineralMixedDust.getBurnSpeedLevel(meta),
+                ItemMineralMixedDust.getBurnWidthLevel(meta));
     }
 
     public static String getName(int aL, int bL, int cL) {
         String out = null;
         synchronized (nameMapping) {
             out = nameMapping.get(getKey(aL,
-                                         bL,
-                                         cL));
+                    bL,
+                    cL));
         }
         if (out != null) return out;
 
         return getDefaultName(aL,
-                              bL,
-                              cL);
+                bL,
+                cL);
     }
 
     private static String getKey(int aL, int bL, int cL) {
@@ -65,17 +65,17 @@ public class MixedDustNameRegistry {
         boolean first = true;
         if (aL > 0) {
             builder.append(getALevel(aL,
-                                     first));
+                    first));
             first = false;
         }
         if (bL > 0) {
             builder.append(getBLevel(bL,
-                                     first));
+                    first));
             first = false;
         }
         if (cL > 0) {
             builder.append(getCLevel(cL,
-                                     first));
+                    first));
         }
         builder.append(" (");
         if (aL > 0) {
@@ -90,7 +90,7 @@ public class MixedDustNameRegistry {
         builder.append(")");
 
         return Character.toUpperCase(builder.toString().charAt(0))
-               + builder.toString().substring(1);
+                + builder.toString().substring(1);
     }
 
     private static String getALevel(int aL, boolean first) {
@@ -100,7 +100,7 @@ public class MixedDustNameRegistry {
         }
         String name = "axi";
         if (num.length() > 0 && num.substring(num.length() - 1,
-                                              num.length()).equals("a")) name = "xi";
+                num.length()).equals("a")) name = "xi";
 
         return num + name;
     }
@@ -112,7 +112,7 @@ public class MixedDustNameRegistry {
         }
         String name = "ogen";
         if (num.length() > 0 && num.substring(num.length() - 1,
-                                              num.length()).equals("o")) name = "gen";
+                num.length()).equals("o")) name = "gen";
 
         return num + name;
     }
@@ -129,26 +129,26 @@ public class MixedDustNameRegistry {
 
     private static String getNumeric(int i) {
         switch (i) {
-        case 1:
-            return "mono";
-        case 2:
-            return "di";
-        case 3:
-            return "tri";
-        case 4:
-            return "tetra";
-        case 5:
-            return "penta";
-        case 6:
-            return "hexa";
-        case 7:
-            return "hepta";
-        case 8:
-            return "octa";
-        case 9:
-            return "nona";
-        default:
-            return "";
+            case 1:
+                return "mono";
+            case 2:
+                return "di";
+            case 3:
+                return "tri";
+            case 4:
+                return "tetra";
+            case 5:
+                return "penta";
+            case 6:
+                return "hexa";
+            case 7:
+                return "hepta";
+            case 8:
+                return "octa";
+            case 9:
+                return "nona";
+            default:
+                return "";
         }
     }
 }

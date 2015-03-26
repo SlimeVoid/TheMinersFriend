@@ -17,18 +17,16 @@ import net.slimevoid.tmf.core.lib.CoreLib;
 
 /**
  * Extend for new packets
- * 
+ *
  * @author Eurymachus
- * 
  */
 public abstract class PacketMining extends PacketUpdate {
 
     /**
      * Constructor for Default Mining Packets
-     * 
-     * @param packetId
-     *            the packet ID used to identify the type of packet data being
-     *            sent or received
+     *
+     * @param packetId the packet ID used to identify the type of packet data being
+     *                 sent or received
      */
     public PacketMining(int packetId) {
         super(packetId);
@@ -38,12 +36,10 @@ public abstract class PacketMining extends PacketUpdate {
     /**
      * Constructor for Default Mining Packets Used to add payload data to the
      * packet
-     * 
-     * @param packetId
-     *            the packet ID used to identify the type of packet data being
-     *            sent or received
-     * @param payload
-     *            the new payload to be associated with the packet
+     *
+     * @param packetId the packet ID used to identify the type of packet data being
+     *                 sent or received
+     * @param payload  the new payload to be associated with the packet
      */
     public PacketMining(int packetId, PacketPayload payload) {
         super(packetId, payload);
@@ -53,6 +49,6 @@ public abstract class PacketMining extends PacketUpdate {
     @Override
     public String toString() {
         return this.getCommand() + "(" + xPosition + "," + yPosition + ","
-               + zPosition + ")";
+                + zPosition + ")";
     }
 }

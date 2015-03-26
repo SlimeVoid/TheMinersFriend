@@ -14,12 +14,10 @@ package net.slimevoid.tmf.client.renderers;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
-
 import net.slimevoid.library.tileentity.TileEntityBase;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import net.slimevoid.tmf.client.renderers.models.ModelGrinder;
+import org.lwjgl.opengl.GL11;
 
 public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer {
 
@@ -34,60 +32,60 @@ public class TileEntitySpecialRendererGrinder extends TileEntitySpecialRenderer 
         GL11.glPushMatrix();
         // GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glColor4f(1.0F,
-                       1.0F,
-                       1.0F,
-                       1.0F);
+                1.0F,
+                1.0F,
+                1.0F);
         GL11.glTranslatef((float) x,
-                          (float) y,
-                          (float) z);
+                (float) y,
+                (float) z);
 
         int meta = 0;
         if (tile.getWorld() != null) meta = ((TileEntityBase) tile).getRotation();
 
         boolean dir = false;
         switch (meta) {
-        case 0:
-            break;
-        case 1:
-            GL11.glTranslatef(0.5f,
-                              0.5f,
-                              0.5f);
-            GL11.glRotatef(270,
-                           0,
-                           1,
-                           0);
-            GL11.glTranslatef(-0.5f,
-                              -0.5f,
-                              -0.5f);
-            break;
-        case 2:
-            GL11.glTranslatef(0.5f,
-                              0.5f,
-                              0.5f);
-            GL11.glRotatef(180,
-                           0,
-                           1,
-                           0);
-            GL11.glTranslatef(-0.5f,
-                              -0.5f,
-                              -0.5f);
-            break;
-        case 3:
-            GL11.glTranslatef(0.5f,
-                              0.5f,
-                              0.5f);
-            GL11.glRotatef(90,
-                           0,
-                           1,
-                           0);
-            GL11.glTranslatef(-0.5f,
-                              -0.5f,
-                              -0.5f);
-            break;
+            case 0:
+                break;
+            case 1:
+                GL11.glTranslatef(0.5f,
+                        0.5f,
+                        0.5f);
+                GL11.glRotatef(270,
+                        0,
+                        1,
+                        0);
+                GL11.glTranslatef(-0.5f,
+                        -0.5f,
+                        -0.5f);
+                break;
+            case 2:
+                GL11.glTranslatef(0.5f,
+                        0.5f,
+                        0.5f);
+                GL11.glRotatef(180,
+                        0,
+                        1,
+                        0);
+                GL11.glTranslatef(-0.5f,
+                        -0.5f,
+                        -0.5f);
+                break;
+            case 3:
+                GL11.glTranslatef(0.5f,
+                        0.5f,
+                        0.5f);
+                GL11.glRotatef(90,
+                        0,
+                        1,
+                        0);
+                GL11.glTranslatef(-0.5f,
+                        -0.5f,
+                        -0.5f);
+                break;
         }
 
         grinder.renderAll(this,
-                          dir);
+                dir);
 
         if (tile.getBlockType() != null) {
             // grinder.updateBounds(tile.getBlockType());

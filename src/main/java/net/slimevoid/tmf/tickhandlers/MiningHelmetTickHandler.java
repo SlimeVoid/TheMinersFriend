@@ -11,8 +11,6 @@
  */
 package net.slimevoid.tmf.tickhandlers;
 
-import java.util.List;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,30 +24,32 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.slimevoid.tmf.core.lib.ArmorLib;
 
+import java.util.List;
+
 public class MiningHelmetTickHandler {
 
     private void checkForFallingBlocks(EntityPlayer entityplayer, World world) {
         ItemStack miningHelm = ArmorLib.getPlayerHelm(entityplayer,
-                                                      world);
+                world);
         if (miningHelm != null) {
             AxisAlignedBB box = AxisAlignedBB.fromBounds(entityplayer.posX,
-                                                         entityplayer.posY,
-                                                         entityplayer.posZ,
-                                                         entityplayer.posX,
-                                                         entityplayer.posY
-                                                                 + entityplayer.getEyeHeight(),
-                                                         entityplayer.posZ);
+                    entityplayer.posY,
+                    entityplayer.posZ,
+                    entityplayer.posX,
+                    entityplayer.posY
+                            + entityplayer.getEyeHeight(),
+                    entityplayer.posZ);
             List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(entityplayer,
-                                                                               box);
+                    box);
             int count = 0;
             if (entities.size() > 0) {
                 for (Entity entity : entities) {
                     if (entity instanceof EntityFallingBlock) {
                         EntityFallingBlock entityfalling = (EntityFallingBlock) entity;
                         if (!entityplayer.capabilities.isCreativeMode
-                            && !world.isRemote) {
+                                && !world.isRemote) {
                             entityplayer.dropItem(Item.getItemFromBlock(entityfalling.getBlock().getBlock()),
-                                                  1);
+                                    1);
                         }
                         count++;
                         entityfalling.setDead();
@@ -58,7 +58,7 @@ public class MiningHelmetTickHandler {
             }
             double totalDamage = count * ArmorLib.getDamageToHelm(miningHelm);
             miningHelm.damageItem(MathHelper.ceiling_double_int(totalDamage),
-                                  entityplayer);
+                    entityplayer);
         }
     }
 
@@ -68,7 +68,7 @@ public class MiningHelmetTickHandler {
             EntityPlayer entityplayer = event.player;
             World world = entityplayer.worldObj;
             checkForFallingBlocks(entityplayer,
-                                  world);
+                    world);
         }
     }
 }

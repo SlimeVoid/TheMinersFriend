@@ -11,8 +11,6 @@
  */
 package net.slimevoid.tmf.core.lib;
 
-import java.util.HashMap;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -22,6 +20,8 @@ import net.slimevoid.library.data.Logger;
 import net.slimevoid.tmf.core.LoggerTMF;
 import net.slimevoid.tmf.items.tools.ItemMiningArmor;
 import net.slimevoid.tmf.items.tools.ItemMiningHelmet;
+
+import java.util.HashMap;
 
 public class ArmorLib {
 
@@ -36,9 +36,9 @@ public class ArmorLib {
             return armorTextures.get(item);
         } else {
             LoggerTMF.getInstance("ArmorLib").write(true,
-                                                    "Failed to get Texture file for ID ["
-                                                            + item + "]",
-                                                    Logger.LogLevel.DEBUG);
+                    "Failed to get Texture file for ID ["
+                            + item + "]",
+                    Logger.LogLevel.DEBUG);
         }
         return "";
     }
@@ -46,14 +46,14 @@ public class ArmorLib {
     public static String registerArmorTexture(ItemMiningArmor item, String textureFile) {
         if (!armorTextures.containsKey(item)) {
             armorTextures.put(item,
-                              textureFile);
+                    textureFile);
             return getArmorTextureFromItem(item);
         } else {
             LoggerTMF.getInstance("ArmorLib").write(true,
-                                                    "Texture file for item ["
-                                                            + item.getUnlocalizedName()
-                                                            + "] already registered",
-                                                    Logger.LogLevel.DEBUG);
+                    "Texture file for item ["
+                            + item.getUnlocalizedName()
+                            + "] already registered",
+                    Logger.LogLevel.DEBUG);
         }
         return "";
     }
@@ -68,23 +68,23 @@ public class ArmorLib {
 
     public static ItemStack getPlayerHelm(EntityPlayer entityplayer, World world) {
         return getPlayerArmorInSlot(3,
-                                    entityplayer,
-                                    world,
-                                    ItemMiningHelmet.class);
+                entityplayer,
+                world,
+                ItemMiningHelmet.class);
     }
 
     public static double getDamageToHelm(ItemStack miningHelm) {
         switch (((ItemArmor) miningHelm.getItem()).getArmorMaterial().ordinal()) {
-        case 5:
-            return 0.2;
-        case 4:
-            return 0.4;
-        case 3:
-            return 0.6;
-        case 2:
-            return 0.8;
-        default:
-            return 1;
+            case 5:
+                return 0.2;
+            case 4:
+                return 0.4;
+            case 3:
+                return 0.6;
+            case 2:
+                return 0.8;
+            default:
+                return 1;
         }
     }
 }

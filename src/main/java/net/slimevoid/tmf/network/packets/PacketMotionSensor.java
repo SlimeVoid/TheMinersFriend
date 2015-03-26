@@ -28,7 +28,7 @@ public class PacketMotionSensor extends PacketMiningEntity implements
         this.setCommand(command);
         this.setEntityId(entity.getEntityId());
         this.setPosition(pos,
-                         0);
+                0);
         this.setDist2sq(dist2sq);
     }
 
@@ -39,7 +39,7 @@ public class PacketMotionSensor extends PacketMiningEntity implements
     @Override
     public void setDist2sq(float dist2sq) {
         this.payload.setFloatPayload(0,
-                                     dist2sq);
+                dist2sq);
     }
 
     @Override

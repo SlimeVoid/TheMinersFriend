@@ -20,7 +20,6 @@ import net.minecraft.util.ResourceLocation;
 import net.slimevoid.tmf.core.lib.GuiLib;
 import net.slimevoid.tmf.core.lib.ResourceLib;
 import net.slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
-
 import org.lwjgl.opengl.GL11;
 
 public class GuiMiningToolBelt extends GuiContainer {
@@ -40,7 +39,7 @@ public class GuiMiningToolBelt extends GuiContainer {
 
         int motionSensorButtonLength = this.fontRendererObj.getStringWidth("Settings");
         GuiButton motionSensorSettings = new GuiButton(GuiLib.MOTION_SENSOR_SETTINGS_BUTTONID, (this.width / 2)
-                                                                                               - (motionSensorButtonLength / 2), (this.height / 2), motionSensorButtonLength + 6, 20, "Settings");
+                - (motionSensorButtonLength / 2), (this.height / 2), motionSensorButtonLength + 6, 20, "Settings");
         this.buttonList.add(motionSensorSettings);
         ((GuiButton) this.buttonList.get(GuiLib.MOTION_SENSOR_SETTINGS_BUTTONID)).enabled = false;
 
@@ -50,12 +49,12 @@ public class GuiMiningToolBelt extends GuiContainer {
     protected void actionPerformed(GuiButton button) {
 
         switch (button.id) {
-        case GuiLib.MOTION_SENSOR_SETTINGS_BUTTONID:
-            System.out.println("Settings");
-            break;
-        default:
-            System.out.println("Default");
-            break;
+            case GuiLib.MOTION_SENSOR_SETTINGS_BUTTONID:
+                System.out.println("Settings");
+                break;
+            default:
+                System.out.println("Default");
+                break;
         }
 
     }
@@ -69,23 +68,23 @@ public class GuiMiningToolBelt extends GuiContainer {
         int sizeX = (this.width - this.xSize) / 2;
         int sizeY = (this.height - this.ySize) / 2;
         this.drawBackground(sizeX,
-                            sizeY);
+                sizeY);
         this.drawHighlightedSlot(sizeX,
-                                 sizeY);
+                sizeY);
     }
 
     protected void drawBackground(int sizeX, int sizeY) {
         GL11.glColor4f(1.0F,
-                       1.0F,
-                       1.0F,
-                       1.0F);
+                1.0F,
+                1.0F,
+                1.0F);
         this.mc.renderEngine.bindTexture(this.getBackground());
         this.drawTexturedModalRect(sizeX,
-                                   sizeY,
-                                   0,
-                                   0,
-                                   this.xSize,
-                                   this.ySize);
+                sizeY,
+                0,
+                0,
+                this.xSize,
+                this.ySize);
     }
 
     protected void drawHighlightedSlot(int sizeX, int sizeY) {
@@ -96,21 +95,21 @@ public class GuiMiningToolBelt extends GuiContainer {
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         this.drawGradientRect(x,
-                              y,
-                              x + 16,
-                              y + 16,
-                              -2130702222,
-                              -2130702222);
+                y,
+                x + 16,
+                y + 16,
+                -2130702222,
+                -2130702222);
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
     }
 
     private void drawSelectedSlotString(int slot, int x, int y) {
         this.drawCenteredString(fontRendererObj,
-                                "Slot[" + slot + "] Selected",
-                                50,
-                                100,
-                                0xff00ff);
+                "Slot[" + slot + "] Selected",
+                50,
+                100,
+                0xff00ff);
     }
 
     public ResourceLocation getBackground() {

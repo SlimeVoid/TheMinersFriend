@@ -1,10 +1,10 @@
 package net.slimevoid.compatibility.thaumcraft;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.slimevoid.tmf.core.helpers.ItemHelper;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class PlayerTickHandler {
 
@@ -15,7 +15,7 @@ public class PlayerTickHandler {
             if (entityplayer.isBlocking()) {
                 ItemStack tool = ItemHelper.getSelectedTool(entityplayer.getHeldItem());
                 ThaumcraftStatic.doElementalSwordUpdate(entityplayer,
-                                                        tool);
+                        tool);
             }
         }
     }

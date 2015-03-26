@@ -31,14 +31,14 @@ public class ToolBeltTickHandler {
                                     entityplayer));
                     if (!(heldItem == itemInUse)) {
                         if (isHoldingAndUsingToolBelt(heldItem,
-                                                      itemInUse)
-                            && isUsingSelectedTool(heldItem,
-                                                   itemInUse)) {
+                                itemInUse)
+                                && isUsingSelectedTool(heldItem,
+                                itemInUse)) {
                             ReflectionHelper.setPrivateValue(EntityPlayer.class,
-                                                             entityplayer,
-                                                             heldItem,
-                                                             ItemHelper.getItemInUseFieldId(world,
-                                                                                            entityplayer));
+                                    entityplayer,
+                                    heldItem,
+                                    ItemHelper.getItemInUseFieldId(world,
+                                            entityplayer));
                         }
                     }
                 }
@@ -51,8 +51,8 @@ public class ToolBeltTickHandler {
                 if (entityplayer.isSwingInProgress) {
                     if (((ItemMiningToolBelt) heldItem.getItem()).isMiningModeEnabled(heldItem)) {
                         entityplayer.addExhaustion(this.calculateExhaustion(world,
-                                                                            entityplayer,
-                                                                            heldItem));
+                                entityplayer,
+                                heldItem));
                     }
                 }
             }
@@ -73,7 +73,7 @@ public class ToolBeltTickHandler {
 
     private boolean isHoldingAndUsingToolBelt(ItemStack heldItem, ItemStack itemInUse) {
         return ItemHelper.isToolBelt(heldItem)
-               && ItemHelper.isToolBelt(itemInUse);
+                && ItemHelper.isToolBelt(itemInUse);
     }
 
 }

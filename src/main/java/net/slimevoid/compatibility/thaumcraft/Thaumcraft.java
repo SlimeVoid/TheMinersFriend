@@ -9,7 +9,7 @@ import net.slimevoid.compatibility.MasterCompatibility;
 
 public class Thaumcraft extends MasterCompatibility {
 
-    public static final String MOD_ID      = "Thaumcraft";
+    public static final String MOD_ID = "Thaumcraft";
     public static final String MOD_CHANNEL = "TC";
 
     public Thaumcraft() {

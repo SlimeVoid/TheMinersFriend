@@ -13,12 +13,12 @@ package net.slimevoid.tmf.core.lib;
 
 public class CoreLib {
 
-    public static final String MOD_ID              = "tmf";
-    public static final String MOD_NAME            = "The Miner's Friend";
-    public static final String MOD_VERSION         = "@VERSION@";
-    public static final String MOD_DEPENDENCIES    = "required-after:SlimevoidLib";
-    public static final String MOD_CHANNEL         = MOD_ID;
-    public static final String PROXY_CLIENT        = "net.slimevoid.tmf.client.proxy.ClientProxy";
-    public static final String PROXY_COMMON        = "net.slimevoid.tmf.proxy.CommonProxy";
+    public static final String MOD_ID = "tmf";
+    public static final String MOD_NAME = "The Miner's Friend";
+    public static final String MOD_VERSION = "@VERSION@";
+    public static final String MOD_DEPENDENCIES = "required-after:SlimevoidLib";
+    public static final String MOD_CHANNEL = MOD_ID;
+    public static final String PROXY_CLIENT = "net.slimevoid.tmf.client.proxy.ClientProxy";
+    public static final String PROXY_COMMON = "net.slimevoid.tmf.proxy.CommonProxy";
 
 }

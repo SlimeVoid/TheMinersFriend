@@ -5,7 +5,7 @@ import net.slimevoid.tmf.api.IModCompatibility;
 
 public abstract class MasterCompatibility implements IModCompatibility {
 
-    public String  name;
+    public String name;
     public boolean isLoaded;
 
     public MasterCompatibility(String name) {

@@ -11,8 +11,6 @@
  */
 package net.slimevoid.tmf.proxy;
 
-import java.io.File;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
@@ -21,8 +19,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.slimevoid.compatibility.TMFCompatibility;
-import net.slimevoid.library.proxy.ICommonProxy;
 import net.slimevoid.library.core.SlimevoidCore;
+import net.slimevoid.library.proxy.ICommonProxy;
 import net.slimevoid.library.util.helpers.SlimevoidHelper;
 import net.slimevoid.tmf.blocks.machines.inventory.ContainerAutomaticMixingTable;
 import net.slimevoid.tmf.blocks.machines.inventory.ContainerGeologicalEquipment;
@@ -33,16 +31,14 @@ import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipm
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
 import net.slimevoid.tmf.core.TheMinersFriend;
-import net.slimevoid.tmf.core.lib.ConfigurationLib;
-import net.slimevoid.tmf.core.lib.CoreLib;
-import net.slimevoid.tmf.core.lib.EventLib;
-import net.slimevoid.tmf.core.lib.GuiLib;
-import net.slimevoid.tmf.core.lib.PacketLib;
+import net.slimevoid.tmf.core.lib.*;
 import net.slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
 import net.slimevoid.tmf.items.tools.inventory.InventoryMiningToolBelt;
 import net.slimevoid.tmf.items.tools.inventory.SlotUtilityBelt;
 import net.slimevoid.tmf.tickhandlers.MiningHelmetTickHandler;
 import net.slimevoid.tmf.tickhandlers.ToolBeltTickHandler;
+
+import java.io.File;
 
 public class CommonProxy implements ICommonProxy {
 
@@ -50,54 +46,54 @@ public class CommonProxy implements ICommonProxy {
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         BlockPos pos = new BlockPos(x, y, z);
         switch (ID) {
-        case GuiLib.GUIID_TOOL_BELT:
-            InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, player, player.getHeldItem());
-            return new ContainerMiningToolBelt(player.inventory, data);
-        case GuiLib.GUIID_UTILITY_BELT:
-            InventoryMiningToolBelt utility = new InventoryMiningToolBelt(world, player, player.getHeldItem());
-            return new ContainerMiningToolBelt(player.inventory, utility) {
-                @Override
-                protected void bindToolBeltInventory(IInventory toolBelt) {
-                    this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 0, 69, 37));
-                    this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 1, 69, 59));
-                    this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 2, 92, 37));
-                    this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 3, 92, 59));
+            case GuiLib.GUIID_TOOL_BELT:
+                InventoryMiningToolBelt data = new InventoryMiningToolBelt(world, player, player.getHeldItem());
+                return new ContainerMiningToolBelt(player.inventory, data);
+            case GuiLib.GUIID_UTILITY_BELT:
+                InventoryMiningToolBelt utility = new InventoryMiningToolBelt(world, player, player.getHeldItem());
+                return new ContainerMiningToolBelt(player.inventory, utility) {
+                    @Override
+                    protected void bindToolBeltInventory(IInventory toolBelt) {
+                        this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 0, 69, 37));
+                        this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 1, 69, 59));
+                        this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 2, 92, 37));
+                        this.addSlotToContainer(new SlotUtilityBelt(toolBelt, 3, 92, 59));
+                    }
+                };
+            case GuiLib.GUIID_REFINERY:
+                TileEntity tileRef = SlimevoidHelper.getBlockTileEntity(world,
+                        pos);
+                if (tileRef instanceof TileEntityRefinery) {
+                    TileEntityRefinery tileRefinery = (TileEntityRefinery) tileRef;
+                    return new ContainerRefinery(player.inventory, tileRefinery);
                 }
-            };
-        case GuiLib.GUIID_REFINERY:
-            TileEntity tileRef = SlimevoidHelper.getBlockTileEntity(world,
-                                                                    pos);
-            if (tileRef instanceof TileEntityRefinery) {
-                TileEntityRefinery tileRefinery = (TileEntityRefinery) tileRef;
-                return new ContainerRefinery(player.inventory, tileRefinery);
-            }
-            return null;
-        case GuiLib.GUIID_GRINDER:
-            TileEntity tileGrind = SlimevoidHelper.getBlockTileEntity(world,
-                                                                      pos);
-            if (tileGrind instanceof TileEntityGrinder) {
-                TileEntityGrinder tileGrinder = (TileEntityGrinder) tileGrind;
-                return new ContainerGrinder(player.inventory, tileGrinder);
-            }
-            return null;
-        case GuiLib.GUIID_GEOEQUIP:
-            TileEntity tileGeo = SlimevoidHelper.getBlockTileEntity(world,
-                                                                    pos);
-            if (tileGeo instanceof TileEntityGeologicalEquipment) {
-                TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) tileGeo;
-                return new ContainerGeologicalEquipment(player.inventory, tileGeoEquip);
-            }
-            return null;
-        case GuiLib.GUIID_MIXINGTABLE:
-            TileEntity tileMix = SlimevoidHelper.getBlockTileEntity(world,
-                                                                    pos);
-            if (tileMix instanceof TileEntityAutomaticMixingTable) {
-                TileEntityAutomaticMixingTable tileMixTable = (TileEntityAutomaticMixingTable) tileMix;
-                return new ContainerAutomaticMixingTable(player.inventory, tileMixTable);
-            }
-            return null;
-        default:
-            return null;
+                return null;
+            case GuiLib.GUIID_GRINDER:
+                TileEntity tileGrind = SlimevoidHelper.getBlockTileEntity(world,
+                        pos);
+                if (tileGrind instanceof TileEntityGrinder) {
+                    TileEntityGrinder tileGrinder = (TileEntityGrinder) tileGrind;
+                    return new ContainerGrinder(player.inventory, tileGrinder);
+                }
+                return null;
+            case GuiLib.GUIID_GEOEQUIP:
+                TileEntity tileGeo = SlimevoidHelper.getBlockTileEntity(world,
+                        pos);
+                if (tileGeo instanceof TileEntityGeologicalEquipment) {
+                    TileEntityGeologicalEquipment tileGeoEquip = (TileEntityGeologicalEquipment) tileGeo;
+                    return new ContainerGeologicalEquipment(player.inventory, tileGeoEquip);
+                }
+                return null;
+            case GuiLib.GUIID_MIXINGTABLE:
+                TileEntity tileMix = SlimevoidHelper.getBlockTileEntity(world,
+                        pos);
+                if (tileMix instanceof TileEntityAutomaticMixingTable) {
+                    TileEntityAutomaticMixingTable tileMixTable = (TileEntityAutomaticMixingTable) tileMix;
+                    return new ContainerAutomaticMixingTable(player.inventory, tileMixTable);
+                }
+                return null;
+            default:
+                return null;
         }
     }
 
@@ -123,7 +119,7 @@ public class CommonProxy implements ICommonProxy {
     @Override
     public void registerConfigurationProperties(File configFile) {
         SlimevoidCore.console(CoreLib.MOD_ID,
-                              "Loading properties...");
+                "Loading properties...");
         ConfigurationLib.CommonConfig(configFile);
     }
 

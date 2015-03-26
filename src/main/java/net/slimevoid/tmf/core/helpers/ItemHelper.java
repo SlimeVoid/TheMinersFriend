@@ -11,17 +11,10 @@
  */
 package net.slimevoid.tmf.core.helpers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemPickaxe;
-import net.minecraft.item.ItemSpade;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
@@ -35,23 +28,23 @@ import net.slimevoid.tmf.items.tools.ItemMiningToolBelt;
 import net.slimevoid.tmf.items.tools.ItemMotionSensor;
 import net.slimevoid.tmf.items.tools.inventory.ContainerMiningToolBelt;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemHelper {
     /**
      * Check if a player is holding or using a parsed tool class and return for
      * convenience
-     * 
-     * @param entitylivingbase
-     *            the Player to check
-     * @param world
-     *            the World of the Player
-     * @param itemClass
-     *            the Class of Item to check for
+     *
+     * @param entitylivingbase the Player to check
+     * @param world            the World of the Player
+     * @param itemClass        the Class of Item to check for
      * @return the Held Item or null if the check was unsuccessfull
      */
     private static ItemStack playerIsHoldingOrUsingTool(EntityLivingBase entitylivingbase, World world, Class<? extends Item> itemClass) {
         if (entitylivingbase.getHeldItem() != null
-            && entitylivingbase.getHeldItem().getItem() != null
-            && itemClass.isInstance(entitylivingbase.getHeldItem().getItem())) {
+                && entitylivingbase.getHeldItem().getItem() != null
+                && itemClass.isInstance(entitylivingbase.getHeldItem().getItem())) {
             return entitylivingbase.getHeldItem();
         }
         return null;
@@ -60,13 +53,10 @@ public class ItemHelper {
     /**
      * Check if a player is carrying a certain tool type and return the list for
      * convenience
-     * 
-     * @param entityplayer
-     *            the Player to check
-     * @param world
-     *            the World of the Player
-     * @param itemClass
-     *            the Class of Item to check for
+     *
+     * @param entityplayer the Player to check
+     * @param world        the World of the Player
+     * @param itemClass    the Class of Item to check for
      * @return the List of tools
      */
     private static List<ItemStack> playerHasTools(EntityPlayer entityplayer, World world, Class<? extends Item> itemClass) {
@@ -75,7 +65,7 @@ public class ItemHelper {
         for (int slot = 0; slot < playerInventory.getSizeInventory(); slot++) {
             ItemStack itemstack = playerInventory.getStackInSlot(slot);
             if (itemstack != null && itemstack.getItem() != null
-                && itemClass.isInstance(itemstack.getItem())) {
+                    && itemClass.isInstance(itemstack.getItem())) {
                 tools.add(itemstack);
             }
         }
@@ -85,34 +75,29 @@ public class ItemHelper {
     /**
      * Check if a player has any Tool Belts in their inventory and return the
      * List for convenience
-     * 
-     * @param entityplayer
-     *            the Player to check
-     * @param world
-     *            the World of the Player
+     *
+     * @param entityplayer the Player to check
+     * @param world        the World of the Player
      * @return the List of Tool Belts (if any)
      */
     public static List<ItemStack> getToolBelts(EntityPlayer entityplayer, World world) {
         return playerHasTools(entityplayer,
-                              world,
-                              ItemMiningToolBelt.class);
+                world,
+                ItemMiningToolBelt.class);
     }
 
     /**
      * Check if a Player has a Tool Belt and return for convenience
-     * 
-     * @param entitylivingbase
-     *            the Player to check
-     * @param world
-     *            the World of the Player
-     * @param isHeld
-     *            whether we're checking for a held Tool Belt (Should be true)
+     *
+     * @param entitylivingbase the Player to check
+     * @param world            the World of the Player
+     * @param isHeld           whether we're checking for a held Tool Belt (Should be true)
      * @return
      */
     public static ItemStack getToolBelt(EntityLivingBase entitylivingbase, World world, boolean isHeld) {
         return isHeld ? playerIsHoldingOrUsingTool(entitylivingbase,
-                                                   world,
-                                                   ItemMiningToolBelt.class) : null;
+                world,
+                ItemMiningToolBelt.class) : null;
     }
 
     public static boolean isItem(ItemStack itemstack) {
@@ -121,19 +106,18 @@ public class ItemHelper {
 
     /**
      * Checks whether a given ItemStack is a Tool belt
-     * 
-     * @param itemstack
-     *            the ItemStack to check
+     *
+     * @param itemstack the ItemStack to check
      * @return true or false
      */
     public static boolean isToolBelt(ItemStack itemstack) {
         return isItem(itemstack)
-               && itemstack.getItem() instanceof ItemMiningToolBelt;
+                && itemstack.getItem() instanceof ItemMiningToolBelt;
     }
 
     /**
      * Checks it the given ItemStack is an instance of ItemBlock
-     * 
+     *
      * @param itemstack
      * @return ItemBlock or not
      */
@@ -147,13 +131,13 @@ public class ItemHelper {
 
     /**
      * Checks to see whether or not tools belong to the infi tool list
-     * 
+     *
      * @param itemstack
      * @return if is INFI_TOOL
      */
     public static boolean isItemInfiTool(ItemStack itemstack) {
         return isItem(itemstack)
-               && itemstack.getUnlocalizedName().startsWith(ItemLib.INFI_TOOL);
+                && itemstack.getUnlocalizedName().startsWith(ItemLib.INFI_TOOL);
     }
 
     public static boolean isItemInfiPickaxe(ItemStack itemstack) {
@@ -161,7 +145,7 @@ public class ItemHelper {
         if (isItemInfiTool(itemstack)) {
             String stackName = itemstack.getUnlocalizedName();
             if (stackName.contains(ItemLib.INFI_TOOL_PICKAXE)
-                || stackName.contains(ItemLib.INFI_TOOL_HAMMER)) {
+                    || stackName.contains(ItemLib.INFI_TOOL_HAMMER)) {
                 flag = true;
             }
         }
@@ -173,8 +157,8 @@ public class ItemHelper {
         if (isItemInfiTool(itemstack)) {
             String stackName = itemstack.getUnlocalizedName();
             if (stackName.contains(ItemLib.INFI_TOOL_SHOVEL)
-                || stackName.contains(ItemLib.INFI_TOOL_MATTOCK)
-                || stackName.contains(ItemLib.INFI_TOOL_EXCAVATOR)) {
+                    || stackName.contains(ItemLib.INFI_TOOL_MATTOCK)
+                    || stackName.contains(ItemLib.INFI_TOOL_EXCAVATOR)) {
                 flag = true;
             }
         }
@@ -187,35 +171,35 @@ public class ItemHelper {
 
     /**
      * Checks it the given ItemStack is an instance of ItemPickaxe
-     * 
+     *
      * @param itemstack
      * @return ItemPickaxe or not
      */
     public static boolean isItemPickaxe(ItemStack itemstack) {
         return isItem(itemstack)
-               && (itemstack.getItem() instanceof ItemPickaxe || isItemInfiPickaxe(itemstack));
+                && (itemstack.getItem() instanceof ItemPickaxe || isItemInfiPickaxe(itemstack));
     }
 
     /**
      * Checks it the given ItemStack is an instance of ItemSpade
-     * 
+     *
      * @param itemstack
      * @return ItemSpade or not
      */
     public static boolean isItemSpade(ItemStack itemstack) {
         return isItem(itemstack)
-               && (itemstack.getItem() instanceof ItemSpade || isItemInfiShovel(itemstack));
+                && (itemstack.getItem() instanceof ItemSpade || isItemInfiShovel(itemstack));
     }
 
     /**
      * Checks it the given ItemStack is an instance of ItemMotionSensor
-     * 
+     *
      * @param itemstack
      * @return ItemMotionSensor or not
      */
     public static boolean isItemMotionSensor(ItemStack itemstack) {
         return isItem(itemstack)
-               && itemstack.getItem() instanceof ItemMotionSensor;
+                && itemstack.getItem() instanceof ItemMotionSensor;
     }
 
     public static ItemStack getSelectedTool(ItemStack itemstack) {
@@ -238,7 +222,7 @@ public class ItemHelper {
             NBTTagCompound nbttagcompound = itemstack.getTagCompound();
             if (nbttagcompound != null && nbttagcompound.hasKey(NBTLib.TOOLS)) {
                 NBTTagList toolsTag = nbttagcompound.getTagList(NBTLib.TOOLS,
-                                                                10);
+                        10);
                 for (int i = 0; i < toolsTag.tagCount(); i++) {
                     NBTTagCompound tagCompound = (NBTTagCompound) toolsTag.getCompoundTagAt(i);
                     byte slot = tagCompound.getByte(NBTLib.SLOT);
@@ -254,7 +238,7 @@ public class ItemHelper {
     public static ItemStack getNextSelectedTool(ItemStack itemstack) {
         if (isToolBelt(itemstack)) {
             return ((ItemMiningToolBelt) itemstack.getItem()).cycleTool(itemstack,
-                                                                        CommandLib.CYCLE_TOOLBELT_UP);
+                    CommandLib.CYCLE_TOOLBELT_UP);
         }
         return null;
     }
@@ -262,7 +246,7 @@ public class ItemHelper {
     public static ItemStack getPreviousSelectedTool(ItemStack itemstack) {
         if (isToolBelt(itemstack)) {
             return ((ItemMiningToolBelt) itemstack.getItem()).cycleTool(itemstack,
-                                                                        CommandLib.CYCLE_TOOLBELT_DOWN);
+                    CommandLib.CYCLE_TOOLBELT_DOWN);
         }
         return null;
     }
@@ -270,19 +254,19 @@ public class ItemHelper {
     public static void toggleMiningMode(World world, EntityPlayer entityplayer, ItemStack itemstack) {
         if (isToolBelt(itemstack)) {
             ((ItemMiningToolBelt) itemstack.getItem()).toggleMiningMode(world,
-                                                                        entityplayer,
-                                                                        itemstack);
+                    entityplayer,
+                    itemstack);
         }
     }
 
     public static int getItemInUseFieldId(World world, EntityPlayer entityplayer) {
         return FMLCommonHandler.instance().getSide() == Side.CLIENT
-               || world.isRemote ? 32 : 31;
+                || world.isRemote ? 32 : 31;
     }
 
     public static int getItemUseCountFieldId(World world, EntityPlayer entityplayer) {
         return FMLCommonHandler.instance().getSide() == Side.CLIENT
-               || world.isRemote ? 33 : 32;
+                || world.isRemote ? 33 : 32;
     }
 
     public static int getSelectedSlot(ItemStack itemstack) {
@@ -301,7 +285,7 @@ public class ItemHelper {
 
     public static void updateContainerInfo(World world, EntityPlayer entityplayer, ItemStack toolBelt) {
         if (entityplayer.openContainer != null
-            && entityplayer.openContainer instanceof ContainerMiningToolBelt) {
+                && entityplayer.openContainer instanceof ContainerMiningToolBelt) {
             ContainerMiningToolBelt container = (ContainerMiningToolBelt) entityplayer.openContainer;
             container.getToolBelt().onExternalChange();
         }

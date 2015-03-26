@@ -15,11 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.slimevoid.library.blocks.IEnumBlockType;
 import net.slimevoid.library.tileentity.TileEntityBase;
-import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
-import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;
-import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGrinder;
-import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityRefinery;
-import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityStove;
+import net.slimevoid.tmf.blocks.machines.tileentities.*;
 import net.slimevoid.tmf.core.lib.BlockLib;
 import net.slimevoid.tmf.core.lib.ConfigurationLib;
 
@@ -31,9 +27,9 @@ public enum BlockTypeMachine implements IEnumBlockType {
     AUTOMIXTABLE(BlockLib.BLOCK_AUTOMIXTABLE, TileEntityAutomaticMixingTable.class, false),
     STOVE(BlockLib.BLOCK_COOKER, TileEntityStove.class, true);
 
-    private int                             machineId = this.ordinal();
-    private String                          machineName;
-    private boolean                         hasState;
+    private int machineId = this.ordinal();
+    private String machineName;
+    private boolean hasState;
     //private ISimpleBlockRenderingHandler    renderHandler;
     private Class<? extends TileEntityBase> _class;
     //private IIcon[]                         iconList;

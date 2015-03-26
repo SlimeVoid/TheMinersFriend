@@ -11,14 +11,13 @@
  */
 package net.slimevoid.tmf.items.minerals;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.item.ItemStack;
 import net.slimevoid.library.util.javascript.JSParser;
-import net.slimevoid.tmf.core.TMFCore;
 import net.slimevoid.tmf.core.lib.ConfigurationLib;
 import net.slimevoid.tmf.fuel.MixedDustNameRegistry;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ItemMineralMixedDust extends ItemMineralDust {
     public static String script = null;
@@ -64,11 +63,11 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("level",
-                   timeLevel);
+                timeLevel);
 
         Object ret = JSParser.parse(script,
-                                    script_burnTime,
-                                    params);
+                script_burnTime,
+                params);
         if (ret instanceof Number) return ((Number) ret).intValue();
 
         return 1600;
@@ -80,11 +79,11 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("level",
-                   speedLevel);
+                speedLevel);
 
         Object ret = JSParser.parse(script,
-                                    script_burnSpeed,
-                                    params);
+                script_burnSpeed,
+                params);
         if (ret instanceof Number) return ((Number) ret).intValue();
 
         return 200;
@@ -96,11 +95,11 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("level",
-                   widthLevel);
+                widthLevel);
 
         Object ret = JSParser.parse(script,
-                                    script_burnWidth,
-                                    params);
+                script_burnWidth,
+                params);
         if (ret instanceof Number) return ((Number) ret).intValue();
 
         return 1;
@@ -108,9 +107,8 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 
     /**
      * Convert a 12-bit meta to 24-bit color.
-     * 
-     * @param meta
-     *            12-bit
+     *
+     * @param meta 12-bit
      * @return 24-bit
      */
     private static int metaToColor(int meta) {
@@ -137,7 +135,7 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 
     /**
      * Fetches the dust meta based on item stack with dust.
-     * 
+     *
      * @param dust
      * @return meta
      */
@@ -155,11 +153,9 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 
     /**
      * Mixes two dust metas.
-     * 
-     * @param mA
-     *            meta for dust A
-     * @param mB
-     *            meta for dust B
+     *
+     * @param mA meta for dust A
+     * @param mB meta for dust B
      * @return mixed meta
      */
     public static int mixDustMeta(int mA, int mB) {
@@ -191,18 +187,18 @@ public class ItemMineralMixedDust extends ItemMineralDust {
 
     /**
      * Fetches the total meta level
-     * 
+     *
      * @param meta
      * @return level
      */
     public static int getTotalLevel(int meta) {
         return getBurnTimeLevel(meta) + getBurnSpeedLevel(meta)
-               + getBurnWidthLevel(meta);
+                + getBurnWidthLevel(meta);
     }
 
     /**
      * Checks if meta is from a clean dust (not mixed)
-     * 
+     *
      * @param meta
      * @return
      */
