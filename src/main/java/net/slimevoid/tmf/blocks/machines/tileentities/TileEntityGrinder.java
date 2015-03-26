@@ -46,11 +46,11 @@ public class TileEntityGrinder extends TileEntityMachine {
     @Override
     public void setBlockBoundsForItemRender(BlockBase block) {
         block.setBlockBounds(0.1875f,
-                             0f,
-                             0.1875f,
-                             0.8125f,
-                             0.9f,
-                             0.8125f);
+                0f,
+                0.1875f,
+                0.8125f,
+                0.9f,
+                0.8125f);
     }
 
     @Override
@@ -246,10 +246,5 @@ public class TileEntityGrinder extends TileEntityMachine {
                 harvestList.add(itemstack);
             }
         }
-    }
-
-    @Override
-    public IChatComponent getDisplayName() {
-        return null;
     }
 }

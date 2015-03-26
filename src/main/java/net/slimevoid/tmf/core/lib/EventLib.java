@@ -16,12 +16,14 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.tmf.client.tickhandlers.input.ToolBeltMouseWheelHandler;
 import net.slimevoid.tmf.core.events.MiningToolBeltAttributeModifiers;
+import net.slimevoid.tmf.core.events.ModelRenderEvent;
 
 public class EventLib {
 
     @SideOnly(Side.CLIENT)
     public static void registerClientEvents() {
         MinecraftForge.EVENT_BUS.register(new ToolBeltMouseWheelHandler());
+        MinecraftForge.EVENT_BUS.register(new ModelRenderEvent());
     }
 
     public static void registerCommonEvents() {

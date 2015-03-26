@@ -270,9 +270,4 @@ public class TileEntityStove extends TileEntityMachine {
             }
         }
     }
-
-    @Override
-    public IChatComponent getDisplayName() {
-        return null;
-    }
 }

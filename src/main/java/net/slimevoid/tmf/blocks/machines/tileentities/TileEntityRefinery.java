@@ -279,9 +279,4 @@ public class TileEntityRefinery extends TileEntityMachine {
             }
         }
     }
-
-    @Override
-    public IChatComponent getDisplayName() {
-        return null;
-    }
 }

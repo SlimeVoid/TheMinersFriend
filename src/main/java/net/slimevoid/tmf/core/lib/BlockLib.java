@@ -35,6 +35,7 @@ public class BlockLib {
                                                           + "refinery";
     public static final String       BLOCK_GRINDER      = MACHINE_PREFIX
                                                           + "grinder";
+    public static final String       BLOCK_GRINDER_VARIANT = "active=false,facing=north,variant=" + BLOCK_GRINDER;
     public static final String       BLOCK_GEOEQUIPMENT = MACHINE_PREFIX
                                                           + "geoEquip";
     public static final String       BLOCK_AUTOMIXTABLE = MACHINE_PREFIX

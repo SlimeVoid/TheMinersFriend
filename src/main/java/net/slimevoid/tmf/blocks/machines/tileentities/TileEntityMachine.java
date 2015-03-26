@@ -19,11 +19,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.library.blocks.BlockBase;
+import net.slimevoid.library.blocks.state.BlockStates;
 import net.slimevoid.library.tileentity.TileEntityBase;
 import net.slimevoid.library.util.helpers.SlimevoidHelper;
 import net.slimevoid.tmf.blocks.machines.BlockMachineBase;
@@ -63,8 +65,15 @@ public abstract class TileEntityMachine extends TileEntityBase implements
 //    }
 
     @Override
+    public IBlockState getActualState(IBlockState state, BlockBase blockBase) {
+        IBlockState aState = state.withProperty(BlockStates.FACING, EnumFacing.NORTH).withProperty(BlockMachineBase.ACTIVE, false);
+        System.out.println("State: " + aState);
+        return aState;
+    }
+
+    @Override
     public IBlockState getExtendedState(IBlockState state, BlockBase blockBase) {
-        return state.withProperty(BlockMachineBase.ACTIVE, this.isActive);
+        return state.withProperty(BlockStates.FACING, this.getFacing()).withProperty(BlockMachineBase.ACTIVE, this.isActive);
     }
 
     @Override
