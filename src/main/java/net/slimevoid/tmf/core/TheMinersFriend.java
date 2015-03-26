@@ -16,10 +16,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.slimevoid.library.ICommonProxy;
-import net.slimevoid.library.util.helpers.PacketHelper;
+import net.slimevoid.library.proxy.ICommonProxy;
 import net.slimevoid.tmf.core.lib.CoreLib;
-import net.slimevoid.tmf.core.lib.PacketLib;
 
 @Mod(
         modid = CoreLib.MOD_ID,

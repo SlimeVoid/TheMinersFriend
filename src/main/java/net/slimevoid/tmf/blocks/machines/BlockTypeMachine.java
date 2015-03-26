@@ -11,11 +11,9 @@
  */
 package net.slimevoid.tmf.blocks.machines;
 
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.slimevoid.library.IEnumBlockType;
-import net.slimevoid.library.blocks.BlockSimpleBase;
+import net.slimevoid.library.blocks.IEnumBlockType;
 import net.slimevoid.library.tileentity.TileEntityBase;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityAutomaticMixingTable;
 import net.slimevoid.tmf.blocks.machines.tileentities.TileEntityGeologicalEquipment;

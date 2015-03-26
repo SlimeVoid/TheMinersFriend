@@ -11,7 +11,6 @@
  */
 package net.slimevoid.tmf.blocks.machines.tileentities;
 
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -25,11 +24,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.slimevoid.library.blocks.BlockBase;
-import net.slimevoid.library.blocks.BlockStates;
 import net.slimevoid.library.tileentity.TileEntityBase;
 import net.slimevoid.library.util.helpers.SlimevoidHelper;
 import net.slimevoid.tmf.blocks.machines.BlockMachineBase;
-import net.slimevoid.tmf.core.TMFCore;
 import net.slimevoid.tmf.fuel.IFuelHandlerTMF;
 import net.slimevoid.tmf.items.minerals.ItemMineral;
 

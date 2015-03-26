@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.slimevoid.compatibility.TMFCompatibility;
-import net.slimevoid.library.ICommonProxy;
+import net.slimevoid.library.proxy.ICommonProxy;
 import net.slimevoid.library.core.SlimevoidCore;
 import net.slimevoid.library.util.helpers.SlimevoidHelper;
 import net.slimevoid.tmf.blocks.machines.inventory.ContainerAutomaticMixingTable;
